@@ -78,10 +78,13 @@ $(D getopt) are removed from $(D args). Whatever in the
 arguments did not look like an option is left in $(D args) for
 further processing by the program. Values that were unaffected by the
 options are not touched, so a common idiom is to initialize options
-to their defaults and then invoke $(D getopt). If a
-command-line argument is recognized as an option with a parameter and
-the parameter cannot be parsed properly (e.g. a number is expected
-but not present), a $(D ConvException) exception is thrown.
+to their defaults and then invoke $(D getopt). If a command-line argument is
+recognized as an option with a parameter and the parameter cannot be parsed
+properly (e.g. a number is expected but not present), an $(LREF
+IllegalArgumentException) is thrown. The original exception (usually a
+$(XREF conv, ConvException)) is accessible with Throwable's $(D next). If an
+option expects an argument (applies to non-Boolean options) but wasn't specified
+a $(LREF MissingArgumentException) is thrown.
 
 Depending on the type of the pointer being bound, $(D getopt)
 recognizes the following kinds of options:
@@ -274,7 +277,7 @@ by passing $(D getopt) the $(D caseSensitive) directive like this:
 ---------
 bool foo, bar;
 getopt(args,
-       std.getopt.config.caseSensitive,
+       std.getopt.Config.caseSensitive,
        "foo", &foo,
        "bar", &bar);
 ---------
@@ -286,16 +289,16 @@ converse directive $(D caseInsensitive) is encountered:
 ---------
 bool foo, bar;
 getopt(args,
-       std.getopt.config.caseSensitive,
+       std.getopt.Config.caseSensitive,
        "foo", &foo,
-       std.getopt.config.caseInsensitive,
+       std.getopt.Config.caseInsensitive,
        "bar", &bar);
 ---------
 
 The option "--Foo" is rejected due to $(D
-std.getopt.config.caseSensitive), but not "--Bar", "--bAr"
+std.getopt.Config.caseSensitive), but not "--Bar", "--bAr"
 etc. because the directive $(D
-std.getopt.config.caseInsensitive) turned sensitivity off before
+std.getopt.Config.caseInsensitive) turned sensitivity off before
 option "bar" was parsed.
 
 $(B "Short" versus "long" options)
@@ -318,17 +321,21 @@ To set $(D timeout) to $(D 5), use either the long options $(D --timeout=5) or
 $(D --timeout 5) or the short options $(D -t=5) or $(D -t 5). Also the short
 option with no space $(D -t5) is accepted (see next section).
 
-The forms $(D -timeout=5), $(D -timeout 5), $(D --t=5), $(D --t 5), $(D --t5),
-$(D --timeout5), and $(D -timeout5) are not accepted. Beware though that $(D
--timeout=5), $(D -timeout 5), and $(D -timeout5) would be accepted with values
-$(D imeout=5), $(D imeout), and $(D imeout5), respectively, if -t was an option
-of type string. For more details about short options with no space, refer also
-to the next section.
+For $(D -timeout=5), $(D -timeout 5), and $(D -timeout5) an
+$(LREF IllegalArgumentException) is thrown because the argument imeout=5,
+imeout, and imeout5 respectively is not convertible to uint. For $(D --t=5),
+$(D --t 5), $(D --t5), and $(D --timeout5) an
+$(LREF UnrecognizedOptionException) is thrown.
+
+Beware though that $(D -timeout=5), $(D -timeout 5), and $(D -timeout5)
+would be accepted with values $(D imeout=5), $(D imeout), and $(D imeout5),
+respectively, if -t was an option of type string. For more details about short
+options with no space, refer also to the next section.
 
 $(B Omitting spaces for short options)
 
 By default omitting space/s for short options is enabled for all types, i.e. $(D
-std.getopt.config.noSpaceForShortOptions) is set.
+std.getopt.Config.noSpaceForShortOptions) is set.
 
 If you happen to have a short string option and a long string option starting
 with the same letter like the short option, the behavior may be surprising.
@@ -336,37 +343,37 @@ Since whenever the value passed to a short option is convertible to its type
 (via $(XREF conv, to)) the option will be accepted. This is e.g. the case for
 strings as pointed out in the above section. As this behavior is usually
 confusing, it can be enabled for numeric short options only using the
-configuration option $(D std.getopt.config.noSpaceOnlyForShortNumericOptions).
+configuration option $(D std.getopt.Config.noSpaceOnlyForShortNumericOptions).
 Given
 
 ---------
 string timeout;
-getopt(args, std.getopt.config.noSpaceOnlyForShortNumericOptions,
+getopt(args, std.getopt.Config.noSpaceOnlyForShortNumericOptions,
              "timeout|t", &timeout);
 ---------
 
 $(D -timeout=whatever), $(D -timeout whatever), and $(D -timeoutwhatever) will
-throw an exception.
+throw an $(LREF UnrecognizedOptionException).
 
-Specifying $(D std.getopt.config.noSpaceOnlyForShortNumericOptions) is strongly
+Specifying $(D std.getopt.Config.noSpaceOnlyForShortNumericOptions) is strongly
 recommended in cases like above.
 
 $(B Bundling)
 
 Single-letter options can be bundled together, i.e. "-abc" is the same as
 $(D "-a -b -c"). By default, this confusing option is turned off. You can
-turn it on with the $(D std.getopt.config.bundling) directive:
+turn it on with the $(D std.getopt.Config.bundling) directive:
 
 ---------
 bool foo, bar;
 getopt(args,
-       std.getopt.config.bundling,
+       std.getopt.Config.bundling,
        "foo|f", &foo,
        "bar|b", &bar);
 ---------
 
 In case you want to only enable bundling for some of the parameters,
-bundling can be turned off with $(D std.getopt.config.noBundling).
+bundling can be turned off with $(D std.getopt.Config.noBundling).
 
 Note, when using bundling together with short options the unbundling happens
 before the short options are handled. E.g.
@@ -377,7 +384,7 @@ string filename;
 
 auto args = ["program.name",
              "-fzv"];
-getopt(args, config.bundling,
+getopt(args, Config.bundling,
              "f", &filename,
              "v", &verbose);
 assert(verbose, to!string(verbose));
@@ -388,16 +395,25 @@ But "-vf filename" works as expected.
 
 $(B Passing unrecognized options through)
 
+By default $(D std.getopt.Config.noPassThrough) is set. In this setting a $(LREF
+UnrecognizedOptionException) is thrown if any given option is not recognized.
+E.g. if --bar is given, then
+
+---------
+bool foo;
+getopt(args, "foo", &foo);
+---------
+
+will throw an $(LREF UnrecognizedOptionException).
+
 If an application needs to do its own processing of whichever arguments
 $(D getopt) did not understand, it can pass the
-$(D std.getopt.config.passThrough) directive to $(D getopt). As $(D
-std.getopt.config.passThrough) is only used in these cases the default is $(D
-std.getopt.config.noPassThrough).
+$(D std.getopt.Config.passThrough) directive to $(D getopt).
 
 ---------
 bool foo, bar;
 getopt(args,
-       std.getopt.config.passThrough,
+       std.getopt.Config.passThrough,
        "foo", &foo,
        "bar", &bar);
 ---------
@@ -427,7 +443,7 @@ void getopt(T...)(ref string[] args, T opts) {
  * bound pointer.
  */
 
-enum config {
+enum Config {
     /// Turns case sensitivity on.
     caseSensitive,
     /// Turns case sensitivity off. Set by default.
@@ -448,12 +464,17 @@ enum config {
     stopOnFirstNonOption,
 };
 
+/*************************
+ * $(RED Deprecated. It will be removed in May 2012. Please use Config instead.)
+ */
+deprecated alias Config config;
+
 private void getoptImpl(T...)(ref string[] args,
     ref configuration cfg, T opts)
 {
     static if (opts.length)
     {
-        static if (is(typeof(opts[0]) : config))
+        static if (is(typeof(opts[0]) : Config))
         {
             // it's a configuration flag, act on it
             setConfig(cfg, opts[0]);
@@ -486,10 +507,8 @@ private void getoptImpl(T...)(ref string[] args,
                 continue;
             }
             if (endOfOptions.length && a == endOfOptions) break;
-            if (!cfg.passThrough)
-            {
-                throw new Exception("Unrecognized option "~a);
-            }
+            enforce(cfg.passThrough,
+                    new UnrecognizedOptionException("Unrecognized option " ~ a, a));
         }
     }
 }
@@ -497,6 +516,11 @@ private void getoptImpl(T...)(ref string[] args,
 private void handleOption(R)(string option, R receiver, ref string[] args,
     ref configuration cfg, bool incremental)
 {
+    static if (!isDelegate!(typeof(receiver)))
+        alias typeof(*receiver) ReceiverType;
+    else
+        alias typeof(receiver) ReceiverType;
+
     // Scan arguments looking for a match for this option
     for (size_t i = 1; i < args.length; ) {
         auto a = args[i];
@@ -519,12 +543,7 @@ private void handleOption(R)(string option, R receiver, ref string[] args,
             continue;
         }
         string val;
-        bool isNumericOption;
-        static if (!isDelegate!(typeof(receiver)))
-        {
-            isNumericOption = isNumeric!(typeof(*receiver));
-        }
-        if (!isValidOption(a, option, val, cfg, isNumericOption))
+        if (!isValidOption(a, option, val, cfg, isNumeric!ReceiverType))
         {
             ++i;
             continue;
@@ -534,10 +553,14 @@ private void handleOption(R)(string option, R receiver, ref string[] args,
         // (and potentially args[i + 1] too, but that comes later)
         args = args[0 .. i] ~ args[i + 1 .. $];
 
-        static if (is(typeof(*receiver) == bool))
+        static if (is(ReceiverType == bool))
         {
             // enforce that no value was given
-            enforce(val is null);
+            enforce(val is null,
+                    new IllegalArgumentException(
+                          format("Illegal argument '%s' for '%s'. Expected no argument.",
+                                 val, a.length > 2 ? a : a ~ " " ~ val),
+                                 a.length > 2 ? a : a ~ " " ~ val));
             *receiver = true;
             break;
         }
@@ -546,76 +569,95 @@ private void handleOption(R)(string option, R receiver, ref string[] args,
             // non-boolean option, which might include an argument
             //enum isDelegateWithOneParameter = is(typeof(receiver("")) : void);
             enum isDelegateWithLessThanTwoParameters =
-                is(typeof(receiver) == delegate) &&
-                !is(typeof(receiver("", "")));
+                isDelegate!ReceiverType && !is(typeof(receiver("", "")));
             if (!isDelegateWithLessThanTwoParameters && !val && !incremental) {
                 // Eat the next argument too.  Check to make sure there's one
                 // to be eaten first, though.
                 enforce(i < args.length,
-                    "Missing value for argument " ~ a ~ ".");
+                        new MissingArgumentException("Missing argument for " ~ a, a));
                 val = args[i];
                 args = args[0 .. i] ~ args[i + 1 .. $];
             }
-            static if (is(typeof(*receiver) == enum))
+
+            try
             {
-                // enum receiver
-                *receiver = parse!(typeof(*receiver))(val);
-            }
-            else static if (is(typeof(*receiver) : real))
-            {
-                // numeric receiver
-                if (incremental) ++*receiver;
-                else *receiver = to!(typeof(*receiver))(val);
-            }
-            else static if (is(typeof(receiver) == delegate))
-            {
-                static if (is(typeof(receiver("", "")) : void))
+                static if (is(ReceiverType == enum))
                 {
-                    // option with argument
-                    receiver(option, val);
+                    // enum receiver
+                    *receiver = parse!ReceiverType(val);
                 }
-                else static if (is(typeof(receiver("")) : void))
+                else static if (is(ReceiverType : real))
                 {
-                    static assert(is(typeof(receiver("")) : void));
-                    // boolean-style receiver
-                    receiver(option);
+                    // numeric receiver
+                    if (incremental) ++*receiver;
+                    else *receiver = to!ReceiverType(val);
+                }
+                else static if (is(ReceiverType == string))
+                {
+                    // string receiver
+                    *receiver = to!ReceiverType(val);
+                }
+                else static if (isDelegate!ReceiverType)
+                {
+                    static if (is(typeof(receiver("", "")) : void))
+                    {
+                        // option with argument
+                        receiver(option, val);
+                    }
+                    else static if (is(typeof(receiver("")) : void))
+                    {
+                        // boolean-style receiver
+                        receiver(option);
+                    }
+                    else
+                    {
+                        static assert(is(typeof(receiver()) : void));
+                        // boolean-style receiver without argument
+                        receiver();
+                    }
+                }
+                else static if (isSomeString!(typeof(*receiver)))
+                {
+                    // string receiver
+                    *receiver = to!(typeof(*receiver))(val);
+                }
+                else static if (isDynamicArray!ReceiverType)
+                {
+                    // array receiver
+                    foreach (elem; split(val, arraySep))
+                        *receiver ~= [ to!(typeof(*receiver[0]))(elem) ];
+                }
+                else static if (isAssociativeArray!ReceiverType)
+                {
+                    // hash receiver
+                    alias typeof(receiver.keys[0]) K;
+                    alias typeof(receiver.values[0]) V;
+                    foreach (elem; split(val, arraySep))
+                    {
+                        auto j = std.string.indexOf(elem, assignChar);
+                        enforce(j > 0,
+                                new IllegalArgumentException(
+                                    format("Illegal argument '%s' for '%s'. Expected %s.",
+                                           elem, a.length > 2 ? a : a ~ " " ~ val, humanReadable!ReceiverType),
+                                           a.length > 2 ? a : a ~ " " ~ val));
+                        auto key = elem[0 .. j], value = elem[j + 1 .. $];
+                        (*receiver)[to!K(key)] = to!V(value);
+                    }
                 }
                 else
                 {
-                    static assert(is(typeof(receiver()) : void));
-                    // boolean-style receiver without argument
-                    receiver();
+                    static assert(false, "Type " ~ ReceiverType.stringof ~
+                            " is not supported by " ~ .stringof);
                 }
             }
-            else static if (isSomeString!(typeof(*receiver)))
-            {
-                // string receiver
-                *receiver = to!(typeof(*receiver))(val);
+            catch (GetoptException e) {
+                throw e;
             }
-            else static if (isDynamicArray!(typeof(*receiver)))
-            {
-                // array receiver
-                foreach (elem; split(val, arraySep))
-                    *receiver ~= [ to!(typeof(*receiver[0]))(elem) ];
-            }
-            else static if (isAssociativeArray!(typeof(*receiver)))
-            {
-                // hash receiver
-                alias typeof(receiver.keys[0]) K;
-                alias typeof(receiver.values[0]) V;
-                foreach (elem; split(val, arraySep))
-                {
-                    auto j = std.string.indexOf(elem, assignChar);
-                    enforce(j > 0,
-                            "Illegal argument " ~ a ~ ".");
-                    auto key = elem[0 .. j], value = elem[j + 1 .. $];
-                    (*receiver)[to!(K)(key)] = to!(V)(value);
-                }
-            }
-            else
-            {
-                static assert(false, "Dunno how to deal with type " ~
-                        typeof(receiver).stringof);
+            catch (Exception e) {
+                throw new IllegalArgumentException(
+                    format("Illegal argument '%s' for '%s'. Expected %s.",
+                           val, a.length > 2 ? a : a ~ " " ~ val, humanReadable!ReceiverType),
+                           a.length > 2 ? a : a ~ " " ~ val, e);
             }
         }
     }
@@ -649,6 +691,99 @@ string arraySep = ",";
 
 enum autoIncrementChar = '+';
 
+/**
+   This exception is the common base of all exceptions thrown by this module.
+ */
+class GetoptException : Exception
+{
+    string failedOption;
+
+    this(string msg, string failedOption, string file = __FILE__, size_t line = __LINE__, Throwable next = null )
+    {
+        super(msg, file, line, next);
+        this.failedOption = failedOption;
+    }
+}
+
+/**
+   This exception is thrown if an option is not recognized.
+ */
+class UnrecognizedOptionException : GetoptException
+{
+    this(string msg, string failedOption, string file = __FILE__, size_t line = __LINE__, Throwable next = null )
+    {
+        super(msg, failedOption, file, line, next);
+    }
+}
+
+/**
+   This exception is thrown if the argument given to an option is illegal. There
+   may be other exceptions chained to this one, accessible via Throwable's
+   member $(D next).
+ */
+class IllegalArgumentException : GetoptException
+{
+    this(string msg, string failedOption, string file = __FILE__, size_t line = __LINE__, Throwable next = null)
+    {
+        super(msg, failedOption, file, line, next);
+    }
+
+    this(string msg, string failedOption, Throwable next, string file = __FILE__, size_t line = __LINE__)
+    {
+        super(msg, failedOption, file, line, next);
+    }
+}
+
+/**
+   This exception is thrown if there was no argument given to an option.
+ */
+class MissingArgumentException : GetoptException
+{
+    this(string msg, string failedOption, string file = __FILE__, size_t line = __LINE__, Throwable next = null)
+    {
+        super(msg, failedOption, file, line, next);
+    }
+}
+
+// Return a string representation for given type.
+private string humanReadable(T)()
+{
+    static if (isIntegral!T)
+    {
+        return format("integer in [%s, ..., %s]", T.min, T.max);
+    }
+    else static if (isFloatingPoint!T)
+    {
+        return format("floating point number in [%s, ..., %s]", T.min, T.max);
+    }
+    else static if (is(T == enum))
+    {
+        return "value in " ~ to!string(map!(to!string)([EnumMembers!T]));
+    }
+    else static if (isSomeString!T)
+    {
+        return "string";
+    }
+    else static if (isArray!T)
+    {
+        return humanReadable!(typeof(T[0]));
+    }
+    else static if (isAssociativeArray!T)
+    {
+        return format("<%s>=<%s>", humanReadable!(typeof(T.keys[0])), humanReadable!(typeof(T.values[0])));
+    }
+    else static if (isDelegate!T)
+    {
+        assert(false); // for delegates there is no exception thrown
+    }
+    else
+    {
+        static assert(false, "Type " ~ ReceiverType.stringof ~
+                             " is not supported by " ~ .stringof);
+    }
+}
+
+
 private struct configuration
 {
     mixin(bitfields!(
@@ -660,15 +795,15 @@ private struct configuration
                 ubyte, "", 3));
 }
 
-// Returns true, if arg is considered a valid argument for given option.
-// Otherwise false.
+// Returns true, if arg is considered a valid argument for given option and sets
+// value appropriately. Otherwise returns false.
 private bool isValidOption(string arg, string optPattern, ref string value,
     configuration cfg, bool isNumericOption)
 {
     //import std.stdio;
     //debug writeln("isValidOption:\n  ", arg, "\n  ", optPattern, "\n  ", value);
     //debug scope(success) writeln("isValidOption result: ", value);
-    if (!arg.length || arg[0] != optionChar) return false;
+    if (arg.length <= 1 || arg[0] != optionChar) return false;
     // yank the leading '-'
     arg = arg[1 .. $];
     // long options have two '--' and at least two additional chars
@@ -738,21 +873,21 @@ private bool isValidOption(string arg, string optPattern, ref string value,
     return false;
 }
 
-private void setConfig(ref configuration cfg, config option)
+private void setConfig(ref configuration cfg, Config option)
 {
     final switch (option)
     {
-    case config.caseSensitive: cfg.caseSensitive = true; break;
-    case config.caseInsensitive: cfg.caseSensitive = false; break;
-    case config.noSpaceForShortOptions:
+    case Config.caseSensitive: cfg.caseSensitive = true; break;
+    case Config.caseInsensitive: cfg.caseSensitive = false; break;
+    case Config.noSpaceForShortOptions:
         cfg.noSpaceForShortNumericOptionsOnly = false; break;
-    case config.noSpaceOnlyForShortNumericOptions:
+    case Config.noSpaceOnlyForShortNumericOptions:
         cfg.noSpaceForShortNumericOptionsOnly = true; break;
-    case config.bundling: cfg.bundling = true; break;
-    case config.noBundling: cfg.bundling = false; break;
-    case config.passThrough: cfg.passThrough = true; break;
-    case config.noPassThrough: cfg.passThrough = false; break;
-    case config.stopOnFirstNonOption:
+    case Config.bundling: cfg.bundling = true; break;
+    case Config.noBundling: cfg.bundling = false; break;
+    case Config.passThrough: cfg.passThrough = true; break;
+    case Config.noPassThrough: cfg.passThrough = false; break;
+    case Config.stopOnFirstNonOption:
         cfg.stopOnFirstNonOption = true; break;
     }
 }
@@ -830,7 +965,7 @@ unittest
     uint timeout;
     auto args = ["program.name",
                  "-timeout"];
-    assertThrown!Exception(getopt(args, config.bundling, "timeout|t", &timeout));
+    assertThrown!Exception(getopt(args, Config.bundling, "timeout|t", &timeout));
     assert(timeout == timeout.init, to!string(timeout));
 
     bool verbose;
@@ -838,7 +973,7 @@ unittest
 
     args = ["program.name",
             "-fzv"].dup;
-    getopt(args, config.bundling,
+    getopt(args, Config.bundling,
                  "f", &filename,
                  "v", &verbose);
     assert(verbose, to!string(verbose));
@@ -848,7 +983,7 @@ unittest
     filename = filename.init;
     args = ["program.name",
             "-vf", "filename"].dup;
-    getopt(args, config.bundling,
+    getopt(args, Config.bundling,
                  "f", &filename,
                  "v", &verbose);
     assert(verbose, to!string(verbose));
@@ -858,7 +993,7 @@ unittest
     filename = filename.init;
     args = ["program.name",
             "-fvz", "filename"].dup;
-    assertThrown!Exception(getopt(args, config.bundling,
+    assertThrown!Exception(getopt(args, Config.bundling,
                                         "f", &filename,
                                         "v", &verbose));
     assert(!verbose, to!string(verbose));
@@ -867,13 +1002,13 @@ unittest
     string str;
     args = ["program.name",
             "--a=-0x12"].dup;
-    assertThrown!Exception(getopt(args, config.bundling, "a|addr", &str));
+    assertThrown!Exception(getopt(args, Config.bundling, "a|addr", &str));
     assert(str == str.init, to!string(str));
 
     str = str.init;
     args = ["program.name",
             "-a=-0x12"].dup;
-    getopt(args, config.bundling,
+    getopt(args, Config.bundling,
                  "a|addr", &str);
     assert(str == "-0x12", to!string(str));
 
@@ -1074,7 +1209,7 @@ unittest {
     }
 }
 
-// with no space only for short numeric options, i.e. config.noSpaceOnlyForShortNumericOptions
+// with no space only for short numeric options, i.e. Config.noSpaceOnlyForShortNumericOptions
 unittest {
     bool isEqual(T)(const(T) a, const(T) b) pure nothrow
     {
@@ -1126,13 +1261,13 @@ unittest {
                           "-t="~timeoutAsString]).dup;
         static if (is(T == bool))
         {
-            assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                                "t|timeout", &timeout));
+            assertThrown!IllegalArgumentException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                         "t|timeout", &timeout));
             assert(isEqual(timeout, timeout.init), to!string(timeout));
         }
         else
         {
-            getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+            getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
             assert(isEqual(timeout, value), to!string(timeout));
         }
 
@@ -1141,46 +1276,46 @@ unittest {
                  "-t"~timeoutAsString]).dup;
         static if (isNumeric!(T) || is(T == bool))
         {
-            getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+            getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
             assert(isEqual(timeout, value), to!string(timeout));
         }
         else
         {
-            assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                                "t|timeout", &timeout));
+            assertThrown!UnrecognizedOptionException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                                  "t|timeout", &timeout));
             assert(isEqual(timeout, timeout.init), to!string(timeout));
         }
 
         timeout = timeout.init;
         args = (["program.name",
                  "-t", timeoutAsString]).dup;
-        getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+        getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
         assert(isEqual(timeout, value), to!string(timeout));
 
         // mostly non-accepted short options
         timeout = timeout.init;
         args = (["program.name",
                  "-timeout="~timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
+        assertThrown!Exception(getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
 
         timeout = timeout.init;
         args = (["program.name",
                  "-timeout", timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
+        assertThrown!Exception(getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
 
         timeout = timeout.init;
         args = (["program.name",
                  "-timeout"~timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
+        assertThrown!Exception(getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
 
         // accepted long options
         timeout = timeout.init;
         args = (["program.name",
                  "--timeout", timeoutAsString]).dup;
-        getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+        getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
         assert(isEqual(timeout, value), to!string(timeout));
 
         timeout = timeout.init;
@@ -1188,13 +1323,13 @@ unittest {
                  "--timeout="~timeoutAsString]).dup;
         static if (is(T == bool))
         {
-            assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                                "t|timeout", &timeout));
+            assertThrown!IllegalArgumentException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                               "t|timeout", &timeout));
             assert(isEqual(timeout, timeout.init), to!string(timeout));
         }
         else
         {
-            getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+            getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
             assert(isEqual(timeout, value), to!string(timeout));
         }
 
@@ -1202,15 +1337,15 @@ unittest {
         timeout = timeout.init;
         args = (["program.name",
                  "--t", timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                            "t|timeout", &timeout));
+        assertThrown!UnrecognizedOptionException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                              "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
 
         timeout = timeout.init;
         args = (["program.name",
                  "--t="~timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                            "t|timeout", &timeout));
+        assertThrown!UnrecognizedOptionException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                              "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
 
         timeout = timeout.init;
@@ -1218,22 +1353,295 @@ unittest {
                  "--timeout"~timeoutAsString]).dup;
         static if (is(T == bool))
         {
-            getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
+            getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout);
             assert(isEqual(timeout, value), to!string(timeout));
         }
         else
         {
-            assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions,
-                                                "t|timeout", &timeout));
+            assertThrown!UnrecognizedOptionException(getopt(args, Config.noSpaceOnlyForShortNumericOptions,
+                                                                  "t|timeout", &timeout));
             assert(isEqual(timeout, timeout.init), to!string(timeout));
         }
 
         timeout = timeout.init;
         args = (["program.name",
                  "--t"~timeoutAsString]).dup;
-        assertThrown!Exception(getopt(args, config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
+        assertThrown!Exception(getopt(args, Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeout));
         assert(isEqual(timeout, timeout.init), to!string(timeout));
     }
+}
+
+unittest
+{
+    bool verbose;
+    string filename;
+
+    auto args = ["program.name",
+                 "-fzv"];
+    getopt(args, Config.bundling,
+                 "f", &filename,
+                 "v", &verbose);
+    assert(verbose, to!string(verbose));
+    assert(filename == "-z", to!string(filename)); // due to unbundling
+
+    verbose = verbose.init;
+    filename = filename.init;
+    args = ["program.name",
+            "-vf", "filename"].dup;
+    getopt(args, Config.bundling,
+                 "f", &filename,
+                 "v", &verbose);
+    assert(verbose, to!string(verbose));
+    assert(filename == "filename", to!string(filename));
+
+    verbose = verbose.init;
+    filename = filename.init;
+    args = ["program.name",
+            "-fvz", "filename"].dup;
+    assertThrown!Exception(getopt(args, Config.bundling,
+                                        "f", &filename,
+                                        "v", &verbose));
+    assert(!verbose, to!string(verbose));
+    assert(filename == "-v", to!string(filename));
+
+    string str;
+    args = ["program.name",
+            "--a=-0x12"].dup;
+    assertThrown!Exception(getopt(args, Config.bundling,
+                                        "a|addr", &str));
+    assert(str == "", to!string(str));
+
+    str = str.init;
+    args = ["program.name",
+            "-a=-0x12"].dup;
+    getopt(args, Config.bundling,
+                 "a|addr", &str);
+    assert(str == "-0x12", to!string(str));
+
+    str = str.init;
+    args = ["program.name",
+            "-a=-0x12"].dup;
+    getopt(args, "a|addr", &str);
+    assert(str == "-0x12", to!string(str));
+}
+
+// unrecognized options
+unittest
+{
+    string singleDash;
+    auto args = ["program.name",
+                 "-"];
+    auto ex = collectException!(UnrecognizedOptionException)(getopt(args, "u", &singleDash));
+    assert(ex !is null);
+    assert(ex.msg == "Unrecognized option -", ex.msg);
+    assert(ex.failedOption == "-", to!string(ex.failedOption));
+
+    bool foo;
+    args = ["program.name",
+            "--bar"].dup;
+    ex = collectException!(UnrecognizedOptionException)(getopt(args, "foo", &foo));
+    assert(ex !is null);
+    assert(ex.msg == "Unrecognized option --bar", ex.msg);
+    assert(ex.failedOption == "--bar", to!string(ex.failedOption));
+
+    int timeout;
+    args = ["program.name",
+            "-a"];
+    ex = collectException!(UnrecognizedOptionException)(getopt(args, "t|timeout", &timeout));
+    assert(ex !is null);
+    assert(ex.msg == "Unrecognized option -a", ex.msg);
+    assert(ex.failedOption == "-a", to!string(ex.failedOption));
+
+    string timeoutString;
+    args = ["program.name",
+            "-tstring"].dup;
+    ex = collectException!(UnrecognizedOptionException)(getopt(args,
+           Config.noSpaceOnlyForShortNumericOptions, "t|timeout", &timeoutString));
+    assert(ex !is null);
+    assert(ex.msg == "Unrecognized option -tstring", ex.msg);
+    assert(ex.failedOption == "-tstring", to!string(ex.failedOption));
+}
+
+// illegal arguments
+unittest
+{
+    // bool
+    bool verbose;
+    auto args = ["program.name",
+                 "-vstring"];
+    auto ex = collectException!(IllegalArgumentException)(getopt(args, "v", &verbose));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'string' for '-vstring'. Expected no argument.", ex.msg);
+    assert(ex.failedOption == "-vstring", to!string(ex.failedOption));
+
+    // integer
+    int timeout;
+    args = ["program.name",
+            "-t", "string"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &timeout));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'string' for '-t string'. Expected integer "~
+                     "in [-2147483648, ..., 2147483647].", ex.msg);
+    assert(ex.next);
+    assert(ex.failedOption == "-t string", to!string(ex.failedOption));
+    assert(cast(ConvException) ex.next);
+
+    short timeout2;
+    args = ["program.name",
+            "-t", "string"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &timeout2));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'string' for '-t string'. Expected integer in [-32768, ..., 32767].", ex.msg);
+    assert(ex.failedOption == "-t string", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    // floating point
+    float floatValue;
+    args = ["program.name",
+            "-t", "string"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &floatValue));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'string' for '-t string'. Expected floating point number "~
+                     "in [1.17549e-38, ..., 3.40282e+38].", ex.msg);
+    assert(ex.failedOption == "-t string", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    // enum
+    enum Color { no, yes };
+    Color color;
+    args = ["program.name",
+            "-t", "0"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &color));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument '0' for '-t 0'. Expected value in [no, yes].", ex.msg);
+    assert(ex.failedOption == "-t 0", to!string(ex.failedOption));
+
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    // array
+    ubyte[] values;
+    args = ["program.name",
+            "-t", "string"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &values));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'string' for '-t string'. Expected integer in [0, ..., 255].", ex.msg);
+    assert(ex.failedOption == "-t string", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    // associative array
+    int[string] hash;
+    args = ["program.name",
+            "-t", "foo=bar"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo=bar' for '-t foo=bar'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-t foo=bar", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    hash = hash.init;
+    args = ["program.name",
+            "-tfoo=bar"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo=bar' for '-tfoo=bar'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-tfoo=bar", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    hash = hash.init;
+    args = ["program.name",
+            "-t=foo=bar"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo=bar' for '-t=foo=bar'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-t=foo=bar", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+
+    hash = hash.init;
+    args = ["program.name",
+            "-t", "foo"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo' for '-t foo'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-t foo", to!string(ex.failedOption));
+    assert(!ex.next);
+
+    hash = hash.init;
+    args = ["program.name",
+            "-t=foo"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo' for '-t=foo'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-t=foo", to!string(ex.failedOption));
+    assert(!ex.next);
+
+    hash = hash.init;
+    args = ["program.name",
+            "-tfoo"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo' for '-tfoo'. Expected <string>="~
+                     "<integer in [-2147483648, ..., 2147483647]>.", ex.msg);
+    assert(ex.failedOption == "-tfoo", to!string(ex.failedOption));
+    assert(!ex.next);
+
+    string[int] hash2;
+    args = ["program.name",
+            "-t", "foo=bar"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "t|timeout", &hash2));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'foo=bar' for '-t foo=bar'. Expected "~
+                     "<integer in [-2147483648, ..., 2147483647]>=<string>.", ex.msg);
+    assert(ex.failedOption == "-t foo=bar", to!string(ex.failedOption));
+    assert(ex.next);
+    assert(cast(ConvException) ex.next);
+}
+
+unittest
+{
+    // missing argument
+    int timeout;
+    auto args = ["program.name",
+                 "-t"];
+    auto ex = collectException!(MissingArgumentException)(getopt(args, "t|timeout", &timeout));
+    assert(ex !is null);
+    assert(ex.msg == "Missing argument for -t", ex.msg);
+    assert(ex.failedOption == "-t", to!string(ex.failedOption));
+}
+
+unittest
+{
+    int timeout;
+    string color;
+    auto args = ["program.name",
+                 "-t", "red", "-c", "red"];
+    auto ex = collectException!(IllegalArgumentException)(getopt(args, "t", &timeout, "c", &color));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument 'red' for '-t red'. Expected integer "~
+                     "in [-2147483648, ..., 2147483647].", ex.msg);
+    assert(ex.failedOption == "-t red", to!string(ex.failedOption));
+
+    ubyte overflow;
+    args = ["program.name",
+            "-u", "256"].dup;
+    ex = collectException!(IllegalArgumentException)(getopt(args, "u", &overflow));
+    assert(ex !is null);
+    assert(ex.msg == "Illegal argument '256' for '-u 256'. Expected integer in [0, ..., 255].", ex.msg);
+    assert(ex.failedOption == "-u 256", to!string(ex.failedOption));
+
+    assert(ex.next);
+    assert(cast(ConvOverflowException) ex.next);
 }
 
 unittest
@@ -1329,8 +1737,8 @@ unittest
     bool foo, bar;
     args = (["program.name", "--foo", "--bAr"]).dup;
     getopt(args,
-        std.getopt.config.caseSensitive,
-        std.getopt.config.passThrough,
+        std.getopt.Config.caseSensitive,
+        std.getopt.Config.passThrough,
         "foo", &foo,
         "bar", &bar);
     assert(args[1] == "--bAr");
@@ -1340,7 +1748,7 @@ unittest
     args = (["program.name", "--foo", "nonoption", "--bar"]).dup;
     foo = bar = false;
     getopt(args,
-        std.getopt.config.stopOnFirstNonOption,
+        std.getopt.Config.stopOnFirstNonOption,
         "foo", &foo,
         "bar", &bar);
     assert(foo && !bar && args[1] == "nonoption" && args[2] == "--bar");
@@ -1348,7 +1756,7 @@ unittest
     args = (["program.name", "--foo", "nonoption", "--zab"]).dup;
     foo = bar = false;
     getopt(args,
-        std.getopt.config.stopOnFirstNonOption,
+        std.getopt.Config.stopOnFirstNonOption,
         "foo", &foo,
         "bar", &bar);
     assert(foo && !bar && args[1] == "nonoption" && args[2] == "--zab");
@@ -1362,8 +1770,8 @@ unittest
     getopt
         (
             args,
-            std.getopt.config.bundling,
-            //std.getopt.config.caseSensitive,
+            std.getopt.Config.bundling,
+            //std.getopt.Config.caseSensitive,
             "linenum|l", &f_linenum,
             "filename|n", &f_filename
         );

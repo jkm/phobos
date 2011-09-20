@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Mixins - D Programming Language 2.0 - Digital Mars</title>
+<title>Mixins - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,284 +156,262 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:29 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Mixin">Comment on this page</a></span>
 </div>
-  <h1>          Template Mixins</h1>
-  	A <i>TemplateMixin</i> takes an arbitrary set of declarations from
-	the body of a <i>TemplateDeclaration</i> and inserts them
-	into the current context.
+  <h1>Mixins</h1>
+          A <i>TemplateMixin</i> takes an arbitrary set of declarations from
+        the body of a <i>TemplateDeclaration</i> and inserts them
+        into the current context.
 
-<pre class="bnf"><span class="notranslate"><a name="TemplateMixinDeclaration">TemplateMixinDeclaration</a>:
-	<b>mixin</b> <b>template</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>(</b> <a href="template.html#TemplateParameterList"><i>TemplateParameterList</i></a> <b>)</b> <a href="#Constraint"><i>Constraint</i></a><sub><i>opt</i></sub>
-		<b>{</b> <a href="module.html#DeclDefs">DeclDefs</a> <b>}</b>
+<pre class="bnf"><span class="notranslate"><a name="TemplateMixinDeclaration"><i>TemplateMixinDeclaration</i></a>:
+    <b>mixin</b> <b>template</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>(</b> <a href="template.html#TemplateParameterList"><i>TemplateParameterList</i></a> <b>)</b> <a href="#Constraint"><i>Constraint</i></a><sub><i>opt</i></sub>
+	    <b>{</b> <a href="module.html#DeclDefs"><i>DeclDefs</i></a> <b>}</b>
 
-<a name="TemplateMixin">TemplateMixin</a>:
-	<b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>;</b>
-	<b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <a href="#MixinIdentifier"><i>MixinIdentifier</i></a> <b>;</b>
-	<b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>!(</b> <a href="template.html#TemplateArgumentList"><i>TemplateArgumentList</i></a> <b>)</b> <b>;</b>
-	<b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>!(</b> <a href="template.html#TemplateArgumentList"><i>TemplateArgumentList</i></a> <b>)</b> <a href="#MixinIdentifier"><i>MixinIdentifier</i></a> <b>;</b>
+<a name="TemplateMixin"><i>TemplateMixin</i></a>:
+    <b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>;</b>
+    <b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <a href="#MixinIdentifier"><i>MixinIdentifier</i></a> <b>;</b>
+    <b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>!(</b> <a href="template.html#TemplateArgumentList"><i>TemplateArgumentList</i></a> <b>)</b> <b>;</b>
+    <b>mixin</b> <a href="template.html#TemplateIdentifier"><i>TemplateIdentifier</i></a> <b>!(</b> <a href="template.html#TemplateArgumentList"><i>TemplateArgumentList</i></a> <b>)</b> <a href="#MixinIdentifier"><i>MixinIdentifier</i></a> <b>;</b>
 
-<a name="MixinIdentifier">MixinIdentifier</a>:
-	<i>Identifier</i>
+<a name="MixinIdentifier"><i>MixinIdentifier</i></a>:
+    <i>Identifier</i>
 </span></pre>
 
-	<p>A <i>TemplateMixin</i> can occur in declaration lists of modules,
-	classes, structs, unions, and as a statement.
-	The <i>TemplateIdentifier</i> refers to a <i>TemplateDeclaration</i>.
-	If the <i>TemplateDeclaration</i> has no parameters, the mixin
-	form that has no !(<i>TemplateArgumentList</i>)
-	can be used.
-	</p>
+        <p>A <i>TemplateMixin</i> can occur in declaration lists of modules,
+        classes, structs, unions, and as a statement.
+        The <i>TemplateIdentifier</i> refers to a <i>TemplateDeclaration</i>.
+        If the <i>TemplateDeclaration</i> has no parameters, the mixin
+        form that has no !(<i>TemplateArgumentList</i>)
+        can be used.
+        </p>
 
-	<p>Unlike a template instantiation, a template mixin's body is evaluated
-	within the scope where the mixin appears, not where the template declaration
-	is defined. It is analogous to cutting and pasting the body of
-	the template into the location of the mixin. It is useful for injecting
-	parameterized &lsquo;boilerplate&rsquo; code, as well as for creating
-	templated nested functions, which is not possible with
-	template instantiations.
-	</p>
+        <p>Unlike a template instantiation, a template mixin's body is evaluated
+        within the scope where the mixin appears, not where the template declaration
+        is defined. It is analogous to cutting and pasting the body of
+        the template into the location of the mixin. It is useful for injecting
+        parameterized &lsquo;boilerplate&rsquo; code, as well as for creating
+        templated nested functions, which is not possible with
+        template instantiations.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> x = 5;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> x = 5;
 }
 
 <b><span class="d_keyword">mixin</span> Foo;</b>
 
-<span class="d_keyword">struct</span> Bar
-{
-    <b><span class="d_keyword">mixin</span> Foo;</b>
+<span class="d_keyword">struct</span> Bar {
+  <b><span class="d_keyword">mixin</span> Foo;</b>
 }
 
-<span class="d_keyword">void</span> test()
-{
-    writefln(<span class="d_string">"x = %d"</span>, x);		<span class="d_comment">// prints 5
-</span>    {   Bar b;
-	<span class="d_keyword">int</span> x = 3;
+<span class="d_keyword">void</span> test() {
+  writefln(<span class="d_string">"x = %d"</span>, x);  <span class="d_comment">// prints 5
+</span>  {
+    Bar b;
+    <span class="d_keyword">int</span> x = 3;
 
-	writefln(<span class="d_string">"b.x = %d"</span>, b.x);	<span class="d_comment">// prints 5
-</span>	writefln(<span class="d_string">"x = %d"</span>, x);		<span class="d_comment">// prints 3
-</span>	{
-	    <b><span class="d_keyword">mixin</span> Foo;</b>
-	    writefln(<span class="d_string">"x = %d"</span>, x);	<span class="d_comment">// prints 5
-</span>	    x = 4;
-	    writefln(<span class="d_string">"x = %d"</span>, x);	<span class="d_comment">// prints 4
-</span>	}
-	writefln(<span class="d_string">"x = %d"</span>, x);		<span class="d_comment">// prints 3
+    writefln(<span class="d_string">"b.x = %d"</span>, b.x); <span class="d_comment">// prints 5
+</span>    writefln(<span class="d_string">"x = %d"</span>, x);     <span class="d_comment">// prints 3
+</span>    {
+      <b><span class="d_keyword">mixin</span> Foo;</b>
+      writefln(<span class="d_string">"x = %d"</span>, x);   <span class="d_comment">// prints 5
+</span>      x = 4;
+      writefln(<span class="d_string">"x = %d"</span>, x);   <span class="d_comment">// prints 4
 </span>    }
-    writefln(<span class="d_string">"x = %d"</span>, x);		<span class="d_comment">// prints 5
+    writefln(<span class="d_string">"x = %d"</span>, x);     <span class="d_comment">// prints 3
+</span>  }
+  writefln(<span class="d_string">"x = %d"</span>, x);       <span class="d_comment">// prints 5
 </span>}
 </span></pre>
 
-	Mixins can be parameterized:
+        Mixins can be parameterized:
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo(T)
-{
-    T x = 5;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo(T) {
+  T x = 5;
 }
 
-<b><span class="d_keyword">mixin</span> Foo!(<span class="d_keyword">int</span>);</b>		<span class="d_comment">// create x of type int
+<b><span class="d_keyword">mixin</span> Foo!(<span class="d_keyword">int</span>);</b>           <span class="d_comment">// create x of type int
 </span></span></pre>
 
-	Mixins can add virtual functions to a class:
+        Mixins can add virtual functions to a class:
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">void</span> func() { writefln(<span class="d_string">"Foo.func()"</span>); }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">void</span> func() { writefln(<span class="d_string">"Foo.func()"</span>); }
 }
 
-<span class="d_keyword">class</span> Bar
-{
-    <b><span class="d_keyword">mixin</span> Foo</b>;
+<span class="d_keyword">class</span> Bar {
+  <b><span class="d_keyword">mixin</span> Foo</b>;
 }
 
-<span class="d_keyword">class</span> Code : Bar
-{
-    <span class="d_keyword">void</span> func() { writefln(<span class="d_string">"Code.func()"</span>); }
+<span class="d_keyword">class</span> Code : Bar {
+  <span class="d_keyword">void</span> func() { writefln(<span class="d_string">"Code.func()"</span>); }
 }
 
-<span class="d_keyword">void</span> test()
-{
-    Bar b = <span class="d_keyword">new</span> Bar();
-    b.func();		<span class="d_comment">// calls Foo.func()
+<span class="d_keyword">void</span> test() {
+  Bar b = <span class="d_keyword">new</span> Bar();
+  b.func();      <span class="d_comment">// calls Foo.func()
 </span>
-    b = <span class="d_keyword">new</span> Code();
-    b.func();		<span class="d_comment">// calls Code.func()
+  b = <span class="d_keyword">new</span> Code();
+  b.func();      <span class="d_comment">// calls Code.func()
 </span>}
 </span></pre>
 
-	Mixins are evaluated in the scope of where they appear, not the scope
-	of the template declaration:
+        Mixins are evaluated in the scope of where they appear, not the scope
+        of the template declaration:
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> y = 3;
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> abc() { <span class="d_keyword">return</span> y; }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> abc() { <span class="d_keyword">return</span> y; }
 }
 
-<span class="d_keyword">void</span> test()
-{
-    <span class="d_keyword">int</span> y = 8;
-    <b><span class="d_keyword">mixin</span> Foo;</b>	<span class="d_comment">// local y is picked up, not global y
-</span>    <span class="d_keyword">assert</span>(abc() == 8);
+<span class="d_keyword">void</span> test() {
+  <span class="d_keyword">int</span> y = 8;
+  <b><span class="d_keyword">mixin</span> Foo;</b> <span class="d_comment">// local y is picked up, not global y
+</span>  <span class="d_keyword">assert</span>(abc() == 8);
 }
 </span></pre>
 
-	Mixins can parameterize symbols using alias parameters:
+        Mixins can parameterize symbols using alias parameters:
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo(<span class="d_keyword">alias</span> b)
-{
-    <span class="d_keyword">int</span> abc() { <span class="d_keyword">return</span> b; }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo(<span class="d_keyword">alias</span> b) {
+  <span class="d_keyword">int</span> abc() { <span class="d_keyword">return</span> b; }
 }
 
-<span class="d_keyword">void</span> test()
-{
-    <span class="d_keyword">int</span> y = 8;
-    <b><span class="d_keyword">mixin</span> Foo!(y);</b>
-    <span class="d_keyword">assert</span>(abc() == 8);
+<span class="d_keyword">void</span> test() {
+  <span class="d_keyword">int</span> y = 8;
+  <b><span class="d_keyword">mixin</span> Foo!(y);</b>
+  <span class="d_keyword">assert</span>(abc() == 8);
 }
 </span></pre>
 
-	This example uses a mixin to implement a generic Duff's device
-	for an arbitrary statement (in this case, the arbitrary statement
-	is in bold). A nested function is generated as well as a
-	delegate literal, these can be inlined by the compiler:
+        This example uses a mixin to implement a generic Duff's device
+        for an arbitrary statement (in this case, the arbitrary statement
+        is in bold). A nested function is generated as well as a
+        delegate literal, these can be inlined by the compiler:
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> duffs_device(<span class="d_keyword">alias</span> id1, <span class="d_keyword">alias</span> id2, <span class="d_keyword">alias</span> s)
 {
-    <span class="d_keyword">void</span> duff_loop()
+  <span class="d_keyword">void</span> duff_loop()
+  {
+    <span class="d_keyword">if</span> (id1 &lt; id2)
     {
-	<span class="d_keyword">if</span> (id1 &lt; id2)
-	{
-	    <span class="d_keyword">typeof</span>(id1) n = (id2 - id1 + 7) / 8;
-	    <span class="d_keyword">switch</span> ((id2 - id1) % 8)
-	    {
-		<span class="d_keyword">case</span> 0:        <span class="d_keyword">do</span> {  s();
-		<span class="d_keyword">case</span> 7:              s();
-		<span class="d_keyword">case</span> 6:              s();
-		<span class="d_keyword">case</span> 5:              s();
-		<span class="d_keyword">case</span> 4:              s();
-		<span class="d_keyword">case</span> 3:              s();
-		<span class="d_keyword">case</span> 2:              s();
-		<span class="d_keyword">case</span> 1:              s();
-				  } <span class="d_keyword">while</span> (--n &gt; 0);
-	    }
-	}
+      <span class="d_keyword">typeof</span>(id1) n = (id2 - id1 + 7) / 8;
+      <span class="d_keyword">switch</span> ((id2 - id1) % 8)
+      {
+        <span class="d_keyword">case</span> 0: <span class="d_keyword">do</span> { s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 7:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 6:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 5:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 4:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 3:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 2:      s(); <span class="d_keyword">goto</span> <span class="d_keyword">case</span>;
+        <span class="d_keyword">case</span> 1:      s();
+                } <span class="d_keyword">while</span> (--n &gt; 0);
+      }
     }
+  }
 }
 
 <span class="d_keyword">void</span> foo() { writefln(<span class="d_string">"foo"</span>); }
 
-<span class="d_keyword">void</span> test()
-{
-    <span class="d_keyword">int</span> i = 1;
-    <span class="d_keyword">int</span> j = 11;
+<span class="d_keyword">void</span> test() {
+  <span class="d_keyword">int</span> i = 1;
+  <span class="d_keyword">int</span> j = 11;
 
-    <span class="d_keyword">mixin</span> duffs_device!(i, j, <b><span class="d_keyword">delegate</span> { foo(); }</b> );
-    duff_loop();	<span class="d_comment">// executes foo() 10 times
+  <span class="d_keyword">mixin</span> duffs_device!(i, j, <b><span class="d_keyword">delegate</span> { foo(); }</b> );
+  duff_loop();  <span class="d_comment">// executes foo() 10 times
 </span>}
 </span></pre>
 
 <h2>Mixin Scope</h2>
 
-	The declarations in a mixin are &lsquo;imported&rsquo; into the surrounding
-	scope. If the name of a declaration in a mixin is the same
-	as a declaration in the surrounding scope, the surrounding declaration
-	overrides the mixin one:
+        The declarations in a mixin are &lsquo;imported&rsquo; into the surrounding
+        scope. If the name of a declaration in a mixin is the same
+        as a declaration in the surrounding scope, the surrounding declaration
+        overrides the mixin one:
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> x = 3;
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> x = 5;
-    <span class="d_keyword">int</span> y = 5;
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> x = 5;
+  <span class="d_keyword">int</span> y = 5;
 }
 
 <b><span class="d_keyword">mixin</span> Foo;</b>
 <span class="d_keyword">int</span> y = 3;
 
-<span class="d_keyword">void</span> test()
-{
-    writefln(<span class="d_string">"x = %d"</span>, x);	<span class="d_comment">// prints 3
-</span>    writefln(<span class="d_string">"y = %d"</span>, y);	<span class="d_comment">// prints 3
+<span class="d_keyword">void</span> test() {
+  writefln(<span class="d_string">"x = %d"</span>, x);  <span class="d_comment">// prints 3
+</span>  writefln(<span class="d_string">"y = %d"</span>, y);  <span class="d_comment">// prints 3
 </span>}
 </span></pre>
 
-	If two different mixins are put in the same scope, and each
-	define a declaration with the same name, there is an ambiguity
-	error when the declaration is referenced:
+        If two different mixins are put in the same scope, and each
+        define a declaration with the same name, there is an ambiguity
+        error when the declaration is referenced:
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> x = 5;
-    <span class="d_keyword">void</span> func(<span class="d_keyword">int</span> x) { }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> x = 5;
+  <span class="d_keyword">void</span> func(<span class="d_keyword">int</span> x) { }
 }
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar()
-{
-    <span class="d_keyword">int</span> x = 4;
-    <span class="d_keyword">void</span> func() { }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar() {
+  <span class="d_keyword">int</span> x = 4;
+  <span class="d_keyword">void</span> func() { }
 }
 
 <b><span class="d_keyword">mixin</span> Foo;</b>
 <b><span class="d_keyword">mixin</span> Bar;</b>
 
-<span class="d_keyword">void</span> test()
-{
-    writefln(<span class="d_string">"x = %d"</span>, x);	<span class="d_comment">// error, x is ambiguous
-</span>    func();		<span class="d_comment">// error, func is ambiguous
+<span class="d_keyword">void</span> test() {
+  writefln(<span class="d_string">"x = %d"</span>, x); <span class="d_comment">// error, x is ambiguous
+</span>  func();             <span class="d_comment">// error, func is ambiguous
 </span>}
 </span></pre>
-	<p>The call to <b>func()</b> is ambiguous because
-	Foo.func and Bar.func are in different scopes.
-	</p>
+        <p>The call to <b>func()</b> is ambiguous because
+        Foo.func and Bar.func are in different scopes.
+        </p>
 
-	<p>If a mixin has a <i>MixinIdentifier</i>, it can be used to
-	disambiguate:
-	</p>
+        <p>If a mixin has a <i>MixinIdentifier</i>, it can be used to
+        disambiguate:
+        </p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> x = 6;
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> x = 5;
-    <span class="d_keyword">int</span> y = 7;
-    <span class="d_keyword">void</span> func() { }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> x = 5;
+  <span class="d_keyword">int</span> y = 7;
+  <span class="d_keyword">void</span> func() { }
 }
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar()
-{
-    <span class="d_keyword">int</span> x = 4;
-    <span class="d_keyword">void</span> func() { }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar() {
+  <span class="d_keyword">int</span> x = 4;
+  <span class="d_keyword">void</span> func() { }
 }
 
 <b><span class="d_keyword">mixin</span> Foo F;</b>
 <b><span class="d_keyword">mixin</span> Bar B;</b>
 
-<span class="d_keyword">void</span> test()
-{
-    writefln(<span class="d_string">"y = %d"</span>, y);	<span class="d_comment">// prints 7
-</span>    writefln(<span class="d_string">"x = %d"</span>, x);	<span class="d_comment">// prints 6
-</span>    writefln(<span class="d_string">"F.x = %d"</span>, F.x);	<span class="d_comment">// prints 5
-</span>    writefln(<span class="d_string">"B.x = %d"</span>, B.x);	<span class="d_comment">// prints 4
-</span>    F.func();			<span class="d_comment">// calls Foo.func
-</span>    B.func();			<span class="d_comment">// calls Bar.func
+<span class="d_keyword">void</span> test() {
+  writefln(<span class="d_string">"y = %d"</span>, y);     <span class="d_comment">// prints 7
+</span>  writefln(<span class="d_string">"x = %d"</span>, x);     <span class="d_comment">// prints 6
+</span>  writefln(<span class="d_string">"F.x = %d"</span>, F.x); <span class="d_comment">// prints 5
+</span>  writefln(<span class="d_string">"B.x = %d"</span>, B.x); <span class="d_comment">// prints 4
+</span>  F.func();                  <span class="d_comment">// calls Foo.func
+</span>  B.func();                  <span class="d_comment">// calls Bar.func
 </span>}
 </span></pre>
-	<p>Alias declarations can be used to overload together
-	functions declared in different mixins:</p>
+        <p>Alias declarations can be used to overload together
+        functions declared in different mixins:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">void</span> func(<span class="d_keyword">int</span> x) {  }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">void</span> func(<span class="d_keyword">int</span> x) {  }
 }
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar()
-{
-    <span class="d_keyword">void</span> func() {  }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Bar() {
+  <span class="d_keyword">void</span> func() {  }
 }
 
 <span class="d_keyword">mixin</span> Foo!() F;
@@ -441,31 +420,28 @@ function bodyLoad()
 <b><span class="d_keyword">alias</span> F.func func;</b>
 <b><span class="d_keyword">alias</span> B.func func;</b>
 
-<span class="d_keyword">void</span> main()
-{
-    func();	<span class="d_comment">// calls B.func
-</span>    func(1);	<span class="d_comment">// calls F.func
+<span class="d_keyword">void</span> main() {
+  func();  <span class="d_comment">// calls B.func
+</span>  func(1); <span class="d_comment">// calls F.func
 </span>}
 </span></pre>
 
 
-	<p>A mixin has its own scope, even if a declaration is overridden
-	by the enclosing one:</p>
+        <p>A mixin has its own scope, even if a declaration is overridden
+        by the enclosing one:</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> x = 4;
 
-<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo()
-{
-    <span class="d_keyword">int</span> x = 5;
-    <span class="d_keyword">int</span> bar() { <span class="d_keyword">return</span> x; }
+<span class="d_keyword">mixin</span> <span class="d_keyword">template</span> Foo() {
+  <span class="d_keyword">int</span> x = 5;
+  <span class="d_keyword">int</span> bar() { <span class="d_keyword">return</span> x; }
 }
 
 <b><span class="d_keyword">mixin</span> Foo;</b>
 
-<span class="d_keyword">void</span> test()
-{
-    writefln(<span class="d_string">"x = %d"</span>, x);		<span class="d_comment">// prints 4
-</span>    writefln(<span class="d_string">"bar() = %d"</span>, bar());	<span class="d_comment">// prints 5
+<span class="d_keyword">void</span> test() {
+  writefln(<span class="d_string">"x = %d"</span>, x);         <span class="d_comment">// prints 4
+</span>  writefln(<span class="d_string">"bar() = %d"</span>, bar()); <span class="d_comment">// prints 5
 </span>}
 </span></pre>
 

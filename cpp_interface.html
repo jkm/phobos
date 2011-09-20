@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Interfacing to C++ - D Programming Language 2.0 - Digital Mars</title>
+<title>Interfacing to C++ - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,20 +156,20 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:30 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/InterfaceToCPP">Comment on this page</a></span>
 </div>
-  <h1>          Interfacing to C++</h1>
+  <h1>Interfacing to C++</h1>
   	<p>While D is fully capable of
-	<a href="interfaceToC.html">interfacing to C</a>,
+	<a href="">interfacing to C</a>,
 	its ability to interface to C++ is much more limited.
 	There are three ways to do it:
 	</p>
 
 	<ol>	<li>Use C++'s ability to create a C interface, and then
 	use D's ability to
-	<a href="interfaceToC.html">interface with C</a>
+	<a href="">interface with C</a>
 	to access that interface.
 	</li>
 
@@ -222,13 +223,12 @@ function bodyLoad()
 
 using namespace std;
 
-int foo(int i, int j, int k)
-{
-    cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; endl;
-    cout &lt;&lt; "j = " &lt;&lt; j &lt;&lt; endl;
-    cout &lt;&lt; "k = " &lt;&lt; k &lt;&lt; endl;
+int foo(int i, int j, int k) {
+  cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; endl;
+  cout &lt;&lt; "j = " &lt;&lt; j &lt;&lt; endl;
+  cout &lt;&lt; "k = " &lt;&lt; k &lt;&lt; endl;
 
-    return 7;
+  return 7;
 }
 </span></pre>
 
@@ -243,9 +243,8 @@ int foo(int i, int j, int k)
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k);
 
-<span class="d_keyword">void</span> main()
-{
-    foo(1,2,3);
+<span class="d_keyword">void</span> main() {
+  foo(1,2,3);
 }
 </span></pre>
 
@@ -289,19 +288,17 @@ k = 3
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">import</span> std.stdio;
 
-<span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k)
-{
-    writefln(<span class="d_string">"i = %s"</span>, i);
-    writefln(<span class="d_string">"j = %s"</span>, j);
-    writefln(<span class="d_string">"k = %s"</span>, k);
-    <span class="d_keyword">return</span> 1;
+<span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k) {
+  writefln(<span class="d_string">"i = %s"</span>, i);
+  writefln(<span class="d_string">"j = %s"</span>, j);
+  writefln(<span class="d_string">"k = %s"</span>, k);
+  <span class="d_keyword">return</span> 1;
 }
 
 <span class="d_keyword">extern</span> (C++) <span class="d_keyword">void</span> bar();
 
-<span class="d_keyword">void</span> main()
-{
-    bar();
+<span class="d_keyword">void</span> main() {
+  bar();
 }
 </span></pre>
 
@@ -309,9 +306,8 @@ k = 3
 
 <pre class="cppcode"><span class="notranslate">int foo(int i, int j, int k);
 
-void bar()
-{
-    foo(6, 7, 8);
+void bar() {
+  foo(6, 7, 8);
 }
 </span></pre>
 
@@ -346,41 +342,36 @@ k = 8
 
 using namespace std;
 
-class D
-{
-  public:
-    virtual int bar(int i, int j, int k)
-    {
-	cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; endl;
-	cout &lt;&lt; "j = " &lt;&lt; j &lt;&lt; endl;
-	cout &lt;&lt; "k = " &lt;&lt; k &lt;&lt; endl;
-	return 8;
-    }
+class D {
+ public:
+  virtual int bar(int i, int j, int k)
+  {
+    cout &lt;&lt; "i = " &lt;&lt; i &lt;&lt; endl;
+    cout &lt;&lt; "j = " &lt;&lt; j &lt;&lt; endl;
+    cout &lt;&lt; "k = " &lt;&lt; k &lt;&lt; endl;
+    return 8;
+  }
 };
 
-D *getD()
-{
-    D *d = new D();
-    return d;
+D *getD() {
+  D *d = new D();
+  return d;
 }
 </span></pre>
 
 	<p>We can get at it from D code like:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (C++)
-{
-  <span class="d_keyword">interface</span> D
-  {
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (C++) {
+  <span class="d_keyword">interface</span> D {
     <span class="d_keyword">int</span> bar(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k);
   }
 
   D getD();
 }
 
-<span class="d_keyword">void</span> main()
-{
-    D d = getD();
-    d.bar(9,10,11);
+<span class="d_keyword">void</span> main() {
+  D d = getD();
+  d.bar(9,10,11);
 }
 </span></pre>
 
@@ -390,41 +381,36 @@ D *getD()
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> callE(E);
 
-<span class="d_keyword">extern</span> (C++) <span class="d_keyword">interface</span> E
-{
-    <span class="d_keyword">int</span> bar(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k);
+<span class="d_keyword">extern</span> (C++) <span class="d_keyword">interface</span> E {
+  <span class="d_keyword">int</span> bar(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k);
 }
 
-<span class="d_keyword">class</span> F : E
-{
-    <span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> bar(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k)
-    {
-	writefln(<span class="d_string">"i = "</span>, i);
-	writefln(<span class="d_string">"j = "</span>, j);
-	writefln(<span class="d_string">"k = "</span>, k);
-	<span class="d_keyword">return</span> 8;
-    }
+<span class="d_keyword">class</span> F : E {
+  <span class="d_keyword">extern</span> (C++) <span class="d_keyword">int</span> bar(<span class="d_keyword">int</span> i, <span class="d_keyword">int</span> j, <span class="d_keyword">int</span> k)
+  {
+    writefln(<span class="d_string">"i = "</span>, i);
+    writefln(<span class="d_string">"j = "</span>, j);
+    writefln(<span class="d_string">"k = "</span>, k);
+    <span class="d_keyword">return</span> 8;
+  }
 }
 
-<span class="d_keyword">void</span> main()
-{
-    F f = <span class="d_keyword">new</span> F();
-    callE(f);
+<span class="d_keyword">void</span> main() {
+  F f = <span class="d_keyword">new</span> F();
+  callE(f);
 }
 </span></pre>
 
 	<p>The C++ code to access it looks like:</p>
 
-<pre class="cppcode"><span class="notranslate">class E
-{
-  public:
-    virtual int bar(int i, int j, int k);
+<pre class="cppcode"><span class="notranslate">class E {
+ public:
+  virtual int bar(int i, int j, int k);
 };
 
 
-int callE(E *e)
-{
-    return e-&gt;bar(11,12,13);
+int callE(E *e) {
+  return e-&gt;bar(11,12,13);
 }
 </span></pre>
 
@@ -498,7 +484,6 @@ int callE(E *e)
 <h2>Data Type Compatibility</h2>
 
 	<table border=1 cellpadding=4 cellspacing=0><caption>D And C Type Equivalence</caption>
-
 	<tr><th scope="col">D type</th>
 	<th scope="col">C type</th>
 	</tr>

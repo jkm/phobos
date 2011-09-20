@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Pragmas - D Programming Language 2.0 - Digital Mars</title>
+<title>Pragmas - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,89 +156,89 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:27 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Pragma">Comment on this page</a></span>
 </div>
-  <h1>          Pragmas</h1>
-  <pre class="bnf"><span class="notranslate"><a name="Pragma">Pragma</a>:
+  <h1>Pragmas</h1>
+  <pre class="bnf"><span class="notranslate"><a name="Pragma"><i>Pragma</i></a>:
     <b>pragma</b> <b>(</b> <i>Identifier</i> <b>)</b>
     <b>pragma</b> <b>(</b> <i>Identifier</i> <b>,</b> <a href="expression.html#ArgumentList"><i>ArgumentList</i></a> <b>)</b>
 </span></pre>
 
 
-	<p>Pragmas are a way to pass special information to the compiler
-	and to add vendor specific extensions to D.
-	Pragmas can be used by themselves terminated with a &lsquo;;&rsquo;,
-	they can influence a statement, a block of statements, a declaration, or
-	a block of declarations.
-	</p>
+        <p>Pragmas are a way to pass special information to the compiler
+        and to add vendor specific extensions to D.
+        Pragmas can be used by themselves terminated with a &lsquo;;&rsquo;,
+        they can influence a statement, a block of statements, a declaration, or
+        a block of declarations.
+        </p>
 
-	<p>Pragmas can appear as either declarations,
-	<i>Pragma</i> <a href="attribute.html"><i>DeclarationBlock</i></a>,
-	or as statements,
-	<a href="statement.html#PragmaStatement"><i>PragmaStatement</i></a>.
-	</p>
+        <p>Pragmas can appear as either declarations,
+        <i>Pragma</i> <a href="attribute.html#DeclarationBlock"><i>DeclarationBlock</i></a>,
+        or as statements,
+        <a href="statement.html#PragmaStatement"><i>PragmaStatement</i></a>.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">pragma</span>(ident);		   <span class="d_comment">// just by itself
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">pragma</span>(ident);        <span class="d_comment">// just by itself
 </span>
 <span class="d_keyword">pragma</span>(ident) declaration; <span class="d_comment">// influence one declaration
 </span>
-<span class="d_keyword">pragma</span>(ident):		   <span class="d_comment">// influence subsequent declarations
+<span class="d_keyword">pragma</span>(ident): <span class="d_comment">// influence subsequent declarations
 </span>    declaration;
     declaration;
 
-<span class="d_keyword">pragma</span>(ident)		   <span class="d_comment">// influence block of declarations
-</span>{   declaration;
+<span class="d_keyword">pragma</span>(ident) { <span class="d_comment">// influence block of declarations
+</span>    declaration;
     declaration;
 }
 
-<span class="d_keyword">pragma</span>(ident) statement;   <span class="d_comment">// influence one statement
+<span class="d_keyword">pragma</span>(ident) statement; <span class="d_comment">// influence one statement
 </span>
-<span class="d_keyword">pragma</span>(ident)		   <span class="d_comment">// influence block of statements
-</span>{   statement;
+<span class="d_keyword">pragma</span>(ident) { <span class="d_comment">// influence block of statements
+</span>    statement;
     statement;
 }
 </span></pre>
 
-	<p>The kind of pragma it is is determined by the <i>Identifier</i>.
-	<i>ExpressionList</i> is a comma-separated list of
-	<a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s. The <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s must be
-	parsable as expressions, but what they mean semantically
-	is up to the individual pragma semantics.
-	</p>
+        <p>The kind of pragma it is is determined by the <i>Identifier</i>.
+        <i>ExpressionList</i> is a comma-separated list of
+        <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s. The <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s must be
+        parsable as expressions, but what they mean semantically
+        is up to the individual pragma semantics.
+        </p>
 
 <h2><a name="Predefined-Pragmas">Predefined Pragmas</a></h2>
 
-	<p>All implementations must support these, even if by just ignoring
-	them:
-	</p>
+        <p>All implementations must support these, even if by just ignoring
+        them:
+        </p>
 
     <dl>    <dt><b>msg</b></dt>
     <dd>Prints a message while compiling, the <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s must
-	be string literals:
+        be string literals:
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">pragma</span>(msg, <span class="d_string">"compiling..."</span>);
 </span></pre>
     </dd>
 
     <dt><b>lib</b></dt>
     <dd>Inserts a directive in the object file to link in the library
-	specified by the <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>.
-	The <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s must be a string literal:
+        specified by the <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>.
+        The <a href="expression.html#AssignExpression"><i>AssignExpression</i></a>s must be a string literal:
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">pragma</span>(lib, <span class="d_string">"foo.lib"</span>);
 </span></pre>
     </dd>
    <dt><b>startaddress</b></dt>
     <dd>Puts a directive into the object file saying that the
-	function specified in the first argument will be the
-	start address for the program:
+        function specified in the first argument will be the
+        start address for the program:
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> foo() { ... }
 <span class="d_keyword">pragma</span>(startaddress, foo);
 </span></pre>
-	This is not normally used for application level programming,
-	but is for specialized systems work.
-	For applications code, the start address is taken care of
-	by the runtime library.
+        This is not normally used for application level programming,
+        but is for specialized systems work.
+        For applications code, the start address is taken care of
+        by the runtime library.
     </dd>
 
 
@@ -245,22 +246,23 @@ function bodyLoad()
 
 <h2>Vendor Specific Pragmas</h2>
 
-	<p>Vendor specific pragma <i>Identifier</i>s can be defined if they
-	are prefixed by the vendor's trademarked name, in a similar manner
-	to version identifiers:
-	</p>
+        <p>Vendor specific pragma <i>Identifier</i>s can be defined if they
+        are prefixed by the vendor's trademarked name, in a similar manner
+        to version identifiers:
+        </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">pragma</span>(DigitalMars_funky_extension) { ... }
 </span></pre>
 
-	<p>Compilers must diagnose an error for unrecognized <i>Pragma</i>s,
-	even if they are vendor specific ones. This implies that vendor
-	specific pragmas should be wrapped in version statements:
-	</p>
+        <p>Compilers must diagnose an error for unrecognized <i>Pragma</i>s,
+        even if they are vendor specific ones. This implies that vendor
+        specific pragmas should be wrapped in version statements:
+        </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">version</span> (DigitalMars)
 {
-    <span class="d_keyword">pragma</span>(DigitalMars_funky_extension) { ... }
+    <span class="d_keyword">pragma</span>(DigitalMars_funky_extension)
+    { ... }
 }
 </span></pre>
 

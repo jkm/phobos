@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Application Binary Interface - D Programming Language 2.0 - Digital Mars</title>
+<title>Application Binary Interface - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,11 +156,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/ABI">Comment on this page</a></span>
 </div>
-  <h1>          D Application Binary Interface</h1>
+  <h1>Application Binary Interface</h1>
   	<p>A D implementation that conforms to the D ABI (Application Binary
 	Interface)
 	will be able to generate libraries, DLL's, etc., that can interoperate
@@ -186,36 +187,22 @@ function bodyLoad()
 
 
 <h3>Basic Types</h3>
-	<dl><dt>bool</dt>
-	<dd>8 bit byte with the values 0 for false and 1 for true</dd>
-	<dt>byte</dt>
-	<dd>8 bit signed value</dd>
-	<dt>ubyte</dt>
-	<dd>8 bit unsigned value</dd>
-	<dt>short</dt>
-	<dd>16 bit signed value</dd>
-	<dt>ushort</dt>
-	<dd>16 bit unsigned value</dd>
-	<dt>int</dt>
-	<dd>32 bit signed value</dd>
-	<dt>uint</dt>
-	<dd>32 bit unsigned value</dd>
-	<dt>long</dt>
-	<dd>64 bit signed value</dd>
-	<dt>ulong</dt>
-	<dd>64 bit unsigned value</dd>
-	<dt>cent</dt>
-	<dd>128 bit signed value</dd>
-	<dt>ucent</dt>
-	<dd>128 bit unsigned value</dd>
-	<dt>float</dt>
-	<dd>32 bit IEEE 754 floating point value</dd>
-	<dt>double</dt>
-	<dd>64 bit IEEE 754 floating point value</dd>
-	<dt>real</dt>
-	<dd>implementation defined floating point value, for x86 it is
-	 80 bit IEEE 754 extended real</dd>
-	</dl>
+	<table border=1 cellpadding=4 cellspacing=0><tr><td>bool</td><td>8 bit byte with the values 0 for false and 1 for true</td></tr>
+	<tr><td>byte</td><td>8 bit signed value</td></tr>
+	<tr><td>ubyte</td><td>8 bit unsigned value</td></tr>
+	<tr><td>short</td><td>16 bit signed value</td></tr>
+	<tr><td>ushort</td><td>16 bit unsigned value</td></tr>
+	<tr><td>int</td><td>32 bit signed value</td></tr>
+	<tr><td>uint</td><td>32 bit unsigned value</td></tr>
+	<tr><td>long</td><td>64 bit signed value</td></tr>
+	<tr><td>ulong</td><td>64 bit unsigned value</td></tr>
+	<tr><td>cent</td><td>128 bit signed value</td></tr>
+	<tr><td>ucent</td><td>128 bit unsigned value</td></tr>
+	<tr><td>float</td><td>32 bit IEEE 754 floating point value</td></tr>
+	<tr><td>double</td><td>64 bit IEEE 754 floating point value</td></tr>
+	<tr><td>real</td><td>implementation defined floating point value, for x86 it is
+	 80 bit IEEE 754 extended real</td></tr>
+	</table>
 
 
 <h3>Delegates</h3>
@@ -266,8 +253,8 @@ function bodyLoad()
 
 	<p>An adjustor thunk looks like:</p>
 
-<pre class="ccode"><span class="notranslate">   ADD EAX,offset
-    JMP method
+<pre class="ccode"><span class="notranslate"> ADD EAX,offset
+  JMP method
 </span></pre>
 
 	<p>The leftmost side of the inheritance graph of the interfaces all share
@@ -280,9 +267,8 @@ function bodyLoad()
 
 	<p>The class definition:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> XXXX
-{
-    ....
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> XXXX {
+  ....
 };
 </span></pre>
 
@@ -347,7 +333,7 @@ function bodyLoad()
 	defined type.
 	
 	The current implementation is contained in and defined by
-	 <a href="http://www.dsource.org/projects/druntime/browser/trunk/src/rt/aaA.d">rt/aaA.d</a>.
+	 <a href="https://github.com/D-Programming-Language/druntime/blob/master/src/rt/aaA.d">rt/aaA.d</a>.
 	</p>
 
 
@@ -368,7 +354,7 @@ function bodyLoad()
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> func(<span class="d_keyword">int</span>[3] array); <span class="d_comment">// actually &lt;reference to&gt;&lt;array[3] of&gt;&lt;int&gt;
 </span><span class="d_keyword">void</span> func(<span class="d_keyword">int</span>* p);       <span class="d_comment">// abc is converted to a pointer
-</span>			 <span class="d_comment">// to the first element
+</span>                         <span class="d_comment">// to the first element
 </span><span class="d_keyword">void</span> func(<span class="d_keyword">int</span>[] array);	 <span class="d_comment">// abc is converted to a dynamic array
 </span></span></pre>
 
@@ -419,6 +405,7 @@ function bodyLoad()
     <b>e</b> <i>HexFloat</i>
     <b>c</b> <i>HexFloat</i> <b>c</b> <i>HexFloat</i>
     <b>A</b> <i>Number</i> <i>Value</i>...
+    <b>S</b> <i>Number</i> <i>Value</i>...
 
 <i>HexFloat</i>:
     <b>NAN</b>
@@ -445,7 +432,7 @@ function bodyLoad()
     <b>F</b>
 </span></pre>
 
-<dl><dt><i>n</i></dt>
+<dl><dt><b>n</b></dt>
 	<dd>is for <b>null</b> arguments.</dd>
 
 	<dt><i>Number</i></dt>
@@ -469,8 +456,16 @@ function bodyLoad()
 	</dd>
 
 	<dt><b>A</b> <i>Number</i> <i>Value</i>...</dt>
-	<dd>An array literal. <i>Value</i> is repeated <i>Number</i> times.
+	<dd>An array or asssociative array literal.
+	<i>Number</i> is the length of the array. 
+	<i>Value</i> is repeated <i>Number</i> times for a normal array,
+	and 2 * <i>Number</i> times for an associative array.
 	</dd>
+
+	<dt><b>S</b> <i>Number</i> <i>Value</i>...</dt>
+	<dd>A struct literal. <i>Value</i> is repeated <i>Number</i> times.
+	</dd>
+
 </dl>
 
 <pre class="bnf"><span class="notranslate"><i>Name</i>:
@@ -593,11 +588,11 @@ function bodyLoad()
     <i>CallConvention</i> <i>FuncAttrs</i> <i>Arguments</i> <i>ArgClose</i> <i>Type</i>
 
 <i>CallConvention</i>:
-    <b>F</b>       <font color=green>// D</font>
-    <b>U</b>       <font color=green>// C</font>
-    <b>W</b>       <font color=green>// Windows</font>
-    <b>V</b>       <font color=green>// Pascal</font>
-    <b>R</b>       <font color=green>// C++</font>
+    <b>F</b>       <span style="color:green">// D</span>
+    <b>U</b>       <span style="color:green">// C</span>
+    <b>W</b>       <span style="color:green">// Windows</span>
+    <b>V</b>       <span style="color:green">// Pascal</span>
+    <b>R</b>       <span style="color:green">// C++</span>
 
 <i>FuncAttrs</i>:
     <i>FuncAttr</i>
@@ -637,18 +632,18 @@ function bodyLoad()
 
 <i>Argument:</i>
    <i>Argument2</i>
-    <b>M</b> <i>Argument2</i>     <font color=green>// scope</font>
+    <b>M</b> <i>Argument2</i>     <span style="color:green">// scope</span>
 
 <i>Argument2:</i>
     <i>Type</i>
-    <b>J</b> <i>Type</i>     <font color=green>// out</font>
-    <b>K</b> <i>Type</i>     <font color=green>// ref</font>
-    <b>L</b> <i>Type</i>     <font color=green>// lazy</font>
+    <b>J</b> <i>Type</i>     <span style="color:green">// out</span>
+    <b>K</b> <i>Type</i>     <span style="color:green">// ref</span>
+    <b>L</b> <i>Type</i>     <span style="color:green">// lazy</span>
 
 <i>ArgClose</i>
-    <b>X</b>     <font color=green>// variadic T t,...) style</font>
-    <b>Y</b>     <font color=green>// variadic T t...) style</font>
-    <b>Z</b>     <font color=green>// not variadic</font>
+    <b>X</b>     <span style="color:green">// variadic T t...) style</span>
+    <b>Y</b>     <span style="color:green">// variadic T t,...) style</span>
+    <b>Z</b>     <span style="color:green">// not variadic</span>
 
 <i>TypeIdent</i>:
     <b>I</b> <i>LName</i>

@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Operator Overloading - D Programming Language 2.0 - Digital Mars</title>
+<title>Operator Overloading - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,11 +156,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:27 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/OperatorOverloading">Comment on this page</a></span>
 </div>
-  <h1>          Operator Overloading</h1>
+  <h1>Operator Overloading</h1>
   <p>Operator overloading is accomplished by rewriting operators whose
 	operands are class or struct objects into calls to specially named
 	member functions. No additional syntax is used.
@@ -213,15 +214,15 @@ function bodyLoad()
 	no other operator:</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
-    <span class="d_keyword">int</span> m;
+  <span class="d_keyword">int</span> m;
 
-    <span class="d_keyword">int</span> opUnary(string s)() <span class="d_keyword">if</span> (s == <span class="d_string">"-"</span>) {
-        <span class="d_keyword">return</span> -m;
-    }
+  <span class="d_keyword">int</span> opUnary(string s)() <span class="d_keyword">if</span> (s == <span class="d_string">"-"</span>) {
+    <span class="d_keyword">return</span> -m;
+  }
 }
 
 <span class="d_keyword">int</span> foo(S s) {
-    <span class="d_keyword">return</span> -s;
+  <span class="d_keyword">return</span> -s;
 }
 </span></pre>
 
@@ -392,12 +393,12 @@ b.opBinaryRight!(<span class="d_string">"<i>op</i>"</span>)(a)
 <ol><li>If a and b are both class objects, then the expression is rewritten as:
 <pre class="d_code"><span class="notranslate">.object.opEquals(a, b)
 </span></pre>
-	and that function is implemented as:
+	<p>and that function is implemented as:</p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">bool</span> opEquals(Object a, Object b) {
-    <span class="d_keyword">if</span> (a <span class="d_keyword">is</span> b) <span class="d_keyword">return</span> <span class="d_keyword">true</span>;
-    <span class="d_keyword">if</span> (a <span class="d_keyword">is</span> <span class="d_keyword">null</span> || b <span class="d_keyword">is</span> <span class="d_keyword">null</span>) <span class="d_keyword">return</span> <span class="d_keyword">false</span>;
-    <span class="d_keyword">if</span> (<span class="d_keyword">typeid</span>(a) == <span class="d_keyword">typeid</span>(b)) <span class="d_keyword">return</span> a.opEquals(b);
-    <span class="d_keyword">return</span> a.opEquals(b) &amp;&amp; b.opEquals(a);
+  <span class="d_keyword">if</span> (a <span class="d_keyword">is</span> b) <span class="d_keyword">return</span> <span class="d_keyword">true</span>;
+  <span class="d_keyword">if</span> (a <span class="d_keyword">is</span> <span class="d_keyword">null</span> || b <span class="d_keyword">is</span> <span class="d_keyword">null</span>) <span class="d_keyword">return</span> <span class="d_keyword">false</span>;
+  <span class="d_keyword">if</span> (<span class="d_keyword">typeid</span>(a) == <span class="d_keyword">typeid</span>(b)) <span class="d_keyword">return</span> a.opEquals(b);
+  <span class="d_keyword">return</span> a.opEquals(b) &amp;&amp; b.opEquals(a);
 }
 </span></pre>
 	</li>
@@ -413,14 +414,14 @@ b.opBinaryRight!(<span class="d_string">"<i>op</i>"</span>)(a)
 	<p>If overridding Object.opEquals() for classes, the class member function
 	signature should look like:</p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> C {
-    <span class="d_keyword">override</span> <span class="d_keyword">bool</span> opEquals(Object o) { ... }
+  <span class="d_keyword">override</span> <span class="d_keyword">bool</span> opEquals(Object o) { ... }
 }
 </span></pre>
 
 	<p>If structs declare an opEquals member function, it should follow the following
 	form:</p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
-    <span class="d_keyword">int</span> opEquals(<span class="d_keyword">ref</span> <span class="d_keyword">const</span> S s) { ... }
+  <span class="d_keyword">int</span> opEquals(<span class="d_keyword">ref</span> <span class="d_keyword">const</span> S s) { ... }
 }
 </span></pre>
 
@@ -446,14 +447,14 @@ b.opBinaryRight!(<span class="d_string">"<i>op</i>"</span>)(a)
 	<p>If overriding Object.opCmp() for classes, the class member function
 	signature should look like:</p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> C {
-    <span class="d_keyword">override</span> <span class="d_keyword">int</span> opCmp(Object o) { ... }
+  <span class="d_keyword">override</span> <span class="d_keyword">int</span> opCmp(Object o) { ... }
 }
 </span></pre>
 
 	<p>If structs declare an opCmp member function, it should follow the following
 	form:</p>
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
-    <span class="d_keyword">int</span> opCmp(<span class="d_keyword">ref</span> <span class="d_keyword">const</span> S s) { ... }
+  <span class="d_keyword">int</span> opCmp(<span class="d_keyword">ref</span> <span class="d_keyword">const</span> S s) { ... }
 }
 </span></pre>
 
@@ -463,18 +464,17 @@ b.opBinaryRight!(<span class="d_string">"<i>op</i>"</span>)(a)
 	declaring a function named <b>opCall</b>:
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> F
-{
-    <span class="d_keyword">int</span> <b>opCall</b>();
-    <span class="d_keyword">int</span> <b>opCall</b>(<span class="d_keyword">int</span> x, <span class="d_keyword">int</span> y, <span class="d_keyword">int</span> z);
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> F {
+  <span class="d_keyword">int</span> <b>opCall</b>();
+  <span class="d_keyword">int</span> <b>opCall</b>(<span class="d_keyword">int</span> x, <span class="d_keyword">int</span> y, <span class="d_keyword">int</span> z);
 }
 
-<span class="d_keyword">void</span> test()
-{   F f;
-    <span class="d_keyword">int</span> i;
+<span class="d_keyword">void</span> test() {
+  F f;
+  <span class="d_keyword">int</span> i;
 
-    i = f<b>()</b>;		<span class="d_comment">// same as i = f.opCall();
-</span>    i = f<b>(3,4,5)</b>;	<span class="d_comment">// same as i = f.opCall(3,4,5);
+  i = f<b>()</b>;      <span class="d_comment">// same as i = f.opCall();
+</span>  i = f<b>(3,4,5)</b>; <span class="d_comment">// same as i = f.opCall(3,4,5);
 </span>}
 </span></pre>
 
@@ -516,15 +516,14 @@ opAssign(T, U = defaultValue, etc.)
 	as <tt><span class="notranslate">a.opIndexAssign(c, <i>b</i><sub>1</sub>, <i>b</i><sub>2</sub>, ... <i>b</i><sub>n</sub>)</span></tt>.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A
-{
-    <span class="d_keyword">int</span> <b>opIndexAssign</b>(<span class="d_keyword">int</span> value, size_t i1, size_t i2);
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A {
+  <span class="d_keyword">int</span> <b>opIndexAssign</b>(<span class="d_keyword">int</span> value, size_t i1, size_t i2);
 }
 
-<span class="d_keyword">void</span> test()
-{   A a;
+<span class="d_keyword">void</span> test() {
+  A a;
 
-    a<b>[</b>i,3<b>]</b> = 7;		<span class="d_comment">// same as a.opIndexAssign(7,i,3);
+  a<b>[</b>i,3<b>]</b> = 7;  <span class="d_comment">// same as a.opIndexAssign(7,i,3);
 </span>}
 </span></pre>
 
@@ -538,18 +537,17 @@ opAssign(T, U = defaultValue, etc.)
 	<tt><span class="notranslate">a[] = c</span></tt> as <tt><span class="notranslate">a.opSliceAssign(c)</span></tt>.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A
-{
-    <span class="d_keyword">int</span> <b>opSliceAssign</b>(<span class="d_keyword">int</span> v);			  <span class="d_comment">// overloads a[] = v
-</span>    <span class="d_keyword">int</span> <b>opSliceAssign</b>(<span class="d_keyword">int</span> v, size_t x, size_t y); <span class="d_comment">// overloads a[i .. j] = v
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A {
+  <span class="d_keyword">int</span> <b>opSliceAssign</b>(<span class="d_keyword">int</span> v);  <span class="d_comment">// overloads a[] = v
+</span>  <span class="d_keyword">int</span> <b>opSliceAssign</b>(<span class="d_keyword">int</span> v, size_t x, size_t y);  <span class="d_comment">// overloads a[i .. j] = v
 </span>}
 
-<span class="d_keyword">void</span> test()
-{   A a;
-    <span class="d_keyword">int</span> v;
+<span class="d_keyword">void</span> test() {
+  A a;
+  <span class="d_keyword">int</span> v;
 
-    a<b>[]</b> = v;		<span class="d_comment">// same as a.opSliceAssign(v);
-</span>    a<b>[</b>3..4<b>]</b> = v;	<span class="d_comment">// same as a.opSliceAssign(v,3,4);
+  a<b>[]</b> = v;  <span class="d_comment">// same as a.opSliceAssign(v);
+</span>  a<b>[</b>3..4<b>]</b> = v;  <span class="d_comment">// same as a.opSliceAssign(v,3,4);
 </span>}
 </span></pre>
 
@@ -615,16 +613,15 @@ opAssign(T, U = defaultValue, etc.)
 	or more parameters.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A
-{
-    <span class="d_keyword">int</span> <b>opIndex</b>(size_t i1, size_t i2, size_t i3);
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> A {
+  <span class="d_keyword">int</span> <b>opIndex</b>(size_t i1, size_t i2, size_t i3);
 }
 
-<span class="d_keyword">void</span> test()
-{   A a;
-    <span class="d_keyword">int</span> i;
+<span class="d_keyword">void</span> test() {
+  A a;
+  <span class="d_keyword">int</span> i;
 
-    i = a<b>[</b>5,6,7<b>]</b>;	<span class="d_comment">// same as i = a.opIndex(5,6,7);
+  i = a<b>[</b>5,6,7<b>]</b>;  <span class="d_comment">// same as i = a.opIndex(5,6,7);
 </span>}
 </span></pre>
 
@@ -644,19 +641,18 @@ opAssign(T, U = defaultValue, etc.)
 	This can be done by declaring a member function named <b>opSlice</b>.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> A
-{
-    <span class="d_keyword">int</span> <b>opSlice</b>();		 		  <span class="d_comment">// overloads a[]
-</span>    <span class="d_keyword">int</span> <b>opSlice</b>(size_t x, size_t y);		  <span class="d_comment">// overloads a[i .. j]
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> A {
+  <span class="d_keyword">int</span> <b>opSlice</b>();  <span class="d_comment">// overloads a[]
+</span>  <span class="d_keyword">int</span> <b>opSlice</b>(size_t x, size_t y); <span class="d_comment">// overloads a[i .. j]
 </span>}
 
-<span class="d_keyword">void</span> test()
-{   A a = <span class="d_keyword">new</span> A();
-    <span class="d_keyword">int</span> i;
-    <span class="d_keyword">int</span> v;
+<span class="d_keyword">void</span> test() {
+  A a = <span class="d_keyword">new</span> A();
+  <span class="d_keyword">int</span> i;
+  <span class="d_keyword">int</span> v;
 
-    i = a<b>[]</b>;		<span class="d_comment">// same as i = a.opSlice();
-</span>    i = a<b>[</b>3..4<b>]</b>;	<span class="d_comment">// same as i = a.opSlice(3,4);
+  i = a<b>[]</b>;         <span class="d_comment">// same as i = a.opSlice();
+</span>  i = a<b>[</b>3..4<b>]</b>;  <span class="d_comment">// same as i = a.opSlice(3,4);
 </span>}
 </span></pre>
 
@@ -672,42 +668,36 @@ opAssign(T, U = defaultValue, etc.)
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">import</span> std.stdio;
 
-<span class="d_keyword">struct</span> S
-{
-    <span class="d_keyword">void</span> opDispatch(string s, T)(T i)
-    {
-	writefln(<span class="d_string">"S.opDispatch('%s', %s)"</span>, s, i);
-    }
+<span class="d_keyword">struct</span> S {
+  <span class="d_keyword">void</span> opDispatch(string s, T)(T i)
+  {
+    writefln(<span class="d_string">"S.opDispatch('%s', %s)"</span>, s, i);
+  }
 }
 
-<span class="d_keyword">class</span> C
-{
-    <span class="d_keyword">void</span> opDispatch(string s)(<span class="d_keyword">int</span> i)
-    {
-	writefln(<span class="d_string">"C.opDispatch('%s', %s)"</span>, s, i);
-    }
+<span class="d_keyword">class</span> C {
+  <span class="d_keyword">void</span> opDispatch(string s)(<span class="d_keyword">int</span> i) {
+    writefln(<span class="d_string">"C.opDispatch('%s', %s)"</span>, s, i);
+  }
 }
 
-<span class="d_keyword">struct</span> D
-{
-    <span class="d_keyword">template</span> opDispatch(string s)
-    {
-	<span class="d_keyword">enum</span> <span class="d_keyword">int</span> opDispatch = 8;
-    }
+<span class="d_keyword">struct</span> D {
+  <span class="d_keyword">template</span> opDispatch(string s) {
+    <span class="d_keyword">enum</span> <span class="d_keyword">int</span> opDispatch = 8;
+  }
 }
 
-<span class="d_keyword">void</span> main()
-{
-    S s;
-    s.opDispatch!(<span class="d_string">"hello"</span>)(7);
-    s.foo(7);
+<span class="d_keyword">void</span> main() {
+  S s;
+  s.opDispatch!(<span class="d_string">"hello"</span>)(7);
+  s.foo(7);
 
-    <span class="d_keyword">auto</span> c = <span class="d_keyword">new</span> C();
-    c.foo(8);
+  <span class="d_keyword">auto</span> c = <span class="d_keyword">new</span> C();
+  c.foo(8);
 
-    D d;
-    writefln(<span class="d_string">"d.foo = %s"</span>, d.foo);
-    <span class="d_keyword">assert</span>(d.foo == 8);
+  D d;
+  writefln(<span class="d_string">"d.foo = %s"</span>, d.foo);
+  <span class="d_keyword">assert</span>(d.foo == 8);
 }
 </span></pre>
 

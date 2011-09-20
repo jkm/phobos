@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>D and C++0x - D Programming Language 2.0 - Digital Mars</title>
+<title>D and C++0x - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,24 +68,8 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
-<ul><li><a href="overview.html" title="D language overview">Overview</a>
-
-    <div class="navblock">
-<ul><li><a href="wc.html" title="wc - the wordcount program">Example: wc</a></li>
-	<li><a href="warnings.html" title="Explanation of D compiler generated warning messages">Warnings</a></li>
-	<li><a href="builtin.html">   Rationale for Builtins</a></li>
-	<li><a href="ctod.html">      Converting C to D</a></li>
-	<li><a href="cpptod.html">    Converting C++ to D</a></li>
-	<li><a href="pretod.html">The C Preprocessor vs D</a></li>
-	<li><a href="template-comparison.html">D templates compared</a></li>
-	<li><a href="cppstrings.html">D strings vs C++ std::string</a></li>
-	<li><a href="cppcomplex.html">D complex vs C++ std::complex</a></li>
-	<li><a href="cppdbc.html">    D Contract Programming vs C++</a></li>
-	<li><a href="lisp-java-d.html">Lisp vs. Java... D?</a></li>
-	<li><a href="cpp0x.html">D and C++0x</a></li>
-</ul>
-</div></li>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
+<ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
 	<li><a href="faq.html" title="Frequently Asked Questions">FAQ</a></li>
@@ -106,11 +90,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -131,14 +116,13 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:30 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Cpp0x">Comment on this page</a></span>
 </div>
-  <h1>          D and C++0x</h1>
+  <h1>D and C++0x</h1>
   
-
-	<p>	C++ is undergoing an upgrade to a new standard, commonly referred
+	<p>C++ is undergoing an upgrade to a new standard, commonly referred
 	to as C++0x.
 	This article covers the highlights of
 	<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2597.html">C++0x core language changes</a>
@@ -151,8 +135,7 @@ function bodyLoad()
 	</p>
 
 <h3>Proposed C++0x Features</h3>
-
-	<ul>	<li><a href="#rvalue-reference">A Proposal to Add an Rvalue Reference to the C++ Language</a></li>
+	<ul><li><a href="#rvalue-reference">A Proposal to Add an Rvalue Reference to the C++ Language</a></li>
 	<li><a href="#class-rvalue">Clarification of Initialization of Class Objects by rvalues</a></li>
 	<li><a href="#move-semantics">Extending Move Semantics To *this (Revision 2)</a></li>
 	<li><a href="#static-assert">static_assert</a></li>
@@ -198,7 +181,7 @@ function bodyLoad()
 	<li><a href="#atomic-signals">Allow atomics use in signal handlers</a></li>
 	</ul>
 
-	<ul>	<li><a href="#local-classes">Making Local Classes more Useful</a></li>
+	<ul><li><a href="#local-classes">Making Local Classes more Useful</a></li>
 	<li><a href="#initializer-lists">Initializer lists</a></li>
 	<li><a href="#thread-local-storage">Thread-Local Storage</a></li>
 	<li><a href="#member-initializers">Member Initializers</a></li>
@@ -207,7 +190,7 @@ function bodyLoad()
 	<li><a href="#general-attributes">General Attributes for C++</a></li>
 	</ul>
 
-	<ul>	<li><a href="#extensible-literals">Extensible Literals</a></li>
+	<ul><li><a href="#extensible-literals">Extensible Literals</a></li>
 	<li><a href="#dynamic-concurrency">Dynamic initialization and concurrency</a></li>
 	<li><a href="#garbage-collection">Minimal Support for Garbage Collection and Reachability-Based Leak Detection</a></li>
 	<li><a href="#forward-enums">Forward declaration of enumerations</a></li>
@@ -215,28 +198,24 @@ function bodyLoad()
 
 
 <h3><a name="rvalue-reference">A Proposal to Add an Rvalue Reference to the C++ Language</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1770.html">N1770</a>: TBD
 	</p>
 
 
 
 <h3><a name="class-rvalue">Clarification of Initialization of Class Objects by rvalues</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1610.html">N1610</a>: TBD
 	</p>
 
 
 
 <h3><a name="move-semantics">Extending Move Semantics To *this (Revision 2)</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2439.htm">N2439</a>: TBD
 	</p>
 
 
 
 <h3><a name="static-assert">static_assert</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1720.html">N1720</a>:
 	<a href="version.html#StaticAssert">static assert</a> is
 	part of D.
@@ -245,7 +224,6 @@ function bodyLoad()
 
 
 <h3><a name="template-aliases">Template aliases for C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf">N2258</a>:
 	Both <a href="template.html">templates and template instantiations</a>
 	can be <a href="declaration.html#alias">aliased</a>:
@@ -259,7 +237,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="extern-template">Extern template</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1987.htm">N1987</a>:
 	This is a workaround for problems in the traditional compile/link
 	build model.
@@ -273,7 +250,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="variadic-templates">Variadic Templates</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2242.pdf">N2242</a>:
 	D's <a href="template.html#variadic-templates">variadic templates</a>.
 	</p>
@@ -281,14 +257,12 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="variadic-template-templates">Extending Variadic Template Template Parameters</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2555.pdf">N2555</a>: TBD
 	</p>
 
 
 
 <h3><a name="nullptr">A name for the null pointer: nullptr</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2431.pdf">N2431</a>:
 	D has the <a href="expression.html#null">null</a> equivalent.
 	</p>
@@ -296,12 +270,11 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="strong-enums">Strongly Typed Enums</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2347.pdf">N2347</a>:
 	D <a href="enum.html">enums</a> are:
 	</p>
 
-	<ol>	<li>Comparisons between different enum types should be an error,
+	<ol><li>Comparisons between different enum types should be an error,
 	but is not:
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> main() {
     <span class="d_keyword">enum</span> Color { ClrRed, ClrOrange, ClrYellow, ClrGreen, ClrBlue, ClrViolet };
@@ -324,7 +297,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="extended-friends">Extended friend Declarations</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1791.pdf">N1791</a>:
 	All code in a module has
 	<a href="attribute.html#ProtectionAttribute">access</a>
@@ -340,14 +312,13 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="constant-expressions">Generalized Constant Expressions</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2235.pdf">N2235</a>:
 	D has <a href="function.html#interpretation">compile time function execution</a>
 	(CTFE). CTFE is much more flexible, as functions to be evaluated
 	at compile time:
 	</p>
 
-	<ol>	<li>do not require a special keyword (C++0x requires <tt><span class="notranslate">constexpr</span></tt>)</li>
+	<ol><li>do not require a special keyword (C++0x requires <tt><span class="notranslate">constexpr</span></tt>)</li>
 	<li>can have multiple statements in the function</li>
 	<li>can be recursive</li>
 	<li>can modify local variables</li>
@@ -357,7 +328,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="namespace-association">Namespace Association ("Strong Using")</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2535.html">N2535</a>:
 	D doesn't have namespaces,
 	so this is irrelevant.
@@ -366,7 +336,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="c99-preprocessor">Synchronizing the C++ preprocessor with C99</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1653.htm">N1653</a>:
 	D does not have a preprocessor,
 	so this is not relevant to D.
@@ -375,7 +344,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="alignment">Adding Alignment Support to the C++ Programming Language</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2341.pdf">N2341</a>:
 	D has the <a href="attribute.html#align">align</a>
 	attribute to specify the alignment
@@ -387,7 +355,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="conditional">Conditionally-Supported Behavior</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1627.pdf">N1627</a>:
 	There are some allowed vendor specific behaviors in D,
 	such as <a href="pragma.html">pragmas</a>.
@@ -396,7 +363,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="undefined-behavior">Changing Undefined Behavior into Diagnosable Errors</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2004/n1727.pdf">N1727</a>:
 	D does not have undefined behavior with integer literal types,
 	character escapes, or passing non-POD objects to ellipses.
@@ -405,7 +371,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="long-long">Adding the long long type to C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1811.pdf">N1811</a>:
 	D's <a href="type.html">long</a> type is equivalent.
 	</p>
@@ -413,7 +378,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="extended-integer-types">Adding extended integer types to C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1988.pdf">N1988</a>:
 	D has the <a href="type.html">cent and
 	ucent</a> types for
@@ -426,7 +390,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="delegating-ctors">Delegating Constructors</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1986.pdf">N1986</a>:
 	D has
 	<a href="class.html#delegating-constructors">delegating constructors</a>.
@@ -435,14 +398,12 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="explicit-conversion">Explicit Conversion Operators</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2437.html">N2437</a>: TBD
 	</p>
 
 
 
 <h3><a name="char16_t">New Character Types in C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2249.html">N2249</a>:
 	C++0x adds new character types char16_t and char32_t,
 	which are equivalent to D's <a href="type.html">wchar and dchar types</a>.
@@ -453,7 +414,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="right-angle-brackets">Right Angle Brackets</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2005/n1757.html">N1757</a>:
 	Since D uses !( ) to instantiate templates rather than
 	&lt; &gt;, there are no parsing ambiguities and
@@ -463,7 +423,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="type-deduction">Deducing the type of variable from its initializer expression</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n1984.pdf">N1984</a>:
 	D has <a href="declaration.html#AutoDeclaration">type inference</a>
 	from initializers.
@@ -472,7 +431,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="auto-declarations">The Syntax of auto Declarations</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2546.html">N2546</a>:
 	D <a href="attribute.html#auto">auto declarations</a>
 	do not have syntactic issues.
@@ -481,51 +439,44 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="inheriting-ctors">Inheriting Constructors</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2540.html">N2540</a>: TBD
 	</p>
 
 
 
 <h3><a name="sequence-points">A finer-grained alternative to sequence points</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2239.htm">N2239</a>: TBD
 	</p>
 
 
 
 <h3><a name="lambda">(monomorphic) Lambda expressions and closures for C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2550.pdf">N2550</a>:
-	D has <a href="expression.html#FunctionLiteral">lambda expressions</a> and
+	D has <a href="expression.html#FunctionLiteral"><i>FunctionLiteral</i></a>s (lambda expressions) and
 	<a href="function.html#closures">closures</a>.
 	</p>
 
 
 
 <h3><a name="__func__">Proposed addition of __func__ predefined identifier from C99</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2340.html">N2340</a>: TBD
 	</p>
 
 
 
 <h3><a name="atomic">Atomic operations with multi-threaded environments</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2427.html">N2427</a>: TBD
 	</p>
 
 
 
 <h3><a name="concurrency">Sequencing and the concurrency memory model</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2429.htm">N2429</a>: TBD
 	</p>
 
 
 
 <h3><a name="raw-strings">Raw String Literals</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2442.html">N2442</a>:
 	D has <a href="lex.html#StringLiteral">wysiwyg and delimited strings</a>,
 	and all strings are Unicode.
@@ -534,7 +485,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="pod">PODs unstrung</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2294.html">N2294</a>:
 	All D <a href="struct.html">structs</a> are
 	<a href="glossary.html#pod">POD (Plain Old Data)</a>.
@@ -544,14 +494,12 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="exceptions">Propagating exceptions when joining threads</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2179.html">N2179</a>: TBD
 	</p>
 
 
 
 <h3><a name="decltype">Decltype</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2343.pdf">N2343</a>:
 	The equivalent D construct is <a href="declaration.html#typeof">typeof</a>.
 	</p>
@@ -559,7 +507,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="sizeof">Extending sizeof</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2253.html">N2253</a>:
 	Using <a href="property.html#sizeof">sizeof</a> without a <i>this</i> object:
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
@@ -579,7 +526,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="utf8-literals">UTF-8 Literals</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2442.html">N2442</a>:
 	<a href="lex.html#StringLiteral">Char string literals</a>
 	are in UTF-8 format.
@@ -588,7 +534,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="ucs-in-literals">Universal Character Names in Literals</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2170.html">N2170</a>:
 	All Unicode characters are allowed in
 	<a href="lex.html#StringLiteral">string literals</a>.
@@ -599,7 +544,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="defaulted">Defaulted and Deleted Functions</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers//2007/n2326.html#delete">N2326</a>:
 	D alows individual functions to be marked as <a href="attribute.html#disable">disabled</a>.
 	</p>
@@ -608,42 +552,36 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="unions">Unrestricted Unions</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2544.pdf">N2544</a>: TBD
 	</p>
 
 
 
 <h3><a name="library">A Multi-threading Library for Standard C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2447.html">N2447</a>: TBD
 	</p>
 
 
 
 <h3><a name="abandoning">Abandoning a Process</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2440.html">N2440</a>: TBD
 	</p>
 
 
 
 <h3><a name="return-types">New function declaration syntax for deduced return types</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2445.html">N2445</a>: TBD
 	</p>
 
 
 
 <h3><a name="atomic-signals">Allow atomics use in signal handlers</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2547.htm">N2547</a>: TBD
 	</p>
 
 
 
 <h3><a name="local-classes">Making Local Classes more Useful</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2402.pdf">N2402</a>:
 	D has no restrictions on using local classes as template
 	parameters.
@@ -652,7 +590,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="initializer-lists">Initializer lists</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2531.pdf">N2531</a>:
 	D has
 	<a href="struct.html#StructLiteral">struct literals</a>,
@@ -663,7 +600,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="thread-local-storage">Thread-Local Storage</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2280.html">N2280</a>:
 	Thread-local storage is the default for statics and globals
 	in D. Thread-global storage is done by using the
@@ -674,7 +610,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="member-initializers">Member Initializers</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2426.htm">N2426</a>:
 	D has
 	<a href="class.html#class-default-initializer">member initializers</a>,
@@ -684,7 +619,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="concepts">Concepts (unified proposal)</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2006/n2081.pdf">N2081</a>:
 	 The D equivalent of C++ concepts are <a href="concepts.html">constraints</a>.
 	 (As of <a href="http://www.ddj.com/cpp/218600111">July 2009</a>,
@@ -692,79 +626,78 @@ Y y;  <span class="d_comment">// x and y are the same type
 	</p>
 
 	<table border=1 cellpadding=4 cellspacing=0><caption>Concepts and Constraints</caption>
-
-	<tr>	<th scope="col">Description</th>
+	<tr><th scope="col">Description</th>
 	<th scope="col">D Constraints</th>
 	<th scope="col">C++0x Concepts</th>
 	</tr>
 
-	<tr>	<td>Overloading based on concepts/constraints</td>
+	<tr><td>Overloading based on concepts/constraints</td>
 	<td>Yes</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Concepts/constraints on template type parameters</td>
+	<tr><td>Concepts/constraints on template type parameters</td>
 	<td>Yes</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Concepts/constraints on template value parameters</td>
+	<tr><td>Concepts/constraints on template value parameters</td>
 	<td>Yes</td>
 	<td>No</td>
 	</tr>
 
-	<tr>	<td>Concepts/constraints on template template/alias parameters</td>
+	<tr><td>Concepts/constraints on template template/alias parameters</td>
 	<td>Yes</td>
 	<td>No</td>
 	</tr>
 
-	<tr>	<td>Composition and refinement of concepts/constraints</td>
+	<tr><td>Composition and refinement of concepts/constraints</td>
 	<td>Yes</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Multi-type concepts/constraints</td>
+	<tr><td>Multi-type concepts/constraints</td>
 	<td>Yes</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Expression of concepts/constraints</td>
+	<tr><td>Expression of concepts/constraints</td>
 	<td>Done with compile time expressions</td>
 	<td>Done by enumeration of function signatures</td>
 	</tr>
 
-	<tr>	<td>Axioms</td>
+	<tr><td>Axioms</td>
 	<td>Yes (as static asserts and function preconditions)</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>new keywords</td>
+	<tr><td>new keywords</td>
 	<td>No</td>
 	<td>Yes: where, concept, concept_map, axiom, late_check</td>
 	</tr>
 
-	<tr>	<td>Semantic analysis of template bodies</td>
+	<tr><td>Semantic analysis of template bodies</td>
 	<td>Lazy (done at instantiation time)</td>
 	<td>Eager (done at definition time)</td>
 	</tr>
 
-	<tr>	<td>Template body checked against concept/constraint</td>
+	<tr><td>Template body checked against concept/constraint</td>
 	<td>No</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Concept maps</td>
+	<tr><td>Concept maps</td>
 	<td>No (but could be done with proxy objects)</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>All operations on constrained types must be specified in
+	<tr><td>All operations on constrained types must be specified in
 	 concept/constraint</td>
 	<td>No</td>
 	<td>Yes</td>
 	</tr>
 
-	<tr>	<td>Complexity</td>
+	<tr><td>Complexity</td>
 	<td><tt><span class="notranslate">if (expression)</span></tt> added to template grammar</td>
 	<td>quite a bit of new grammar and semantics added</td>
 	</tr>
@@ -775,7 +708,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="for-loop">Proposal for new for-loop</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2394.html">N2394</a>:
 	This is equivalent to the D
 	<a href="statement.html#ForeachRangeStatement"><i>ForeachRangeStatement</i></a>.
@@ -784,7 +716,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="general-attributes">General Attributes for C++</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2418.pdf">N2418</a>:
 	Vendor specific attributes can be applied to statements
 	and declarations with
@@ -794,7 +725,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="extensible-literals">Extensible Literals</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2378.pdf">N2378</a>:
 	D does not have user extensible literals.
 	</p>
@@ -802,14 +732,12 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="dynamic-concurrency">Dynamic initialization and concurrency</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2513.html">N2513</a>: TBD
 	</p>
 
 
 
 <h3><a name="garbage-collection">Minimal Support for Garbage Collection and Reachability-Based Leak Detection</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2527.html">N2527</a>:
 	Garbage collection is optional in C++0x,
 	D <a href="garbage.html">requires it</a>.
@@ -822,7 +750,6 @@ Y y;  <span class="d_comment">// x and y are the same type
 
 
 <h3><a name="forward-enums">Forward declaration of enumerations</a></h3>
-
 	<p><a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2008/n2499.pdf">N2499</a>:
 	Forward declarations are not necessary in D, as all declarations
 	are resolved essentially in parallel.

@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Code Coverage Analysis - D Programming Language 2.0 - Digital Mars</title>
+<title>Code Coverage Analysis - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a>
@@ -110,11 +110,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -135,11 +136,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:29 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Dcover">Comment on this page</a></span>
 </div>
-  <h1>          Code Coverage Analysis</h1>
+  <h1>Code Coverage Analysis</h1>
   <p>A major part of the engineering of a professional software project
 is creating a test suite for it. Without some sort of test suite,
 it is impossible to know if the software works at all.
@@ -203,7 +204,7 @@ Therefore, it is always in perfect synchronization with the language
 implementation. It's implemented by establishing a counter for each
 line in each module compiled with the <b>-cov</b> switch. Code is inserted
 at the beginning of each statement to increment the corresponding counter.
-When the program finishes, a static destructor for std.cover collects all
+When the program finishes, the runtime collects all
 the counters, merges it with the source files, and writes the reports out
 to listing (.lst) files.</p>
 
@@ -213,7 +214,7 @@ to listing (.lst) files.</p>
 <span class="d_keyword">import</span> std.stdio;
 
 bit flags[8191];
- 
+
 <span class="d_keyword">int</span> main()
 {   <span class="d_keyword">int</span>     i, prime, k, count, iter;
 
@@ -253,7 +254,7 @@ which are:</p>
        |import std.stdio;
        |
        |bit flags[8191];
-       | 
+       |
        |int main()
       5|{   int     i, prime, k, count, iter;
        |
@@ -332,8 +333,7 @@ counter:</p>
 
 <h3>Controlling the Coverage Analyser</h3>
 
-<p>The behavior of the coverage analyser can be controlled through
-the <a href="phobos/std_cover.html">std.cover</a> module.</p>
+
 
 <p>When the <b>-cov</b> switch is thrown, the version identifier
 <b>D_Coverage</b> is defined.</p>

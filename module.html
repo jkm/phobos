@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Modules - D Programming Language 2.0 - Digital Mars</title>
+<title>Modules - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,20 +156,20 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:27 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Module">Comment on this page</a></span>
 </div>
-  <h1>          Modules</h1>
-  <pre class="bnf"><span class="notranslate"><a name="Module">Module</a>:
+  <h1>Modules</h1>
+  <pre class="bnf"><span class="notranslate"><a name="Module"><i>Module</i></a>:
 	<a href="#ModuleDeclaration"><i>ModuleDeclaration</i></a> <a href="#DeclDefs"><i>DeclDefs</i></a>
 	<a href="#DeclDefs"><i>DeclDefs</i></a>
 
-<a name="DeclDefs">DeclDefs</a>:
+<a name="DeclDefs"><i>DeclDefs</i></a>:
 	<a href="#DeclDef"><i>DeclDef</i></a>
 	<a href="#DeclDef"><i>DeclDef</i></a> <i>DeclDefs</i>
 
-<a name="DeclDef">DeclDef</a>:
+<a name="DeclDef"><i>DeclDef</i></a>:
 	<a href="attribute.html#AttributeSpecifier"><i>AttributeSpecifier</i></a>
 	<a href="#ImportDeclaration"><i>ImportDeclaration</i></a>
 	<a href="enum.html#EnumDeclaration"><i>EnumDeclaration</i></a>
@@ -239,21 +240,21 @@ function bodyLoad()
 	same name (stripped of path and extension) of the source file name.
 	</p>
 
-<pre class="bnf"><span class="notranslate"><a name="ModuleDeclaration">ModuleDeclaration</a>:
+<pre class="bnf"><span class="notranslate"><a name="ModuleDeclaration"><i>ModuleDeclaration</i></a>:
 	<b>module</b> <i>ModuleFullyQualifiedName</i> <b>;</b>
 
-<a name="ModuleFullyQualifiedName">ModuleFullyQualifiedName</a>:
+<a name="ModuleFullyQualifiedName"><i>ModuleFullyQualifiedName</i></a>:
 	<i>ModuleName</i>
 	<i>Packages</i> <b>.</b> <i>ModuleName</i>
 
-<a name="ModuleName">ModuleName</a>:
+<a name="ModuleName"><i>ModuleName</i></a>:
 	<i>Identifier</i>
 
-<a name="Packages">Packages</a>:
+<a name="Packages"><i>Packages</i></a>:
 	<i>PackageName</i>
 	<i>Packages</i> <b>.</b> <i>PackageName</i>
 
-<a name="PackageName">PackageName</a>:
+<a name="PackageName"><i>PackageName</i></a>:
 	<i>Identifier</i>
 </span></pre>
 
@@ -286,38 +287,38 @@ function bodyLoad()
 	by using the <i>ImportDeclaration</i>:
 	</p>
 
-<pre class="bnf"><span class="notranslate"><a name="ImportDeclaration">ImportDeclaration</a>:
+<pre class="bnf"><span class="notranslate"><a name="ImportDeclaration"><i>ImportDeclaration</i></a>:
 	<b>import</b> <i>ImportList</i> <b>;</b>
 	<b>static import</b> <i>ImportList</i> <b>;</b>
 
-<a name="ImportList">ImportList</a>:
+<a name="ImportList"><i>ImportList</i></a>:
 	<i>Import</i>
 	<i>ImportBindings</i>
 	<i>Import</i> <b>,</b> <i>ImportList</i>
 
-<a name="Import">Import</a>:
+<a name="Import"><i>Import</i></a>:
 	<i>ModuleFullyQualifiedName</i>
 	<i>ModuleAliasIdentifier</i> <b>=</b> <i>ModuleFullyQualifiedName</i>
 
-<a name="ImportBindings">ImportBindings</a>:
+<a name="ImportBindings"><i>ImportBindings</i></a>:
 	<i>Import</i> <b>:</b> <i>ImportBindList</i>
 
-<a name="ImportBindList">ImportBindList</a>:
+<a name="ImportBindList"><i>ImportBindList</i></a>:
 	<i>ImportBind</i>
 	<i>ImportBind</i> <b>,</b> <i>ImportBindList</i>
 
-<a name="ImportBind">ImportBind</a>:
+<a name="ImportBind"><i>ImportBind</i></a>:
 	<i>Identifier</i>
 	<i>Identifier</i> = <i>Identifier</i>
 
-<a name="ModuleAliasIdentifier">ModuleAliasIdentifier</a>:
+<a name="ModuleAliasIdentifier"><i>ModuleAliasIdentifier</i></a>:
 	<i>Identifier</i>
 </span></pre>
 
 	<p>There are several forms of the <i>ImportDeclaration</i>,
 	from generalized to fine-grained importing.</p>
 
-	<p>The order in which <i>ImportDeclarations</i> occur has no
+	<p>The order in which <i>ImportDeclaration</i>s occur has no
 	significance.</p>
 
 	<p><i>ModuleFullyQualifiedName</i>s in the <i>ImportDeclaration</i> must be
@@ -330,8 +331,8 @@ function bodyLoad()
 	<p>The simplest form of importing is to just list the
 	modules being imported:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">import</span> std.stdio;  <span class="d_comment">// import module <b>stdio</b> from the <b>std</b> package
-</span><span class="d_keyword">import</span> foo, bar;   <span class="d_comment">// import modules <b>foo</b> and <b>bar</b>
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">import</span> std.stdio; <span class="d_comment">// import module <b>stdio</b> from the <b>std</b> package
+</span><span class="d_keyword">import</span> foo, bar;  <span class="d_comment">// import modules <b>foo</b> and <b>bar</b>
 </span>
 <span class="d_keyword">void</span> main()
 {
@@ -433,8 +434,8 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <span class="d_keyword">void</span> main()
 {
-    writefln(<span class="d_string">"hello!"</span>);            <span class="d_comment">// error, writefln is undefined
-</span>    std.stdio.writefln(<span class="d_string">"hello!"</span>);  <span class="d_comment">// ok, writefln is fully qualified
+ writefln(<span class="d_string">"hello!"</span>);           <span class="d_comment">// error, writefln is undefined
+</span> std.stdio.writefln(<span class="d_string">"hello!"</span>); <span class="d_comment">// ok, writefln is fully qualified
 </span>}
 </span></pre>
 
@@ -449,9 +450,9 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <span class="d_keyword">void</span> main()
 {
-    io.writefln(<span class="d_string">"hello!"</span>);         <span class="d_comment">// ok, calls std.stdio.writefln
-</span>    std.stdio.writefln(<span class="d_string">"hello!"</span>);  <span class="d_comment">// error, std is undefined
-</span>    writefln(<span class="d_string">"hello!"</span>);            <span class="d_comment">// error, writefln is undefined
+ io.writefln(<span class="d_string">"hello!"</span>);        <span class="d_comment">// ok, calls std.stdio.writefln
+</span> std.stdio.writefln(<span class="d_string">"hello!"</span>); <span class="d_comment">// error, std is undefined
+</span> writefln(<span class="d_string">"hello!"</span>);           <span class="d_comment">// error, writefln is undefined
 </span>}
 </span></pre>
 
@@ -467,11 +468,11 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <span class="d_keyword">void</span> main()
 {
-    std.stdio.writefln(<span class="d_string">"hello!"</span>);  <span class="d_comment">// error, std is undefined
-</span>    writefln(<span class="d_string">"hello!"</span>);            <span class="d_comment">// ok, writefln bound into current namespace
-</span>    writef(<span class="d_string">"world"</span>);               <span class="d_comment">// error, writef is undefined
-</span>    foo(<span class="d_string">"world"</span>);                  <span class="d_comment">// ok, calls std.stdio.writef()
-</span>    fwritefln(stdout, <span class="d_string">"abc"</span>);      <span class="d_comment">// error, fwritefln undefined
+ std.stdio.writefln(<span class="d_string">"hello!"</span>); <span class="d_comment">// error, std is undefined
+</span> writefln(<span class="d_string">"hello!"</span>);           <span class="d_comment">// ok, writefln bound into current namespace
+</span> writef(<span class="d_string">"world"</span>);              <span class="d_comment">// error, writef is undefined
+</span> foo(<span class="d_string">"world"</span>);                 <span class="d_comment">// ok, calls std.stdio.writef()
+</span> fwritefln(stdout, <span class="d_string">"abc"</span>);     <span class="d_comment">// error, fwritefln undefined
 </span>}
 </span></pre>
 
@@ -485,15 +486,15 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <span class="d_keyword">void</span> main()
 {
-    writefln(<span class="d_string">"bar"</span>);           <span class="d_comment">// error, writefln is undefined
-</span>    std.stdio.foo(<span class="d_string">"bar"</span>);      <span class="d_comment">// error, foo is bound into current namespace
-</span>    std.stdio.writefln(<span class="d_string">"bar"</span>); <span class="d_comment">// error, std is undefined
-</span>    foo(<span class="d_string">"bar"</span>);                <span class="d_comment">// ok, foo is bound into current namespace,
-</span>                               <span class="d_comment">// FQN not required
-</span>    io.writefln(<span class="d_string">"bar"</span>);        <span class="d_comment">// ok, io=std.stdio bound the name io in
-</span>                               <span class="d_comment">// the current namespace to refer to the entire module
-</span>    io.foo(<span class="d_string">"bar"</span>);             <span class="d_comment">// error, foo is bound into current namespace,
-</span>                               <span class="d_comment">// foo is not a member of io
+ writefln(<span class="d_string">"bar"</span>);           <span class="d_comment">// error, writefln is undefined
+</span> std.stdio.foo(<span class="d_string">"bar"</span>);      <span class="d_comment">// error, foo is bound into current namespace
+</span> std.stdio.writefln(<span class="d_string">"bar"</span>); <span class="d_comment">// error, std is undefined
+</span> foo(<span class="d_string">"bar"</span>);                <span class="d_comment">// ok, foo is bound into current namespace,
+</span>                            <span class="d_comment">// FQN not required
+</span> io.writefln(<span class="d_string">"bar"</span>);        <span class="d_comment">// ok, io=std.stdio bound the name io in
+</span>                            <span class="d_comment">// the current namespace to refer to the entire module
+</span> io.foo(<span class="d_string">"bar"</span>);             <span class="d_comment">// error, foo is bound into current namespace,
+</span>                            <span class="d_comment">// foo is not a member of io
 </span></span></pre>
 
 <h3>Module Scope Operator</h3>
@@ -506,10 +507,10 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> x)
 {
-    <span class="d_keyword">if</span> (y)
-	<span class="d_keyword">return</span> x;		<span class="d_comment">// returns foo.x, not global x
-</span>    <span class="d_keyword">else</span>
-	<span class="d_keyword">return</span> .x;		<span class="d_comment">// returns global x
+ <span class="d_keyword">if</span> (y)
+   <span class="d_keyword">return</span> x;  <span class="d_comment">// returns foo.x, not global x
+</span> <span class="d_keyword">else</span>
+   <span class="d_keyword">return</span> .x; <span class="d_comment">// returns global x
 </span>}
 </span></pre>
 
@@ -581,7 +582,7 @@ foo();	<span class="d_comment">// error, foo() is undefined
 
 <h2><a name="MixinDeclaration">Mixin Declaration</a></h2>
 
-<pre class="bnf"><span class="notranslate"><a name="MixinDeclaration">MixinDeclaration</a>:
+<pre class="bnf"><span class="notranslate"><a name="MixinDeclaration"><i>MixinDeclaration</i></a>:
     <b>mixin</b> <b>(</b> <a href="expression.html#AssignExpression"><i>AssignExpression</i></a> <b>)</b> <b>;</b>
 </span></pre>
 

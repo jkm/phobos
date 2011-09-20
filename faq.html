@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>D 2.0 FAQ - D Programming Language 2.0 - Digital Mars</title>
+<title>D 2.0 FAQ - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -97,11 +97,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -122,11 +123,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/FAQ">Comment on this page</a></span>
 </div>
-  <h1>          D 2.0 FAQ</h1>
+  <h1>D 2.0 FAQ</h1>
   	<p>The same questions keep cropping up, so the obvious thing to do is
 	prepare a FAQ.</p>
 
@@ -184,11 +185,10 @@ function bodyLoad()
 	<li><a href="#backend">How do I write my own D compiler for CPU X?</a></li>
 	<li><a href="#gui">Where can I get a GUI library for D?</a></li>
 	<li><a href="#ide">Where can I get an IDE for D?</a></li>
-	<li><a href="#q2">What about templates?</a></li>
 	<li><a href="#q3">Why emphasize implementation ease?</a></li>
 	<li><a href="#q4">Why is [expletive deleted] printf left in?</a></li>
 	<li><a href="#q5">Will D be open source?</a></li>
-	<li><a href="#q6">Why fall through on switch statements?</a></li>
+	<li><a href="#q6">Why <i>no</i> fall through on switch statements?</a></li>
 	<li><a href="#q7">Why should I use D instead of Java?</a></li>
 	<li><a href="#q7_2">Doesn't C++ support strings, etc. with STL?</a></li>
 	<li><a href="#q7_3">Can't garbage collection be done in C++ with an add-on library?</a></li>
@@ -286,20 +286,13 @@ function bodyLoad()
 
 	<p>Since D can call C functions, any GUI library with a C interface is 
 	accessible from D. Various D GUI libraries and ports can be found at 
-	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?AvailableGuiLibraries">AvailableGuiLibraries</a>.
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?GuiLibraries">the D wiki</a>.
 	</p>
 
 <hr><h3><a name="ide">Where can I get an IDE for D?</a></h3>
 
-	<p>Try
-	<a href="http://www.dsource.org/projects/elephant/">Elephant</a>,
-	<a href="http://www.dsource.org/projects/poseidon/">Poseidon</a>,
-	or <a href="http://www.dsource.org/projects/leds/">LEDS</a>.
-	</p>
-
-<hr><h3><a name="q2">What about templates?</a></h3>
-
-	<p>D now supports advanced templates.
+	<p>A list of IDEs and editors that support D can be found on
+    <a href="http://prowiki.org/wiki4d/wiki.cgi?EditorSupport">the D wiki</a>.
 	</p>
 
 <hr><h3><a name="q3">Why emphasize implementation ease?</a></h3>
@@ -333,7 +326,7 @@ function bodyLoad()
 	<p><b>printf</b> is not part of D, it is part of C's standard
 	runtime library which is accessible from D.
 	D's standard runtime library has <b>std.stdio.writefln</b>,
-	which is as powerful as <b>printf</b> but much easier to use.
+	which is as powerful as <b>printf</b> but is much easier to use.
 	</p>
 
 
@@ -347,14 +340,21 @@ function bodyLoad()
 	to create <b>gdc</b>, a completely open source implementation of D.
 	</p>
 
-<hr><h3><a name="q6">Why fall through on switch statements?</a></h3>
+<hr><h3><a name="q6">Why <i>no</i> fall through on switch statements?</a></h3>
 
 	<p>Many people have asked for a requirement that there be a break between
 	cases in a switch statement, that C's behavior of silently falling through
 	is the cause of many bugs.
 	</p>
 
-	<p>The reason D doesn't change this is for the same reason that integral
+    <p>In D2, implicit fall through is disallowed. You have to add a
+    <a href="statement.html#GotoStatement">goto case;</a> statement to explicitly
+    state the intention of falling through. 
+    </p>
+
+	<p>There was further request that the <b>break</b> statement be made
+    implicit.
+    The reason D doesn't change this is for the same reason that integral
 	promotion rules and operator precedence rules were kept the same - to
 	make code that looks the same as in C operate the same. If it had subtly
 	different semantics, it will cause frustratingly subtle bugs.
@@ -866,7 +866,10 @@ the termination condition on the fly.</p>
 
 	<p>That said, D may in the future optionally support some form of ref
 	counting, as rc is better for managing scarce resources like file
-	handles. 
+	handles.
+    Furthermore, if ref counting is a must, Phobos has the
+    <a href="phobos/std_typecons.html#RefCounted">std.typecons.RefCounted</a> type
+    which implements it as a library, similar to C++'s shared_ptr&lt;&gt;.
 	</p>
 
 <hr><h3><a name="gc_1">Isn't garbage collection slow and non-deterministic?</a></h3>

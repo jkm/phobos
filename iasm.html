@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Inline Assembler - D Programming Language 2.0 - Digital Mars</title>
+<title>Inline Assembler - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,11 +156,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/IAsm">Comment on this page</a></span>
 </div>
-  <h1>          D x86 Inline Assembler</h1>
+  <h1>Inline Assembler</h1>
   	<a href="http://www.digitalmars.com/gift/index.html" title="Gift Shop" target="_top">
 	<img src="d5.gif" border=0 align=right alt="Some Assembly Required" width=284 height=186>
 	</a>
@@ -181,24 +182,24 @@ function bodyLoad()
 	assembler.
 	</p>
 
-<pre class="bnf"><span class="notranslate"><a name="AsmInstruction">AsmInstruction</a>:
-	<i>Identifier</i> <b>:</b> <i>AsmInstruction</i>
-	<b>align</b> <a href="#IntegerExpression"><i>IntegerExpression</i></a>
-	<b>even</b>
-	<b>naked</b>
-	<b>db</b> <i>Operands</i>
-	<b>ds</b> <i>Operands</i>
-	<b>di</b> <i>Operands</i>
-	<b>dl</b> <i>Operands</i>
-	<b>df</b> <i>Operands</i>
-	<b>dd</b> <i>Operands</i>
-	<b>de</b> <i>Operands</i>
-	<i>Opcode</i>
-	<i>Opcode Operands</i>
+<pre class="bnf"><span class="notranslate"><a name="AsmInstruction"><i>AsmInstruction</i></a>:
+    <i>Identifier</i> <b>:</b> <i>AsmInstruction</i>
+    <b>align</b> <a href="#IntegerExpression"><i>IntegerExpression</i></a>
+    <b>even</b>
+    <b>naked</b>
+    <b>db</b> <i>Operands</i>
+    <b>ds</b> <i>Operands</i>
+    <b>di</b> <i>Operands</i>
+    <b>dl</b> <i>Operands</i>
+    <b>df</b> <i>Operands</i>
+    <b>dd</b> <i>Operands</i>
+    <b>de</b> <i>Operands</i>
+    <i>Opcode</i>
+    <i>Opcode Operands</i>
 
-<a name="Operands">Operands</a>:
-	<i>Operand</i>
-	<i>Operand</i> <b>,</b> <i>Operands</i>
+<a name="Operands"><i>Operands</i></a>:
+    <i>Operand</i>
+    <i>Operand</i> <b>,</b> <i>Operands</i>
 </span></pre>
 
 <h2>Labels</h2>
@@ -211,18 +212,18 @@ function bodyLoad()
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> *pc;
 <span class="d_keyword">asm</span>
 {
-    call L1		;
- L1:			;
-    pop	EBX		;
-    mov	pc[EBP],EBX	;	<span class="d_comment">// pc now points to code at L1
+  call L1          ;
+ L1:               ;
+  pop  EBX         ;
+  mov  pc[EBP],EBX ; <span class="d_comment">// pc now points to code at L1
 </span>}
 </span></pre>
 
 <h2>align <i>IntegerExpression</i></h2>
 
-<pre class="bnf"><span class="notranslate"><a name="IntegerExpression">IntegerExpression</a>:
-	<a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a>
-	<i>Identifier</i>
+<pre class="bnf"><span class="notranslate"><a name="IntegerExpression"><i>IntegerExpression</i></a>:
+    <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a>
+    <i>Identifier</i>
 </span></pre>
 
 	<p>Causes the assembler to emit NOP instructions to align the next
@@ -268,15 +269,15 @@ function bodyLoad()
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">asm</span>
 {
-    db 5,6,0x83;   <span class="d_comment">// insert bytes 0x05, 0x06, and 0x83 into code
-</span>    ds 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12
-</span>    di 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12, 0x00, 0x00
-</span>    dl 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-</span>    df 1.234;      <span class="d_comment">// insert float 1.234
-</span>    dd 1.234;      <span class="d_comment">// insert double 1.234
-</span>    de 1.234;      <span class="d_comment">// insert real 1.234
-</span>    db <span class="d_string">"abc"</span>;      <span class="d_comment">// insert bytes 0x61, 0x62, and 0x63
-</span>    ds <span class="d_string">"abc"</span>;      <span class="d_comment">// insert bytes 0x61, 0x00, 0x62, 0x00, 0x63, 0x00
+  db 5,6,0x83;   <span class="d_comment">// insert bytes 0x05, 0x06, and 0x83 into code
+</span>  ds 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12
+</span>  di 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12, 0x00, 0x00
+</span>  dl 0x1234;     <span class="d_comment">// insert bytes 0x34, 0x12, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
+</span>  df 1.234;      <span class="d_comment">// insert float 1.234
+</span>  dd 1.234;      <span class="d_comment">// insert double 1.234
+</span>  de 1.234;      <span class="d_comment">// insert real 1.234
+</span>  db <span class="d_string">"abc"</span>;      <span class="d_comment">// insert bytes 0x61, 0x62, and 0x63
+</span>  ds <span class="d_string">"abc"</span>;      <span class="d_comment">// insert bytes 0x61, 0x00, 0x62, 0x00, 0x63, 0x00
 </span>}
 </span></pre>
 
@@ -288,23 +289,23 @@ function bodyLoad()
 	The following registers are supported. Register names
 	are always in upper case.
 
-<pre class="bnf"><span class="notranslate"><a name="Register">Register</a>:
-	<b>AL</b> <b>AH</b> <b>AX</b> <b>EAX</b>
-	<b>BL</b> <b>BH</b> <b>BX</b> <b>EBX</b>
-	<b>CL</b> <b>CH</b> <b>CX</b> <b>ECX</b>
-	<b>DL</b> <b>DH</b> <b>DX</b> <b>EDX</b>
-	<b>BP</b> <b>EBP</b>
-	<b>SP</b> <b>ESP</b>
-	<b>DI</b> <b>EDI</b>
-	<b>SI</b> <b>ESI</b>
-	<b>ES</b> <b>CS</b> <b>SS</b> <b>DS</b> <b>GS</b> <b>FS</b>
-	<b>CR0</b> <b>CR2</b> <b>CR3</b> <b>CR4</b>
-	<b>DR0</b> <b>DR1</b> <b>DR2</b> <b>DR3</b> <b>DR6</b> <b>DR7</b>
-	<b>TR3</b> <b>TR4</b> <b>TR5</b> <b>TR6</b> <b>TR7</b>
-	<b>ST</b>
-	<b>ST(0)</b> <b>ST(1)</b> <b>ST(2)</b> <b>ST(3)</b> <b>ST(4)</b> <b>ST(5)</b> <b>ST(6)</b> <b>ST(7)</b>
-	<b>MM0</b> <b>MM1</b> <b>MM2</b> <b>MM3</b> <b>MM4</b> <b>MM5</b> <b>MM6</b> <b>MM7</b>
-	<b>XMM0</b> <b>XMM1</b> <b>XMM2</b> <b>XMM3</b> <b>XMM4</b> <b>XMM5</b> <b>XMM6</b> <b>XMM7</b>
+<pre class="bnf"><span class="notranslate"><a name="Register"><i>Register</i></a>:
+    <b>AL</b> <b>AH</b> <b>AX</b> <b>EAX</b>
+    <b>BL</b> <b>BH</b> <b>BX</b> <b>EBX</b>
+    <b>CL</b> <b>CH</b> <b>CX</b> <b>ECX</b>
+    <b>DL</b> <b>DH</b> <b>DX</b> <b>EDX</b>
+    <b>BP</b> <b>EBP</b>
+    <b>SP</b> <b>ESP</b>
+    <b>DI</b> <b>EDI</b>
+    <b>SI</b> <b>ESI</b>
+    <b>ES</b> <b>CS</b> <b>SS</b> <b>DS</b> <b>GS</b> <b>FS</b>
+    <b>CR0</b> <b>CR2</b> <b>CR3</b> <b>CR4</b>
+    <b>DR0</b> <b>DR1</b> <b>DR2</b> <b>DR3</b> <b>DR6</b> <b>DR7</b>
+    <b>TR3</b> <b>TR4</b> <b>TR5</b> <b>TR6</b> <b>TR7</b>
+    <b>ST</b>
+    <b>ST(0)</b> <b>ST(1)</b> <b>ST(2)</b> <b>ST(3)</b> <b>ST(4)</b> <b>ST(5)</b> <b>ST(6)</b> <b>ST(7)</b>
+    <b>MM0</b> <b>MM1</b> <b>MM2</b> <b>MM3</b> <b>MM4</b> <b>MM5</b> <b>MM6</b> <b>MM7</b>
+    <b>XMM0</b> <b>XMM1</b> <b>XMM2</b> <b>XMM3</b> <b>XMM4</b> <b>XMM5</b> <b>XMM6</b> <b>XMM7</b>
 </span></pre>
 
 <h3>Special Cases</h3>
@@ -315,10 +316,9 @@ function bodyLoad()
 	as the instructions they prefix; they appear in their own statement.
 	For example:
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">asm</span>
-{
-    rep   ;
-    movsb ;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">asm</span> {
+  rep   ;
+  movsb ;
 }
 </span></pre>
 	</dd>
@@ -326,9 +326,9 @@ function bodyLoad()
 	<dt><b>pause</b></dt>
 	<dd>This opcode is not supported by the assembler, instead use
 
-<pre class="d_code"><span class="notranslate">{
-    rep  ;
-    nop  ;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">asm</span> {
+  rep  ;
+  nop  ;
 }
 </span></pre>
 
@@ -348,67 +348,67 @@ function bodyLoad()
 
 <h2>Operands</h2>
 
-<pre class="bnf"><span class="notranslate"><a name="Operand">Operand</a>:
+<pre class="bnf"><span class="notranslate"><a name="Operand"><i>Operand</i></a>:
     <i>AsmExp</i>
 
-<a name="AsmExp">AsmExp</a>:
+<a name="AsmExp"><i>AsmExp</i></a>:
     <i>AsmLogOrExp</i>
     <i>AsmLogOrExp</i> <b>?</b> <i>AsmExp</i> <b>:</b> <i>AsmExp</i>
 
-<a name="AsmLogOrExp">AsmLogOrExp</a>:
+<a name="AsmLogOrExp"><i>AsmLogOrExp</i></a>:
     <i>AsmLogAndExp</i>
     <i>AsmLogAndExp</i> <b>||</b> <i>AsmLogAndExp</i>
 
-<a name="AsmLogAndExp">AsmLogAndExp</a>:
+<a name="AsmLogAndExp"><i>AsmLogAndExp</i></a>:
     <i>AsmOrExp</i>
     <i>AsmOrExp</i> <b>&amp;&amp;</b> <i>AsmOrExp</i>
 
-<a name="AsmOrExp">AsmOrExp</a>:
+<a name="AsmOrExp"><i>AsmOrExp</i></a>:
     <i>AsmXorExp</i>
     <i>AsmXorExp</i> <b>|</b> <i>AsmXorExp</i>
 
-<a name="AsmXorExp">AsmXorExp</a>:
+<a name="AsmXorExp"><i>AsmXorExp</i></a>:
     <i>AsmAndExp</i>
     <i>AsmAndExp</i> <b>^</b> <i>AsmAndExp</i>
 
-<a name="AsmAndExp">AsmAndExp</a>:
+<a name="AsmAndExp"><i>AsmAndExp</i></a>:
     <i>AsmEqualExp</i>
     <i>AsmEqualExp</i> <b>&amp;</b> <i>AsmEqualExp</i>
 
-<a name="AsmEqualExp">AsmEqualExp</a>:
+<a name="AsmEqualExp"><i>AsmEqualExp</i></a>:
     <i>AsmRelExp</i>
     <i>AsmRelExp</i> <b>==</b> <i>AsmRelExp</i>
     <i>AsmRelExp</i> <b>!=</b> <i>AsmRelExp</i>
 
-<a name="AsmRelExp">AsmRelExp</a>:
+<a name="AsmRelExp"><i>AsmRelExp</i></a>:
     <i>AsmShiftExp</i>
     <i>AsmShiftExp</i> <b>&lt;</b> <i>AsmShiftExp</i>
     <i>AsmShiftExp</i> <b>&lt;=</b> <i>AsmShiftExp</i>
     <i>AsmShiftExp</i> <b>&gt;</b> <i>AsmShiftExp</i>
     <i>AsmShiftExp</i> <b>&gt;=</b> <i>AsmShiftExp</i>
 
-<a name="AsmShiftExp">AsmShiftExp</a>:
+<a name="AsmShiftExp"><i>AsmShiftExp</i></a>:
     <i>AsmAddExp</i>
     <i>AsmAddExp</i> <b>&lt;&lt;</b> <i>AsmAddExp</i>
     <i>AsmAddExp</i> <b>&gt;&gt;</b> <i>AsmAddExp</i>
     <i>AsmAddExp</i> <b>&gt;&gt;&gt;</b> <i>AsmAddExp</i>
 
-<a name="AsmAddExp">AsmAddExp</a>:
+<a name="AsmAddExp"><i>AsmAddExp</i></a>:
     <i>AsmMulExp</i>
     <i>AsmMulExp</i> <b>+</b> <i>AsmMulExp</i>
     <i>AsmMulExp</i> <b>-</b> <i>AsmMulExp</i>
 
-<a name="AsmMulExp">AsmMulExp</a>:
+<a name="AsmMulExp"><i>AsmMulExp</i></a>:
     <i>AsmBrExp</i>
     <i>AsmBrExp</i> <b>*</b> <i>AsmBrExp</i>
     <i>AsmBrExp</i> <b>/</b> <i>AsmBrExp</i>
     <i>AsmBrExp</i> <b>%</b> <i>AsmBrExp</i>
 
-<a name="AsmBrExp">AsmBrExp</a>:
+<a name="AsmBrExp"><i>AsmBrExp</i></a>:
     <i>AsmUnaExp</i>
     <i>AsmBrExp</i> <b>[</b> <i>AsmExp</i> <b>]</b>
 
-<a name="AsmUnaExp">AsmUnaExp</a>:
+<a name="AsmUnaExp"><i>AsmUnaExp</i></a>:
     <i>AsmTypePrefix</i> <i>AsmExp</i>
     <b>offsetof</b> <i>AsmExp</i>
     <b>seg</b> <i>AsmExp</i>
@@ -418,7 +418,7 @@ function bodyLoad()
     <b>~</b> <i>AsmUnaExp</i>
     <i>AsmPrimaryExp</i>
 
-<a name="AsmPrimaryExp">AsmPrimaryExp</a>:
+<a name="AsmPrimaryExp"><i>AsmPrimaryExp</i></a>:
     <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a>
     <a href="lex.html#FloatLiteral"><i>FloatLiteral</i></a>
     <b>__LOCAL_SIZE</b>
@@ -426,7 +426,7 @@ function bodyLoad()
     <a href="#Register"><i>Register</i></a>
     <i>DotIdentifier</i>
 
-<a name="DotIdentifier">DotIdentifier</a>:
+<a name="DotIdentifier"><i>DotIdentifier</i></a>:
     <i>Identifier</i>
     <i>Identifier</i> <b>.</b> <i>DotIdentifier</i>
 </span></pre>
@@ -447,18 +447,18 @@ function bodyLoad()
 
 <h3>Operand Types</h3>
 
-<pre class="bnf"><span class="notranslate"><a name="AsmTypePrefix">AsmTypePrefix</a>:
-	<b>near ptr</b>
-	<b>far ptr</b>
-	<b>byte ptr</b>
-	<b>short ptr</b>
-	<b>int ptr</b>
-	<b>word ptr</b>
-	<b>dword ptr</b>
-	<b>qword ptr</b>
-	<b>float ptr</b>
-	<b>double ptr</b>
-	<b>real ptr</b>
+<pre class="bnf"><span class="notranslate"><a name="AsmTypePrefix"><i>AsmTypePrefix</i></a>:
+    <b>near ptr</b>
+    <b>far ptr</b>
+    <b>byte ptr</b>
+    <b>short ptr</b>
+    <b>int ptr</b>
+    <b>word ptr</b>
+    <b>dword ptr</b>
+    <b>qword ptr</b>
+    <b>float ptr</b>
+    <b>double ptr</b>
+    <b>real ptr</b>
 </span></pre>
 
 	<p>In cases where the operand size is ambiguous, as in:</p>
@@ -468,8 +468,8 @@ function bodyLoad()
 
 	<p>it can be disambiguated by using an <i>AsmTypePrefix</i>:</p>
 
-<pre class="d_code"><span class="notranslate">add	<span class="d_keyword">byte</span> ptr [EAX],3	;
-add	<span class="d_keyword">int</span> ptr [EAX],7		;
+<pre class="d_code"><span class="notranslate">add  <span class="d_keyword">byte</span> ptr [EAX],3 ;
+add  <span class="d_keyword">int</span> ptr [EAX],7  ;
 </span></pre>
 
 	<p><b>far ptr</b> is not relevant for flat model code.
@@ -482,12 +482,11 @@ add	<span class="d_keyword">int</span> ptr [EAX],7		;
 	</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> Foo { <span class="d_keyword">int</span> a,b,c; }
-<span class="d_keyword">int</span> bar(Foo *f)
-{
-    <span class="d_keyword">asm</span>
-    {	mov	EBX,f		;
-	mov	EAX,Foo.b[EBX]	;
-    }
+<span class="d_keyword">int</span> bar(Foo *f) {
+  <span class="d_keyword">asm</span> {
+    mov EBX,f          ;
+    mov EAX,Foo.b[EBX] ;
+  }
 }
 </span></pre>
 
@@ -498,13 +497,11 @@ add	<span class="d_keyword">int</span> ptr [EAX],7		;
 	by EBP:
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> x)
-{
-    <span class="d_keyword">asm</span>
-    {
-	mov EAX,x[EBP]	;  <span class="d_comment">// loads value of parameter x into EAX
-</span>	mov EAX,x	;  <span class="d_comment">// does the same thing
-</span>    }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> x) {
+  <span class="d_keyword">asm</span> {
+    mov EAX,x[EBP] ; <span class="d_comment">// loads value of parameter x into EAX
+</span>    mov EAX,x      ; <span class="d_comment">// does the same thing
+</span>  }
 }
 </span></pre>
 
@@ -518,7 +515,7 @@ add	<span class="d_keyword">int</span> ptr [EAX],7		;
 	<dd>Represents the program counter of the start of the next
 	instruction. So,
 
-<pre class="d_code"><span class="notranslate">jmp	$  ;
+<pre class="d_code"><span class="notranslate">jmp  $  ;
 </span></pre>
 
 	branches to the instruction following the jmp instruction.
@@ -536,13 +533,8 @@ add	<span class="d_keyword">int</span> ptr [EAX],7		;
 
 <h2>Opcodes Supported</h2>
 
-	<table border=1 cellpadding=4 cellspacing=0><tr>
-  	<td>aaa</td>
-  	<td>aad</td>
-  	<td>aam</td>
-  	<td>aas</td>
-  	<td>adc</td>
-	</tr><tr>
+	<table border=1 cellpadding=4 cellspacing=0><tr><td>aaa</td><td>aad</td><td>aam</td><td>aas</td><td>adc</td></tr>
+	<tr>
   	<td>add</td>
   	<td>addpd</td>
   	<td>addps</td>

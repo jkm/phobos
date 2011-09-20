@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Change Log - D Programming Language 2.0 - Digital Mars</title>
+<title>Change Log - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -90,11 +90,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -115,140 +116,181 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/ChangeLog">Comment on this page</a></span>
 </div>
-  <h1>          D Change Log</h1>
+  <h1>Change Log</h1>
   <div id="upcoming"><h4>Under Construction</h4> <ol><li>Shared libraries for Linux</li>
  </ol></div>
 
 
 	<div id=version>
-	<b><font size=4><a name="new2_053">
+	<b><font size=4><a name="new2_055">
 	  Version
-	  <a HREF="http://ftp.digitalmars.com/dmd.2.053.zip" title="D 2.053">D 2.053</a>
+	  <a HREF="http://ftp.digitalmars.com/dmd.2.055.zip" title="D 2.055">D 2.055</a>
 	</font></b>
-	<small><i>May 7, 2011</i></small>
+	<small><i>Sep 4, 2011</i></small>
 	
-    <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>Added some gc benchmark apps</li>
-	<li>Move std.intrinsic to core.intrinsic</li>
-	<li>Implemented <i>exception chaining</i>, as described in TDPL for Posix.</li>
-	<li>Added 64 bit tools to Linux</li>
-	<li>Added <tt><span class="notranslate">parent</span></tt> to <tt><span class="notranslate">__traits</span></tt> for QtD support</li>
-	<li>Allow impure code inside debug conditionals</li>
-	<li>Added cmpxchg16b, 64 bit bswap and movq instructions to internal assembler</li>
-        <li>Added bindings for libcurl: etc.c.curl</li>
-        <li>Added std.net.isemail</li>
-	<li>Added std.parallelism</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2656">Bugzilla 2656</a>: Remove octal literals</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4097">Bugzilla 4097</a>: Error: can only declare type aliases within static if conditionals</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4360">Bugzilla 4360</a>: Allow intrinsics in core.bitop to operate as intrinsics</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4833">Bugzilla 4833</a>: dmd -od doesn't make it to optlink's command line for map files</li>
-     </ul></div>
-    <div id="bugsfixed"><h4>Druntime Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5612">Bugzilla 5612</a>: core.cpuid not implemented on 64</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1001">Bugzilla 1001</a>: print stack trace (in debug mode) when program die</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5847">Bugzilla 5847</a>: Threads started by core.thread should have same floating point state as main thread</li>
-     </ul></div>
-    <div id="bugsfixed"><h4>Library Bugs Fixed</h4> <ul>       <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4644">Bugzilla 4644</a>: assertExceptionThrown to assert that a particular exception was thrown</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4944">Bugzilla 4944</a>: Missing tzname even though we have tzset</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5451">Bugzilla 5451</a>: Three ideas for RedBlackTree</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5474">Bugzilla 5474</a>: unaryFun byRef is borked for custom parameter name</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5485">Bugzilla 5485</a>: TLS sections handled incorrectly in FreeBSD</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5616">Bugzilla 5616</a>: std.datetime: not cross-platform</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5654">Bugzilla 5654</a>: BigInt returns ZERO with strings of single digit number with leading zeros</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5731">Bugzilla 5731</a>: std.datetime.SysTime prints UTC offsets backwards</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5761">Bugzilla 5761</a>: std.datetime: Date.this(int day) conversion fails for Dec 30 of leap years</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5780">Bugzilla 5780</a>: [patch] std.traits.hasIndirections incorrectly handles static arrays</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5781">Bugzilla 5781</a>: std.datetime: On Windows, times off by one hour in some years due to DST rule changes</li>
-        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5794">Bugzilla 5794</a>: std.datetime StopWatch (and perhaps benchmark) examples need a small fix</li>
-      </ul></div>
-    <div id="bugsfixed"><h4>DMD Bugs Fixed</h4> <ul><li><font color=red>Note:</font> Although temporaries are destroyed now, they are not destroyed when
-	exceptions are thrown. This is scheduled to be fixed.</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2436">Bugzilla 2436</a>: Unexpected OPTLINK termination EIP = 00425303 with /co</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3372">Bugzilla 3372</a>: optlink silently mistreats object files with more than 16384 symbols</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4275">Bugzilla 4275</a>: Unexpected optlink termination when 'export' attribute is missing</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4808">Bugzilla 4808</a>: UNEXPECTED OPTLINK TERMINATION AT EIP=0042787B</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5670">Bugzilla 5670</a>: Optlink 8.00.11 crash</li>
+    <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>Added <a href="http://www.digitalmars.com/ctg/dman.html">dman</a></li>
+	<li>Add support for Mac OS X 10.7 Lion</li>
+	<li>Add protection to json output</li>
+	<li>Add SSE4.1 and SSE4.2 assembly instructions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4375">Bugzilla 4375</a>: Require explicit braces when 'else' is ambiguous</li>
 
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=937">Bugzilla 937</a>: C-style variadic functions broken</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1330">Bugzilla 1330</a>: Array slicing does not work the same way in CTFE as at runtime</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1336">Bugzilla 1336</a>: Inconsistent __traits usage</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1389">Bugzilla 1389</a>: Can't use mixin expressions when start of a statement.</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1880">Bugzilla 1880</a>: templates instantiated with non-constants should fail sooner</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2257">Bugzilla 2257</a>: Template value parameters behave like alias parameters</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2414">Bugzilla 2414</a>: enum is dynamically evaluated, yum</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2526">Bugzilla 2526</a>: non-const initializer to constant accepted inside template</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2706">Bugzilla 2706</a>: invalid template instantiation (and declaration?) is not rejected</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2733">Bugzilla 2733</a>: Unclear semantics of template value parameters</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2841">Bugzilla 2841</a>: char[] incorrectly accepted as a template value argument in D2</li>        
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2850">Bugzilla 2850</a>: bad codegen for struct static initializers</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2990">Bugzilla 2990</a>: TypeInfo.init() returns invalid array</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3086">Bugzilla 3086</a>: TypeInfo opEquals returns incorrect results</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3214">Bugzilla 3214</a>: Incorrect DWARF line number debugging information on Linux</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3271">Bugzilla 3271</a>: Struct initializers silently fail</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3516">Bugzilla 3516</a>: Destructor not called on temporaries</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3792">Bugzilla 3792</a>: Regression(1.053) "non-constant expression" for a template inside a struct using a struct initializer</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3779">Bugzilla 3779</a>: ["123"][0][$-1] causes __dollar unresolved in compile-time</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3801">Bugzilla 3801</a>: CTFE: this.arr[i] cannot be evaluated at compile time for structs</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3835">Bugzilla 3835</a>: ref foreach does not work in CTFE</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4033">Bugzilla 4033</a>: Error: base class is forward referenced</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4050">Bugzilla 4050</a>: [CTFE] array struct member slice update</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4051">Bugzilla 4051</a>: [CTFE] array struct member item update</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4097">Bugzilla 4097</a>: Error: can only declare type aliases within static if conditionals</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4140">Bugzilla 4140</a>: Error: non-constant expression "hello"[1u..__dollar]</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4298">Bugzilla 4298</a>: Constant array translated to unnecessary array literal creation</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4322">Bugzilla 4322</a>: "void initializer has no value" on struct/union members initialized to "void"</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4329">Bugzilla 4329</a>: Do not show error messages that refer to __error</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4360">Bugzilla 4360</a>: Allow intrinsics in core.bitop to operate as intrinsics</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4437">Bugzilla 4437</a>: copy construction bug with "return this;"</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4499">Bugzilla 4499</a>: calls to @disabled postblit are emitted</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4543">Bugzilla 4543</a>: Regression(1.054, 2.038) typedef causes circular definition and segfault</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4750">Bugzilla 4750</a>: fail_compilation/fail225.d causes dmd to segv</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4815">Bugzilla 4815</a>: CodeView: Global and Static symbols should have unmangled names</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4817">Bugzilla 4817</a>: CodeView: Enum members should have simple names</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4833">Bugzilla 4833</a>: dmd -od doesn't make it to optlink's command line for map files</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4917">Bugzilla 4917</a>: Symbol conflict error message refers to aliased symbol instead of the alias</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5147">Bugzilla 5147</a>: [CTFE] Return fixed-size matrix</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5362">Bugzilla 5362</a>: checking $ in bracket is broken</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5482">Bugzilla 5482</a>: Crash with align(0)</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5485">Bugzilla 5485</a>: TLS sections handled incorrectly</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5524">Bugzilla 5524</a>: [CTFE] Trouble with typesafe variadic function</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5647">Bugzilla 5647</a>: [64-bit] Valgrind complains about illegal instruction</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5649">Bugzilla 5649</a>: std.conv.parse faulty for floating point with -O -m32</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5657">Bugzilla 5657</a>: Temporary object destruction</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5664">Bugzilla 5664</a>: Cannot compile static synchronized member function.</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5694">Bugzilla 5694</a>: va_arg doesn't work with idouble and ifloat</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5671">Bugzilla 5671</a>: CTFE string concat problem</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5672">Bugzilla 5672</a>: ICE(cod2.c): incorrect optimization of (long &amp;1) == 1</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5678">Bugzilla 5678</a>: new enum struct re-allocated at compile time</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5694">Bugzilla 5694</a>: va_arg doesn't work with idouble and ifloat</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5706">Bugzilla 5706</a>: Incorrect opcode prefix generated for x86_64 inline assembly</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5708">Bugzilla 5708</a>: Incorrect string constant folding with -inline</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5717">Bugzilla 5717</a>: 1.067 regression: appending Unicode char to string broken</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5722">Bugzilla 5722</a>: Regression(2.052): Appending code-unit from multi-unit code-point at compile-time gives wrong result</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5735">Bugzilla 5735</a>: non-scalar types implicitly converted to boolean</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5740">Bugzilla 5740</a>: Unable to use this pointer in inline assembly</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5741">Bugzilla 5741</a>: Add the SYSCALL and SYSRET opcodes to the inline assembler</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5798">Bugzilla 5798</a>: Weakly pure function calls skipped inside a comma expression</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5812">Bugzilla 5812</a>: Added constant fold optimisations for ^^ expressions</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5840">Bugzilla 5840</a>: Cannot assign to an array member of struct in CTFE</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5852">Bugzilla 5852</a>: CTFE: wrong code for string[] ~= const(string)</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5858">Bugzilla 5858</a>: Import doesn't accept const string as argument</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5865">Bugzilla 5865</a>: __dollar cannot be read at compile time</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5890">Bugzilla 5890</a>: ICE and wrong scope problem for 2nd argument in static assert with DMD on git master</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5916">Bugzilla 5916</a>: DMD: bad message for incorrect operands error</li>
-	<li>Clarify tuple index out of bounds error message</li>
-	<li>Add 64 version of xchg and jmp to inline assembler. Fixed 64 bit LEA</li>
-	<li>CTFE: Generate error messages for accessing null arrays</li>
-	<li>Fix optimizer bug with to!float("123e2")</li>
-	<li>Fix spelling of <tt><span class="notranslate">cmpxchgb8</span></tt></li>
+      <li>std.algorithm.copy now specializes on arrays for 10-80x improved 
+           performance.</li>
+      <li>std.path has been rewritten from scratch and has a completely new API.</li>
+      <li>std.utf.toUTFz allows you to get a zero-terminated string of any
+           character type and of any type of mutability.</li>
+      <li>Added symlink and readLink to std.file for Posix systems.</li>
+      <li>Values for GDC and LDC were added to std.compiler.Vendor.</li>
+      <li>Added functions to std.bitswap for generically handling swapping
+           endianness.</li>
+      <li>Added std.parallelism.TaskPool.workerIndex.</li>
+      <li>Added buffer recycling overload of std.parallelism.asyncBuf</li>
+      <li>std.math.tgamma, lgamma, erf, and erfc are now deprecated. The
+           equivalent functions in std.mathspecial should be used instead.</li>
+      <li>The names of the values of std.mmfile.Mode, std.system.Endian,
+           std.traits.FunctionAttributes, std.traits.ParameterStorageClass,
+           and std.traits.Variadic were changed to match Phobos' naming conventions.</li>
+      <li>std.range:  Added indexed and chunks</li>
+      <li>std.string.translate has been updated to work with unicode. As a
+           result, its signature has been changed. The old version and
+           std.string.maketrans have been scheduled for deprecation.</li>
+      <li>std.string.tr has been updated so that it works with any string type.</li>
+      <li>std.conv.parse works for associative array and static array</li>
+      <li>std.format: Improvement of formatValue and unformatValue.
+           They now works for associative array, consider element escaping,
+           and treat range format spec more properly.</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Druntime Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5967">Bugzilla 5967</a>: Mangling of ArgClose for variadic function is swapped</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6493">Bugzilla 6493</a>: Source code for the doc of core.time points to std.datetime.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6466">Bugzilla 6466</a>: core.demangle incorrect demangling of variables</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Library Bugs Fixed</h4> <ul>       <li>Unlisted bug:  std.range.transversal should have length</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3890">Bugzilla 3890</a>: Bad writeln of a nested struct</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4977">Bugzilla 4977</a>: cannot use nothrow or pure with Rebindable</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5237">Bugzilla 5237</a>: writefln doesn't respect Complex.toString</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5645">Bugzilla 5645</a>: std.range.drop()</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5825">Bugzilla 5825</a>: write is calling a deprecated function</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6064">Bugzilla 6064</a>: std.array.join is unnecssarily slow for strings</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6194">Bugzilla 6194</a>: [GSoC] Destructor gets called on object before it is copied when calling writeln()</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6261">Bugzilla 6261</a>: [2.054 beta regression] Regex cannot take a char[]</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6377">Bugzilla 6377</a>: std.conv.to should check range when changing signedness</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6587">Bugzilla 6587</a>: std.parallelism's Task cannot handle immutable values</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6606">Bugzilla 6606</a>: RefCounted doesn't work with unions due to use of format</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6608">Bugzilla 6608</a>: Tuple field is not escaped</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>DMD Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1471">Bugzilla 1471</a>: Linker error on template function. Error 42: Symbol Undefined ...</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1567">Bugzilla 1567</a>: call to private super-constructor should not be allowed</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1684">Bugzilla 1684</a>: offsetof does not work, adding cast is workaround</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1904">Bugzilla 1904</a>: wrong protection lookup for private template functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2156">Bugzilla 2156</a>: [] and null should be accepted where a compile-time string is required</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2234">Bugzilla 2234</a>: __traits(allMembers) returns incorrect results for mixin and template alias members of an aggregate</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2245">Bugzilla 2245</a>: Bug with overloaded, mixin template functions in classes</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2246">Bugzilla 2246</a>: Regression(2.046, 1.061): Specialization of template to template containing int arguments fails</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2540">Bugzilla 2540</a>: super can not be using in alias statement</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2634">Bugzilla 2634</a>: Function literals are non-constant.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2355">Bugzilla 2355</a>: is() doesn't resolve aliases before template matching</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2579">Bugzilla 2579</a>: Template function accepting a delegate with in argument doesn't compile</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2774">Bugzilla 2774</a>: Functions-as-properties makes it impossible to get the .mangleof a function</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2777">Bugzilla 2777</a>: alias this doesn't forward __dollar and slice op.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2781">Bugzilla 2781</a>: alias this doesn't work with foreach</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2787">Bugzilla 2787</a>: Members found in an 'alias this' are not implicitly accessible in methods</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2941">Bugzilla 2941</a>: Wrong code for inline asm because CPU type is set too late</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3268">Bugzilla 3268</a>: can't compare pointer to functions when one is const</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3273">Bugzilla 3273</a>: Regression(2.031): struct invariant + dtor fails to compile (no line number)</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3512">Bugzilla 3512</a>: dchar iteration over string in CTFE fails</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3661">Bugzilla 3661</a>: ^^ not supported in array operations.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3797">Bugzilla 3797</a>: Regression(2.038): Implicit conversion between incompatible function pointers</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4021">Bugzilla 4021</a>: [CTFE] AA rehash</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4099">Bugzilla 4099</a>: Inconsistent behaviour of ++/-- when mixing opUnary and 'alias this'.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4444">Bugzilla 4444</a>: Cannot index built-in array with expression tuple</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4460">Bugzilla 4460</a>: Regression(2.036) ICE(e2ir.c) when compiling foreach over associative array literal</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4682">Bugzilla 4682</a>: [CTFE] Run-time Vs Compile-time of int.min % -1</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4773">Bugzilla 4773</a>: Rebindable should be castable to bool</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4837">Bugzilla 4837</a>: ICE(constfold.c) CTFE with &gt;&gt;&gt;=</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4984">Bugzilla 4984</a>: Recursive template constraint results in dmd running out of memory</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5046">Bugzilla 5046</a>: Wrong type of implicit 'this' in struct/class templates</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5081">Bugzilla 5081</a>: Pure functions as initializers for immutable structures</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5188">Bugzilla 5188</a>: alias this and compare expression generates wrong code</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5239">Bugzilla 5239</a>: optimizer misreports an used before set error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5373">Bugzilla 5373</a>: Regression (2.051) CTFE and std.string.replace() causes "Bad binary function q{a == b}..</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5440">Bugzilla 5440</a>: ICE(template.c): when struct AssociativeArray is missing from object.d</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5585">Bugzilla 5585</a>: bad debug line number info for return statements with enumerator expressions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5745">Bugzilla 5745</a>: Missing error line number with lazy argument</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5750">Bugzilla 5750</a>: Allow pure functions to have lazy arguments</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5777">Bugzilla 5777</a>: Move semantics require full spec NRVO</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5785">Bugzilla 5785</a>: Lexing or Parsing issue with UFCS</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5790">Bugzilla 5790</a>: 'Error: variable result used before set' when -release -inline -O</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5799">Bugzilla 5799</a>: Address-of operator fails on nested conditional operator expression</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5936">Bugzilla 5936</a>: Regression(2.050): Segfault when forward-referencing pure auto-return member function with parameter.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5953">Bugzilla 5953</a>: Too many trailing commas are accepted</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6097">Bugzilla 6097</a>: SSSE3 not working with MMX instructions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6215">Bugzilla 6215</a>: LLVM-compiled DMD segfaults due to mem.c alignment issues</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6220">Bugzilla 6220</a>: Regression(2.053) static foreach over a string[] no longer produces directly usable strings</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6228">Bugzilla 6228</a>: Regression(2.053) ICE(e2ir.c) on {auto x = (*ptr) ^^ y} with const integer types</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6230">Bugzilla 6230</a>: Member functions can no longer be weakly pure</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6250">Bugzilla 6250</a>: [CTFE] Crash when swapping two pointers to arrays.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6265">Bugzilla 6265</a>: Pure-inference failed when calling other pure functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6270">Bugzilla 6270</a>: XMMREGS not preserved on indirect function call</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6276">Bugzilla 6276</a>: [CTFE] Strange behavior of using ~= operator twice</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6280">Bugzilla 6280</a>: [CTFE] Cannot put 'in' expression of AA in an 'if' condition</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6281">Bugzilla 6281</a>: [CTFE] A null pointer '!is null' returns 'true'.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6282">Bugzilla 6282</a>: [CTFE] ICE when dereferencing a pointer to reference type from 'in' of an AA</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6283">Bugzilla 6283</a>: [CTFE][Regression 2.054] Failed to assign to AA using a constness-changed array as key</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6284">Bugzilla 6284</a>: [Regression 2.054] 'pure' does not work with 'with' statement</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6286">Bugzilla 6286</a>: Regression(2.054): Static arrays can not be assigned from const(T)[N] to T[N]</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6293">Bugzilla 6293</a>: [Regression 2.054] The expression x.y makes the function impure when the 'x' part is not just a variable</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6295">Bugzilla 6295</a>: [Regression 2.054] Segfault in checkPurity() of template value parameter</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6306">Bugzilla 6306</a>: Regression(2.054): [CTFE] Strange behavior of indirect recursive call in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6308">Bugzilla 6308</a>: Destruction of temporaries on exception causes unhandled access violation</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6316">Bugzilla 6316</a>: Regression(2.054): Class downcast is rejected in @safe code</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6317">Bugzilla 6317</a>: ICE on struct literal of nested struct</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6331">Bugzilla 6331</a>: [CTFE] Cannot evaluate SliceExp on if condition</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6337">Bugzilla 6337</a>: [CTFE] ICE when touching member variable of struct during CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6344">Bugzilla 6344</a>: [CTFE] Assertion Failure in interpret.c when create an empty slice from null pointer</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6351">Bugzilla 6351</a>: Regression(2.054) Segfault: Vararg delegate as template param</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6355">Bugzilla 6355</a>: Template constructor cannot initialize non-mutable field</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6366">Bugzilla 6366</a>: alias this doesn't work with foreach range.front</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6369">Bugzilla 6369</a>: alias this doesn't work with initializer</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6374">Bugzilla 6374</a>: [CTFE] Cannot subscript using pointer to array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6375">Bugzilla 6375</a>: [CTFE] Segfault when using std.array.appender with an initial array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6386">Bugzilla 6386</a>: [CTFE] ICE on pointer casting</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6389">Bugzilla 6389</a>: Segfault(dsymbol.c): deprecated @disable</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6399">Bugzilla 6399</a>: [CTFE] struct member array.length -= x doesn't work, while array[0..$-x] works</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6404">Bugzilla 6404</a>: Cannot check ref-ness of auto ref parameter in template constraint</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6418">Bugzilla 6418</a>: [CTFE] Cannot call a struct member function with name 'length'.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6420">Bugzilla 6420</a>: [CTFE] ICE on dereference-assigning to a pointer casted from a literal </li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6429">Bugzilla 6429</a>: Nested function error in reduce</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6433">Bugzilla 6433</a>: Meta-Bug AA type propagation</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6434">Bugzilla 6434</a>: opDispatch must be considered before alias this.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6491">Bugzilla 6491</a>: Fully qualified values in default arguments of non-template functions are generated with an extra 'module' keyword</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6499">Bugzilla 6499</a>: [GSoC] Destructor not called on object returned by method.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6505">Bugzilla 6505</a>: Wrong code for expression involving 8 floats, only with -O</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6508">Bugzilla 6508</a>: alias this doesn't work with AssignExp rhs</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6510">Bugzilla 6510</a>: [CTFE] "internal error: illegal stack value" when compiled with -inline</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6511">Bugzilla 6511</a>: [CTFE] Array op gives wrong result</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6512">Bugzilla 6512</a>: [CTFE] new T[][] doesn't work</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6516">Bugzilla 6516</a>: Regression(2.055 beta) [CTFE] ICE(constfold.c) involving new dchar[]</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6517">Bugzilla 6517</a>: [CTFE] ptr++ doesn't work but ++ptr does</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6546">Bugzilla 6546</a>: alias this + IdentityExpression doesn't work</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6556">Bugzilla 6556</a>: ICE for ImportStatement in DebugStatement</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6558">Bugzilla 6558</a>: [CTFE] UTF-decoding foreach gives wrong index (1-indexed)</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6561">Bugzilla 6561</a>: alias this + undefined symbol should cause error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6563">Bugzilla 6563</a>: wrong code when using at least 8 XMM regs</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6577">Bugzilla 6577</a>: 'Cannot initialize member' error line number</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6601">Bugzilla 6601</a>: Regression(2.053): CTFE segfault taking address of function template</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6602">Bugzilla 6602</a>: Invalid template instantiations leake by is(typeof())/__traits(compiles, )/Type::trySemantic</li>
      </ul></div>
 
 	</div>
 
 <div id=version>
-<ul><li>Version <a href="#new2_053">D 2.053</a></li>
+<ul><li>Version <a href="#new2_055">D 2.055</a></li>
+	<li>Version <a href="#new2_054">D 2.054</a></li>
+	<li>Version <a href="#new2_053">D 2.053</a></li>
 	<li>Version <a href="#new2_052">D 2.052</a></li>
 	<li>Version <a href="#new2_051">D 2.051</a></li>
 	<li>Version <a href="#new2_050">D 2.050</a></li>
@@ -311,6 +353,333 @@ function bodyLoad()
 	<li><a href="http://www.digitalmars.com/pnews/index.php?category=2">tech support</a></li>
 </ul>
 </div>
+
+
+	<div id=version>
+	<b><font size=4><a name="new2_054">
+	  Version
+	  <a HREF="http://ftp.digitalmars.com/dmd.2.054.zip" title="D 2.054">D 2.054</a>
+	</font></b>
+	<small><i>Jul 10, 2011</i></small>
+	
+    <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>Implement @safe</li>
+	<li>Implement @property</li>
+	<li>Automatic inference for @safe, pure, nothrow</li>
+	<li>Allow labelled break and continue in CTFE</li>
+	<li>Warn about switch case fallthrough</li>
+	<li>Pointers are now supported in CTFE</li>
+	<li>Heap-allocated structs are now supported in CTFE</li>
+	<li>Added SSSE3 instructions to inline assembler</li>
+	<li>Change from warning to deprecated: non-final switch statements must have a default statement</li>
+	<li>Change from warning to deprecated: function is hidden by function</li>
+	<li>Add warning about switch case fallthrough</li>
+	<li>Add warning about calling pure nothrow functions and ignoring the result</li>
+	<li>Allow associative arrays with key of type bool</li>
+	<li>Added inference for purity and safety</li>
+	<li>Change win32 dmd to not emit a map file unless asked for with -map</li>
+	<li>Added <b>-property</b> switch</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5823">Bugzilla 5823</a>: @property call syntax restriction not implemented</li>
+
+	<li>Added core.sys.posix.netdb</li>
+	<li>For functions which have a version which takes a core.time.Duration
+	     and another version which takes an integral value, the version which
+	     takes an integral value is now scheduled for deprecation.</li>
+
+        <li>std.array.insertInPlace supports inserting of multiple ranges/elements in one go</li>
+	<li>Added std.array.uninitializedArray and std.array.minimallyInitializedArray</li>
+        <li>Various functions in std.string were renamed to match Phobos'
+             naming conventions and be properly camelcased. The old names
+             are still there but have been scheduled for deprecation.</li>
+        <li>Various functions in std.uni were renamed so that they don't have
+             "Uni" in their name, since it was decided that it was not desirable to
+             repeat a module's name in its functions' names. The old names
+             are still there but have been scheduled for deprecation.</li>
+        <li>std.ctype has been scheduled for deprecation. std.ascii has been
+             added to replace it.</li>
+	<li>Major performance improvements for std.algorithm.sort</li>
+	<li>std.string.atoi has been removed; replace it with std.conv.to!int</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Druntime Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4323">Bugzilla 4323</a>: std.demangle incorrectly handles template floating point numbers</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5272">Bugzilla 5272</a>: Postblit not called on copying due to array append</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5956">Bugzilla 5956</a>: Undocumented mangling of struct value</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6135">Bugzilla 6135</a>: Thread/GC interaction bug on OS X</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Library Bugs Fixed</h4> <ul>       <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2108">Bugzilla 2108</a>: regexp.d: The greedy dotstar isn't so greedy</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3136">Bugzilla 3136</a>: Incorrect and strange behavior of std.regexp.RegExp if using a pattern with optional prefix and suffix longer than 1 char</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3457">Bugzilla 3457</a>: rdmd fails silently in a particular setup where the compiler is not the expected</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3479">Bugzilla 3479</a>: writef/writefln: positional precision not working</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3564">Bugzilla 3564</a>: Rdmd failing to link external C libraries</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3752">Bugzilla 3752</a>: File.byLine fetches lines in a confusing manner</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4367">Bugzilla 4367</a>: std.regex: Captures is not a random access range</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4574">Bugzilla 4574</a>: std.regex: breaks with empy string regex</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4608">Bugzilla 4608</a>: std.string.chomp documentation mismatch implementation</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5019">Bugzilla 5019</a>: In std.regex, empty capture at end of string causes error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5059">Bugzilla 5059</a>: String assignment in foreach loop breaks immutability</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5458">Bugzilla 5458</a>: scope for function parameters is not documented</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5511">Bugzilla 5511</a>: std.regex optional capture with no-match cause error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5598">Bugzilla 5598</a>: rdmd does not fail on invalid filename</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5673">Bugzilla 5673</a>: Add lookahead and forgetful matching support std.regex</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5705">Bugzilla 5705</a>: Swapping identical struct with hasElaborateAssign causes "overlapping array copy" exception</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5836">Bugzilla 5836</a>: std.typetuple.staticIndexOf's example code missing %s in call to writefln</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5857">Bugzilla 5857</a>: std.regex (...){n,m} is bogus when (...) contains repetitions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5869">Bugzilla 5869</a>: std.thread needs to be removed</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6026">Bugzilla 6026</a>: DLL example needs update due to missing core.dll_helper</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6076">Bugzilla 6076</a>: regression, std.regex: "c.*|d" matches "mm"</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6101">Bugzilla 6101</a>: Documentation for dead modules still distributed with DMD</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6113">Bugzilla 6113</a>: singletons in std.datetime are not created early enough</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6193">Bugzilla 6193</a>: Appender.clear() functionality or documentation</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>DMD Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=693">Bugzilla 693</a>: 'this' can't be used as an alias parameter for a mixin</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1373">Bugzilla 1373</a>: typeof(func).stringof fails when func has parameters.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1411">Bugzilla 1411</a>: ref Tuple should transform to Tuple of ref's</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1570">Bugzilla 1570</a>: Wrong return for address operator</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2180">Bugzilla 2180</a>: filename error with #line</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2521">Bugzilla 2521</a>: Not possible to return immutable value by ref</li>
+	<li>Temp destructors now called if exception is thrown</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2625">Bugzilla 2625</a>: Creating new struct with literal bypasses immutability of members if struct is in array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3147">Bugzilla 3147</a>: Incorrect value range propagation for addition</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3359">Bugzilla 3359</a>: Cannot parse pure/const/immutable functions with inferred return type</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3445">Bugzilla 3445</a>: partial fix</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3511">Bugzilla 3511</a>: ref return property confused with property setter</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3632">Bugzilla 3632</a>: modify float is float to do a bitwise compare</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3688">Bugzilla 3688</a>: Can't have declaration with assignment to const/immutable inside if condition</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3722">Bugzilla 3722</a>: A method without an in contract should always succeed, even if overridden</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3799">Bugzilla 3799</a>: isStaticFunction trait evaluates to true for non-static nested functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4031">Bugzilla 4031</a>: Should be able to access const value-type globals from pure functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4040">Bugzilla 4040</a>: const/immutable on the right in auto return class methods</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4063">Bugzilla 4063</a>: [CTFE] key not found in AA gives bad error message</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4065">Bugzilla 4065</a>: [CTFE] AA "in" operator doesn't work</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4107">Bugzilla 4107</a>: Duplicate documentation for member function templates</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4132">Bugzilla 4132</a>: pointer arithmetic accepted in @safe functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4170">Bugzilla 4170</a>: Missing line number on compile-time array index</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4258">Bugzilla 4258</a>: "auto ref" doesn't work in one or more cases</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4448">Bugzilla 4448</a>: [CTFE] labeled break doesn't work in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4494">Bugzilla 4494</a>: ICE(cod1.c) Array literal filled with results of void function</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4633">Bugzilla 4633</a>: typeof({return 1;}()) declaration fails if inside main</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4661">Bugzilla 4661</a>: Array Literal Incompatible Type Error Msg Should Include Line Number</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4706">Bugzilla 4706</a>: Overloading auto return w/ non-auto return = strange error msg</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4745">Bugzilla 4745</a>: Non-uniform handling of commas in static initialization of structs</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4885">Bugzilla 4885</a>: Uninitialize Pointers Allowed in @safe code</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4910">Bugzilla 4910</a>: [CTFE] Cannot evaluate a function that has failed at once</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4963">Bugzilla 4963</a>: ICE(type.c:320) for struct append where T.sizeof &lt; 3</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4969">Bugzilla 4969</a>: nothrow check can't handle multiple catches</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5088">Bugzilla 5088</a>: Cannot cast const(int) to long in @safe function</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5258">Bugzilla 5258</a>: [CTFE] Stack overflow with struct by ref</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5284">Bugzilla 5284</a>: Array ops punch through const system</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5327">Bugzilla 5327</a>: Creating new struct with literal bypasses immutability of members of members of the struct</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5396">Bugzilla 5396</a>: [CTFE] Invalid code with nested functions in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5415">Bugzilla 5415</a>: @Safe functions not working</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5497">Bugzilla 5497</a>: -- now produces error message instead of wrong code</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5551">Bugzilla 5551</a>: opUnary-opBinary conflict</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5574">Bugzilla 5574</a>: Struct destructor freaks out when an array of struct with single element is instantiated inside a class</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5615">Bugzilla 5615</a>: [CTFE] std.string.indexOf broken at compile time</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5633">Bugzilla 5633</a>: [CTFE] ICE(constfold.c): is expression with struct, struct pointer, array literal...</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5657">Bugzilla 5657</a>: Temporary object destruction</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5659">Bugzilla 5659</a>: Conditional operator, array literal, and std.traits.CommonType return a wrong common type</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5676">Bugzilla 5676</a>: [CTFE] segfault using tuple containing struct that has opAssign</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5682">Bugzilla 5682</a>: [CTFE] Silently wrong result possibly related to operator overloading and expression order</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5693">Bugzilla 5693</a>: Segfault with address of template struct opCall</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5708">Bugzilla 5708</a>: [CTFE] Incorrect string constant folding with -inline</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5771">Bugzilla 5771</a>: Template constructor and auto ref do not work</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5819">Bugzilla 5819</a>: DMD doesn't error/warn about illegal asm for 64bit mode</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5845">Bugzilla 5845</a>: Regression(2.041) [CTFE] "stack overflow" with recursive ref argument</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5856">Bugzilla 5856</a>: overloading on const doesn't work for operator overload</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5859">Bugzilla 5859</a>: Declaration inside if condition doesn't call destructor</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5861">Bugzilla 5861</a>: Wrong filename in error message when an invalid delegate in a template parameter is typeof()-ed</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5885">Bugzilla 5885</a>: wrong codegen for OPu32_d</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5897">Bugzilla 5897</a>: unrelated struct type casting should ignite construction</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5936">Bugzilla 5936</a>: Invalid code with nested functions in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5946">Bugzilla 5946</a>: failing lookup 'this' from function in template</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5954">Bugzilla 5954</a>: [CTFE] enum structs with ctor</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5959">Bugzilla 5959</a>: Return by reference with nested function should be allowed</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5962">Bugzilla 5962</a>: Template function declaration with prefixed storage class and auto occurs conflict</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5963">Bugzilla 5963</a>: iasm does not accept 64bit integer literal</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6001">Bugzilla 6001</a>: [CTFE] ICE(interpret.c) mutating ref array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6015">Bugzilla 6015</a>: [CTFE] Strange behavior of assignment appears in a situation</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6049">Bugzilla 6049</a>: [CTFE] Array literals of structs with invariant() are wrong</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6052">Bugzilla 6052</a>: [CTFE] Struct elements in an array are treated like reference type</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6053">Bugzilla 6053</a>: [CTFE] Two ICEs involving pointers (dereference and assign; pointer variable on stack)</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6054">Bugzilla 6054</a>: [CTFE] ICE when returning a returned compile-time associative array containing a key of an idup-ed array literal</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6059">Bugzilla 6059</a>: Incompatible types in array literal shows __error and error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6072">Bugzilla 6072</a>: [CTFE] Regression(git master): Cannot declare variable inside an 'if' condition</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6075">Bugzilla 6075</a>: Cannot set value to associative array from a weakly-pure function when the value type has a (pure) opAssign</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6077">Bugzilla 6077</a>: [CTFE] Cannot append null array to null array.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6078">Bugzilla 6078</a>: [CTFE] ICE on foreach over array struct member which is null</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6079">Bugzilla 6079</a>: [CTFE] Array index out of bound detection is off-by-one</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6090">Bugzilla 6090</a>: DDoc parenthesis escape issues.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6100">Bugzilla 6100</a>: [CTFE] Regression: struct return values wrong if used in array initializer</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6109">Bugzilla 6109</a>: 'nothrow' does not check slice indices</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6111">Bugzilla 6111</a>: Escaping reference to local variable not detected</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6119">Bugzilla 6119</a>: Assertion failure: '0' on line 1118 in file 'glue.c'</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6120">Bugzilla 6120</a>: [CTFE] ICE on calling constructor of template struct with -inline in function/delegate literal.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6123">Bugzilla 6123</a>: [CTFE] Cannot call a template member method inside delegate/function literal with -inline.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6137">Bugzilla 6137</a>: [CTFE] Foreach on semantically wrong initialized array crashes the compiler</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6145">Bugzilla 6145</a>: Meaningless second error message for complex size of static array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6150">Bugzilla 6150</a>: runnable/testsocket.d</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6158">Bugzilla 6158</a>: winsamp and dhry samples need an update</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6161">Bugzilla 6161</a>: iasm opcode family Jcc use absolute address instead of relative for functions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6164">Bugzilla 6164</a>: [CTFE] Local arrays in a recursive local function behave funny</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6198">Bugzilla 6198</a>: [GSoC] ICE(e2ir.c) With circular import</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6229">Bugzilla 6229</a>: %= and /= no longer work on char type</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6230">Bugzilla 6230</a>: Member functions can no longer be weakly pure</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6234">Bugzilla 6234</a>: 64-bit array append generates inline code to copy new data, but does not call postblit</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6241">Bugzilla 6241</a>: test sdtor.d on osx not catching</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6242">Bugzilla 6242</a>: Disallow inoperant "in" contracts</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6264">Bugzilla 6264</a>: ICE on testing opSlice in static if</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6267">Bugzilla 6267</a>: Can't increment alias this'd struct from ref return</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=6279">Bugzilla 6279</a>: Regression(2.054 beta): array-vararg with pointer type not working in safe code</li>
+     </ul></div>
+
+	</div>
+
+
+	<div id=version>
+	<b><font size=4><a name="new2_053">
+	  Version
+	  <a HREF="http://ftp.digitalmars.com/dmd.2.053.zip" title="D 2.053">D 2.053</a>
+	</font></b>
+	<small><i>May 12, 2011</i></small>
+	
+    <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>Added 64 bit tools to Linux</li>
+	<li>Added FreeBSD support</li>
+	<li>Renamed linux/bin to linux/bin32, added linux/bin64</li>
+	<li>osx/lib32 renamed back to osx/lib</li>
+	<li>Added some gc benchmark apps</li>
+	<li>Move std.intrinsic to core.intrinsic</li>
+	<li>Implemented <i>exception chaining</i>, as described in TDPL for Posix.</li>
+	<li>Added <tt><span class="notranslate">parent</span></tt> to <tt><span class="notranslate">__traits</span></tt> for QtD support</li>
+	<li>Allow impure code inside debug conditionals</li>
+	<li>Added cmpxchg16b, 64 bit bswap and movq instructions to internal assembler</li>
+        <li>Added bindings for libcurl: etc.c.curl</li>
+        <li>Added std.net.isemail</li>
+	<li>Added std.parallelism</li>
+	<li>Added support for positional parameter intervals, e.g. %1:3$s 
+	prints the first three parameters using the 's' format specifier</li>
+	<li>Added findSplit, findSplitBefore, findSplitAfter to std.algorithm;
+	improved walkLength</li>
+	<li>Improved online documentation for std.algorithm</li>
+	<li>Added roundRobin, takeOne, and takeNone to std.range; improved
+	stride</li>
+	<li>Added unsigned to std.traits</li>
+	<li>Removed std.iterator. Use either std.range.ElementType or std.range.ElementEncodingType
+	depending on what you're trying to do.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2656">Bugzilla 2656</a>: Remove octal literals</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4097">Bugzilla 4097</a>: Error: can only declare type aliases within static if conditionals</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4360">Bugzilla 4360</a>: Allow intrinsics in core.bitop to operate as intrinsics</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4833">Bugzilla 4833</a>: dmd -od doesn't make it to optlink's command line for map files</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Druntime Bugs Fixed</h4> <ul><li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5612">Bugzilla 5612</a>: core.cpuid not implemented on 64</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1001">Bugzilla 1001</a>: print stack trace (in debug mode) when program die</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5847">Bugzilla 5847</a>: Threads started by core.thread should have same floating point state as main thread</li>
+     </ul></div>
+    <div id="bugsfixed"><h4>Library Bugs Fixed</h4> <ul>       <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4644">Bugzilla 4644</a>: assertExceptionThrown to assert that a particular exception was thrown</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4944">Bugzilla 4944</a>: Missing tzname even though we have tzset</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5451">Bugzilla 5451</a>: Three ideas for RedBlackTree</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5474">Bugzilla 5474</a>: unaryFun byRef is borked for custom parameter name</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5485">Bugzilla 5485</a>: TLS sections handled incorrectly in FreeBSD</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5616">Bugzilla 5616</a>: std.datetime: not cross-platform</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5654">Bugzilla 5654</a>: BigInt returns ZERO with strings of single digit number with leading zeros</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5661">Bugzilla 5661</a>: std.algorithm.move does not work on elaborate struct</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5731">Bugzilla 5731</a>: std.datetime.SysTime prints UTC offsets backwards</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5761">Bugzilla 5761</a>: std.datetime: Date.this(int day) conversion fails for Dec 30 of leap years</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5780">Bugzilla 5780</a>: [patch] std.traits.hasIndirections incorrectly handles static arrays</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5781">Bugzilla 5781</a>: std.datetime: On Windows, times off by one hour in some years due to DST rule changes</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5794">Bugzilla 5794</a>: std.datetime StopWatch (and perhaps benchmark) examples need a small fix</li>
+        <li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5928">Bugzilla 5928</a>: Bigint modulo problem -- critical wrong-code bug</li>
+      </ul></div>
+    <div id="bugsfixed"><h4>DMD Bugs Fixed</h4> <ul><li><span style="color:red">Note:</span> Although temporaries are destroyed now, they are not destroyed when
+	exceptions are thrown. This is scheduled to be fixed.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2436">Bugzilla 2436</a>: Unexpected OPTLINK termination EIP = 00425303 with /co</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3372">Bugzilla 3372</a>: optlink silently mistreats object files with more than 16384 symbols</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4275">Bugzilla 4275</a>: Unexpected optlink termination when 'export' attribute is missing</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4808">Bugzilla 4808</a>: UNEXPECTED OPTLINK TERMINATION AT EIP=0042787B</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5670">Bugzilla 5670</a>: Optlink 8.00.11 crash</li>
+
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=937">Bugzilla 937</a>: C-style variadic functions broken</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1330">Bugzilla 1330</a>: Array slicing does not work the same way in CTFE as at runtime</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1336">Bugzilla 1336</a>: Inconsistent __traits usage</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1389">Bugzilla 1389</a>: Can't use mixin expressions when start of a statement.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1880">Bugzilla 1880</a>: templates instantiated with non-constants should fail sooner</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2257">Bugzilla 2257</a>: Template value parameters behave like alias parameters</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2414">Bugzilla 2414</a>: enum is dynamically evaluated, yum</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2526">Bugzilla 2526</a>: non-const initializer to constant accepted inside template</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2706">Bugzilla 2706</a>: invalid template instantiation (and declaration?) is not rejected</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2733">Bugzilla 2733</a>: Unclear semantics of template value parameters</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2841">Bugzilla 2841</a>: char[] incorrectly accepted as a template value argument in D2</li>        
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2850">Bugzilla 2850</a>: bad codegen for struct static initializers</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2990">Bugzilla 2990</a>: TypeInfo.init() returns invalid array</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3086">Bugzilla 3086</a>: TypeInfo opEquals returns incorrect results</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3214">Bugzilla 3214</a>: Incorrect DWARF line number debugging information on Linux</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3271">Bugzilla 3271</a>: Struct initializers silently fail</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3516">Bugzilla 3516</a>: Destructor not called on temporaries</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3792">Bugzilla 3792</a>: Regression(1.053) "non-constant expression" for a template inside a struct using a struct initializer</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3779">Bugzilla 3779</a>: ["123"][0][$-1] causes __dollar unresolved in compile-time</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3801">Bugzilla 3801</a>: CTFE: this.arr[i] cannot be evaluated at compile time for structs</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3835">Bugzilla 3835</a>: ref foreach does not work in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4033">Bugzilla 4033</a>: Error: base class is forward referenced</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4050">Bugzilla 4050</a>: [CTFE] array struct member slice update</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4051">Bugzilla 4051</a>: [CTFE] array struct member item update</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4097">Bugzilla 4097</a>: Error: can only declare type aliases within static if conditionals</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4140">Bugzilla 4140</a>: Error: non-constant expression "hello"[1u..__dollar]</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4298">Bugzilla 4298</a>: Constant array translated to unnecessary array literal creation</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4322">Bugzilla 4322</a>: "void initializer has no value" on struct/union members initialized to "void"</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4329">Bugzilla 4329</a>: Do not show error messages that refer to __error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4360">Bugzilla 4360</a>: Allow intrinsics in core.bitop to operate as intrinsics</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4437">Bugzilla 4437</a>: copy construction bug with "return this;"</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4499">Bugzilla 4499</a>: calls to @disabled postblit are emitted</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4543">Bugzilla 4543</a>: Regression(1.054, 2.038) typedef causes circular definition and segfault</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4750">Bugzilla 4750</a>: fail_compilation/fail225.d causes dmd to segv</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4815">Bugzilla 4815</a>: CodeView: Global and Static symbols should have unmangled names</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4817">Bugzilla 4817</a>: CodeView: Enum members should have simple names</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4833">Bugzilla 4833</a>: dmd -od doesn't make it to optlink's command line for map files</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4917">Bugzilla 4917</a>: Symbol conflict error message refers to aliased symbol instead of the alias</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5147">Bugzilla 5147</a>: [CTFE] Return fixed-size matrix</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5268">Bugzilla 5268</a>: Outdated windows GUI sample in Samples folder</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5362">Bugzilla 5362</a>: checking $ in bracket is broken</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5482">Bugzilla 5482</a>: Crash with align(0)</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5485">Bugzilla 5485</a>: TLS sections handled incorrectly</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5524">Bugzilla 5524</a>: [CTFE] Trouble with typesafe variadic function</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5647">Bugzilla 5647</a>: [64-bit] Valgrind complains about illegal instruction</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5649">Bugzilla 5649</a>: std.conv.parse faulty for floating point with -O -m32</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5657">Bugzilla 5657</a>: Temporary object destruction</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5664">Bugzilla 5664</a>: Cannot compile static synchronized member function.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5694">Bugzilla 5694</a>: va_arg doesn't work with idouble and ifloat</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5671">Bugzilla 5671</a>: CTFE string concat problem</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5672">Bugzilla 5672</a>: ICE(cod2.c): incorrect optimization of (long &amp;1) == 1</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5678">Bugzilla 5678</a>: new enum struct re-allocated at compile time</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5694">Bugzilla 5694</a>: va_arg doesn't work with idouble and ifloat</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5706">Bugzilla 5706</a>: Incorrect opcode prefix generated for x86_64 inline assembly</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5708">Bugzilla 5708</a>: Incorrect string constant folding with -inline</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5717">Bugzilla 5717</a>: 1.067 regression: appending Unicode char to string broken</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5722">Bugzilla 5722</a>: Regression(2.052): Appending code-unit from multi-unit code-point at compile-time gives wrong result</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5735">Bugzilla 5735</a>: non-scalar types implicitly converted to boolean</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5740">Bugzilla 5740</a>: Unable to use this pointer in inline assembly</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5741">Bugzilla 5741</a>: Add the SYSCALL and SYSRET opcodes to the inline assembler</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5798">Bugzilla 5798</a>: Weakly pure function calls skipped inside a comma expression</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5812">Bugzilla 5812</a>: Added constant fold optimisations for ^^ expressions</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5840">Bugzilla 5840</a>: Cannot assign to an array member of struct in CTFE</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5852">Bugzilla 5852</a>: CTFE: wrong code for string[] ~= const(string)</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5858">Bugzilla 5858</a>: Import doesn't accept const string as argument</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5865">Bugzilla 5865</a>: __dollar cannot be read at compile time</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5890">Bugzilla 5890</a>: ICE and wrong scope problem for 2nd argument in static assert with DMD on git master</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5916">Bugzilla 5916</a>: DMD: bad message for incorrect operands error</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5938">Bugzilla 5938</a>: ICE ztc\symbol.c 1043</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5940">Bugzilla 5940</a>: Cannot create arrays of std.algorithm.map</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5965">Bugzilla 5965</a>: [2.053 beta] map rejects a predicate with anon-func and nested func</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5966">Bugzilla 5966</a>: [2.053 beta][CTFE] Stack overflow on trivial func</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5972">Bugzilla 5972</a>: CTFE: Can't assign to elements of arrays of slices</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5975">Bugzilla 5975</a>: [2.053 beta][CTFE] ICE: 'global.errors' on line 1416 in file 'constfold.c'</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5976">Bugzilla 5976</a>: "variable used before set" with foreach with ref + scope(failure) + structure method + -O -inline</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5982">Bugzilla 5982</a>: [2.053 beta] std.iterator gone, but no mention of the change</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5987">Bugzilla 5987</a>: mydll sample doesn't compile</li>
+	<li>Clarify tuple index out of bounds error message</li>
+	<li>Add 64 version of xchg and jmp to inline assembler. Fixed 64 bit LEA</li>
+	<li>CTFE: Generate error messages for accessing null arrays</li>
+	<li>Fix optimizer bug with to!float("123e2")</li>
+	<li>Fix spelling of <tt><span class="notranslate">cmpxchgb8</span></tt></li>
+     </ul></div>
+
+	</div>
 
 
 	<div id=version>
@@ -484,7 +853,7 @@ function bodyLoad()
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5195">Bugzilla 5195</a>: Forward references ignore const</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5214">Bugzilla 5214</a>: Compiler crash with array of empty {}</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5218">Bugzilla 5218</a>: Can't implicitly convert from "abc"w to wchar[3]</li>
-	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5220">Bugzilla 5220</a>: Make std.conv.ConvError an Exception instead of an Error; <font color=red>deprecated ConvError and ConvOverflowError</font> with ConvException and ConvOverflowException. Note that any code depending on the fact that these exceptions were Error gets broken.</li>
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5220">Bugzilla 5220</a>: Make std.conv.ConvError an Exception instead of an Error; <span style="color:red">deprecated ConvError and ConvOverflowError</span> with ConvException and ConvOverflowException. Note that any code depending on the fact that these exceptions were Error gets broken.</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5230">Bugzilla 5230</a>: Regression(2.041, 1.057) ICE(tocsym.c) overriding a method that has an out contract</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5238">Bugzilla 5238</a>: PATCH: fix return of uninitialised var in interpret.c</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=5247">Bugzilla 5247</a>: std.utf.stride() should not return 0xFF</li>
@@ -620,7 +989,7 @@ function bodyLoad()
 	<li>Unlisted Bug:  std.path.join("", "foo") returns "/foo" instead of "foo" on Posix.</li>
 	<li>Unlisted Bug:  std.range.iota() random access primitives inconsistent after popFront on floating point version</li>
 	<li>Unlisted Bug:  std.algorithm.findAdjacent() [...]</li>
-	
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=190">Bugzilla 190</a>: Cannot forward reference typedef/alias in default value for function parameter</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1715">Bugzilla 1715</a>: Template specialization checks for equality rather than convertibility</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=1970">Bugzilla 1970</a>: Templated interfaces not matched</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=2511">Bugzilla 2511</a>: Covariant return type doesn't work with circular import</li>
@@ -642,7 +1011,7 @@ function bodyLoad()
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3894">Bugzilla 3894</a>: std.range.Stride!R requires R.front() and R.back() to return by reference</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3935">Bugzilla 3935</a>: opBinary is instantiated with "="</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3946">Bugzilla 3946</a>: schwartzSort - SwapStrategy always unstable</li>
-	
+	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3979">Bugzilla 3979</a>: Order-of-compilation and forward reference errors</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=3996">Bugzilla 3996</a>: Regression(2.041) ICE(glue.c) Passing struct as AA template parameter (Algebraic with struct)</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4009">Bugzilla 4009</a>: OPTLINK ruins the day yet again</li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=4173">Bugzilla 4173</a>: Regression(2.037) Explicitly instantiated templates still try to do IFTI in some cases</li>
@@ -1652,7 +2021,7 @@ function bodyLoad()
 	<small><i>May 11, 2009</i></small>
 	
     <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>added <b>-vtls</b> compiler switch</li>
-	<li><font color=red>classic global storage now defaults to TLS (Thread Local Storage)</font>.
+	<li><span style="color:red">classic global storage now defaults to TLS (Thread Local Storage)</span>.
 	This is a big change, see <a href="migrate-to-shared.html">Migrating To Shared</a>.</li>
         <li>std.algorithm: added minPos. Improvements to Splitter suggested by Brad Roberts. Splitter now is bidirectional. Also Splitter has one extra trailing element if it ends with a separator. Added variadic arguments for setUnion and setIntersection. Added functions setSymmetricDifference and largestPartialIntersection. Improved BinaryHeap's interface and implementation.</li>
 	<li>std.array: Improvements to Appender. Now it works with string and other immutable-element arrays, and accepts ranges in put().</li>
@@ -2068,7 +2437,7 @@ function bodyLoad()
 	 arguments won't trigger a heap allocated closure.</li>
 	<li>The 'this' parameter to struct member functions is now a
 	 reference type, rather than a pointer.
-	 <font color=red>This breaks existing code.</font>
+	 <span style="color:red">This breaks existing code.</span>
 	 </li>
 
 	<li>More changes to druntime:
@@ -2277,7 +2646,7 @@ function bodyLoad()
     <div id="whatsnew"><h4>New/Changed Features</h4> <ul>       <li>re-implemented <b>internal.monitor</b> in D. Rationalized <b>internal.object</b></li>
 	<li><a href="http://d.puremagic.com/issues/show_bug.cgi?id=288">Bugzilla 288</a>: changed return type of <b>opEquals</b> from int
 	 to bool. This necessitates doing a grep for opEquals and
-	 <font color=red>changing all the return values</font>.
+	 <span style="color:red">changing all the return values</span>.
 	</li>
 	<li>Added <b>.__vptr</b> and <b>.__monitor</b> properties for class objects
 	 for use in the internal runtime library.
@@ -2463,7 +2832,7 @@ function bodyLoad()
     <div id="whatsnew"><h4>New/Changed Features</h4> <ul><li>Added <b>-ignore</b> switch to ignore unsupported pragmas.</li>
 	<li>Unsupported pragmas now printed out with <b>-v</b> switch.</li>
 	<li>Added <a href="operatoroverloading.html#Dot">opDot</a>, which is
-	 <font color=red>experimental only</font>.</li>
+	 <span style="color:red">experimental only</span>.</li>
 	<li><a href="statement.html#SwitchStatement"><i>SwitchStatement</i></a>s
 	 can now accept
 	 runtime initialized const and invariant case statements.</li>
@@ -2479,7 +2848,7 @@ function bodyLoad()
 	<li>Deprecated <i>VolatileStatement</i>; use
 	 <a href="statement.html#SynchronizedStatement"><i>SynchronizedStatement</i></a> instead.</li>
 	<li>Added <b>__thread</b> storage class for thread local storage.
-	 This is <font color=red>for testing purposes only</font> to check out the machinery
+	 This is <span style="color:red">for testing purposes only</span> to check out the machinery
 	 in the back end. The front end design of this will change.</li>
 	<li><a href="http://www.digitalmars.com/ctg/obj2asm.html"><b>obj2asm</b></a>
 	 and <a href="http://www.digitalmars.com/ctg/dumpobj.html"><b>dumpobj</b></a>
@@ -2831,8 +3200,8 @@ function bodyLoad()
 	</font></b>
 	<small><i>Oct 16, 2007</i></small>
 	
-<div id="whatsnew"><h4>New/Changed Features</h4> <ul><li><font color=red>Transformed all of <tt><span class="notranslate">string</span></tt>, <tt><span class="notranslate">wstring</span></tt>,
-	and <tt><span class="notranslate">dstring</span></tt> into invariant definitions</font>.
+<div id="whatsnew"><h4>New/Changed Features</h4> <ul><li><span style="color:red">Transformed all of <tt><span class="notranslate">string</span></tt>, <tt><span class="notranslate">wstring</span></tt>,
+	and <tt><span class="notranslate">dstring</span></tt> into invariant definitions</span>.
 	Tons of changes in function signatures and
 	implementations rippled through the standard library.
 	Initial experience

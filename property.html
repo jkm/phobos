@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Properties - D Programming Language 2.0 - Digital Mars</title>
+<title>Properties - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -121,8 +121,7 @@ function bodyLoad()
 	<li><a href="memory-safe-d.html">Memory Safe D Spec</a></li>
 	<li><a href="abi.html">Application Binary Interface</a></li>
     </ul>
-</div>
-</li>
+</div></li>
 	<li><a href="phobos/index.html">Library Reference</a></li>
 	<li><a href="howtos.html" title="Helps for using D">Howtos</a></li>
 	<li><a href="articles.html">Articles</a></li>
@@ -131,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -156,11 +156,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:27 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Property">Comment on this page</a></span>
 </div>
-  <h1>          Properties</h1>
+  <h1>Properties</h1>
   	<p>Every type and expression has properties that can be queried:</p>
 
 <table border=1 cellpadding=4 cellspacing=0><caption>Property Examples</caption><tr><th scope="col">Expression</th>	<th scope="col">Value</th></tr>
@@ -181,7 +181,7 @@ function bodyLoad()
 <tr><td><a href="#init">.init</a></td>	<td>initializer</td></tr>
 <tr><td><a href="#sizeof">.sizeof</a></td>	<td>size in bytes (equivalent to C's sizeof(type))</td></tr>
 <tr><td><a href="#alignof">.alignof</a></td>	<td>alignment size</td></tr>
-<tr><td><a href="#mangleof">.mangleof</a></td>	<td>string representing the &lsquo;mangled&rsquo; representation of the type</td></tr>
+<tr><td>.mangleof</td>	<td>string representing the &lsquo;mangled&rsquo; representation of the type</td></tr>
 <tr><td><a href="#stringof">.stringof</a></td>	<td>string representing the source representation of the type</td></tr>
 </table>
 
@@ -233,21 +233,20 @@ function bodyLoad()
 t c;
 t d = <span class="d_keyword">cast</span>(t)3;
 
-<span class="d_keyword">int</span>.init	<span class="d_comment">// is 0
-</span>a.init		<span class="d_comment">// is 0
-</span>b.init		<span class="d_comment">// is 0
-</span>t.init		<span class="d_comment">// is 2
-</span>c.init		<span class="d_comment">// is 2
-</span>d.init		<span class="d_comment">// is 2
+<span class="d_keyword">int</span>.init <span class="d_comment">// is 0
+</span>a.init   <span class="d_comment">// is 0
+</span>b.init   <span class="d_comment">// is 0
+</span>t.init   <span class="d_comment">// is 2
+</span>c.init   <span class="d_comment">// is 2
+</span>d.init   <span class="d_comment">// is 2
 </span>
-<span class="d_keyword">struct</span> Foo
-{
-    <span class="d_keyword">int</span> a;
-    <span class="d_keyword">int</span> b = 7;
+<span class="d_keyword">struct</span> Foo {
+  <span class="d_keyword">int</span> a;
+  <span class="d_keyword">int</span> b = 7;
 }
 
-Foo.a.init	<span class="d_comment">// is 0
-</span>Foo.b.init	<span class="d_comment">// is 7
+Foo.init.a  <span class="d_comment">// is 0
+</span>Foo.init.b  <span class="d_comment">// is 7
 </span></span></pre>
 
 
@@ -261,22 +260,24 @@ Foo.a.init	<span class="d_comment">// is 0
 	For example:
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> Foo { }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">module</span> test;
+<span class="d_keyword">import</span> std.stdio;
+
+<span class="d_keyword">struct</span> Foo { }
 
 <span class="d_keyword">enum</span> Enum { RED }
 
 <span class="d_keyword">typedef</span> <span class="d_keyword">int</span> myint;
 
-<span class="d_keyword">void</span> main()
-{
-    writefln((1+2).stringof);       <span class="d_comment">// "1 + 2"
-</span>    writefln(Foo.stringof);         <span class="d_comment">// "Foo"
-</span>    writefln(test.Foo.stringof);    <span class="d_comment">// "test.Foo"
-</span>    writefln(<span class="d_keyword">int</span>.stringof);         <span class="d_comment">// "int"
-</span>    writefln((<span class="d_keyword">int</span>*[5][]).stringof); <span class="d_comment">// "int*[5][]"
-</span>    writefln(Enum.RED.stringof);    <span class="d_comment">// "Enum.RED"
-</span>    writefln(test.myint.stringof);  <span class="d_comment">// "test.myint"
-</span>    writefln((5).stringof);         <span class="d_comment">// "5"
+<span class="d_keyword">void</span> main() {
+  writeln((1+2).stringof);       <span class="d_comment">// "1 + 2"
+</span>  writeln(Foo.stringof);         <span class="d_comment">// "Foo"
+</span>  writeln(test.Foo.stringof);    <span class="d_comment">// "Foo"
+</span>  writeln(<span class="d_keyword">int</span>.stringof);         <span class="d_comment">// "int"
+</span>  writeln((<span class="d_keyword">int</span>*[5][]).stringof); <span class="d_comment">// "int*[5u][]"
+</span>  writeln(Enum.RED.stringof);    <span class="d_comment">// "cast(enum)0"
+</span>  writeln(test.myint.stringof);  <span class="d_comment">// "myint"
+</span>  writeln((5).stringof);         <span class="d_comment">// "5"
 </span>}
 </span></pre>
 
@@ -291,14 +292,14 @@ Foo.a.init	<span class="d_comment">// is 0
 	</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
-    <span class="d_keyword">int</span> a;
-    <span class="d_keyword">static</span> <span class="d_keyword">int</span> foo() {
-	<span class="d_keyword">return</span> a.sizeof;   <span class="d_comment">// returns 4
-</span>    }
+  <span class="d_keyword">int</span> a;
+  <span class="d_keyword">static</span> <span class="d_keyword">int</span> foo() {
+    <span class="d_keyword">return</span> a.sizeof; <span class="d_comment">// returns 4
+</span>  }
 }
 
 <span class="d_keyword">void</span> test() {
-    <span class="d_keyword">int</span> x = S.a.sizeof;    <span class="d_comment">// sets x to 4
+  <span class="d_keyword">int</span> x = S.a.sizeof; <span class="d_comment">// sets x to 4
 </span>}
 </span></pre>
 
@@ -333,14 +334,13 @@ Foo.a.init	<span class="d_comment">// is 0
 	<p>A simple property would be:</p>
 
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> Foo
-{
-    @property <span class="d_keyword">int</span> data() { <span class="d_keyword">return</span> m_data; }	<span class="d_comment">// read property
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> Foo {
+  @property <span class="d_keyword">int</span> data() { <span class="d_keyword">return</span> m_data; } <span class="d_comment">// read property
 </span>
-    @property <span class="d_keyword">int</span> data(<span class="d_keyword">int</span> value) { <span class="d_keyword">return</span> m_data = value; } <span class="d_comment">// write property
+  @property <span class="d_keyword">int</span> data(<span class="d_keyword">int</span> value) { <span class="d_keyword">return</span> m_data = value; } <span class="d_comment">// write property
 </span>
-  <span class="d_keyword">private</span>:
-    <span class="d_keyword">int</span> m_data;
+<span class="d_keyword">private</span>:
+  <span class="d_keyword">int</span> m_data;
 }
 </span></pre>
 
@@ -351,12 +351,11 @@ Foo.a.init	<span class="d_comment">// is 0
 
 	<p>To use it:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> test()
-{
-    Foo f;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> test() {
+  Foo f;
 
-    f.data = 3;		<span class="d_comment">// same as f.data(3);
-</span>    <span class="d_keyword">return</span> f.data + 3;	<span class="d_comment">// same as return f.data() + 3;
+  f.data = 3;        <span class="d_comment">// same as f.data(3);
+</span>  <span class="d_keyword">return</span> f.data + 3; <span class="d_comment">// same as return f.data() + 3;
 </span>}
 </span></pre>
 

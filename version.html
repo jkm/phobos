@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Conditional Compilation - D Programming Language 2.0 - Digital Mars</title>
+<title>Conditional Compilation - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,32 +156,32 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Version">Comment on this page</a></span>
 </div>
-  <h1>          Conditional Compilation</h1>
+  <h1>Conditional Compilation</h1>
   	<p><i>Conditional compilation</i> is the process of selecting which
 	code to compile and which code to not compile.
 	(In C and C++, conditional compilation is done with the preprocessor
 	directives <tt><span class="notranslate">#if</span></tt> / <tt><span class="notranslate">#else</span></tt> / <tt><span class="notranslate">#endif</span></tt>.)
 	</p>
 
-<pre class="bnf"><span class="notranslate"><a name="ConditionalDeclaration">ConditionalDeclaration</a>:
-    <a href="#Condition"><i>Condition</i></a> <i>CCDeclarationBlock</i>
-    <a href="#Condition"><i>Condition</i></a> <i>CCDeclarationBlock</i> <b>else</b> <i>CCDeclarationBlock</i>
-    <a href="#Condition"><i>Condition</i></a> <b>:</b> <i>Declarations</i>
+<pre class="bnf"><span class="notranslate"><a name="ConditionalDeclaration"><i>ConditionalDeclaration</i></a>:
+    <a href="#Condition"><i>Condition</i></a> <a href="#CCDeclarationBlock"><i>CCDeclarationBlock</i></a>
+    <a href="#Condition"><i>Condition</i></a> <a href="#CCDeclarationBlock"><i>CCDeclarationBlock</i></a> <b>else</b> <a href="#CCDeclarationBlock"><i>CCDeclarationBlock</i></a>
+    <a href="#Condition"><i>Condition</i></a> <b>:</b> <a href="#Declarations"><i>Declarations</i></a>
 
-<a name="CCDeclarationBlock">CCDeclarationBlock</a>:
+<a name="CCDeclarationBlock"><i>CCDeclarationBlock</i></a>:
     <a href="declaration.html#Declaration"><i>Declaration</i></a>
-    <b>{</b> <i>Declarations</i> <b>}</b>
+    <b>{</b> <a href="#Declarations"><i>Declarations</i></a> <b>}</b>
     <b>{ }</b>
 
-<a name="Declarations">Declarations</a>:
+<a name="Declarations"><i>Declarations</i></a>:
     <a href="declaration.html#Declaration"><i>Declaration</i></a>
     <a href="declaration.html#Declaration"><i>Declaration</i></a> <i>Declarations</i>
 
-<a name="ConditionalStatement">ConditionalStatement</a>:
+<a name="ConditionalStatement"><i>ConditionalStatement</i></a>:
     <a href="#Condition"><i>Condition</i></a> <a href="statement.html#NoScopeNonEmptyStatement"><i>NoScopeNonEmptyStatement</i></a>
     <a href="#Condition"><i>Condition</i></a> <a href="statement.html#NoScopeNonEmptyStatement"><i>NoScopeNonEmptyStatement</i></a> <b>else</b> <a href="statement.html#NoScopeNonEmptyStatement"><i>NoScopeNonEmptyStatement</i></a>
 </span></pre>
@@ -212,23 +213,23 @@ function bodyLoad()
 	<p><i>Condition</i> comes in the following forms:
 	</p>
 
-<pre class="bnf"><span class="notranslate"><a name="Condition">Condition</a>:
-    <a href="#version"><i>VersionCondition</i></a>
-    <a href="#debug"><i>DebugCondition</i></a>
-    <a href="#staticif"><i>StaticIfCondition</i></a>
+<pre class="bnf"><span class="notranslate"><a name="Condition"><i>Condition</i></a>:
+    <a href="#VersionCondition"><i>VersionCondition</i></a>
+    <a href="#DebugCondition"><i>DebugCondition</i></a>
+    <a href="#StaticIfCondition"><i>StaticIfCondition</i></a>
 </span></pre>
 
 <h2><a name="version">Version Condition</a></h2>
 
+<pre class="bnf"><span class="notranslate"><a name="VersionCondition"><i>VersionCondition</i></a>:
+    <b>version (</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
+    <b>version (</b> <i>Identifier</i> <b>)</b>
+   <b>version (</b> <b>unittest</b> <b>)</b>
+</span></pre>
+
 	<p>Versions enable multiple versions of a module to be implemented
 	with a single source file.
 	</p>
-
-<pre class="bnf"><span class="notranslate"><a name="VersionCondition">VersionCondition</a>:
-	<b>version (</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
-	<b>version (</b> <i>Identifier</i> <b>)</b>
-<b>version (</b> <b>unittest</b> <b>)</b>
-</span></pre>
 
 	<p>The <i>VersionCondition</i> is satisfied if the <i>IntegerLiteral</i>
 	is greater than or equal to the current <i>version level</i>,
@@ -248,22 +249,22 @@ function bodyLoad()
 	</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">int</span> k;
-<span class="d_keyword">version</span> (Demo)	<span class="d_comment">// compile in this code block for the demo version
-</span>{   <span class="d_keyword">int</span> i;
-    <span class="d_keyword">int</span> k;	<span class="d_comment">// error, k already defined
+<span class="d_keyword">version</span> (Demo) <span class="d_comment">// compile in this code block for the demo version
+</span>{ <span class="d_keyword">int</span> i;
+  <span class="d_keyword">int</span> k;    <span class="d_comment">// error, k already defined
 </span>
-    i = 3;
+  i = 3;
 }
-x = i;		<span class="d_comment">// uses the i declared above
+x = i;      <span class="d_comment">// uses the i declared above
 </span></span></pre>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">version</span> (X86)
 {
-    ... <span class="d_comment">// implement custom inline assembler version
+  ... <span class="d_comment">// implement custom inline assembler version
 </span>}
 <span class="d_keyword">else</span>
 {
-    ... <span class="d_comment">// use default, but slow, version
+  ... <span class="d_comment">// use default, but slow, version
 </span>}
 </span></pre>
 
@@ -274,7 +275,7 @@ x = i;		<span class="d_comment">// uses the i declared above
 
 <h3><a name="VersionSpecification">Version Specification</a></h3>
 
-<pre class="bnf"><span class="notranslate"><a name="VersionSpecification">VersionSpecification</a>:
+<pre class="bnf"><span class="notranslate"><a name="VersionSpecification"><i>VersionSpecification</i></a>:
     <b>version =</b> <i>Identifier</i> <b>;</b>
     <b>version =</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>;</b>
 </span></pre>
@@ -285,18 +286,18 @@ x = i;		<span class="d_comment">// uses the i declared above
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">version</span> (ProfessionalEdition)
 {
-    <span class="d_keyword">version</span> = FeatureA;
-    <span class="d_keyword">version</span> = FeatureB;
-    <span class="d_keyword">version</span> = FeatureC;
+  <span class="d_keyword">version</span> = FeatureA;
+  <span class="d_keyword">version</span> = FeatureB;
+  <span class="d_keyword">version</span> = FeatureC;
 }
 <span class="d_keyword">version</span> (HomeEdition)
 {
-    <span class="d_keyword">version</span> = FeatureA;
+  <span class="d_keyword">version</span> = FeatureA;
 }
 ...
 <span class="d_keyword">version</span> (FeatureB)
 {
-    ... implement Feature B ...
+  ... implement Feature B ...
 }
 </span></pre>
 
@@ -305,7 +306,7 @@ x = i;		<span class="d_comment">// uses the i declared above
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">version</span> (Foo)
 {
-    <span class="d_keyword">int</span> x;
+  <span class="d_keyword">int</span> x;
 }
 <span class="d_keyword">version</span> = Foo;	<span class="d_comment">// error, Foo already used
 </span></span></pre>
@@ -322,25 +323,24 @@ x = i;		<span class="d_comment">// uses the i declared above
 	<p>Here's an example of a <i>full</i> version as opposed to
 	a <i>demo</i> version:</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo
-{
-    <span class="d_keyword">int</span> a, b;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo {
+  <span class="d_keyword">int</span> a, b;
 
-    <span class="d_keyword">version</span>(full)
+  <span class="d_keyword">version</span>(full)
+  {
+    <span class="d_keyword">int</span> extrafunctionality()
     {
-	<span class="d_keyword">int</span> extrafunctionality()
-	{
-	    ...
-	    <span class="d_keyword">return</span> 1;		<span class="d_comment">// extra functionality is supported
-</span>	}
-    }
-    <span class="d_keyword">else</span> <span class="d_comment">// demo
-</span>    {
-	<span class="d_keyword">int</span> extrafunctionality()
-	{
-	    <span class="d_keyword">return</span> 0;		<span class="d_comment">// extra functionality is not supported
-</span>	}
-    }
+      ...
+      <span class="d_keyword">return</span> 1;  <span class="d_comment">// extra functionality is supported
+</span>    }
+  }
+  <span class="d_keyword">else</span> <span class="d_comment">// demo
+</span>  {
+    <span class="d_keyword">int</span> extrafunctionality()
+    {
+      <span class="d_keyword">return</span> 0;  <span class="d_comment">// extra functionality is not supported
+</span>    }
+  }
 }
 </span></pre>
 
@@ -391,12 +391,12 @@ x = i;		<span class="d_comment">// uses the i declared above
 	<tr><td><b>LittleEndian</b></td> <td>Byte order, least significant first</td></tr>
 	<tr><td><b>BigEndian</b></td> <td>Byte order, most significant first</td></tr>
 	<tr><td><b>D_Coverage</b></td> <td><a href="code_coverage.html">Code coverage analysis</a> instrumentation (command line <a href="dmd-windows.html#switches">switch</a> <b>-cov</b>) is being generated</td></tr>
-	<tr><td><b>D_Ddoc</b></td> <td><a href="ddoc.html">Ddoc</a> documentation (command line <a href="dmd-windows.html#switches">switch</a> <b>-D</b>) is being generated</td></tr>
-	<tr><td><b>D_InlineAsm_X86</b></td> <td><a href="iasm.html">Inline assembler</a> for X86 is implemented</td></tr>
-	<tr><td><b>D_InlineAsm_X86_64</b></td> <td><a href="iasm.html">Inline assembler</a> for X86-64 is implemented</td></tr>
+	<tr><td><b>D_Ddoc</b></td> <td><a href="">Ddoc</a> documentation (command line <a href="dmd-windows.html#switches">switch</a> <b>-D</b>) is being generated</td></tr>
+	<tr><td><b>D_InlineAsm_X86</b></td> <td><a href="">Inline assembler</a> for X86 is implemented</td></tr>
+	<tr><td><b>D_InlineAsm_X86_64</b></td> <td><a href="">Inline assembler</a> for X86-64 is implemented</td></tr>
 	<tr><td><b>D_LP64</b></td> <td>Pointers are 64 bits (command line <a href="dmd-windows.html#switches">switch</a> <b>-m64</b>)</td></tr>
 	<tr><td><b>D_PIC</b></td> <td>Position Independent Code (command line <a href="dmd-windows.html#switches">switch</a> <b>-fPIC</b>) is being generated</td></tr>
-	<tr><td><b>unittest</b></td> <td><a href="unittest.html">Unit tests</a> are enabled (command line <a href="dmd-windows.html#switches">switch</a> <b>-unittest</b>)</td></tr>
+	<tr><td><b>unittest</b></td> <td><a href="">Unit tests</a> are enabled (command line <a href="dmd-windows.html#switches">switch</a> <b>-unittest</b>)</td></tr>
 	<tr><td><b>D_Version2</b></td> <td>This is a D version 2 compiler</td></tr>
 	<tr><td><b>none</b></td> <td>Never defined; used to just disable a section of code</td></tr>
 	<tr><td><b>all</b></td> <td>Always defined; used as the opposite of <b>none</b></td></tr>
@@ -437,6 +437,12 @@ x = i;		<span class="d_comment">// uses the i declared above
 
 <h2><a name="debug">Debug Condition</a></h2>
 
+<pre class="bnf"><span class="notranslate"><a name="DebugCondition"><i>DebugCondition</i></a>:
+    <b>debug</b>
+    <b>debug (</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
+    <b>debug (</b> <i>Identifier</i> <b>)</b>
+</span></pre>
+
 	<p>Two versions of programs are commonly built,
 	a release build and a debug build.
 	The debug build includes extra error checking code,
@@ -446,12 +452,6 @@ x = i;		<span class="d_comment">// uses the i declared above
 	It is D's way of what in C is done
 	with <tt><span class="notranslate">#ifdef DEBUG</span></tt> / <tt><span class="notranslate">#endif</span></tt> pairs.
 	</p>
-
-<pre class="bnf"><span class="notranslate"><a name="DebugCondition">DebugCondition</a>:
-    <b>debug</b>
-    <b>debug (</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
-    <b>debug (</b> <i>Identifier</i> <b>)</b>
-</span></pre>
 
 	<p>The <b>debug</b> condition is satisfied when the <b>-debug</b> switch is
 	thrown on the compiler.
@@ -466,18 +466,17 @@ x = i;		<span class="d_comment">// uses the i declared above
 	when the debug identifier matches <i>Identifier</i>.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo
-{
-	<span class="d_keyword">int</span> a, b;
-    <span class="d_keyword">debug</span>:
-	<span class="d_keyword">int</span> flag;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo {
+  <span class="d_keyword">int</span> a, b;
+ <span class="d_keyword">debug</span>:
+  <span class="d_keyword">int</span> flag;
 }
 </span></pre>
 
 
 <h3>Debug Specification</h3>
 
-<pre class="bnf"><span class="notranslate"><a name="DebugSpecification">DebugSpecification</a>:
+<pre class="bnf"><span class="notranslate"><a name="DebugSpecification"><i>DebugSpecification</i></a>:
     <b>debug =</b> <i>Identifier</i> <b>;</b>
     <b>debug =</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>;</b>
 </span></pre>
@@ -513,9 +512,9 @@ x = i;		<span class="d_comment">// uses the i declared above
 	<tt>-debug=<i>n</i></tt> and <tt>-debug=<i>identifier</i></tt>.
 	</p>
 
-<h2><a name="staticif">Static If Condition</a></h2>
+<h2>Static If Condition</h2>
 
-<pre class="bnf"><span class="notranslate"><a name="StaticIfCondition">StaticIfCondition</a>:
+<pre class="bnf"><span class="notranslate"><a name="StaticIfCondition"><i>StaticIfCondition</i></a>:
     <b>static if (</b> <a href="expression.html#AssignExpression"><i>AssignExpression</i></a> <b>)</b>
 </span></pre>
 
@@ -542,34 +541,33 @@ x = i;		<span class="d_comment">// uses the i declared above
 <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 3)	<span class="d_comment">// ok, at module scope
 </span>    <span class="d_keyword">int</span> x;
 
-<span class="d_keyword">class</span> C
-{   <span class="d_keyword">const</span> <span class="d_keyword">int</span> k = 5;
+<span class="d_keyword">class</span> C {
+  <span class="d_keyword">const</span> <span class="d_keyword">int</span> k = 5;
 
-    <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 3)	<span class="d_comment">// ok
-</span>	<span class="d_keyword">int</span> x;
-    <b><span class="d_keyword">else</span></b>
-	<span class="d_keyword">long</span> x;
+  <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 3) <span class="d_comment">// ok
+</span>    <span class="d_keyword">int</span> x;
+  <b><span class="d_keyword">else</span></b>
+    <span class="d_keyword">long</span> x;
 
-    <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (j == 3)	<span class="d_comment">// error, j is not a constant
-</span>	<span class="d_keyword">int</span> y;
+  <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (j == 3) <span class="d_comment">// error, j is not a constant
+</span>    <span class="d_keyword">int</span> y;
 
-    <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (k == 5)	<span class="d_comment">// ok, k is in current scope
-</span>	<span class="d_keyword">int</span> z;
+  <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (k == 5) <span class="d_comment">// ok, k is in current scope
+</span>    <span class="d_keyword">int</span> z;
 }
 
-<span class="d_keyword">template</span> INT(<span class="d_keyword">int</span> i)
-{
-    <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 32)
-	<span class="d_keyword">alias</span> <span class="d_keyword">int</span> INT;
-    <b><span class="d_keyword">else</span> <span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 16)
-	<span class="d_keyword">alias</span> <span class="d_keyword">short</span> INT;
-    <b><span class="d_keyword">else</span></b>
-	<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0);	<span class="d_comment">// not supported
+<span class="d_keyword">template</span> INT(<span class="d_keyword">int</span> i) {
+  <b><span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 32)
+    <span class="d_keyword">alias</span> <span class="d_keyword">int</span> INT;
+  <b><span class="d_keyword">else</span> <span class="d_keyword">static</span> <span class="d_keyword">if</span></b> (i == 16)
+    <span class="d_keyword">alias</span> <span class="d_keyword">short</span> INT;
+  <b><span class="d_keyword">else</span></b>
+    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0); <span class="d_comment">// not supported
 </span>}
 
-INT!(32) a;	<span class="d_comment">// a is an int
-</span>INT!(16) b;	<span class="d_comment">// b is a short
-</span>INT!(17) c;	<span class="d_comment">// error, static assert trips
+INT!(32) a;  <span class="d_comment">// a is an int
+</span>INT!(16) b;  <span class="d_comment">// b is a short
+</span>INT!(17) c;  <span class="d_comment">// error, static assert trips
 </span></span></pre>
 
 	<p>A <i>StaticIfConditional</i> condition differs from an
@@ -593,7 +591,7 @@ INT!(32) a;	<span class="d_comment">// a is an int
 
 <h2><a name="static-assert"><a name="StaticAssert">Static Assert</a></a></h2>
 
-<pre class="bnf"><span class="notranslate"><a name="StaticAssert">StaticAssert</a>:
+<pre class="bnf"><span class="notranslate"><a name="StaticAssert"><i>StaticAssert</i></a>:
     <b>static assert (</b> <a href="expression.html#AssignExpression"><i>AssignExpression</i></a> <b>);</b>
     <b>static assert (</b> <a href="expression.html#AssignExpression"><i>AssignExpression</i></a> <b>,</b> <a href="expression.html#AssignExpression"><i>AssignExpression</i></a> <b>);</b>
 </span></pre>
@@ -604,25 +602,24 @@ INT!(32) a;	<span class="d_comment">// a is an int
 	and the compile fails.
 	</p>
 
-	<p>Unlike <i>AssertExpression</i>s, <i>StaticAssert</i>s are always
+	<p>Unlike <a href="expression.html#AssertExpression"><i>AssertExpression</i></a>s, <i>StaticAssert</i>s are always
 	checked and evaluted by the compiler unless they appear in an
 	unsatisfied conditional.
 	</p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> foo()
-{
-    <span class="d_keyword">if</span> (0)
-    {
-	<span class="d_keyword">assert</span>(0);	  <span class="d_comment">// never trips
-</span>	<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0); <span class="d_comment">// always trips
-</span>    }
-    <span class="d_keyword">version</span> (BAR)
-    {
-    }
-    <span class="d_keyword">else</span>
-    {
-	<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0); <span class="d_comment">// trips when version BAR is not defined
-</span>    }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">void</span> foo() {
+  <span class="d_keyword">if</span> (0)
+  {
+    <span class="d_keyword">assert</span>(0);  <span class="d_comment">// never trips
+</span>    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0); <span class="d_comment">// always trips
+</span>  }
+  <span class="d_keyword">version</span> (BAR)
+  {
+  }
+  <span class="d_keyword">else</span>
+  {
+    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(0); <span class="d_comment">// trips when version BAR is not defined
+</span>  }
 }
 </span></pre>
 

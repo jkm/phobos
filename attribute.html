@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Attributes - D Programming Language 2.0 - Digital Mars</title>
+<title>Attributes - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,19 +156,19 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:27 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Attribute">Comment on this page</a></span>
 </div>
-  <h1>          Attributes</h1>
-  <pre class="bnf"><span class="notranslate"><a name="AttributeSpecifier">AttributeSpecifier</a>:
-    <i>Attribute</i> <b>:</b>
-    <i>Attribute</i> <i>DeclarationBlock</i>
+  <h1>Attributes</h1>
+  <pre class="bnf"><span class="notranslate"><a name="AttributeSpecifier"><i>AttributeSpecifier</i></a>:
+    <a href="#Attribute"><i>Attribute</i></a> <b>:</b>
+    <a href="#Attribute"><i>Attribute</i></a> <a href="#DeclarationBlock"><i>DeclarationBlock</i></a>
 
-<a name="Attribute">Attribute</a>:
+<a name="Attribute"><i>Attribute</i></a>:
     <a href="#linkage"><i>LinkageAttribute</i></a>
     <a href="#align"><i>AlignAttribute</i></a>
-    <a href="pragma.html"><i>Pragma</i></a>
+    <a href="pragma.html#Pragma"><i>Pragma</i></a>
     <a href="#deprecated"><b>deprecated</b></a>
     <a href="#ProtectionAttribute"><i>ProtectionAttribute</i></a>
     <b>static</b>
@@ -185,104 +186,101 @@ function bodyLoad()
     <a href="#disable"><b>@disable</b></a>
 
 
-<a name="DeclarationBlock">DeclarationBlock</a>:
+<a name="DeclarationBlock"><i>DeclarationBlock</i></a>:
     <a href="module.html#DeclDef"><i>DeclDef</i></a>
     <b>{ }</b>
     <b>{</b> <a href="module.html#DeclDefs"><i>DeclDefs</i></a> <b>}</b>
 </span></pre>
 
-	<p>Attributes are a way to modify one or more declarations.
-	The general forms are:
-	</p>
+        <p>Attributes are a way to modify one or more declarations.
+        The general forms are:
+        </p>
 
-<pre class="d_code"><span class="notranslate">attribute declaration;		<span class="d_comment">// affects the declaration
+<pre class="d_code"><span class="notranslate">attribute declaration; <span class="d_comment">// affects the declaration
 </span>
-attribute:			<span class="d_comment">// affects all declarations until the end of
-</span>				<span class="d_comment">// the current scope
-</span>    declaration;
-    declaration;
-    ...
+attribute:     <span class="d_comment">// affects all declarations until the end of
+</span>               <span class="d_comment">// the current scope
+</span>  declaration;
+  declaration;
+  ...
 
-attribute			<span class="d_comment">// affects all declarations in the block
-</span>{
-    declaration;
-    declaration;
-    ...
+attribute {    <span class="d_comment">// affects all declarations in the block
+</span>  declaration;
+  declaration;
+  ...
 }
 </span></pre>
 
-	<p>For attributes with an optional else clause:</p>
+        <p>For attributes with an optional else clause:</p>
 
 <pre class="d_code"><span class="notranslate">attribute
-    declaration;
+  declaration;
 <span class="d_keyword">else</span>
-    declaration;
+  declaration;
 
-attribute			<span class="d_comment">// affects all declarations in the block
-</span>{
-    declaration;
-    declaration;
-    ...
+attribute {    <span class="d_comment">// affects all declarations in the block
+</span>  declaration;
+  declaration;
+  ...
 }
-<span class="d_keyword">else</span>
-{
-    declaration;
-    declaration;
-    ...
+<span class="d_keyword">else</span> {
+  declaration;
+  declaration;
+  ...
 }
 </span></pre>
 
 <h2><a name="linkage">Linkage Attribute</a></h2>
 
-<pre class="bnf"><span class="notranslate"><a name="LinkageAttribute">LinkageAttribute</a>:
-	<b>extern</b>
-	<b>extern</b> <b>(</b> <i>LinkageType</i> <b>)</b>
+<pre class="bnf"><span class="notranslate"><a name="LinkageAttribute"><i>LinkageAttribute</i></a>:
+    <b>extern</b>
+    <b>extern</b> <b>(</b> <a href="#LinkageType"><i>LinkageType</i></a> <b>)</b>
 
-<a name="LinkageType">LinkageType</a>:
-	<b>C</b>
-	<b>C++</b>
-	<b>D</b>
-	<b>Windows</b>
-	<b>Pascal</b>
-	<b>System</b>
+<a name="LinkageType"><i>LinkageType</i></a>:
+    <b>C</b>
+    <b>C++</b>
+    <b>D</b>
+    <b>Windows</b>
+    <b>Pascal</b>
+    <b>System</b>
 </span></pre>
 
-	<p>D provides an easy way to call C functions and operating
-	system API functions, as compatibility with both is essential.
-	The <i>LinkageType</i> is case sensitive, and is meant to be
-	extensible by the implementation (they are not keywords).
-	<b>C</b> and <b>D</b> must be supplied, the others are what
-	makes sense for the implementation.
-	<b>C++</b> is reserved for future use.
-	<b>System</b> is the same as <b>Windows</b> on Windows platforms,
-	and <b>C</b> on other platforms.
-	<b>Implementation Note:</b>
-	for Win32 platforms, <b>Windows</b> and <b>Pascal</b> should exist.
-	</p>
+        <p>D provides an easy way to call C functions and operating
+        system API functions, as compatibility with both is essential.
+        The <i>LinkageType</i> is case sensitive, and is meant to be
+        extensible by the implementation (they are not keywords).
+        <b>C</b> and <b>D</b> must be supplied, the others are what
+        makes sense for the implementation.
+        <b>C++</b> is reserved for future use.
+        <b>System</b> is the same as <b>Windows</b> on Windows platforms,
+        and <b>C</b> on other platforms.
+        <b>Implementation Note:</b>
+        for Win32 platforms, <b>Windows</b> and <b>Pascal</b> should exist.
+        </p>
 
-	<p>C function calling conventions are 
-	specified by:
-	</p>
+        <p>C function calling conventions are
+        specified by:
+        </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (C):
-	<span class="d_keyword">int</span> foo();	<span class="d_comment">// call foo() with C conventions
+  <span class="d_keyword">int</span> foo(); <span class="d_comment">// call foo() with C conventions
 </span></span></pre>
 
-	<p>D conventions are:</p>
+        <p>D conventions are:</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (D):
 </span></pre>
 
-	<p>or:</p>
+        <p>or:</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span>:
 </span></pre>
 
 
-	<p>Windows API conventions are:</p>
+        <p>Windows API conventions are:</p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">extern</span> (Windows):
-    <span class="d_keyword">void</span> *VirtualAlloc(
+  <span class="d_keyword">void</span> *VirtualAlloc(
     <span class="d_keyword">void</span> *lpAddress,
     <span class="d_keyword">uint</span> dwSize,
     <span class="d_keyword">uint</span> flAllocationType,
@@ -292,89 +290,89 @@ attribute			<span class="d_comment">// affects all declarations in the block
 
 <h2><a name="align">Align Attribute</a></h2>
 
-<pre class="bnf"><span class="notranslate"><a name="AlignAttribute">AlignAttribute</a>:
-	<b>align</b>
-	<b>align</b> <b>(</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
+<pre class="bnf"><span class="notranslate"><a name="AlignAttribute"><i>AlignAttribute</i></a>:
+    <b>align</b>
+    <b>align</b> <b>(</b> <a href="lex.html#IntegerLiteral"><i>IntegerLiteral</i></a> <b>)</b>
 </span></pre>
 
-	<p>Specifies the alignment of struct members. <b>align</b> by itself
-	sets it to the default, which matches the default member alignment
-	of the companion C compiler. <i>Integer</i> specifies the alignment
-	which matches the behavior of the companion C compiler when non-default
-	alignments are used.
-	</p>
+        <p>Specifies the alignment of struct members. <b>align</b> by itself
+        sets it to the default, which matches the default member alignment
+        of the companion C compiler. <i>Integer</i> specifies the alignment
+        which matches the behavior of the companion C compiler when non-default
+        alignments are used.
+        </p>
 
-	<p>Matching the behavior of the companion C compiler can have some
-	surprising results, such as the following for Digital Mars C++:
-	</p>
+        <p>Matching the behavior of the companion C compiler can have some
+        surprising results, such as the following for Digital Mars C++:
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S
-{   <span class="d_keyword">align</span>(4) <span class="d_keyword">byte</span> a;	<span class="d_comment">// placed at offset 0
-</span>    <span class="d_keyword">align</span>(4) <span class="d_keyword">byte</span> b;	<span class="d_comment">// placed at offset 1
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> S {
+  <span class="d_keyword">align</span>(4) <span class="d_keyword">byte</span> a; <span class="d_comment">// placed at offset 0
+</span>  <span class="d_keyword">align</span>(4) <span class="d_keyword">byte</span> b; <span class="d_comment">// placed at offset 1
 </span>}
 </span></pre>
 
-	<p><i>AlignAttribute</i> is meant for C ABI compatiblity, which is not
-	the same thing as binary compatibility across diverse platforms.
-	For that, use packed structs:
-	</p>
+        <p><i>AlignAttribute</i> is meant for C ABI compatiblity, which is not
+        the same thing as binary compatibility across diverse platforms.
+        For that, use packed structs:
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">align</span> (1) <span class="d_keyword">struct</span> S
-{   <span class="d_keyword">byte</span> a;	<span class="d_comment">// placed at offset 0
-</span>    <span class="d_keyword">byte</span>[3] filler1;
-    <span class="d_keyword">byte</span> b;	<span class="d_comment">// placed at offset 4
-</span>    <span class="d_keyword">byte</span>[3] filler2;
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">align</span> (1) <span class="d_keyword">struct</span> S {
+  <span class="d_keyword">byte</span> a;     <span class="d_comment">// placed at offset 0
+</span>  <span class="d_keyword">byte</span>[3] filler1;
+  <span class="d_keyword">byte</span> b;     <span class="d_comment">// placed at offset 4
+</span>  <span class="d_keyword">byte</span>[3] filler2;
 }
 </span></pre>
 
-	<p>A value of 1 means that no alignment is done;
-	members are packed together.
-	</p>
+        <p>A value of 1 means that no alignment is done;
+        members are packed together.
+        </p>
 
-	<p>Do not align references or pointers that were allocated
-	using <i>NewExpression</i> on boundaries that are not
-	a multiple of <tt>size_t</tt>. The garbage collector assumes that pointers
-	and references to gc allocated objects will be on <tt>size_t</tt>
-	byte boundaries. If they are not, undefined behavior will
-	result.
-	</p>
+        <p>Do not align references or pointers that were allocated
+        using <i>NewExpression</i> on boundaries that are not
+        a multiple of <tt>size_t</tt>. The garbage collector assumes that pointers
+        and references to gc allocated objects will be on <tt>size_t</tt>
+        byte boundaries. If they are not, undefined behavior will
+        result.
+        </p>
 
-	<p><i>AlignAttribute</i> is ignored when applied to declarations
-	that are not struct members.
-	Whether it applies to class members or not is implementation defined.
-	</p>
+        <p><i>AlignAttribute</i> is ignored when applied to declarations
+        that are not struct members.
+        Whether it applies to class members or not is implementation defined.
+        </p>
 
-	<p>The <i>AlignAttribute</i> is reset to the default when
-	entering a struct, union, class, or function scope, and restored
-	when exiting that scope.
-	It is not inherited from a base class.
-	</p>
+        <p>The <i>AlignAttribute</i> is reset to the default when
+        entering a struct, union, class, or function scope, and restored
+        when exiting that scope.
+        It is not inherited from a base class.
+        </p>
 
 <h2><a name="deprecated">Deprecated Attribute</a></h2>
 
-	<p>It is often necessary to deprecate a feature in a library,
-	yet retain it for backwards compatibility. Such
-	declarations can be marked as deprecated, which means 
-	that the compiler can be set to produce an error
-	if any code refers to deprecated 
-	declarations:
-	</p>
+        <p>It is often necessary to deprecate a feature in a library,
+        yet retain it for backwards compatibility. Such
+        declarations can be marked as deprecated, which means
+        that the compiler can be set to produce an error
+        if any code refers to deprecated
+        declarations:
+        </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">deprecated</span>
 {
-	<span class="d_keyword">void</span> oldFoo();
+  <span class="d_keyword">void</span> oldFoo();
 }
 </span></pre>
 
-	<p><b>Implementation Note:</b> The compiler should have a switch
-	specifying if deprecated declarations should be compiled with
-	out complaint or not.
-	</p>
+        <p><b>Implementation Note:</b> The compiler should have a switch
+        specifying if deprecated declarations should be compiled with
+        out complaint or not.
+        </p>
 
 
 <h2>Protection Attribute</h2>
 
-<pre class="bnf"><span class="notranslate"><a name="ProtectionAttribute">ProtectionAttribute</a>:
+<pre class="bnf"><span class="notranslate"><a name="ProtectionAttribute"><i>ProtectionAttribute</i></a>:
     <b>private</b>
     <b>package</b>
     <b>protected</b>
@@ -382,58 +380,57 @@ attribute			<span class="d_comment">// affects all declarations in the block
     <b>export</b>
 </span></pre>
 
-	<p>Protection is an attribute that is one of
-	<b>private</b>, <b>package</b>, <b>protected</b>,
-	<b>public</b> or <b>export</b>.
-	</p>
+        <p>Protection is an attribute that is one of
+        <b>private</b>, <b>package</b>, <b>protected</b>,
+        <b>public</b> or <b>export</b>.
+        </p>
 
-	<p>Private means that only members of the enclosing class can access
-	the member, or members and functions in the same module as the
-	enclosing class.
-	Private members cannot be overridden.
-	Private module members are equivalent to <b>static</b> declarations
-	in C programs.
-	</p>
+        <p>Private means that only members of the enclosing class can access
+        the member, or members and functions in the same module as the
+        enclosing class.
+        Private members cannot be overridden.
+        Private module members are equivalent to <b>static</b> declarations
+        in C programs.
+        </p>
 
-	<p>Package extends private so that package members can be accessed
-	from code in other modules that are in the same package.
-	This applies to the innermost package only, if a module is in
-	nested packages.
-	</p>
+        <p>Package extends private so that package members can be accessed
+        from code in other modules that are in the same package.
+        This applies to the innermost package only, if a module is in
+        nested packages.
+        </p>
 
-	<p>Protected means that only members of the enclosing class or any
-	classes derived from that class,
-	or members and functions in the same module
-	as the enclosing class, can access the member.
-	If accessing a protected instance member through a derived class member
-	function,
-	that member can only be accessed for the object instance
-	which is the &lsquo;this&rsquo; object for the member function call.
-	Protected module members are illegal.
-	</p>
+        <p>Protected means that only members of the enclosing class or any
+        classes derived from that class,
+        or members and functions in the same module
+        as the enclosing class, can access the member.
+        If accessing a protected instance member through a derived class member
+        function,
+        that member can only be accessed for the object instance
+        which is the &lsquo;this&rsquo; object for the member function call.
+        Protected module members are illegal.
+        </p>
 
-	<p>Public means that any code within the executable can access the member.
-	</p>
+        <p>Public means that any code within the executable can access the member.
+        </p>
 
-	<p>Export means that any code outside the executable can access the
-	member. Export 
-	is analogous to exporting definitions from a DLL.
-	</p>
+        <p>Export means that any code outside the executable can access the
+        member. Export
+        is analogous to exporting definitions from a DLL.
+        </p>
 
 <h2><a name="const">Const Attribute</a></h2>
 
 <pre class="bnf"><span class="notranslate"><b>const</b>
 </span></pre>
 
-	<p>The <b>const</b> attribute declares constants that can be
-	evaluated at compile time. For example:
-	</p>
+        <p>The <b>const</b> attribute declares constants that can be
+        evaluated at compile time. For example:
+        </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">const</span> <span class="d_keyword">int</span> foo = 7;
 
-<span class="d_keyword">const</span>
-{
-    <span class="d_keyword">double</span> bar = foo + 6;
+<span class="d_keyword">const</span> {
+  <span class="d_keyword">double</span> bar = foo + 6;
 }
 </span></pre>
 
@@ -449,29 +446,26 @@ attribute			<span class="d_comment">// affects all declarations in the block
 
 <h2><a name="disable">@disable Attribute</a></h2>
 
-	<p>A reference to a declaration marked with the <tt><span class="notranslate">@disable</span></tt> attribute causes
-	a compile time error.
-	This can be used to explicitly disallow certain operations or overloads
-	at compile time rather than relying on generating a runtime error.
-	</p>
+        <p>A reference to a declaration marked with the <tt><span class="notranslate">@disable</span></tt> attribute causes
+        a compile time error.
+        This can be used to explicitly disallow certain operations or overloads
+        at compile time rather than relying on generating a runtime error.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> T
-{
-    @disable <span class="d_keyword">this</span>(<span class="d_keyword">this</span>) { }   <span class="d_comment">// disabling this makes T not copyable
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">struct</span> T {
+  @disable <span class="d_keyword">this</span>(<span class="d_keyword">this</span>) { } <span class="d_comment">// disabling this makes T not copyable
 </span>}
 
-<span class="d_keyword">struct</span> S
-{
-    T t;        <span class="d_comment">// uncopyable member makes S also not copyable
+<span class="d_keyword">struct</span> S {
+  T t;   <span class="d_comment">// uncopyable member makes S also not copyable
 </span>}
 
 @disable <span class="d_keyword">void</span> foo() { }
 
-<span class="d_keyword">void</span> main()
-{
-    S s;
-    S t = s;    <span class="d_comment">// error, S is not copyable
-</span>    foo();      <span class="d_comment">// error, foo is disabled
+<span class="d_keyword">void</span> main() {
+  S s;
+  S t = s; <span class="d_comment">// error, S is not copyable
+</span>  foo();   <span class="d_comment">// error, foo is disabled
 </span>}
 </span></pre>
 
@@ -481,27 +475,24 @@ attribute			<span class="d_comment">// affects all declarations in the block
 <pre class="bnf"><span class="notranslate"><b>override</b>
 </span></pre>
 
-	<p>The <b>override</b> attribute applies to virtual functions.
-	It means that the function must override a function with the
-	same name and parameters in a base class. The override attribute
-	is useful for catching errors when a base class's member function
-	gets its parameters changed, and all derived classes need to have
-	their overriding functions updated.
-	</p>
+        <p>The <b>override</b> attribute applies to virtual functions.
+        It means that the function must override a function with the
+        same name and parameters in a base class. The override attribute
+        is useful for catching errors when a base class's member function
+        gets its parameters changed, and all derived classes need to have
+        their overriding functions updated.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo
-{
-    <span class="d_keyword">int</span> bar();
-    <span class="d_keyword">int</span> abc(<span class="d_keyword">int</span> x);
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo {
+  <span class="d_keyword">int</span> bar();
+  <span class="d_keyword">int</span> abc(<span class="d_keyword">int</span> x);
 }
 
-<span class="d_keyword">class</span> Foo2 : Foo
-{
-    <span class="d_keyword">override</span>
-    {
-	<span class="d_keyword">int</span> bar(<span class="d_keyword">char</span> c);	<span class="d_comment">// error, no bar(char) in Foo
-</span>	<span class="d_keyword">int</span> abc(<span class="d_keyword">int</span> x);		<span class="d_comment">// ok
-</span>    }
+<span class="d_keyword">class</span> Foo2 : Foo {
+  <span class="d_keyword">override</span> {
+    <span class="d_keyword">int</span> bar(<span class="d_keyword">char</span> c); <span class="d_comment">// error, no bar(char) in Foo
+</span>    <span class="d_keyword">int</span> abc(<span class="d_keyword">int</span> x);  <span class="d_comment">// ok
+</span>  }
 }
 </span></pre>
 
@@ -510,41 +501,40 @@ attribute			<span class="d_comment">// affects all declarations in the block
 <pre class="bnf"><span class="notranslate"><b>static</b>
 </span></pre>
 
-	<p>The <b>static</b> attribute applies to functions and data.
-	It means that the declaration does not apply to a particular
-	instance of an object, but to the type of the object. In
-	other words, it means there is no <b>this</b> reference.
-	<b>static</b> is ignored when applied to other declarations.
-	</p>
+        <p>The <b>static</b> attribute applies to functions and data.
+        It means that the declaration does not apply to a particular
+        instance of an object, but to the type of the object. In
+        other words, it means there is no <b>this</b> reference.
+        <b>static</b> is ignored when applied to other declarations.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo
-{
-    <span class="d_keyword">static</span> <span class="d_keyword">int</span> bar() { <span class="d_keyword">return</span> 6; }
-    <span class="d_keyword">int</span> foobar() { <span class="d_keyword">return</span> 7; }
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">class</span> Foo {
+  <span class="d_keyword">static</span> <span class="d_keyword">int</span> bar() { <span class="d_keyword">return</span> 6; }
+  <span class="d_keyword">int</span> foobar() { <span class="d_keyword">return</span> 7; }
 }
 
 ...
 
 Foo f = <span class="d_keyword">new</span> Foo;
-Foo.bar();	<span class="d_comment">// produces 6
-</span>Foo.foobar();	<span class="d_comment">// error, no instance of Foo
-</span>f.bar();	<span class="d_comment">// produces 6;
-</span>f.foobar();	<span class="d_comment">// produces 7;
+Foo.bar();      <span class="d_comment">// produces 6
+</span>Foo.foobar();   <span class="d_comment">// error, no instance of Foo
+</span>f.bar();        <span class="d_comment">// produces 6;
+</span>f.foobar();     <span class="d_comment">// produces 7;
 </span></span></pre>
 
-<p>Static functions are never virtual.
+<p>       Static functions are never virtual.
 </p>
-<p>Static data has only one instance for the entire program,
-	not once per object.
+<p>       Static data has only one instance for the entire program,
+        not once per object.
 </p>
-<p>Static does not have the additional C meaning of being local
-	to a file. Use the <b>private</b> attribute in D to achieve that.
-	For example:
+<p>       Static does not have the additional C meaning of being local
+        to a file. Use the <b>private</b> attribute in D to achieve that.
+        For example:
 </p>
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">module</span> foo;
-<span class="d_keyword">int</span> x = 3;		<span class="d_comment">// x is global
-</span><span class="d_keyword">private</span> <span class="d_keyword">int</span> y = 4;	<span class="d_comment">// y is local to module foo
+<span class="d_keyword">int</span> x = 3;         <span class="d_comment">// x is global
+</span><span class="d_keyword">private</span> <span class="d_keyword">int</span> y = 4; <span class="d_comment">// y is local to module foo
 </span></span></pre>
 
 
@@ -553,11 +543,11 @@ Foo.bar();	<span class="d_comment">// produces 6
 <pre class="bnf"><span class="notranslate"><b>auto</b>
 </span></pre>
 
-	<p>The <b>auto</b> attribute is used when there are no other attributes
-	and type inference is desired.
-	</p>
+        <p>The <b>auto</b> attribute is used when there are no other attributes
+        and type inference is desired.
+        </p>
 
-<pre class="d_code"><span class="notranslate"><span class="d_keyword">auto</span> i = 6.8;	<span class="d_comment">// declare i as a double
+<pre class="d_code"><span class="notranslate"><span class="d_keyword">auto</span> i = 6.8;   <span class="d_comment">// declare i as a double
 </span></span></pre>
 
 <h2><a name="scope">Scope Attribute</a></h2>
@@ -565,43 +555,43 @@ Foo.bar();	<span class="d_comment">// produces 6
 <pre class="bnf"><span class="notranslate"><b>scope</b>
 </span></pre>
 
-<p>The <b>scope</b> attribute is used for local variables and for class
-	declarations. For class declarations, the <b>scope</b> attribute creates
-	a <i>scope</i> class.
-	For local declarations, <b>scope</b> implements the RAII (Resource
-	Acquisition Is Initialization) protocol. This means that the
-	destructor for an object is automatically called when the
-	reference to it	goes out of scope. The destructor is called even
-	if the scope is exited via a thrown exception, thus <b>scope</b>
-	is used to guarantee cleanup.
+<p>       The <b>scope</b> attribute is used for local variables and for class
+        declarations. For class declarations, the <b>scope</b> attribute creates
+        a <i>scope</i> class.
+        For local declarations, <b>scope</b> implements the RAII (Resource
+        Acquisition Is Initialization) protocol. This means that the
+        destructor for an object is automatically called when the
+        reference to it goes out of scope. The destructor is called even
+        if the scope is exited via a thrown exception, thus <b>scope</b>
+        is used to guarantee cleanup.
 </p>
-<p>If there is more than one <b>scope</b> variable going out of scope
-	at the same point, then the destructors are called in the reverse
-	order that the variables were constructed.
+<p>       If there is more than one <b>scope</b> variable going out of scope
+        at the same point, then the destructors are called in the reverse
+        order that the variables were constructed.
 </p>
-<p><b>scope</b> cannot be applied to globals, statics, data members, ref
-	or out parameters. Arrays of <b>scope</b>s are not allowed, and <b>scope</b>
-	function return values are not allowed. Assignment to a <b>scope</b>,
-	other than initialization, is not allowed.
-	<b>Rationale:</b> These restrictions may get relaxed in the future
-	if a compelling reason to appears.
+<p>       <b>scope</b> cannot be applied to globals, statics, data members, ref
+        or out parameters. Arrays of <b>scope</b>s are not allowed, and <b>scope</b>
+        function return values are not allowed. Assignment to a <b>scope</b>,
+        other than initialization, is not allowed.
+        <b>Rationale:</b> These restrictions may get relaxed in the future
+        if a compelling reason to appears.
 </p>
 
 <h2><a name="abstract">Abstract Attribute</a></h2>
 
-<p>If a class is abstract, it cannot be instantiated
-	directly. It can only be instantiated as a base class of
-	another, non-abstract, class.
+<p>       If a class is abstract, it cannot be instantiated
+        directly. It can only be instantiated as a base class of
+        another, non-abstract, class.
 </p>
-<p>Classes become abstract if they are defined within an
-	abstract attribute, or if any of the virtual member functions
-	within it are declared as abstract.
+<p>       Classes become abstract if they are defined within an
+        abstract attribute, or if any of the virtual member functions
+        within it are declared as abstract.
 </p>
-<p>Non-virtual functions cannot be declared as abstract.
+<p>       Non-virtual functions cannot be declared as abstract.
 </p>
-<p>Functions declared as abstract can still have function
-	bodies. This is so that even though they must be overridden,
-	they can still provide &lsquo;base class functionality.&rsquo;
+<p>       Functions declared as abstract can still have function
+        bodies. This is so that even though they must be overridden,
+        they can still provide &lsquo;base class functionality.&rsquo;
 </p>
 
 

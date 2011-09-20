@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Floating Point - D Programming Language 2.0 - Digital Mars</title>
+<title>Floating Point - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -130,11 +130,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -155,11 +156,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:28 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:47 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Float">Comment on this page</a></span>
 </div>
-  <h1>          Floating Point</h1>
+  <h1>Floating Point</h1>
   <h3>Floating Point Intermediate Values</h3>
 
 	<p>On many computers, greater
@@ -226,9 +227,8 @@ writefln(f - 0.2);
 
 <pre class="d_code"><span class="notranslate"><span class="d_keyword">import</span> std.stdio;
 
-<span class="d_keyword">void</span> main()
-{
-    writefln(<span class="d_string">"%a"</span>, 0.2f);
+<span class="d_keyword">void</span> main() {
+  writefln(<span class="d_string">"%a"</span>, 0.2f);
 }
 </span></pre>
 	<p>which is 0x1.99999ap-3. Using the hex constant:</p>
@@ -280,22 +280,21 @@ writefln(f - 0.2);
 	<p>Complex, real and imaginary numbers have two properties:
 	</p>
 
-<pre>
-.re	get real part (0 for imaginary numbers)
-.im	get imaginary part as a real (0 for real numbers)
-</pre>
+	<table border=1 cellpadding=4 cellspacing=0><tr><th>Property</th><th>Description</th></tr>
+	<tr><td>.re</td><td>get real part (0 for imaginary numbers)</td></tr>
+	<tr><td>.im</td><td>get imaginary part as a real (0 for real numbers)</td></tr>
+	</table>
 
 	<p>For example:
 	</p>
 
-<pre>
-cd.re		is 4.5 double
-cd.im		is 2 double
-c.re		is 4.5 real
-c.im		is 2 real
-j.im		is 1.3 real
-j.re		is 0 real
-</pre>
+<pre class="d_code"><span class="notranslate">cd.re  <span class="d_comment">// == 4.5 double
+</span>cd.im  <span class="d_comment">// == 2 double
+</span>c.re   <span class="d_comment">// == 4.5 real
+</span>c.im   <span class="d_comment">// == 2 real
+</span>j.im   <span class="d_comment">// == 1.3 real
+</span>j.re   <span class="d_comment">// == 0 real
+</span></span></pre>
 
 <h3>Rounding Control</h3>
 
@@ -343,7 +342,7 @@ j.re		is 0 real
 	!&lt;&gt;
 	and match the semantics for the 
 	NCEG extensions to C.
-	See <a href="expression.html#floating_point_comparisons">Floating point comparisons</a>.
+	See <a href="#floating_point_comparisons">Floating point comparisons</a>.
 	</p>
 
 <h3><a name="floating-point-transformations">Floating Point Transformations</a></h2>
@@ -361,8 +360,7 @@ j.re		is 0 real
 	different results.
 	</p>
 
-	<table border=1 cellpadding=4 cellspacing=0><caption>Disallowed Floating Point Transformations</caption>
-	<tr><th scope="col">transformation</th> <th scope="col">comments</th>
+	<table border=1 cellpadding=4 cellspacing=0><caption>Disallowed Floating Point Transformations</caption>	<tr><th scope="col">transformation</th> <th scope="col">comments</th>
 	</tr>
 	<tr><td><i>x</i> + 0 &rarr; <i>x</i></td> <td>not valid if <i>x</i> is -0</td>
 	</tr>

@@ -13,7 +13,7 @@
 <meta name="keywords" content="D Programming Language, const, immutable" />
 <meta name="description" content="Comparison of const between the
 D programming language, C++, and C++0x" />
-<title>Const and Immutable - D Programming Language 2.0 - Digital Mars</title>
+<title>Const and Immutable - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -43,12 +43,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -56,8 +56,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -69,7 +69,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -131,11 +131,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -156,11 +157,11 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:30 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/ConstInvariant">Comment on this page</a></span>
 </div>
-  <h1>          Const and Immutable</h1>
+  <h1>Const and Immutable</h1>
   	<p>When examining a data structure or interface, it is very
 	helpful to be able to easily tell which data can be expected to not
 	change, which data might change, and who may change that data.
@@ -197,15 +198,15 @@ function bodyLoad()
 	It can be used to declare manifest constants.
 	</p>
 
-<pre class="d_code2"><span class="d_keyword">immutable</span> <span class="d_keyword">int</span> x = 3;	<span class="d_comment">// x is set to 3
-</span>x = 4;			<span class="d_comment">// error, x is immutable
-</span><span class="d_keyword">char</span>[x] s;		<span class="d_comment">// s is an array of 3 char's
+<pre class="d_code2"><span class="d_keyword">immutable</span> <span class="d_keyword">int</span> x = 3;  <span class="d_comment">// x is set to 3
+</span>x = 4;        <span class="d_comment">// error, x is immutable
+</span><span class="d_keyword">char</span>[x] s;    <span class="d_comment">// s is an array of 3 char's
 </span></pre>
 
 	<p>The type can be inferred from the initializer:
 	</p>
-<pre class="d_code2"><span class="d_keyword">immutable</span> y = 4;	<span class="d_comment">// y is of type int
-</span>y = 5;			<span class="d_comment">// error, y is immutable
+<pre class="d_code2"><span class="d_keyword">immutable</span> y = 4; <span class="d_comment">// y is of type int
+</span>y = 5;           <span class="d_comment">// error, y is immutable
 </span></pre>
 
 	<p>If the initializer is not present, the immutable can
@@ -213,14 +214,12 @@ function bodyLoad()
 	</p>
 
 <pre class="d_code2"><span class="d_keyword">immutable</span> <span class="d_keyword">int</span> z;
-<span class="d_keyword">void</span> test()
-{
-    z = 3;		<span class="d_comment">// error, z is immutable
+<span class="d_keyword">void</span> test() {
+  z = 3; <span class="d_comment">// error, z is immutable
 </span>}
-<span class="d_keyword">static</span> <span class="d_keyword">this</span>()
-{
-    z = 3;    <span class="d_comment">// ok, can set immutable that doesn't have
-</span>              <span class="d_comment">// static initializer
+<span class="d_keyword">static</span> <span class="d_keyword">this</span>() {
+  z = 3; <span class="d_comment">// ok, can set immutable that doesn't
+</span>         <span class="d_comment">// have static initializer
 </span>}
 </pre>
 	<p>The initializer for a non-local immutable declaration must be
@@ -372,27 +371,39 @@ p[0] = ...;	  <span class="d_comment">// error, p[] is immutable
 	They are declared as:
 	</p>
 
-<pre class="d_code2"><span class="d_keyword">struct</span> S
-{   <span class="d_keyword">int</span> x;
+<pre class="d_code2"><span class="d_keyword">struct</span> S {   
+  <span class="d_keyword">int</span> x;
 
-    <span class="d_keyword">immutable</span> <span class="d_keyword">void</span> foo()
-    {
-	x = 4;	    <span class="d_comment">// error, x is immutable
-</span>	<span class="d_keyword">this</span>.x = 4; <span class="d_comment">// error, x is immutable
-</span>    }
+  <span class="d_keyword">void</span> foo() <span class="d_keyword">immutable</span> {
+    x = 4;      <span class="d_comment">// error, x is immutable
+</span>    <span class="d_keyword">this</span>.x = 4; <span class="d_comment">// error, x is immutable
+</span>  }
+}
 </pre>
-
-    <p>The <span class="d_keyword">const</span> and <span class="d_keyword">immutable</span> function
-    attributes
-    can also appear after the closing parenthesis of
-    the parameter list:
+    <p>Note that using <span class="d_keyword">immutable</span> on the left hand side of a method does not apply to the return type:
     </p>
 
-<pre class="d_code2"><span class="d_keyword">struct</span> S
-{
-    <span class="d_keyword">void</span> bar() <span class="d_keyword">immutable</span>
-    {
-    }
+<pre class="d_code2"><span class="d_keyword">struct</span> S {
+  <span class="d_keyword">immutable</span> <span class="d_keyword">int</span>[] bar()  <span class="d_comment">// bar is still immutable, return type is not!
+</span>  {
+  }
+}
+</pre>
+    <p>To make the return type <span class="d_keyword">immutable</span>, you need to surround the return type with parentheses:
+    </p>
+
+<pre class="d_code2"><span class="d_keyword">struct</span> S {
+  <span class="d_keyword">immutable</span>(<span class="d_keyword">int</span>[]) bar()  <span class="d_comment">// bar is now mutable, return type is immutable.
+</span>  {
+  }
+}
+</pre>
+    <p>To make both the return type and the method <span class="d_keyword">immutable</span>, you can write:
+    </p>
+<pre class="d_code2"><span class="d_keyword">struct</span> S {
+  <span class="d_keyword">immutable</span>(<span class="d_keyword">int</span>[]) bar() <span class="d_keyword">immutable</span>
+  {
+  }
 }
 </pre>
 
@@ -547,11 +558,10 @@ foo(&i, &i);
 
 	<tr><td>aliasing of immutable with mutable</td>
 	<td>No:
-<pre class="d_code2"><span class="d_keyword">void</span> foo(<span class="d_keyword">immutable</span> <span class="d_keyword">int</span>* x, <span class="d_keyword">int</span>* y)
-{
-   bar(*x); <span class="d_comment">// bar(3)
-</span>   *y = 4;  <span class="d_comment">// undefined behavior
-</span>   bar(*x); <span class="d_comment">// bar(??)
+<pre class="d_code2"><span class="d_keyword">void</span> foo(<span class="d_keyword">immutable</span> <span class="d_keyword">int</span>* x, <span class="d_keyword">int</span>* y) {
+ bar(*x); <span class="d_comment">// bar(3)
+</span> *y = 4;  <span class="d_comment">// undefined behavior
+</span> bar(*x); <span class="d_comment">// bar(??)
 </span>}
 ...
 <span class="d_keyword">int</span> i = 3;

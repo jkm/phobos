@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>Comparison - D Programming Language 2.0 - Digital Mars</title>
+<title>Comparison - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,12 +68,12 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a>
 
     <div class="navblock">
-<ul><li><a href="features2.html" title="Language changes for D 2.0">2.0 Features</a></li>
+<ul><li><a href="features2.html" title="Language changes for D">Features</a></li>
 </ul>
 </div></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -95,11 +95,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -120,17 +121,16 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:29 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Comparison">Comment on this page</a></span>
 </div>
-  <h1>          <font color=red><b>D</b></font> vs Other Languages</h1>
-  	<blockquote><p>
-	To D, or not to D.
+  <h1>Comparison</h1>
+  	<blockquote><p>	To D, or not to D.
 	</p><cite>William Nerdspeare</cite></blockquote>
 
 	<p>This table is a quick and rough list of various features of
-	<font color=red><b>D</b></font>
+	<span style="color:red"><b>D</b></span>
 	that can be used to compare with other languages.
 	While many capabilities are available with standard libraries, this
 	table is for features built in to the core language itself.
@@ -142,7 +142,7 @@ function bodyLoad()
 
 	<thead>
 	<tr><th>Feature</th>
-	<th align="center"><a href="index.html" title="D Programming Language"  target="_top"><font color=red><b>D</b></font></a></th>
+	<th align="center"><a href="index.html" title="D Programming Language"  target="_top"><span style="color:red"><b>D</b></span></a></th>
 	</tr>
 	</thead>
 
@@ -596,11 +596,6 @@ function bodyLoad()
 	C++ using template parameter pattern matching.
 	See <a href="cpptod.html#typetraits">this example</a>
 	for a comparison of the different approaches.
-	<p>
-
-	<dt>Comparison with Ada
-	<dd>James S. Rogers has written a
-	<a href="http://home.att.net/~jimmaureenrogers/AdaAdditionToDComparisonTable.htm">comparison chart with Ada</a>.
 	<p>
 
 	<dt><a name="innerclasses">Inner (adaptor) classes</a>

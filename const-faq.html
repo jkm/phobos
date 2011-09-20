@@ -12,7 +12,7 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="D programming language" />
 <meta name="description" content="D Programming Language" />
-<title>const(FAQ) - D Programming Language 2.0 - Digital Mars</title>
+<title>const(FAQ) - D Programming Language</title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link rel="stylesheet" type="text/css" href="css/print.css" media="print" />
 <link rel="shortcut icon" href="favicon.ico" />
@@ -42,12 +42,12 @@ function bodyLoad()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<img src="images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="images/search-button.gif" />
 			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D 2.0 Site</option>
+					<option value="d-programming-language.org">Entire D Site</option>
 					<option value="d-programming-language.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
@@ -55,8 +55,8 @@ function bodyLoad()
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
-		<a id="d-language" href="/">D Programming Language 2.0</a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language</a>
 	</div>
 </div>
 
@@ -68,7 +68,7 @@ function bodyLoad()
   
 
 <div class="navblock">
-<h2><a href="index.html" title="D Programming Language">D 2.0 Home</a></h2>
+<h2><a href="index.html" title="D Programming Language">D Home</a></h2>
 <ul><li><a href="overview.html" title="D language overview">Overview</a></li>
 	<li><a href="comparison.html" title="D feature list">Features</a></li>
 	<li><a href="download.html" title="Download a D compiler">Downloads &amp; Tools</a></li>
@@ -97,11 +97,12 @@ function bodyLoad()
 
 <div class="navblock">
 <h2>Community</h2>
-<ul><li><a href="http://www.digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
-	<li><a href="http://www.prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
-	<li><a href="http://www.dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
+<ul><li><a href="http://digitalmars.com/NewsGroup.html" title="User forums">Forums</a></li>
+	<li><a href="http://github.com/D-Programming-Language" title="D on github">Github</a></li>
+	<li><a href="http://prowiki.org/wiki4d/wiki.cgi?FrontPage" title="Wiki for the D Programming Language">Wiki</a></li>
+	<li><a href="http://dsource.org/" title="D projects and libraries at dsource.org">Projects &amp; Libraries</a></li>
 	<li><a href="http://twitter.com/#search?q=%23d_lang" title="#d_lang on twitter.com">Twitter</a></li>
-	<li><a href="http://www.digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
+	<li><a href="http://digitalmars.com/d/dlinks.html" title="External D related links">Links</a></li>
 	
 	
 </ul>
@@ -122,18 +123,16 @@ function bodyLoad()
 <div id="content">
   
 <div id="tools">
-	<span id="lastupdate">Last update Mon May 16 20:47:30 2011
+	<span id="lastupdate">Last update Tue Sep 20 23:56:48 2011
 </span>
 	<span id="wiki"><a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/constFAQ">Comment on this page</a></span>
 </div>
-  <h1>          const(FAQ)</h1>
-  
-	<p>D's const system is unique, and so there are a lot of
+  <h1>const(FAQ)</h1>
+  	<p>D's const system is unique, and so there are a lot of
 	questions about it.
 	</p>
 
-	<ul>
-	<li><a href="#const">Why does D have const?</a></li>
+	<ul>	<li><a href="#const">Why does D have const?</a></li>
 	<li><a href="#principles">What principles drove the D const design?</a></li>
 	<li><a href="#transitive-const">What is <i>transitive const</i>?</a></li>
 	<li><a href="#head-const">What is <i>head const</i>?</a></li>
@@ -154,8 +153,7 @@ function bodyLoad()
 	in D 2.0 and wonder if it is worth it.
 	</p>
 
-	<ol>
-	<li>It makes function interfaces more self-documenting. Without
+	<ol>	<li>It makes function interfaces more self-documenting. Without
 	transitive const, for all pointer/reference parameters one must rely on
 	the documentation (which is always missing, out of date, or wrong). Note
 	that without transitivity, C++ const is nearly useless for such
@@ -198,7 +196,7 @@ function bodyLoad()
 
 <hr><h3><a name="principles">What principles drove the D const design?</a></h3>
 
-	<ol>	<li>It will be mathematically sound. That means there
+	<ol><li>It will be mathematically sound. That means there
 	are no legal escapes from it.</li>
 	<li>Any type can be wrapped in a struct and the resulting
 	struct can still exhibit the same const behavior - in other
@@ -318,7 +316,7 @@ bar(f.length);
 	<p>C++ has a const system that is closer to D's than any other
 	language, but it still has huge differences:</p>
 
-	<ol>	<li>const is not transitive</li>
+	<ol><li>const is not transitive</li>
 	<li>no immutables</li>
 	<li>const objects can have mutable members</li>
 	<li>const can be legally cast away and the data modified</li>
@@ -338,8 +336,7 @@ bar(f.length);
 	be changed. The problems with this are:
 	</p>
 
-	<ol>
-	<li>It would be a huge break from past D practice, and practice
+	<ol>	<li>It would be a huge break from past D practice, and practice
 	in C, C++, Java, C#, etc.</li>
 	<li>It would require a new keyword, say <tt><span class="notranslate">mutable</span></tt>.</li>
 	<li>And worst, it would make declarations inconsistent:
@@ -374,7 +371,7 @@ bar(f.length);
 	This has many uses:
 	</p>
 
-	<ul>	<li>Access to immutable data need not be synchronized
+	<ul><li>Access to immutable data need not be synchronized
 	when multiple threads read it.</li>
 	<li>Data races, tearing, sequential consistency, and
 	cache consistency are all non-issues when working with

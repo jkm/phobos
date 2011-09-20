@@ -1,0 +1,957 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html lang='en'>
+
+<!--
+	Copyright (c) 1999-2010 by Digital Mars
+	All Rights Reserved Written by Walter Bright
+	http://www.digitalmars.com
+  -->
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+<title>std.socket - D Programming Language - Digital Mars</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<script>
+function listanchors()
+{
+    if (typeof inhibitQuickIndex !== 'undefined') return;
+    var a = document.getElementById("quickindex");
+    if (!a) return;
+    var newText = "";
+    var hash = new Array;
+    var n = 0;
+    var values = new Array;
+    // List all anchors.
+    for (var i = 0; i < document.anchors.length; i++)
+    {
+        var a = document.anchors[i];
+        var text = a.name;
+        if (hash[text] > 0) continue;
+        hash[text] = 1;
+    values[n++] = a.name
+    }
+
+    values.sort();
+
+    for(var i = 0; i < values.length; i++) {
+        var a = values[i];
+        newText += '<a href="#' + a + '"><span class="d_psymbol">'
+                + a + '</span></a> ';
+    }
+    if (newText != "") newText = "<p><b>Jump to:</b> " + newText + '</p>';
+    var a = document.getElementById("quickindex");
+    a.innerHTML = newText;
+}
+</script>
+
+<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+
+</head>
+
+<body onload="listanchors()" class='hyphenate'>
+
+<div id="top">
+	<div id="search-box">
+		<form method="get" action="http://google.com/search">
+			<img src="/images/search-left.gif" width="11" height="22" /><input id="q" name="q" /><input type="image" id="search-submit" name="submit" src="/images/search-button.gif" />
+			<input type="hidden" id="domains" name="domains" value="d-programming-language.org" />
+			<input type="hidden" id="sourceid" name="sourceid" value="google-search" />
+			<div id="search-dropdown">
+				<select id="sitesearch" name="sitesearch" size="1">
+					<option value="d-programming-language.org">Entire D  Site</option>
+					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
+				</select>
+			</div>
+		</form>
+	</div>
+	<div id="header">
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="/images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language </a>
+	</div>
+</div>
+
+<div id="navigation">
+    
+<div class="navblock">
+<form method="get" action="http://www.google.com/search">
+<div id="searchbox">
+<input id="q" name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
+<input type="hidden" id="domains" name="domains" value="www.digitalmars.com">
+<input type="hidden" id="sitesearch" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" id="sourceid" name="sourceid" value="google-search">
+<input type="submit" id="submit" name="submit" value="Go">
+</div>
+</form>
+<div id="toctop">
+    <ul><li><a href="../index.html" title="D Programming Language">D</a></li>
+	<li><a href="../lex.html" title="D Language Specification">Language</a></li>
+	<li><a href="phobos.html" title="D Runtime Library">Phobos</a></li>
+	<li><a href="../comparison.html" title="Language Comparisons">Comparisons</a></li>
+    </ul>
+</div>
+</div>
+    
+<div class="navblock">
+    <ul><li><a href="object.html" title="root of object hierarchy">object</a></li>
+    </ul>
+    <h2><a href="phobos.html#std" title="D standard modules">std</a></h2>
+    <ul><li><a href="std_algorithm.html" title="General-purpose algorithms">std.algorithm</a></li>
+	<li><a href="std_array.html" title="Array functions">std.array</a></li>
+	<li><a href="std_base64.html" title="Encode/decode base64 format">std.base64</a></li>
+	<li><a href="std_bigint.html" title="Arbitrary-precision ('bignum') arithmetic">std.bigint</a></li>
+	<li><a href="std_bitmanip.html" title="Bit-level manipulation">std.bitmanip</a></li>
+	<li><a href="std_compiler.html" title="Information about the D compiler implementation">std.compiler</a></li>
+	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
+	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
+	<li><a href="std_container.html" title="Containers">std.container</a></li>
+	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
+	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
+	<li><a href="std_cover.html" title="D coverage analyzer">std.cover</a></li>
+	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
+	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
+	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
+	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
+	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
+	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
+	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
+	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
+	<li><a href="std_functional.html" title="functional">std.functional</a></li>
+	<li><a href="std_gc.html" title="Control the garbage collector">std.gc</a></li>
+	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
+	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
+	<li><a href="std_intrinsic.html" title="Compiler built in intrinsic functions">std.intrinsic</a></li>
+	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
+	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
+	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
+	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
+	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
+	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
+	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
+	<li><a href="std_outbuffer.html" title="Assemble data into an array of bytes">std.outbuffer</a></li>
+	<li><a href="std_outofmemory.html" title="Out of memory exception">std.outofmemory</a></li>
+	<li><a href="std_path.html" title="Manipulate file names, path names, etc.">std.path</a></li>
+	<li><a href="std_process.html" title="Create/destroy processes">std.process</a></li>
+	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
+	<li><a href="std_range.html" title="Ranges">std.range</a></li>
+	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
+	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
+	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
+	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
+	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
+	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
+	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
+	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
+	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
+	<li><a href="std_string.html" title="Basic string operations">std.string</a></li>
+	<li><a href="std_system.html" title="Inquire about the CPU, operating system">std.system</a></li>
+	<li><a href="std_traits.html" title="Type traits">std.traits</a></li>
+	<li><a href="std_typecons.html" title="Type constructors">std.typecons</a></li>
+	<li><a href="std_typetuple.html" title="Type tuples">std.typetuple</a></li>
+	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
+	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
+	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
+	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
+	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
+	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
+	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
+	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
+	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
+	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
+	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
+	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
+	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
+	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
+	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
+	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
+	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
+	<li><a href="phobos.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
+	<li><a href="phobos.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
+	<li><a href="phobos.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
+	<li><a href="phobos.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
+    </ul>
+    <h2><a href="phobos.html#core" title="D core modules">core</a></h2>
+    <ul><li><a href="core_atomic.html" title="Atomic operations">core.atomic</a></li>
+	<li><a href="core_bitop.html" title="Bitwise operations">core.bitop</a></li>
+	<li><a href="core_cpuid.html" title="CPU identification">core.cpuid</a></li>
+	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
+	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
+	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
+	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
+	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
+	<li><a href="core_sync_barrier.html" title="Synchronizing progress of a group of threads">core.sync.barrier</a></li>
+	<li><a href="core_sync_condition.html" title="Synchronized condition checking">core.sync.condition</a></li>
+	<li><a href="core_sync_config.html" title="Stuff for core.sync">core.sync.config</a></li>
+	<li><a href="core_sync_exception.html" title="SyncException">core.sync.exception</a></li>
+	<li><a href="core_sync_mutex.html" title="Mutexes">core.sync.mutex</a></li>
+	<li><a href="core_sync_rwmutex.html" title="R/W mutually exclusive access">core.sync.rwmutex</a></li>
+	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
+    </ul>
+</div>
+</div>
+<div id="content">
+    <h1>std.socket</h1>
+    <div id=quickindex class=quickindex></div>
+    <!-- Generated by Ddoc from std/socket.d -->
+<b>Notes:</b><br>
+For Win32 systems, link with ws2_32.lib.
+<p></p>
+<b>Example:</b><br>
+See /dmd/samples/d/listener.d.
+<p></p>
+<b>Authors:</b><br>Christopher E. Miller
+<p></p>
+<b>Source:</b><br>
+<a href="https://github.com/D-Programming-Language/phobos/blob/master/std/socket.d">std/socket.d</a>
+<p></p>
+
+<dl><dt><div class="d_decl">class <a name="SocketException"></a><span class="ddoc_psymbol">SocketException</span>: object.Exception;
+</div></dt>
+<dd>Base exception thrown from a Socket.<p></p>
+
+<dl><dt><div class="d_decl">int <a name="errorCode"></a><span class="ddoc_psymbol">errorCode</span>;
+</div></dt>
+<dd>Platform-specific error code.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">enum <a name="AddressFamily"></a><span class="ddoc_psymbol">AddressFamily</span>;
+</div></dt>
+<dd>The communication domain used to resolve an address.<p></p>
+
+<dl><dt><div class="d_decl"><a name="UNSPEC"></a><span class="ddoc_psymbol">UNSPEC</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="UNIX"></a><span class="ddoc_psymbol">UNIX</span></div></dt>
+<dd>local communication<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="INET"></a><span class="ddoc_psymbol">INET</span></div></dt>
+<dd>internet protocol version 4<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IPX"></a><span class="ddoc_psymbol">IPX</span></div></dt>
+<dd>novell <a name="IPX"></a><span class="ddoc_psymbol">IPX</span><p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="APPLETALK"></a><span class="ddoc_psymbol">APPLETALK</span></div></dt>
+<dd>appletalk<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">enum <a name="SocketType"></a><span class="ddoc_psymbol">SocketType</span>;
+</div></dt>
+<dd>Communication semantics<p></p>
+
+<dl><dt><div class="d_decl"><a name="STREAM"></a><span class="ddoc_psymbol">STREAM</span></div></dt>
+<dd>sequenced, reliable, two-way communication-based byte streams<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="DGRAM"></a><span class="ddoc_psymbol">DGRAM</span></div></dt>
+<dd>connectionless, unreliable datagrams with a fixed maximum length; data may be lost or arrive out of order<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="RAW"></a><span class="ddoc_psymbol">RAW</span></div></dt>
+<dd>raw protocol access<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="RDM"></a><span class="ddoc_psymbol">RDM</span></div></dt>
+<dd>reliably-delivered message datagrams<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="SEQPACKET"></a><span class="ddoc_psymbol">SEQPACKET</span></div></dt>
+<dd>sequenced, reliable, two-way connection-based datagrams with a fixed maximum length<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">enum <a name="ProtocolType"></a><span class="ddoc_psymbol">ProtocolType</span>;
+</div></dt>
+<dd>Protocol<p></p>
+
+<dl><dt><div class="d_decl"><a name="IP"></a><span class="ddoc_psymbol">IP</span></div></dt>
+<dd>internet protocol version 4<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="ICMP"></a><span class="ddoc_psymbol">ICMP</span></div></dt>
+<dd>internet control message protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IGMP"></a><span class="ddoc_psymbol">IGMP</span></div></dt>
+<dd>internet group management protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="GGP"></a><span class="ddoc_psymbol">GGP</span></div></dt>
+<dd>gateway to gateway protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="TCP"></a><span class="ddoc_psymbol">TCP</span></div></dt>
+<dd>transmission control protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="PUP"></a><span class="ddoc_psymbol">PUP</span></div></dt>
+<dd>PARC universal packet protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="UDP"></a><span class="ddoc_psymbol">UDP</span></div></dt>
+<dd>user datagram protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IDP"></a><span class="ddoc_psymbol">IDP</span></div></dt>
+<dd>Xerox NS protocol<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IPV6"></a><span class="ddoc_psymbol">IPV6</span></div></dt>
+<dd>internet protocol version 6<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="Protocol"></a><span class="ddoc_psymbol">Protocol</span>;
+</div></dt>
+<dd><a name="Protocol"></a><span class="ddoc_psymbol">Protocol</span> is a class for retrieving protocol information.<p></p>
+
+<dl><dt><div class="d_decl">ProtocolType <a name="type"></a><span class="ddoc_psymbol">type</span>;
+<br>string <a name="name"></a><span class="ddoc_psymbol">name</span>;
+<br>string[] <a name="aliases"></a><span class="ddoc_psymbol">aliases</span>;
+</div></dt>
+<dd>These members are populated when one of the following functions are called without failure:<p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getProtocolByName"></a><span class="ddoc_psymbol">getProtocolByName</span>(string <i>name</i>);
+</div></dt>
+<dd>Returns <b>false</b> on failure <p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getProtocolByType"></a><span class="ddoc_psymbol">getProtocolByType</span>(ProtocolType <i>type</i>);
+</div></dt>
+<dd>Returns <b>false</b> on failure <p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="Service"></a><span class="ddoc_psymbol">Service</span>;
+</div></dt>
+<dd><a name="Service"></a><span class="ddoc_psymbol">Service</span> is a class for retrieving service information.<p></p>
+
+<dl><dt><div class="d_decl">string <a name="name"></a><span class="ddoc_psymbol">name</span>;
+<br>string[] <a name="aliases"></a><span class="ddoc_psymbol">aliases</span>;
+<br>ushort <a name="port"></a><span class="ddoc_psymbol">port</span>;
+<br>string <a name="protocolName"></a><span class="ddoc_psymbol">protocolName</span>;
+</div></dt>
+<dd>These members are populated when one of the following functions are called without failure: <p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getServiceByName"></a><span class="ddoc_psymbol">getServiceByName</span>(string <i>name</i>, string <i>protocolName</i>);
+<br>bool <a name="getServiceByName"></a><span class="ddoc_psymbol">getServiceByName</span>(string <i>name</i>);
+<br>bool <a name="getServiceByPort"></a><span class="ddoc_psymbol">getServiceByPort</span>(ushort <i>port</i>, string <i>protocolName</i>);
+<br>bool <a name="getServiceByPort"></a><span class="ddoc_psymbol">getServiceByPort</span>(ushort <i>port</i>);
+</div></dt>
+<dd>If a protocol <i>name</i> is omitted, any protocol will be matched.
+<p></p>
+<b>Returns:</b><br><b>false</b> on failure.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="HostException"></a><span class="ddoc_psymbol">HostException</span>: object.Exception;
+</div></dt>
+<dd>Base exception thrown from an InternetHost.<p></p>
+
+<dl><dt><div class="d_decl">int <a name="errorCode"></a><span class="ddoc_psymbol">errorCode</span>;
+</div></dt>
+<dd>Platform-specific error code.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="InternetHost"></a><span class="ddoc_psymbol">InternetHost</span>;
+</div></dt>
+<dd><a name="InternetHost"></a><span class="ddoc_psymbol">InternetHost</span> is a class for resolving IPv4 addresses.<p></p>
+
+<dl><dt><div class="d_decl">string <a name="name"></a><span class="ddoc_psymbol">name</span>;
+<br>string[] <a name="aliases"></a><span class="ddoc_psymbol">aliases</span>;
+<br>uint[] <a name="addrList"></a><span class="ddoc_psymbol">addrList</span>;
+</div></dt>
+<dd>These members are populated when one of the following functions are called without failure: <p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getHostByName"></a><span class="ddoc_psymbol">getHostByName</span>(string <i>name</i>);
+</div></dt>
+<dd>Resolve host <i>name</i>. Returns <b>false</b> if unable to resolve.<p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getHostByAddr"></a><span class="ddoc_psymbol">getHostByAddr</span>(uint <i>addr</i>);
+</div></dt>
+<dd>Resolve IPv4 address number. Returns <b>false</b> if unable to resolve.<p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="getHostByAddr"></a><span class="ddoc_psymbol">getHostByAddr</span>(string <i>addr</i>);
+</div></dt>
+<dd>Same as previous, but <i>addr</i> is an IPv4 address string in the
+ dotted-decimal form <i>a.b.c.d</i>.
+ Returns <b>false</b> if unable to resolve.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="AddressException"></a><span class="ddoc_psymbol">AddressException</span>: object.Exception;
+</div></dt>
+<dd>Base exception thrown from an Address.<p></p>
+
+</dd>
+<dt><div class="d_decl">abstract class <a name="Address"></a><span class="ddoc_psymbol">Address</span>;
+</div></dt>
+<dd><a name="Address"></a><span class="ddoc_psymbol">Address</span> is an abstract class for representing a network addresses.<p></p>
+
+<dl><dt><div class="d_decl">AddressFamily <a name="addressFamily"></a><span class="ddoc_psymbol">addressFamily</span>();
+</div></dt>
+<dd>Family of this address.<p></p>
+
+</dd>
+<dt><div class="d_decl">string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
+</div></dt>
+<dd>Human readable string representing this address.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="UnknownAddress"></a><span class="ddoc_psymbol">UnknownAddress</span>: std.socket.Address;
+</div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl">class <a name="InternetAddress"></a><span class="ddoc_psymbol">InternetAddress</span>: std.socket.Address;
+</div></dt>
+<dd><a name="InternetAddress"></a><span class="ddoc_psymbol">InternetAddress</span> is a class that represents an IPv4 (internet protocol version
+ 4) address and port.<p></p>
+
+<dl><dt><div class="d_decl">const uint <a name="ADDR_ANY"></a><span class="ddoc_psymbol">ADDR_ANY</span>;
+</div></dt>
+<dd>Any IPv4 address number.<p></p>
+
+</dd>
+<dt><div class="d_decl">const uint <a name="ADDR_NONE"></a><span class="ddoc_psymbol">ADDR_NONE</span>;
+</div></dt>
+<dd>An invalid IPv4 address number.<p></p>
+
+</dd>
+<dt><div class="d_decl">const ushort <a name="PORT_ANY"></a><span class="ddoc_psymbol">PORT_ANY</span>;
+</div></dt>
+<dd>Any IPv4 port number.<p></p>
+
+</dd>
+<dt><div class="d_decl">AddressFamily <a name="addressFamily"></a><span class="ddoc_psymbol">addressFamily</span>();
+</div></dt>
+<dd>Overridden to return AddressFamily.INET.<p></p>
+
+</dd>
+<dt><div class="d_decl">ushort <a name="port"></a><span class="ddoc_psymbol">port</span>();
+</div></dt>
+<dd>Returns the IPv4 <a name="port"></a><span class="ddoc_psymbol">port</span> number.<p></p>
+
+</dd>
+<dt><div class="d_decl">uint <a name="addr"></a><span class="ddoc_psymbol">addr</span>();
+</div></dt>
+<dd>Returns the IPv4 address number.<p></p>
+
+</dd>
+<dt><div class="d_decl">this(string <i>addr</i>, ushort <i>port</i>);
+</div></dt>
+<dd><b>Parameters:</b><table class=parms><tr><td valign=top>string <i>addr</i></td>
+<td valign=top>an IPv4 address string in the dotted-decimal form a.b.c.d,
+          or a host name that will be resolved using an InternetHost
+          object.</td></tr>
+<tr><td valign=top>ushort <i>port</i></td>
+<td valign=top>may be PORT_ANY as stated below.</td></tr>
+</table><p></p>
+
+</dd>
+<dt><div class="d_decl">this(uint <i>addr</i>, ushort <i>port</i>);
+<br>this(ushort <i>port</i>);
+</div></dt>
+<dd>Construct a new Address. <i>addr</i> may be ADDR_ANY (default) and <i>port</i> may
+ be PORT_ANY, and the actual numbers may not be known until a connection
+ is made.<p></p>
+
+</dd>
+<dt><div class="d_decl">string <a name="toAddrString"></a><span class="ddoc_psymbol">toAddrString</span>();
+</div></dt>
+<dd>Human readable string representing the IPv4 address in dotted-decimal form.<p></p>
+
+</dd>
+<dt><div class="d_decl">string <a name="toPortString"></a><span class="ddoc_psymbol">toPortString</span>();
+</div></dt>
+<dd>Human readable string representing the IPv4 port.<p></p>
+
+</dd>
+<dt><div class="d_decl">string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
+</div></dt>
+<dd>Human readable string representing the IPv4 address and port in the form <i>a.b.c.d:e</i>.<p></p>
+
+</dd>
+<dt><div class="d_decl">static uint <a name="parse"></a><span class="ddoc_psymbol">parse</span>(string <i>addr</i>);
+</div></dt>
+<dd>Parse an IPv4 address string in the dotted-decimal form <i>a.b.c.d</i>
+ and return the number.
+ If the string is not a legitimate IPv4 address,
+ ADDR_NONE is returned.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="SocketAcceptException"></a><span class="ddoc_psymbol">SocketAcceptException</span>: std.socket.SocketException;
+</div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl">enum <a name="SocketShutdown"></a><span class="ddoc_psymbol">SocketShutdown</span>;
+</div></dt>
+<dd>How a socket is shutdown:<p></p>
+
+<dl><dt><div class="d_decl"><a name="RECEIVE"></a><span class="ddoc_psymbol">RECEIVE</span></div></dt>
+<dd>socket receives are disallowed<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="SEND"></a><span class="ddoc_psymbol">SEND</span></div></dt>
+<dd>socket sends are disallowed<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="BOTH"></a><span class="ddoc_psymbol">BOTH</span></div></dt>
+<dd>both RECEIVE and SEND<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">enum <a name="SocketFlags"></a><span class="ddoc_psymbol">SocketFlags</span>;
+</div></dt>
+<dd>Flags may be OR'ed together:<p></p>
+
+<dl><dt><div class="d_decl"><a name="NONE"></a><span class="ddoc_psymbol">NONE</span></div></dt>
+<dd>no flags specified<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="OOB"></a><span class="ddoc_psymbol">OOB</span></div></dt>
+<dd>out-of-band stream data<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="PEEK"></a><span class="ddoc_psymbol">PEEK</span></div></dt>
+<dd>peek at incoming data without removing it from the queue, only for receiving<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="DONTROUTE"></a><span class="ddoc_psymbol">DONTROUTE</span></div></dt>
+<dd>data should not be subject to routing; this flag may be ignored. Only for sending<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="NOSIGNAL"></a><span class="ddoc_psymbol">NOSIGNAL</span></div></dt>
+<dd>don't send SIGPIPE signal on socket write error and instead return EPIPE<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">struct <a name="timeval"></a><span class="ddoc_psymbol">timeval</span>;
+</div></dt>
+<dd>Duration timeout value.<p></p>
+
+<dl><dt><div class="d_decl">int <a name="seconds"></a><span class="ddoc_psymbol">seconds</span>;
+</div></dt>
+<dd>Number of <a name="seconds"></a><span class="ddoc_psymbol">seconds</span>.<p></p>
+
+</dd>
+<dt><div class="d_decl">int <a name="microseconds"></a><span class="ddoc_psymbol">microseconds</span>;
+</div></dt>
+<dd>Number of additional <a name="microseconds"></a><span class="ddoc_psymbol">microseconds</span>.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="SocketSet"></a><span class="ddoc_psymbol">SocketSet</span>;
+</div></dt>
+<dd>A collection of sockets for use with Socket.select.<p></p>
+
+<dl><dt><div class="d_decl">this(uint <i>max</i>);
+</div></dt>
+<dd>Set the maximum amount of sockets that may be added.<p></p>
+
+</dd>
+<dt><div class="d_decl">this();
+</div></dt>
+<dd>Uses the default maximum for the system.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="reset"></a><span class="ddoc_psymbol">reset</span>();
+</div></dt>
+<dd>Reset the SocketSet so that there are 0 Sockets in the collection.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="add"></a><span class="ddoc_psymbol">add</span>(Socket <i>s</i>);
+</div></dt>
+<dd>Add a Socket to the collection. Adding more than the maximum has dangerous side affects.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Socket <i>s</i>);
+</div></dt>
+<dd>Remove this Socket from the collection.<p></p>
+
+</dd>
+<dt><div class="d_decl">int <a name="isSet"></a><span class="ddoc_psymbol">isSet</span>(Socket <i>s</i>);
+</div></dt>
+<dd>Returns nonzero if this Socket is in the collection.<p></p>
+
+</dd>
+<dt><div class="d_decl">uint <a name="max"></a><span class="ddoc_psymbol">max</span>();
+</div></dt>
+<dd>Return maximum amount of sockets that can be added, like FD_SETSIZE.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">enum <a name="SocketOptionLevel"></a><span class="ddoc_psymbol">SocketOptionLevel</span>;
+</div></dt>
+<dd>The level at which a socket option is defined:<p></p>
+
+<dl><dt><div class="d_decl"><a name="SOCKET"></a><span class="ddoc_psymbol">SOCKET</span></div></dt>
+<dd>socket level<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IP"></a><span class="ddoc_psymbol">IP</span></div></dt>
+<dd>internet protocol version 4 level<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="ICMP"></a><span class="ddoc_psymbol">ICMP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IGMP"></a><span class="ddoc_psymbol">IGMP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="GGP"></a><span class="ddoc_psymbol">GGP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="TCP"></a><span class="ddoc_psymbol">TCP</span></div></dt>
+<dd>transmission control protocol level<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="PUP"></a><span class="ddoc_psymbol">PUP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="UDP"></a><span class="ddoc_psymbol">UDP</span></div></dt>
+<dd>user datagram protocol level<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IDP"></a><span class="ddoc_psymbol">IDP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IPV6"></a><span class="ddoc_psymbol">IPV6</span></div></dt>
+<dd>internet protocol version 6 level<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">struct <a name="linger"></a><span class="ddoc_psymbol">linger</span>;
+</div></dt>
+<dd>Linger information for use with SocketOption.LINGER.<p></p>
+
+</dd>
+<dt><div class="d_decl">enum <a name="SocketOption"></a><span class="ddoc_psymbol">SocketOption</span>;
+</div></dt>
+<dd>Specifies a socket option:<p></p>
+
+<dl><dt><div class="d_decl"><a name="DEBUG"></a><span class="ddoc_psymbol">DEBUG</span></div></dt>
+<dd>record debugging information<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="BROADCAST"></a><span class="ddoc_psymbol">BROADCAST</span></div></dt>
+<dd>allow transmission of broadcast messages<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="REUSEADDR"></a><span class="ddoc_psymbol">REUSEADDR</span></div></dt>
+<dd>allow local reuse of address<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="LINGER"></a><span class="ddoc_psymbol">LINGER</span></div></dt>
+<dd>linger on close if unsent data is present<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="OOBINLINE"></a><span class="ddoc_psymbol">OOBINLINE</span></div></dt>
+<dd>receive out-of-band data in band<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="SNDBUF"></a><span class="ddoc_psymbol">SNDBUF</span></div></dt>
+<dd>send buffer size<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="RCVBUF"></a><span class="ddoc_psymbol">RCVBUF</span></div></dt>
+<dd>receive buffer size<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="DONTROUTE"></a><span class="ddoc_psymbol">DONTROUTE</span></div></dt>
+<dd>do not route<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="TCP_NODELAY"></a><span class="ddoc_psymbol">TCP_NODELAY</span></div></dt>
+<dd>disable the Nagle algorithm for send coalescing<p></p>
+
+</dd>
+<dt><div class="d_decl"><a name="IPV6_UNICAST_HOPS"></a><span class="ddoc_psymbol">IPV6_UNICAST_HOPS</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IPV6_MULTICAST_IF"></a><span class="ddoc_psymbol">IPV6_MULTICAST_IF</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IPV6_MULTICAST_LOOP"></a><span class="ddoc_psymbol">IPV6_MULTICAST_LOOP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IPV6_JOIN_GROUP"></a><span class="ddoc_psymbol">IPV6_JOIN_GROUP</span></div></dt>
+<dd><p></p>
+</dd>
+<dt><div class="d_decl"><a name="IPV6_LEAVE_GROUP"></a><span class="ddoc_psymbol">IPV6_LEAVE_GROUP</span></div></dt>
+<dd><p></p>
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="Socket"></a><span class="ddoc_psymbol">Socket</span>;
+</div></dt>
+<dd><a name="Socket"></a><span class="ddoc_psymbol">Socket</span> is a class that creates a network communication endpoint using the
+ Berkeley sockets interface.<p></p>
+
+<dl><dt><div class="d_decl">this(AddressFamily <i>af</i>, SocketType <i>type</i>, ProtocolType <i>protocol</i>);
+<br>this(AddressFamily <i>af</i>, SocketType <i>type</i>);
+<br>this(AddressFamily <i>af</i>, SocketType <i>type</i>, string <i>protocolName</i>);
+</div></dt>
+<dd>Create a blocking socket. If a single <i>protocol</i> <i>type</i> exists to support
+ this socket <i>type</i> within the address family, the ProtocolType may be
+ omitted.<p></p>
+
+</dd>
+<dt><div class="d_decl">socket_t <a name="handle"></a><span class="ddoc_psymbol">handle</span>();
+</div></dt>
+<dd>Get underlying socket <a name="handle"></a><span class="ddoc_psymbol">handle</span>.<p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="blocking"></a><span class="ddoc_psymbol">blocking</span>();
+<br>void <a name="blocking"></a><span class="ddoc_psymbol">blocking</span>(bool <i>byes</i>);
+</div></dt>
+<dd>Get/set socket's <a name="blocking"></a><span class="ddoc_psymbol">blocking</span> flag.
+<p></p>
+When a socket is <a name="blocking"></a><span class="ddoc_psymbol">blocking</span>, calls to receive(), accept(), and send()
+ will block and wait for data/action.
+ A non-<a name="blocking"></a><span class="ddoc_psymbol">blocking</span> socket will immediately return instead of <a name="blocking"></a><span class="ddoc_psymbol">blocking</span>.<p></p>
+
+</dd>
+<dt><div class="d_decl">AddressFamily <a name="addressFamily"></a><span class="ddoc_psymbol">addressFamily</span>();
+</div></dt>
+<dd>Get the socket's address family.<p></p>
+
+</dd>
+<dt><div class="d_decl">bool <a name="isAlive"></a><span class="ddoc_psymbol">isAlive</span>();
+</div></dt>
+<dd>Property that indicates if this is a valid, alive socket.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="bind"></a><span class="ddoc_psymbol">bind</span>(Address <i>addr</i>);
+</div></dt>
+<dd>Associate a local address with this socket.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="connect"></a><span class="ddoc_psymbol">connect</span>(Address <i>to</i>);
+</div></dt>
+<dd>Establish a connection. If the socket is blocking, <a name="connect"></a><span class="ddoc_psymbol">connect</span> waits for
+ the connection <i>to</i> be made. If the socket is nonblocking, <a name="connect"></a><span class="ddoc_psymbol">connect</span>
+ returns immediately and the connection attempt is still in progress.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="listen"></a><span class="ddoc_psymbol">listen</span>(int <i>backlog</i>);
+</div></dt>
+<dd>Listen for an incoming connection. bind must be called before you can
+ <a name="listen"></a><span class="ddoc_psymbol">listen</span>. The <i>backlog</i> is a request of how many pending incoming
+ connections are queued until accept'ed.<p></p>
+
+</dd>
+<dt><div class="d_decl">protected Socket <a name="accepting"></a><span class="ddoc_psymbol">accepting</span>();
+</div></dt>
+<dd>Called by accept when a new Socket must be created for a new
+ connection. To use a derived class, override this method and return an
+ instance of your class. The returned Socket's handle must not be set;
+ Socket has a protected constructor this() to use in this situation.<p></p>
+
+</dd>
+<dt><div class="d_decl">Socket <a name="accept"></a><span class="ddoc_psymbol">accept</span>();
+</div></dt>
+<dd>Accept an incoming connection. If the socket is blocking, <a name="accept"></a><span class="ddoc_psymbol">accept</span>
+ waits for a connection request. Throws SocketAcceptException if unable
+ to <a name="accept"></a><span class="ddoc_psymbol">accept</span>. See accepting for use with derived classes.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="shutdown"></a><span class="ddoc_psymbol">shutdown</span>(SocketShutdown <i>how</i>);
+</div></dt>
+<dd>Disables sends and/or receives.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="close"></a><span class="ddoc_psymbol">close</span>();
+</div></dt>
+<dd>Immediately drop any connections and release socket resources.
+ Calling shutdown before <a name="close"></a><span class="ddoc_psymbol">close</span> is recommended for connection-oriented
+ sockets. The Socket object is no longer usable after <a name="close"></a><span class="ddoc_psymbol">close</span>.<p></p>
+
+</dd>
+<dt><div class="d_decl">static string <a name="hostName"></a><span class="ddoc_psymbol">hostName</span>();
+</div></dt>
+<dd>Returns the local machine's host name. Idea from mango.<p></p>
+
+</dd>
+<dt><div class="d_decl">Address <a name="remoteAddress"></a><span class="ddoc_psymbol">remoteAddress</span>();
+</div></dt>
+<dd>Remote endpoint Address.<p></p>
+
+</dd>
+<dt><div class="d_decl">Address <a name="localAddress"></a><span class="ddoc_psymbol">localAddress</span>();
+</div></dt>
+<dd>Local endpoint Address.<p></p>
+
+</dd>
+<dt><div class="d_decl">const int <a name="ERROR"></a><span class="ddoc_psymbol">ERROR</span>;
+</div></dt>
+<dd>Send or receive error code.<p></p>
+
+</dd>
+<dt><div class="d_decl">Select!(false,long,int) <a name="send"></a><span class="ddoc_psymbol">send</span>(const(void)[] <i>buf</i>, SocketFlags <i>flags</i>);
+<br>Select!(false,long,int) <a name="send"></a><span class="ddoc_psymbol">send</span>(const(void)[] <i>buf</i>);
+</div></dt>
+<dd>Send data on the connection. Returns the number of bytes actually
+ sent, or ERROR on failure. If the socket is blocking and there is no
+ buffer space left, <a name="send"></a><span class="ddoc_psymbol">send</span> waits.<p></p>
+
+</dd>
+<dt><div class="d_decl">Select!(false,long,int) <a name="sendTo"></a><span class="ddoc_psymbol">sendTo</span>(const(void)[] <i>buf</i>, SocketFlags <i>flags</i>, Address <i>to</i>);
+<br>Select!(false,long,int) <a name="sendTo"></a><span class="ddoc_psymbol">sendTo</span>(const(void)[] <i>buf</i>, Address <i>to</i>);
+<br>Select!(false,long,int) <a name="sendTo"></a><span class="ddoc_psymbol">sendTo</span>(const(void)[] <i>buf</i>, SocketFlags <i>flags</i>);
+<br>Select!(false,long,int) <a name="sendTo"></a><span class="ddoc_psymbol">sendTo</span>(const(void)[] <i>buf</i>);
+</div></dt>
+<dd>Send data <i>to</i> a specific destination Address. If the destination address is not specified, a connection must have been made and that address is used. If the socket is blocking and there is no buffer space left, <a name="sendTo"></a><span class="ddoc_psymbol">sendTo</span> waits.<p></p>
+
+</dd>
+<dt><div class="d_decl">ptrdiff_t <a name="receive"></a><span class="ddoc_psymbol">receive</span>(void[] <i>buf</i>, SocketFlags <i>flags</i>);
+<br>ptrdiff_t <a name="receive"></a><span class="ddoc_psymbol">receive</span>(void[] <i>buf</i>);
+</div></dt>
+<dd>Receive data on the connection. Returns the number of bytes actually
+ received, 0 if the remote side has closed the connection, or ERROR on
+ failure. If the socket is blocking, <a name="receive"></a><span class="ddoc_psymbol">receive</span> waits until there is data
+ to be received.<p></p>
+
+</dd>
+<dt><div class="d_decl">Select!(false,long,int) <a name="receiveFrom"></a><span class="ddoc_psymbol">receiveFrom</span>(void[] <i>buf</i>, SocketFlags <i>flags</i>, out Address <i>from</i>);
+<br>ptrdiff_t <a name="receiveFrom"></a><span class="ddoc_psymbol">receiveFrom</span>(void[] <i>buf</i>, out Address <i>from</i>);
+<br>Select!(false,long,int) <a name="receiveFrom"></a><span class="ddoc_psymbol">receiveFrom</span>(void[] <i>buf</i>, SocketFlags <i>flags</i>);
+<br>ptrdiff_t <a name="receiveFrom"></a><span class="ddoc_psymbol">receiveFrom</span>(void[] <i>buf</i>);
+</div></dt>
+<dd>Receive data and get the remote endpoint Address.
+ If the socket is blocking, <a name="receiveFrom"></a><span class="ddoc_psymbol">receiveFrom</span> waits until there is data to
+ be received.
+<p></p>
+<b>Returns:</b><br>the number of bytes actually received,
+ 0 if the remote side has closed the connection, or ERROR on failure.<p></p>
+
+</dd>
+<dt><div class="d_decl">int <a name="getOption"></a><span class="ddoc_psymbol">getOption</span>(SocketOptionLevel <i>level</i>, SocketOption <i>option</i>, void[] <i>result</i>);
+</div></dt>
+<dd>Get a socket <i>option</i>. Returns the number of bytes written to <i>result</i>.<p></p>
+
+</dd>
+<dt><div class="d_decl">int <a name="getOption"></a><span class="ddoc_psymbol">getOption</span>(SocketOptionLevel <i>level</i>, SocketOption <i>option</i>, out int32_t <i>result</i>);
+</div></dt>
+<dd>Common case of getting integer and boolean options.<p></p>
+
+</dd>
+<dt><div class="d_decl">int <a name="getOption"></a><span class="ddoc_psymbol">getOption</span>(SocketOptionLevel <i>level</i>, SocketOption <i>option</i>, out linger <i>result</i>);
+</div></dt>
+<dd>Get the linger <i>option</i>.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="setOption"></a><span class="ddoc_psymbol">setOption</span>(SocketOptionLevel <i>level</i>, SocketOption <i>option</i>, int32_t <i>value</i>);
+</div></dt>
+<dd>Common case for setting integer and boolean options.<p></p>
+
+</dd>
+<dt><div class="d_decl">void <a name="setOption"></a><span class="ddoc_psymbol">setOption</span>(SocketOptionLevel <i>level</i>, SocketOption <i>option</i>, linger <i>value</i>);
+</div></dt>
+<dd>Set the linger <i>option</i>.<p></p>
+
+</dd>
+<dt><div class="d_decl">static int <a name="select"></a><span class="ddoc_psymbol">select</span>(SocketSet <i>checkRead</i>, SocketSet <i>checkWrite</i>, SocketSet <i>checkError</i>, timeval* <i>tv</i>);
+<br>static int <a name="select"></a><span class="ddoc_psymbol">select</span>(SocketSet <i>checkRead</i>, SocketSet <i>checkWrite</i>, SocketSet <i>checkError</i>, int <i>microseconds</i>);
+<br>static int <a name="select"></a><span class="ddoc_psymbol">select</span>(SocketSet <i>checkRead</i>, SocketSet <i>checkWrite</i>, SocketSet <i>checkError</i>);
+</div></dt>
+<dd>Wait for a socket to change status. A wait timeout timeval or int microseconds may be specified; if a timeout is not specified or the timeval is <b>null</b>, the maximum timeout is used. The timeval timeout has an unspecified value when <a name="select"></a><span class="ddoc_psymbol">select</span> returns. Returns the number of sockets with status changes, 0 on timeout, or -1 on interruption. If the return value is greater than 0, the SocketSets are updated to only contain the sockets having status changes. For a connecting socket, a write status change means the connection is established and it's able to send. For a listening socket, a read status change means there is an incoming connection request and it's able to accept.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="TcpSocket"></a><span class="ddoc_psymbol">TcpSocket</span>: std.socket.Socket;
+</div></dt>
+<dd><a name="TcpSocket"></a><span class="ddoc_psymbol">TcpSocket</span> is a shortcut class for a TCP Socket.<p></p>
+
+<dl><dt><div class="d_decl">this(AddressFamily <i>family</i>);
+</div></dt>
+<dd>Constructs a blocking TCP Socket.<p></p>
+
+</dd>
+<dt><div class="d_decl">this();
+</div></dt>
+<dd>Constructs a blocking TCP Socket.<p></p>
+
+</dd>
+<dt><div class="d_decl">this(Address <i>connectTo</i>);
+</div></dt>
+<dd>Constructs a blocking TCP Socket and connects to an InternetAddress.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt><div class="d_decl">class <a name="UdpSocket"></a><span class="ddoc_psymbol">UdpSocket</span>: std.socket.Socket;
+</div></dt>
+<dd><a name="UdpSocket"></a><span class="ddoc_psymbol">UdpSocket</span> is a shortcut class for a UDP Socket.<p></p>
+
+<dl><dt><div class="d_decl">this(AddressFamily <i>family</i>);
+</div></dt>
+<dd>Constructs a blocking UDP Socket.<p></p>
+
+</dd>
+<dt><div class="d_decl">this();
+</div></dt>
+<dd>Constructs a blocking UDP Socket.<p></p>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+    
+<br><br>
+<br><br>
+<!-- Google ad -->
+<script type="text/javascript"><!--
+/**/google_ad_client = "pub-5628673096434613";
+/**/google_ad_width = 728;
+/**/google_ad_height = 90;
+/**/google_ad_format = "728x90_as";
+/**/google_ad_channel ="6203743411";
+/**/google_page_url = document.location;
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+<div id="copyright">
+Copyright &copy; 1999-2011 by Digital Mars, All Rights Reserved |
+Page generated by <a href="http://www.digitalmars.com/d/2.0/ddoc.html">Ddoc</a>.
+</div>
+
+</body>
+</html>

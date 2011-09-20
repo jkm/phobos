@@ -1,0 +1,772 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+<html lang='en'>
+
+<!--
+	Copyright (c) 1999-2010 by Digital Mars
+	All Rights Reserved Written by Walter Bright
+	http://www.digitalmars.com
+  -->
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" >
+<title>std.stdio - D Programming Language - Digital Mars</title>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+
+<script type="text/javascript">
+function listanchors()
+{
+    if (typeof inhibitQuickIndex !== 'undefined') return;
+    var a = document.getElementById("quickindex");
+    if (!a) return;
+    var newText = "";
+    var hash = new Array;
+    var n = 0;
+    var values = new Array;
+    // List all anchors.
+    for (var i = 0; i < document.anchors.length; i++)
+    {
+        var a = document.anchors[i];
+        var text = a.name;
+        if (hash[text] > 0) continue;
+        hash[text] = 1;
+        values[n++] = a.name
+    }
+
+    values.sort();
+
+    for(var i = 0; i < values.length; i++) {
+        var a = values[i];
+        newText += ' \x3Ca href="\x23' + a +
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+    }
+    if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
+    var a = document.getElementById("quickindex");
+    a.innerHTML = newText;
+}
+</script>
+
+<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+
+</head>
+
+<body onload="listanchors()" class='hyphenate'>
+
+<div id="top">
+	<div id="search-box">
+		<form method="get" action="http://google.com/search">
+			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
+			<div id="search-dropdown">
+				<select id="sitesearch" name="sitesearch" size="1">
+					<option value="d-programming-language.org">Entire D  Site</option>
+					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
+				</select>
+			</div>
+		</form>
+	</div>
+	<div id="header">
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a id="d-language" href="/">D Programming Language </a>
+	</div>
+</div>
+
+<div id="navigation">
+    
+<div class="navblock">
+<form method="get" action="http://www.google.com/search">
+<div id="searchbox">
+<input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
+<input type="hidden" name="domains" value="www.digitalmars.com">
+<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sourceid" value="google-search">
+<input type="submit" name="submit" value="Go">
+</div>
+</form>
+<div id="toctop">
+    <ul><li><a href="../index.html" title="D Programming Language">D</a></li>
+	<li><a href="../spec.html" title="D Language Specification">Language</a></li>
+	<li><a href="../phobos/index.html" title="D Runtime Library">Phobos</a></li>
+	<li><a href="../phobos-prerelease/index.html" title="D Runtime Library (prerelease)">Phobos (prerelease)</a></li>
+	<li><a href="../comparison.html" title="Language Comparisons">Comparisons</a></li>
+    </ul>
+</div>
+</div>
+    
+<div class="navblock">
+    <ul><li><a href="object.html" title="root of object hierarchy">object</a></li>
+    </ul>
+    <h2><a href="index.html#std" title="D standard modules">std</a></h2>
+    <ul><li><a href="std_algorithm.html" title="General-purpose algorithms">std.algorithm</a></li>
+	<li><a href="std_array.html" title="Array functions">std.array</a></li>
+	<li><a href="std_ascii.html" title="Functions which operate on ASCII characters">std.ascii</a></li>
+	<li><a href="std_base64.html" title="Encode/decode base64 format">std.base64</a></li>
+	<li><a href="std_bigint.html" title="Arbitrary-precision ('bignum') arithmetic">std.bigint</a></li>
+	<li><a href="std_bitmanip.html" title="Bit-level manipulation">std.bitmanip</a></li>
+	<li><a href="std_compiler.html" title="Information about the D compiler implementation">std.compiler</a></li>
+	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
+	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
+	<li><a href="std_container.html" title="Containers">std.container</a></li>
+	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
+	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
+	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
+	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
+	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
+	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
+	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
+	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
+	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
+	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
+	<li><a href="std_functional.html" title="functional">std.functional</a></li>
+	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
+	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
+	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
+	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
+	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
+	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
+	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
+	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
+	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
+	<li><a href="std_outbuffer.html" title="Assemble data into an array of bytes">std.outbuffer</a></li>
+	<li><a href="std_parallelism.html" title="High-level primitives for SMP parallelism">std.parallelism</a></li>
+	<li><a href="std_path.html" title="Manipulate file names, path names, etc.">std.path</a></li>
+	<li><a href="std_process.html" title="Create/destroy processes">std.process</a></li>
+	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
+	<li><a href="std_range.html" title="Ranges">std.range</a></li>
+	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
+	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
+	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
+	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
+	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
+	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
+	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
+	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
+	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
+	<li><a href="std_string.html" title="Basic string operations">std.string</a></li>
+	<li><a href="std_system.html" title="Inquire about the CPU, operating system">std.system</a></li>
+	<li><a href="std_traits.html" title="Type traits">std.traits</a></li>
+	<li><a href="std_typecons.html" title="Type constructors">std.typecons</a></li>
+	<li><a href="std_typetuple.html" title="Type tuples">std.typetuple</a></li>
+	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
+	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
+	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
+	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
+	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
+	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
+	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
+	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
+	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
+	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
+	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
+	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
+	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
+	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
+	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
+	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
+	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
+	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
+	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
+	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
+	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
+    </ul>
+    <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
+    <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
+    </ul>
+    <h2><a href="index.html#core" title="D core modules">core</a></h2>
+    <ul><li><a href="core_atomic.html" title="Atomic operations">core.atomic</a></li>
+	<li><a href="core_bitop.html" title="Bitwise operations">core.bitop</a></li>
+	<li><a href="core_cpuid.html" title="CPU identification">core.cpuid</a></li>
+	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
+	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
+	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
+	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
+	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
+	<li><a href="core_sync_barrier.html" title="Synchronizing progress of a group of threads">core.sync.barrier</a></li>
+	<li><a href="core_sync_condition.html" title="Synchronized condition checking">core.sync.condition</a></li>
+	<li><a href="core_sync_config.html" title="Stuff for core.sync">core.sync.config</a></li>
+	<li><a href="core_sync_exception.html" title="SyncException">core.sync.exception</a></li>
+	<li><a href="core_sync_mutex.html" title="Mutexes">core.sync.mutex</a></li>
+	<li><a href="core_sync_rwmutex.html" title="R/W mutually exclusive access">core.sync.rwmutex</a></li>
+	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
+    </ul>
+</div>
+</div>
+<div id="content">
+    <h1>std.stdio</h1>
+    <div id=quickindex class=quickindex></div>
+    <!-- Generated by Ddoc from std/stdio.d -->
+Standard I/O functions that extend <b>std.c.<a name="stdio"></a><span class="ddoc_psymbol">stdio</span></b>.  <b>std.c.<a name="stdio"></a><span class="ddoc_psymbol">stdio</span></b>
+is <span class="d_param">public</span>ally imported when importing <b>std.<a name="stdio"></a><span class="ddoc_psymbol">stdio</span></b>.
+<p></p>
+<b>Source:</b><br>
+<a href="https://github.com/D-Programming-Language/phobos/blob/master/std/stdio.d">std/stdio.d</a>
+<p></p>
+<b>License:</b><br><a href="http://boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
+<p></p>
+<b>Authors:</b><br><a href="http://digitalmars.com">Walter Bright</a>,
+           <a href="http://erdani.org">Andrei Alexandrescu</a><p></p>
+
+<dl><dt class="d_decl">struct <a name="File"></a><span class="ddoc_psymbol">File</span>;
+</dt>
+<dd>Encapsulates a <span class="d_inlinecode">FILE*</span>. Generally D does not attempt to provide
+thin wrappers over equivalent functions in the C standard library, but
+manipulating <span class="d_inlinecode">FILE*</span> values directly is unsafe and error-prone in
+many ways. The <span class="d_inlinecode"><a name="File"></a><span class="ddoc_psymbol">File</span></span> type ensures safe manipulation, automatic
+file closing, and a lot of convenience.
+<p></p>
+The underlying <span class="d_inlinecode">FILE*</span> handle is maintained in a reference-counted
+manner, such that as soon as the last <span class="d_inlinecode"><a name="File"></a><span class="ddoc_psymbol">File</span></span> variable bound to a
+given <span class="d_inlinecode">FILE*</span> goes out of scope, the underlying <span class="d_inlinecode">FILE*</span> is
+automatically closed.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_comment">// test.d
+</span><span class="d_keyword">void</span> main(string args[])
+{
+    <span class="d_keyword">auto</span> f = <span class="d_psymbol">File</span>(<span class="d_string">"test.txt"</span>, <span class="d_string">"w"</span>); <span class="d_comment">// open for writing
+</span>    f.write(<span class="d_string">"Hello"</span>);
+    <span class="d_keyword">if</span> (args.length &gt; 1)
+    {
+        <span class="d_keyword">auto</span> g = f; <span class="d_comment">// now g and f write to the same file
+</span>                    <span class="d_comment">// internal reference count is 2
+</span>        g.write(<span class="d_string">", "</span>, args[1]);
+        <span class="d_comment">// g exits scope, reference count decreases to 1
+</span>    }
+    f.writeln(<span class="d_string">"!"</span>);
+    <span class="d_comment">// f exits scope, reference count falls to zero,
+</span>    <span class="d_comment">// underlying <span class="d_inlinecode">FILE*</span> is closed.
+</span>}
+</pre>
+<pre class=console>
+% rdmd test.d Jimmy
+% cat test.txt
+Hello, Jimmy!
+% _
+</pre><p></p>
+
+<dl><dt class="d_decl">this(string <i>name</i>, in char[] <i>stdioOpenmode</i> = "rb");
+</dt>
+<dd>Constructor taking the <i>name</i> of the file to open and the open mode
+(with the same semantics as in the C standard library <a href="http://cplusplus.com/reference/clibrary/cstdio/fopen.html">fopen</a>
+function). Throws an exception if the file could not be opened.
+<p></p>
+Copying one <span class="d_inlinecode">File</span> object to another results in the two <span class="d_inlinecode">File</span>
+objects referring to the same underlying file.
+<p></p>
+
+The destructor automatically closes the file as soon as no <span class="d_inlinecode">File</span>
+object refers to it anymore.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="opAssign"></a><span class="ddoc_psymbol">opAssign</span>(File <i>rhs</i>);
+</dt>
+<dd>Assigns a file to another. The target of the assignment gets detached
+from whatever file it was attached to, and attaches itself to the new
+file.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="open"></a><span class="ddoc_psymbol">open</span>(string <i>name</i>, in char[] <i>stdioOpenmode</i> = "rb");
+</dt>
+<dd>First calls <span class="d_inlinecode">detach</span> (throwing on failure), and then attempts to
+open file <span class="d_inlinecode"><i>name</i></span> with mode <span class="d_inlinecode"><i>stdioOpenmode</i></span>. The mode has the
+same semantics as in the C standard library <a href="http://cplusplus.com/reference/clibrary/cstdio/fopen.html">fopen</a> function.
+Throws exception in case of error.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="popen"></a><span class="ddoc_psymbol">popen</span>(string <i>command</i>, in char[] <i>stdioOpenmode</i> = "r");
+</dt>
+<dd>First calls <span class="d_inlinecode">detach</span> (throwing on failure), and then runs a <i>command</i>
+by calling the C standard library function <a href="http://opengroup.org/onlinepubs/007908799/xsh/popen.html">popen</a>.<p></p>
+
+</dd>
+<dt class="d_decl">const @property bool <a name="isOpen"></a><span class="ddoc_psymbol">isOpen</span>();
+</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if the file is opened. <p></p>
+
+</dd>
+<dt class="d_decl">const @property bool <a name="eof"></a><span class="ddoc_psymbol">eof</span>();
+</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if the file is at end (see <a href="http://cplusplus.com/reference/clibrary/cstdio/feof.html">feof</a>). The file
+must be opened, otherwise an exception is thrown.<p></p>
+
+</dd>
+<dt class="d_decl">const @property string <a name="name"></a><span class="ddoc_psymbol">name</span>();
+</dt>
+<dd>Returns the <a name="name"></a><span class="ddoc_psymbol">name</span> of the file, if any. <p></p>
+
+</dd>
+<dt class="d_decl">const @property bool <a name="error"></a><span class="ddoc_psymbol">error</span>();
+</dt>
+<dd>If the file is not opened, returns <span class="d_inlinecode"><b>false</b></span>. Otherwise, returns
+<a href="http://cplusplus.com/reference/clibrary/cstdio/ferror.html">ferror</a> for
+the file handle.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="detach"></a><span class="ddoc_psymbol">detach</span>();
+</dt>
+<dd>Detaches from the underlying file. If the sole owner, calls <span class="d_inlinecode">close</span>
+and throws if that fails.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="close"></a><span class="ddoc_psymbol">close</span>();
+</dt>
+<dd>If the file was unopened, succeeds vacuously. Otherwise closes the
+file (by calling <a href="http://cplusplus.com/reference/clibrary/cstdio/fclose.html">fclose</a>),
+throwing on error. Even if an exception is thrown, afterwards the <span class="d_inlinecode">File</span> object is empty. This is different from <span class="d_inlinecode">detach</span> in that it
+always closes the file; consequently, all other <span class="d_inlinecode">File</span> objects
+referring to the same handle will see a closed file henceforth.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="clearerr"></a><span class="ddoc_psymbol">clearerr</span>();
+</dt>
+<dd>If the file is not opened, succeeds vacuously. Otherwise, returns
+<a href="http://cplusplus.com/reference/clibrary/cstdio/clearerr.html">clearerr</a> for the file handle.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="flush"></a><span class="ddoc_psymbol">flush</span>();
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/fflush.html">fflush</a> for the
+file handle and throws on error.<p></p>
+
+</dd>
+<dt class="d_decl">T[] <a name="rawRead"></a><span class="ddoc_psymbol">rawRead</span>(T)(T[] <i>buffer</i>);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/fread.html">fread</a> for the
+file handle and throws on error.
+<p></p>
+<span class="d_inlinecode"><a name="rawRead"></a><span class="ddoc_psymbol">rawRead</span></span> always read in binary mode on Windows.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="rawWrite"></a><span class="ddoc_psymbol">rawWrite</span>(T)(in T[] <i>buffer</i>);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/fwrite.html">fwrite</a> for the
+file handle and throws on error.
+<p></p>
+<span class="d_inlinecode"><a name="rawWrite"></a><span class="ddoc_psymbol">rawWrite</span></span> always write in binary mode on Windows.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="seek"></a><span class="ddoc_psymbol">seek</span>(long <i>offset</i>, int <i>origin</i> = SEEK_SET);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/fseek.html">fseek</a> for the
+file handle. Throws on error.<p></p>
+
+</dd>
+<dt class="d_decl">const @property ulong <a name="tell"></a><span class="ddoc_psymbol">tell</span>();
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/ftell.html">ftell</a> for the
+managed file handle. Throws on error.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="rewind"></a><span class="ddoc_psymbol">rewind</span>();
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/rewind.html">rewind</a> for the
+file handle. Throws on error.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="setvbuf"></a><span class="ddoc_psymbol">setvbuf</span>(size_t <i>size</i>, int <i>mode</i> = _IOFBF);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls <a href="http://cplusplus.com/reference/clibrary/cstdio/setvbuf.html">setvbuf</a> for
+the file handle.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="setvbuf"></a><span class="ddoc_psymbol">setvbuf</span>(void[] <i>buf</i>, int <i>mode</i> = _IOFBF);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, calls
+<a href="http://cplusplus.com/reference/clibrary/cstdio/setvbuf.html">setvbuf</a> for the file handle. <p></p>
+
+</dd>
+<dt class="d_decl">void <a name="write"></a><span class="ddoc_psymbol">write</span>(S...)(S <i>args</i>);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, writes its
+arguments in text format to the file. <p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writeln"></a><span class="ddoc_psymbol">writeln</span>(S...)(S <i>args</i>);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, writes its
+arguments in text format to the file, followed by a newline. <p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writef"></a><span class="ddoc_psymbol">writef</span>(S...)(S <i>args</i>);
+</dt>
+<dd>If the file is not opened, throws an exception. Otherwise, writes its
+arguments in text format to the file, according to the format in the
+first argument. <p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writefln"></a><span class="ddoc_psymbol">writefln</span>(S...)(S <i>args</i>);
+</dt>
+<dd>Same as writef, plus adds a newline. <p></p>
+
+</dd>
+<dt class="d_decl">S <a name="readln"></a><span class="ddoc_psymbol">readln</span>(S = string)(dchar <i>terminator</i> = '\x0a');
+<br>size_t <a name="readln"></a><span class="ddoc_psymbol">readln</span>(C)(ref C[] <i>buf</i>, dchar <i>terminator</i> = '\x0a');
+<br>size_t <a name="readln"></a><span class="ddoc_psymbol">readln</span>(C, R)(ref C[] <i>buf</i>, R <i>terminator</i>);
+</dt>
+<dd>Read line from stream <span class="d_inlinecode">fp</span> and write it to <span class="d_inlinecode">buf[]</span>, including
+terminating character.
+<p></p>
+This is often faster than <span class="d_inlinecode">File.<a name="readln"></a><span class="ddoc_psymbol">readln</span>(dchar)</span> because the buffer
+is reused each call. Note that reusing the buffer means that the
+previous contents of it has to be copied if needed.
+
+<p></p>
+<b>Parameters:</b><table class=parms><tr><td valign=top>fp</td>
+<td valign=top>input stream</td></tr>
+<tr><td valign=top>buf</td>
+<td valign=top>buffer used to store the resulting line data. buf is
+resized as necessary.</td></tr>
+</table><p></p>
+<b>Returns:</b><br>0 for end of file, otherwise number of characters read
+
+<p></p>
+<b>Throws:</b><br><span class="d_inlinecode">StdioException</span> on error
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_comment">// Reads <span class="d_inlinecode">stdin</span> and writes it to <span class="d_inlinecode">stdout</span>.
+</span><span class="d_keyword">import</span> std.stdio;
+
+<span class="d_keyword">int</span> main()
+{
+    <span class="d_keyword">char</span>[] buf;
+    <span class="d_keyword">while</span> (stdin.<span class="d_psymbol">readln</span>(buf))
+        write(buf);
+    <span class="d_keyword">return</span> 0;
+}
+</pre>
+
+This method is more efficient than the one in the previous example
+because <span class="d_inlinecode">stdin.<a name="readln"></a><span class="ddoc_psymbol">readln</span>(buf)</span> reuses (if possible) memory allocated
+by <span class="d_inlinecode">buf</span>, whereas <span class="d_inlinecode">buf = stdin.<a name="readln"></a><span class="ddoc_psymbol">readln</span>()</span> makes a new memory allocation
+with every line.  <p></p>
+
+</dd>
+<dt class="d_decl">static File <a name="tmpfile"></a><span class="ddoc_psymbol">tmpfile</span>();
+</dt>
+<dd>Returns a temporary file by calling <a href="http://cplusplus.com/reference/clibrary/cstdio/tmpfile.html">tmpfile</a>. <p></p>
+
+</dd>
+<dt class="d_decl">static File <a name="wrapFile"></a><span class="ddoc_psymbol">wrapFile</span>(shared(_iobuf)* <i>f</i>);
+</dt>
+<dd>Unsafe function that wraps an existing <span class="d_inlinecode">FILE*</span>. The resulting <span class="d_inlinecode">File</span> never takes the initiative in closing the file. <p></p>
+
+</dd>
+<dt class="d_decl">shared(_iobuf)* <a name="getFP"></a><span class="ddoc_psymbol">getFP</span>();
+</dt>
+<dd>Returns the <span class="d_inlinecode">FILE*</span> corresponding to this object.<p></p>
+
+</dd>
+<dt class="d_decl">const int <a name="fileno"></a><span class="ddoc_psymbol">fileno</span>();
+</dt>
+<dd>Returns the file number corresponding to this object.<p></p>
+
+</dd>
+<dt class="d_decl">enum <a name="KeepTerminator"></a><span class="ddoc_psymbol">KeepTerminator</span>;
+<br>struct <a name="ByLine"></a><span class="ddoc_psymbol">ByLine</span>(Char,Terminator);
+</dt>
+<dd>Range that reads one line at a time. <p></p>
+
+</dd>
+<dt class="d_decl">ByLine!(Char,Terminator) <a name="byLine"></a><span class="ddoc_psymbol">byLine</span>(Terminator = char, Char = char)(KeepTerminator <i>keepTerminator</i> = KeepTerminator.no, Terminator <i>terminator</i> = '\x0a');
+</dt>
+<dd>Convenience function that returns the <span class="d_inlinecode">LinesReader</span> corresponding
+to this file. <p></p>
+
+</dd>
+<dt class="d_decl">struct <a name="ByChunk"></a><span class="ddoc_psymbol">ByChunk</span>;
+</dt>
+<dd>Range that reads a chunk at a time.<p></p>
+
+<dl><dt class="d_decl">const @property bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br>nothrow @property ubyte[] <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+</dt>
+<dd>Range primitive operations.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl">ByChunk <a name="byChunk"></a><span class="ddoc_psymbol">byChunk</span>(size_t <i>chunkSize</i>);
+</dt>
+<dd>Iterates through a file a chunk at a time by using <span class="d_inlinecode">foreach</span>.
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">void</span> main()
+{
+  <span class="d_keyword">foreach</span> (<span class="d_keyword">ubyte</span>[] buffer; stdin.<span class="d_psymbol">byChunk</span>(4096))
+  {
+    ... use buffer ...
+  }
+}
+</pre>
+
+The content of <span class="d_inlinecode">buffer</span> is reused across calls. In the example
+above, <span class="d_inlinecode">buffer.length</span> is 4096 for all iterations, except for the
+last one, in which case <span class="d_inlinecode">buffer.length</span> may be less than 4096 (but
+always greater than zero).
+<p></p>
+
+In case of an I/O error, an <span class="d_inlinecode">StdioException</span> is thrown.<p></p>
+
+</dd>
+<dt class="d_decl">struct <a name="LockingTextWriter"></a><span class="ddoc_psymbol">LockingTextWriter</span>;
+</dt>
+<dd><span class="d_inlinecode">Range</span> that locks the file and allows fast writing to it.<p></p>
+
+<dl><dt class="d_decl">void <a name="put"></a><span class="ddoc_psymbol">put</span>(A)(A <i>writeme</i>);
+<br>void <a name="put"></a><span class="ddoc_psymbol">put</span>(C)(C <i>c</i>);
+</dt>
+<dd>Range primitive implementations.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl">LockingTextWriter <a name="lockingTextWriter"></a><span class="ddoc_psymbol">lockingTextWriter</span>();
+</dt>
+<dd>Convenience function.<p></p>
+
+</dd>
+<dt class="d_decl">@property ulong <a name="size"></a><span class="ddoc_psymbol">size</span>();
+</dt>
+<dd>Get the <a name="size"></a><span class="ddoc_psymbol">size</span> of the file, ulong.max if file is not searchable, but still throws if an actual error occurs.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl">void <a name="write"></a><span class="ddoc_psymbol">write</span>(T...)(T <i>args</i>);
+</dt>
+<dd>For each argument <span class="d_inlinecode">arg</span> in <span class="d_inlinecode">args</span>, format the argument (as per
+<a href="std_conv.html">to!(string)(arg)</a>) and <a name="write"></a><span class="ddoc_psymbol">write</span> the resulting
+string to <span class="d_inlinecode">args[0]</span>. A call without any arguments will fail to
+compile.
+<p></p>
+<b>Throws:</b><br>In case of an I/O error, throws an <span class="d_inlinecode">StdioException</span>.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writeln"></a><span class="ddoc_psymbol">writeln</span>(T...)(T <i>args</i>);
+</dt>
+<dd>Equivalent to <span class="d_inlinecode">write(args, '\n')</span>.  Calling <span class="d_inlinecode"><a name="writeln"></a><span class="ddoc_psymbol">writeln</span></span> without
+ arguments is valid and just prints a newline to the standard
+ output.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writef"></a><span class="ddoc_psymbol">writef</span>(T...)(T <i>args</i>);
+</dt>
+<dd>If the first argument <span class="d_inlinecode">args[0]</span> is a <span class="d_inlinecode">FILE*</span>, use
+ <a href="std_format.html#format-string">the format specifier</a> in
+ <span class="d_inlinecode">args[1]</span> to control the formatting of <span class="d_inlinecode">args[2..$]</span>, and write the resulting string to <span class="d_inlinecode">args[0]</span>.
+ If <span class="d_inlinecode">arg[0]</span> is not a <span class="d_inlinecode">FILE*</span>, the call is
+ equivalent to <span class="d_inlinecode"><a name="writef"></a><span class="ddoc_psymbol">writef</span>(stdout, args)</span>.
+<p></p>
+<b>IMPORTANT:</b><br>
+New behavior starting with D 2.006: unlike previous versions,
+<span class="d_inlinecode"><a name="writef"></a><span class="ddoc_psymbol">writef</span></span> (and also <span class="d_inlinecode">writefln</span>) only scans its first
+string argument for format specifiers, but not subsequent string
+arguments. This decision was made because the old behavior made it
+unduly hard to simply print string variables that occasionally
+embedded percent signs.
+<p></p>
+
+Also new starting with 2.006 is support for positional
+parameters with
+<a href="http://opengroup.org/onlinepubs/009695399/functions/printf.html">POSIX</a> syntax.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_psymbol">writef</span>(<span class="d_string">"Date: %2$s %1$s"</span>, <span class="d_string">"October"</span>, 5); <span class="d_comment">// "Date: 5 October"
+</span></pre>
+
+The positional and non-positional styles can be mixed in the same
+format string. (POSIX leaves this behavior undefined.) The internal
+counter for non-positional parameters tracks the popFront parameter after
+the largest positional parameter already used.
+<p></p>
+
+New starting with 2.008: raw format specifiers. Using the "%r"
+specifier makes <span class="d_inlinecode"><a name="writef"></a><span class="ddoc_psymbol">writef</span></span> simply write the binary
+representation of the argument. Use "%-r" to write numbers in little
+endian format, "%+r" to write numbers in big endian format, and "%r"
+to write numbers in platform-native format.<p></p>
+
+</dd>
+<dt class="d_decl">void <a name="writefln"></a><span class="ddoc_psymbol">writefln</span>(T...)(T <i>args</i>);
+</dt>
+<dd>Equivalent to <span class="d_inlinecode">writef(args, '\n')</span>.<p></p>
+
+</dd>
+<dt class="d_decl">uint <a name="readf"></a><span class="ddoc_psymbol">readf</span>(A...)(in char[] <i>format</i>, A <i>args</i>);
+</dt>
+<dd>Formatted read one line from stdin.<p></p>
+
+</dd>
+<dt class="d_decl">string <a name="readln"></a><span class="ddoc_psymbol">readln</span>(dchar <i>terminator</i> = '\x0a');
+<br>size_t <a name="readln"></a><span class="ddoc_psymbol">readln</span>(ref char[] <i>buf</i>, dchar <i>terminator</i> = '\x0a');
+</dt>
+<dd>Read line from stream <span class="d_inlinecode">fp</span>.
+<p></p>
+<b>Returns:</b><br><span class="d_inlinecode"><b>null</b></span> for end of file,
+        <span class="d_inlinecode">char[]</span> for line read from <span class="d_inlinecode">fp</span>, including terminating character
+<p></p>
+<b>Parameters:</b><table class=parms></table><p></p>
+<b>Throws:</b><br><span class="d_inlinecode">StdioException</span> on error
+<p></p>
+<b>Example:</b><br>
+Reads <span class="d_inlinecode">stdin</span> and writes it to <span class="d_inlinecode">stdout</span>.
+<pre class="d_code"><span class="d_keyword">import</span> std.stdio;
+
+<span class="d_keyword">int</span> main()
+{
+    <span class="d_keyword">char</span>[] buf;
+    <span class="d_keyword">while</span> ((buf = <span class="d_psymbol">readln</span>()) != <span class="d_keyword">null</span>)
+        write(buf);
+    <span class="d_keyword">return</span> 0;
+}
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl">shared(_iobuf)* <a name="popen"></a><span class="ddoc_psymbol">popen</span>(in char[] <i>name</i>, in char[] <i>mode</i> = "r");
+</dt>
+<dd>Convenience function that forwards to <span class="d_inlinecode">std.c.stdio.<a name="popen"></a><span class="ddoc_psymbol">popen</span></span>
+ with appropriately-constructed C-style strings.<p></p>
+
+</dd>
+<dt class="d_decl">struct <a name="lines"></a><span class="ddoc_psymbol">lines</span>;
+</dt>
+<dd>Iterates through the <a name="lines"></a><span class="ddoc_psymbol">lines</span> of a file by using <span class="d_inlinecode">foreach</span>.
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">void</span> main()
+{
+  <span class="d_keyword">foreach</span> (string line; <span class="d_psymbol">lines</span>(stdin))
+  {
+    ... use line ...
+  }
+}
+</pre>
+ The line terminator ('\n' by default) is part of the string read (it
+could be missing in the last line of the file). Several types are
+supported for <span class="d_inlinecode">line</span>, and the behavior of <span class="d_inlinecode"><a name="lines"></a><span class="ddoc_psymbol">lines</span></span>
+changes accordingly:
+<p></p>
+
+<ol><li>If <span class="d_inlinecode">line</span> has type <span class="d_inlinecode">string</span>, <span class="d_inlinecode">wstring</span>, or <span class="d_inlinecode">dstring</span>, a new string of the respective type
+is allocated every read.</li> <li>If <span class="d_inlinecode">line</span> has type <span class="d_inlinecode">char[]</span>, <span class="d_inlinecode">wchar[]</span>, <span class="d_inlinecode">dchar[]</span>, the line's content
+will be reused (overwritten) across reads.</li> <li>If <span class="d_inlinecode">line</span>
+has type <span class="d_inlinecode">immutable(ubyte)[]</span>, the behavior is similar to
+case (1), except that no UTF checking is attempted upon input.</li> <li>If <span class="d_inlinecode">line</span> has type <span class="d_inlinecode">ubyte[]</span>, the behavior is
+similar to case (2), except that no UTF checking is attempted upon
+input.</li></ol>
+<p></p>
+
+In all cases, a two-symbols versions is also accepted, in which case
+the first symbol (of integral type, e.g. <span class="d_inlinecode">ulong</span> or <span class="d_inlinecode">uint</span>) tracks the zero-based number of the current line.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code">  <span class="d_keyword">foreach</span> (<span class="d_keyword">ulong</span> i, string line; <span class="d_psymbol">lines</span>(stdin))
+  {
+    ... use line ...
+  }
+</pre>
+
+ In case of an I/O error, an <span class="d_inlinecode">StdioException</span> is thrown.<p></p>
+
+</dd>
+<dt class="d_decl">struct <a name="chunks"></a><span class="ddoc_psymbol">chunks</span>;
+</dt>
+<dd>Iterates through a file a chunk at a time by using <span class="d_inlinecode">foreach</span>.
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">void</span> main()
+{
+  <span class="d_keyword">foreach</span> (<span class="d_keyword">ubyte</span>[] buffer; <span class="d_psymbol">chunks</span>(stdin, 4096))
+  {
+    ... use buffer ...
+  }
+}
+</pre>
+
+The content of <span class="d_inlinecode">buffer</span> is reused across calls. In the
+ example above, <span class="d_inlinecode">buffer.length</span> is 4096 for all iterations,
+ except for the last one, in which case <span class="d_inlinecode">buffer.length</span> may
+ be less than 4096 (but always greater than zero).
+<p></p>
+
+ In case of an I/O error, an <span class="d_inlinecode">StdioException</span> is thrown.<p></p>
+
+</dd>
+<dt class="d_decl">class <a name="StdioException"></a><span class="ddoc_psymbol">StdioException</span>: object.Exception;
+</dt>
+<dd>Thrown if I/O errors happen.<p></p>
+
+<dl><dt class="d_decl">uint <a name="errno"></a><span class="ddoc_psymbol">errno</span>;
+</dt>
+<dd>Operating system error code.<p></p>
+
+</dd>
+<dt class="d_decl">this(string <i>message</i>, uint <i>e</i> = std.stdio.getErrno);
+</dt>
+<dd>Initialize with a <i>message</i> and an error code. <p></p>
+
+</dd>
+<dt class="d_decl">static void <a name="opCall"></a><span class="ddoc_psymbol">opCall</span>(string <i>msg</i>);
+<br>static void <a name="opCall"></a><span class="ddoc_psymbol">opCall</span>();
+</dt>
+<dd>Convenience functions that throw an <span class="d_inlinecode">StdioException</span>. <p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl">File <a name="openNetwork"></a><span class="ddoc_psymbol">openNetwork</span>(string <i>host</i>, ushort <i>port</i>);
+</dt>
+<dd>Experimental network access via the File interface
+<p></p>
+Opens a TCP connection to the given <i>host</i> and <i>port</i>, then returns
+        a File struct with read and write access through the same interface
+        as any other file (meaning writef and the byLine ranges work!).
+
+<p></p>
+<b>Authors:</b><br>Adam D. Ruppe
+
+<p></p>
+<span style="color:red">BUGS:</span><br>Only works on Linux<p></p>
+
+</dd>
+</dl>
+
+    
+<br><br>
+<br><br>
+<!-- Google ad -->
+<script type="text/javascript"><!--
+/**/google_ad_client = "pub-5628673096434613";
+/**/google_ad_width = 728;
+/**/google_ad_height = 90;
+/**/google_ad_format = "728x90_as";
+/**/google_ad_channel ="6203743411";
+/**/google_page_url = document.location;
+//--></script>
+<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+</div>
+
+
+<div id="copyright">
+Copyright Digital Mars 2007-.
+ |
+Page generated by <a href="http://www.digitalmars.com/d/2.0/ddoc.html">Ddoc</a>.
+</div>
+
+</body>
+</html>

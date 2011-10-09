@@ -167,7 +167,9 @@ getopt(args, "output", &outputFiles);
 
   Invoking the program with "--output=myfile.txt --output=yourfile.txt"
   or "--output myfile.txt --output yourfile.txt" will set $(D
-  outputFiles) to [ "myfile.txt", "yourfile.txt" ].
+  outputFiles) to [ "myfile.txt", "yourfile.txt" ]. The same result can be
+  achieved by "--output myfile.txt,yourfile.txt" specifying multiple elements
+  separated by $(LREF arraySep).
   )
 
   $(LI $(I Hash options.) If an option is bound to an associative
@@ -180,8 +182,11 @@ getopt(args, "tune", &tuningParms);
 ---------
 
   Invoking the program with e.g. "--tune=alpha=0.5 --tune beta=0.6" will
-  set $(D tuningParms) to [ "alpha" : 0.5, "beta" : 0.6 ]. In general,
-  keys and values can be of any parsable types.
+  set $(D tuningParms) to [ "alpha" : 0.5, "beta" : 0.6 ]. Specifying
+  multiple elements separated by $(LREF arraySep) is also possible, e.g.
+  "--tune=alpha=0.5,beta=0.6".
+
+  Keys and values can be of any parsable types.
   )
 
   $(LI $(I Delegate options.) An option can be bound to a delegate with
@@ -590,18 +595,22 @@ private void handleOption(R)(string option, R receiver, ref string[] args,
             else static if (isDynamicArray!(typeof(*receiver)))
             {
                 // array receiver
-                *receiver ~= [ to!(typeof(*receiver[0]))(val) ];
+                foreach (elem; split(val, arraySep))
+                    *receiver ~= [ to!(typeof(*receiver[0]))(elem) ];
             }
             else static if (isAssociativeArray!(typeof(*receiver)))
             {
                 // hash receiver
                 alias typeof(receiver.keys[0]) K;
                 alias typeof(receiver.values[0]) V;
-                auto j = std.string.indexOf(val, assignChar);
-                enforce(j > 0,
-                        "Illegal argument " ~ a ~ ".");
-                auto key = val[0 .. j], value = val[j + 1 .. $];
-                (*receiver)[to!(K)(key)] = to!(V)(value);
+                foreach (elem; split(val, arraySep))
+                {
+                    auto j = std.string.indexOf(elem, assignChar);
+                    enforce(j > 0,
+                            "Illegal argument " ~ a ~ ".");
+                    auto key = elem[0 .. j], value = elem[j + 1 .. $];
+                    (*receiver)[to!(K)(key)] = to!(V)(value);
+                }
             }
             else
             {
@@ -631,6 +640,12 @@ string endOfOptions = "--";
    to '=' but can be assigned to prior to calling $(D getopt).
  */
 dchar assignChar = '=';
+
+/**
+   The string used to separate multiple elements of array parameters. Defaults
+   to "," but can be assigned to prior to calling $(D getopt).
+ */
+string arraySep = ",";
 
 enum autoIncrementChar = '+';
 
@@ -740,6 +755,74 @@ private void setConfig(ref configuration cfg, config option)
     case config.stopOnFirstNonOption:
         cfg.stopOnFirstNonOption = true; break;
     }
+}
+
+// specifying associative arrays with arraySep
+unittest
+{
+    int[string] parameters;
+    auto args = ["program.name",
+                 "-tfoo=0,bar=1,baz=2"];
+    getopt(args, "tune|t", &parameters);
+    assert(parameters == ["foo":0, "bar":1, "baz":2], to!string(parameters));
+
+    parameters = parameters.init;
+    args = ["program.name",
+            "-t=foo=0,bar=1,baz=2"].dup;
+    getopt(args, "tune|t", &parameters);
+    assert(parameters == ["foo":0, "bar":1, "baz":2], to!string(parameters));
+
+    parameters = parameters.init;
+    args = ["program.name",
+            "-t", "foo=0,bar=1,baz=2"].dup;
+    getopt(args, "tune|t", &parameters);
+    assert(parameters == ["foo":0, "bar":1, "baz":2], to!string(parameters));
+
+    parameters = parameters.init;
+    args = ["program.name",
+            "--tune", "foo=0,bar=1,baz=2"].dup;
+    getopt(args, "tune|t", &parameters);
+    assert(parameters == ["foo":0, "bar":1, "baz":2], to!string(parameters));
+
+    parameters = parameters.init;
+    args = ["program.name",
+            "--tune=foo=0,bar=1,baz=2"].dup;
+    getopt(args, "tune|t", &parameters);
+    assert(parameters == ["foo":0, "bar":1, "baz":2], to!string(parameters));
+}
+
+// specifying arrays with arraySep
+unittest
+{
+    string[] names;
+    auto args = ["program.name",
+                 "-nfoo,bar,baz"];
+    getopt(args, "name|n", &names);
+    assert(names == ["foo", "bar", "baz"], to!string(names));
+
+    names = names.init;
+    args = ["program.name",
+            "-n=foo,bar,baz"].dup;
+    getopt(args, "name|n", &names);
+    assert(names == ["foo", "bar", "baz"], to!string(names));
+
+    names = names.init;
+    args = ["program.name",
+            "-n" "foo,bar,baz"].dup;
+    getopt(args, "name|n", &names);
+    assert(names == ["foo", "bar", "baz"], to!string(names));
+
+    names = names.init;
+    args = ["program.name",
+            "--name", "foo,bar,baz"].dup;
+    getopt(args, "name|n", &names);
+    assert(names == ["foo", "bar", "baz"], to!string(names));
+
+    names = names.init;
+    args = ["program.name",
+            "--name=foo,bar,baz"].dup;
+    getopt(args, "name|n", &names);
+    assert(names == ["foo", "bar", "baz"], to!string(names));
 }
 
 unittest

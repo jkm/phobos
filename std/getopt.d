@@ -431,11 +431,49 @@ removed from the argument array.
 */
 
 void getopt(T...)(ref string[] args, T opts) {
+    pragma(msg, "Notice: As of Phobos 2.055, ============ TODO ==============");
     enforce(args.length,
             "Invalid arguments string passed: program name missing");
     configuration cfg;
-    return getoptImpl(args, cfg, opts);
+	try
+		// TODO add new defaults if wanted
+		getoptImpl(args, cfg, opts);
+	catch (GetoptException e)
+	{
+		if (e.next) throw e.next;
+		else throw new Exception(e.msg);
+	}
 }
+
+void getOptions(T...)(ref string[] args, T opts) {
+    enforce(args.length,
+            "Invalid arguments string passed: program name missing");
+    configuration cfg;
+    getoptImpl(args, cfg, opts);
+}
+//
+//// TODO
+//// add also getOptionsWithUsage()
+//void getOptionsWithUsage(T...)(string delegate(T opts) dg, ref string[] args, T opts) {
+//	dg(GetoptHelp(opts));
+//	getoptOptions(args, cfg, GetoptEx!(opts));
+//}
+//
+//unittest {
+//
+//	auto dg = delegate() {
+//		//writeln(help);
+//		writeln("foo");
+//	};
+//
+//    string[] args = [ "program.name", "-nl" ];
+//	uint timeout;
+//
+//	getOptionsWithUsage(dg, args,
+//			            "t|timeout", "sadsd", &timeout,
+//			            "h|help",    "help", delegate() {dg();});
+//
+//}
 
 /**
  * Configuration options for $(D getopt). You can pass them to $(D

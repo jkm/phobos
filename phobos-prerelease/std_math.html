@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.math - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:04 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/math.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdMath" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.math</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/math.d -->
@@ -224,9 +243,6 @@ Contains the elementary mathematical functions (powers, roots,
 The semantics and names of feqrel and approxEqual will be revised.
 
 <p></p>
-<b>Source:</b><br>
-<a href="https://github.com/D-Programming-Language/phobos/blob/master/std/math.d">std/math.d</a>
-<p></p>
 <b>License:</b><br><a href="http://www.boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
 <p></p>
 <b>Authors:</b><br><a href="http://digitalmars.com">Walter Bright</a>,
@@ -235,83 +251,83 @@ The semantics and names of feqrel and approxEqual will be revised.
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/math.d">std/math.d</a><p></p>
 
-<dl><dt class="d_decl">real <a name="E"></a><span class="ddoc_psymbol">E</span>;
+<dl><dt class="d_decl"><a name=".E"></a>real <a name="E"></a><span class="ddoc_psymbol">E</span>;
 </dt>
 <dd>e = 2.718281... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LOG2T"></a><span class="ddoc_psymbol">LOG2T</span>;
+<dt class="d_decl"><a name=".LOG2T"></a>real <a name="LOG2T"></a><span class="ddoc_psymbol">LOG2T</span>;
 </dt>
 <dd>log<sub>2</sub>10 = 3.321928... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LOG2E"></a><span class="ddoc_psymbol">LOG2E</span>;
+<dt class="d_decl"><a name=".LOG2E"></a>real <a name="LOG2E"></a><span class="ddoc_psymbol">LOG2E</span>;
 </dt>
 <dd>log<sub>2</sub>e = 1.442695... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LOG2"></a><span class="ddoc_psymbol">LOG2</span>;
+<dt class="d_decl"><a name=".LOG2"></a>real <a name="LOG2"></a><span class="ddoc_psymbol">LOG2</span>;
 </dt>
 <dd>log<sub>10</sub>2 = 0.301029... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LOG10E"></a><span class="ddoc_psymbol">LOG10E</span>;
+<dt class="d_decl"><a name=".LOG10E"></a>real <a name="LOG10E"></a><span class="ddoc_psymbol">LOG10E</span>;
 </dt>
 <dd>log<sub>10</sub>e = 0.434294... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LN2"></a><span class="ddoc_psymbol">LN2</span>;
+<dt class="d_decl"><a name=".LN2"></a>real <a name="LN2"></a><span class="ddoc_psymbol">LN2</span>;
 </dt>
 <dd>ln 2  = 0.693147... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="LN10"></a><span class="ddoc_psymbol">LN10</span>;
+<dt class="d_decl"><a name=".LN10"></a>real <a name="LN10"></a><span class="ddoc_psymbol">LN10</span>;
 </dt>
 <dd>ln 10 = 2.302585... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="PI"></a><span class="ddoc_psymbol">PI</span>;
+<dt class="d_decl"><a name=".PI"></a>real <a name="PI"></a><span class="ddoc_psymbol">PI</span>;
 </dt>
 <dd>&pi; = 3.141592... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="PI_2"></a><span class="ddoc_psymbol">PI_2</span>;
+<dt class="d_decl"><a name=".PI_2"></a>real <a name="PI_2"></a><span class="ddoc_psymbol">PI_2</span>;
 </dt>
 <dd>&pi; / 2 = 1.570796... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="PI_4"></a><span class="ddoc_psymbol">PI_4</span>;
+<dt class="d_decl"><a name=".PI_4"></a>real <a name="PI_4"></a><span class="ddoc_psymbol">PI_4</span>;
 </dt>
 <dd>&pi; / 4 = 0.785398... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="M_1_PI"></a><span class="ddoc_psymbol">M_1_PI</span>;
+<dt class="d_decl"><a name=".M_1_PI"></a>real <a name="M_1_PI"></a><span class="ddoc_psymbol">M_1_PI</span>;
 </dt>
 <dd>1 / &pi; = 0.318309... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="M_2_PI"></a><span class="ddoc_psymbol">M_2_PI</span>;
+<dt class="d_decl"><a name=".M_2_PI"></a>real <a name="M_2_PI"></a><span class="ddoc_psymbol">M_2_PI</span>;
 </dt>
 <dd>2 / &pi; = 0.636619... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="M_2_SQRTPI"></a><span class="ddoc_psymbol">M_2_SQRTPI</span>;
+<dt class="d_decl"><a name=".M_2_SQRTPI"></a>real <a name="M_2_SQRTPI"></a><span class="ddoc_psymbol">M_2_SQRTPI</span>;
 </dt>
 <dd>2 / &radic;&pi; = 1.128379... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="SQRT2"></a><span class="ddoc_psymbol">SQRT2</span>;
+<dt class="d_decl"><a name=".SQRT2"></a>real <a name="SQRT2"></a><span class="ddoc_psymbol">SQRT2</span>;
 </dt>
 <dd>&radic;2 = 1.414213... <p></p>
 
 </dd>
-<dt class="d_decl">real <a name="SQRT1_2"></a><span class="ddoc_psymbol">SQRT1_2</span>;
+<dt class="d_decl"><a name=".SQRT1_2"></a>real <a name="SQRT1_2"></a><span class="ddoc_psymbol">SQRT1_2</span>;
 </dt>
 <dd>&radic;&frac12; = 0.707106... <p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe Num <a name="abs"></a><span class="ddoc_psymbol">abs</span>(Num)(Num <i>x</i>);
-<br>pure nothrow @safe real <a name="abs"></a><span class="ddoc_psymbol">abs</span>(Num)(Num <i>y</i>);
+<dt class="d_decl"><a name=".abs"></a>pure nothrow @safe Num <a name="abs"></a><span class="ddoc_psymbol">abs</span>(Num)(Num <i>x</i>);
+<br><a name=".abs"></a>pure nothrow @safe real <a name="abs"></a><span class="ddoc_psymbol">abs</span>(Num)(Num <i>y</i>);
 </dt>
 <dd>Calculates the absolute value
 <p></p>
@@ -319,8 +335,8 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
  = hypot(z.re, z.im).<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe creal <a name="conj"></a><span class="ddoc_psymbol">conj</span>(creal <i>z</i>);
-<br>pure nothrow @safe ireal <a name="conj"></a><span class="ddoc_psymbol">conj</span>(ireal <i>y</i>);
+<dt class="d_decl"><a name=".conj"></a>pure nothrow @safe creal <a name="conj"></a><span class="ddoc_psymbol">conj</span>(creal <i>z</i>);
+<br><a name=".conj"></a>pure nothrow @safe ireal <a name="conj"></a><span class="ddoc_psymbol">conj</span>(ireal <i>y</i>);
 </dt>
 <dd>Complex conjugate
 <p></p>
@@ -331,7 +347,7 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
  is always a real number<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="cos"></a><span class="ddoc_psymbol">cos</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".cos"></a>pure nothrow @safe real <a name="cos"></a><span class="ddoc_psymbol">cos</span>(real <i>x</i>);
 </dt>
 <dd>Returns cosine of <i>x</i>. <i>x</i> is in radians.
 <p></p>
@@ -345,7 +361,7 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
 <span style="color:red">BUGS:</span><br>Results are undefined if |<i>x</i>| &gt;= 2<sup>64</sup>.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="sin"></a><span class="ddoc_psymbol">sin</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".sin"></a>pure nothrow @safe real <a name="sin"></a><span class="ddoc_psymbol">sin</span>(real <i>x</i>);
 </dt>
 <dd>Returns sine of <i>x</i>. <i>x</i> is in radians.
 <p></p>
@@ -360,8 +376,8 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
 <span style="color:red">BUGS:</span><br>Results are undefined if |<i>x</i>| &gt;= 2<sup>64</sup>.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe creal <a name="sin"></a><span class="ddoc_psymbol">sin</span>(creal <i>z</i>);
-<br>pure nothrow @safe ireal <a name="sin"></a><span class="ddoc_psymbol">sin</span>(ireal <i>y</i>);
+<dt class="d_decl"><a name=".sin"></a>pure nothrow @safe creal <a name="sin"></a><span class="ddoc_psymbol">sin</span>(creal <i>z</i>);
+<br><a name=".sin"></a>pure nothrow @safe ireal <a name="sin"></a><span class="ddoc_psymbol">sin</span>(ireal <i>y</i>);
 </dt>
 <dd>sine, complex and imaginary
 <p></p>
@@ -372,15 +388,15 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
  it is most efficient to use expi(&theta;).<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe creal <a name="cos"></a><span class="ddoc_psymbol">cos</span>(creal <i>z</i>);
-<br>pure nothrow @safe real <a name="cos"></a><span class="ddoc_psymbol">cos</span>(ireal <i>y</i>);
+<dt class="d_decl"><a name=".cos"></a>pure nothrow @safe creal <a name="cos"></a><span class="ddoc_psymbol">cos</span>(creal <i>z</i>);
+<br><a name=".cos"></a>pure nothrow @safe real <a name="cos"></a><span class="ddoc_psymbol">cos</span>(ireal <i>y</i>);
 </dt>
 <dd>cosine, complex and imaginary
 <p></p>
 <a name="cos"></a><span class="ddoc_psymbol">cos</span>(<i>z</i>) = <a name="cos"></a><span class="ddoc_psymbol">cos</span>(<i>z</i>.re)*cosh(<i>z</i>.im) - sin(<i>z</i>.re)*sinh(<i>z</i>.im)i<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="tan"></a><span class="ddoc_psymbol">tan</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".tan"></a>pure nothrow @trusted real <a name="tan"></a><span class="ddoc_psymbol">tan</span>(real <i>x</i>);
 </dt>
 <dd>Returns tangent of <i>x</i>. <i>x</i> is in radians.
 <p></p>
@@ -393,9 +409,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="acos"></a><span class="ddoc_psymbol">acos</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="acos"></a><span class="ddoc_psymbol">acos</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="acos"></a><span class="ddoc_psymbol">acos</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".acos"></a>pure nothrow @safe real <a name="acos"></a><span class="ddoc_psymbol">acos</span>(real <i>x</i>);
+<br><a name=".acos"></a>pure nothrow @safe double <a name="acos"></a><span class="ddoc_psymbol">acos</span>(double <i>x</i>);
+<br><a name=".acos"></a>pure nothrow @safe float <a name="acos"></a><span class="ddoc_psymbol">acos</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the arc cosine of <i>x</i>,
  returning a value ranging from 0 to &pi;.
@@ -409,9 +425,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="asin"></a><span class="ddoc_psymbol">asin</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="asin"></a><span class="ddoc_psymbol">asin</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="asin"></a><span class="ddoc_psymbol">asin</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".asin"></a>pure nothrow @safe real <a name="asin"></a><span class="ddoc_psymbol">asin</span>(real <i>x</i>);
+<br><a name=".asin"></a>pure nothrow @safe double <a name="asin"></a><span class="ddoc_psymbol">asin</span>(double <i>x</i>);
+<br><a name=".asin"></a>pure nothrow @safe float <a name="asin"></a><span class="ddoc_psymbol">asin</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the arc sine of <i>x</i>,
  returning a value ranging from -&pi;/2 to &pi;/2.
@@ -425,9 +441,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="atan"></a><span class="ddoc_psymbol">atan</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="atan"></a><span class="ddoc_psymbol">atan</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="atan"></a><span class="ddoc_psymbol">atan</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".atan"></a>pure nothrow @safe real <a name="atan"></a><span class="ddoc_psymbol">atan</span>(real <i>x</i>);
+<br><a name=".atan"></a>pure nothrow @safe double <a name="atan"></a><span class="ddoc_psymbol">atan</span>(double <i>x</i>);
+<br><a name=".atan"></a>pure nothrow @safe float <a name="atan"></a><span class="ddoc_psymbol">atan</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the arc tangent of <i>x</i>,
  returning a value ranging from -&pi;/2 to &pi;/2.
@@ -440,9 +456,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(real <i>y</i>, real <i>x</i>);
-<br>pure nothrow @safe double <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(double <i>y</i>, double <i>x</i>);
-<br>pure nothrow @safe float <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(float <i>y</i>, float <i>x</i>);
+<dt class="d_decl"><a name=".atan2"></a>pure nothrow @trusted real <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(real <i>y</i>, real <i>x</i>);
+<br><a name=".atan2"></a>pure nothrow @safe double <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(double <i>y</i>, double <i>x</i>);
+<br><a name=".atan2"></a>pure nothrow @safe float <a name="atan2"></a><span class="ddoc_psymbol">atan2</span>(float <i>y</i>, float <i>x</i>);
 </dt>
 <dd>Calculates the arc tangent of <i>y</i> / <i>x</i>,
  returning a value ranging from -&pi; to &pi;.
@@ -466,9 +482,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".cosh"></a>pure nothrow @safe real <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(real <i>x</i>);
+<br><a name=".cosh"></a>pure nothrow @safe double <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(double <i>x</i>);
+<br><a name=".cosh"></a>pure nothrow @safe float <a name="cosh"></a><span class="ddoc_psymbol">cosh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the hyperbolic cosine of <i>x</i>.
 <p></p>
@@ -479,9 +495,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".sinh"></a>pure nothrow @safe real <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(real <i>x</i>);
+<br><a name=".sinh"></a>pure nothrow @safe double <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(double <i>x</i>);
+<br><a name=".sinh"></a>pure nothrow @safe float <a name="sinh"></a><span class="ddoc_psymbol">sinh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the hyperbolic sine of <i>x</i>.
 <p></p>
@@ -493,9 +509,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".tanh"></a>pure nothrow @safe real <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(real <i>x</i>);
+<br><a name=".tanh"></a>pure nothrow @safe double <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(double <i>x</i>);
+<br><a name=".tanh"></a>pure nothrow @safe float <a name="tanh"></a><span class="ddoc_psymbol">tanh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the hyperbolic tangent of <i>x</i>.
 <p></p>
@@ -507,9 +523,9 @@ For complex numbers, <a name="abs"></a><span class="ddoc_psymbol">abs</span>(z) 
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".acosh"></a>pure nothrow @safe real <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(real <i>x</i>);
+<br><a name=".acosh"></a>pure nothrow @safe double <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(double <i>x</i>);
+<br><a name=".acosh"></a>pure nothrow @safe float <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the inverse hyperbolic cosine of <i>x</i>.
 <p></p>
@@ -527,9 +543,9 @@ Mathematically, <a name="acosh"></a><span class="ddoc_psymbol">acosh</span>(<i>x
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".asinh"></a>pure nothrow @safe real <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(real <i>x</i>);
+<br><a name=".asinh"></a>pure nothrow @safe double <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(double <i>x</i>);
+<br><a name=".asinh"></a>pure nothrow @safe float <a name="asinh"></a><span class="ddoc_psymbol">asinh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the inverse hyperbolic sine of <i>x</i>.
 <p></p>
@@ -537,6 +553,7 @@ Mathematically,
 <pre class="d_code">  <span class="d_psymbol">asinh</span>(<span class="d_param">x</span>) =  log( <span class="d_param">x</span> + sqrt( <span class="d_param">x</span>*<span class="d_param">x</span> + 1 )) <span class="d_comment">// if x &gt;= +0
 </span>  <span class="d_psymbol">asinh</span>(<span class="d_param">x</span>) = -log(-<span class="d_param">x</span> + sqrt( <span class="d_param">x</span>*<span class="d_param">x</span> + 1 )) <span class="d_comment">// if x &lt;= -0
 </span></pre>
+<p></p>
 
     <table border=1 cellpadding=4 cellspacing=0>
               <caption>Special Values</caption>
@@ -547,9 +564,9 @@ Mathematically,
     </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".atanh"></a>pure nothrow @safe real <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(real <i>x</i>);
+<br><a name=".atanh"></a>pure nothrow @safe double <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(double <i>x</i>);
+<br><a name=".atanh"></a>pure nothrow @safe float <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(float <i>x</i>);
 </dt>
 <dd>Calculates the inverse hyperbolic tangent of <i>x</i>,
  returning a value from ranging from -1 to 1.
@@ -569,7 +586,7 @@ Mathematically, <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(<i>x
  </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe long <a name="rndtol"></a><span class="ddoc_psymbol">rndtol</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".rndtol"></a>pure nothrow @safe long <a name="rndtol"></a><span class="ddoc_psymbol">rndtol</span>(real <i>x</i>);
 </dt>
 <dd>Returns <i>x</i> rounded to a long value using the current rounding mode.
  If the integer value of <i>x</i> is
@@ -577,7 +594,7 @@ Mathematically, <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(<i>x
  indeterminate.<p></p>
 
 </dd>
-<dt class="d_decl">real <a name="rndtonl"></a><span class="ddoc_psymbol">rndtonl</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".rndtonl"></a>real <a name="rndtonl"></a><span class="ddoc_psymbol">rndtonl</span>(real <i>x</i>);
 </dt>
 <dd>Returns <i>x</i> rounded to a long value using the FE_TONEAREST rounding mode.
  If the integer value of <i>x</i> is
@@ -585,7 +602,9 @@ Mathematically, <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(<i>x
  indeterminate.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe float <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".sqrt"></a>pure nothrow @safe float <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(float <i>x</i>);
+<br><a name=".sqrt"></a>pure nothrow @safe double <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(double <i>x</i>);
+<br><a name=".sqrt"></a>pure nothrow @safe real <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(real <i>x</i>);
 </dt>
 <dd>Compute square root of <i>x</i>.
 <p></p>
@@ -598,41 +617,9 @@ Mathematically, <a name="atanh"></a><span class="ddoc_psymbol">atanh</span>(<i>x
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe double <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(double <i>x</i>);
-</dt>
-<dd>ditto
-<p></p>
-Compute square root of <i>x</i>.
-<p></p>
-
-      <table border=1 cellpadding=4 cellspacing=0>
-              <caption>Special Values</caption>
-                   <tr><th><i>x</i></th>         <th><a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(<i>x</i>)</th>   <th>invalid?</th></tr>
-      <tr><td valign=top>-0.0</td>      <td valign=top>-0.0</td>      <td valign=top>no</td></tr>
-      <tr><td valign=top>&lt;0.0</td>  <td valign=top><span style="color:red">NAN</span></td>    <td valign=top>yes</td></tr>
-      <tr><td valign=top>+&infin;</td> <td valign=top>+&infin;</td> <td valign=top>no</td></tr>
-      </table><p></p>
-
-</dd>
-<dt class="d_decl">pure nothrow @safe real <a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(real <i>x</i>);
-</dt>
-<dd>ditto
-<p></p>
-Compute square root of <i>x</i>.
-<p></p>
-
-      <table border=1 cellpadding=4 cellspacing=0>
-              <caption>Special Values</caption>
-                   <tr><th><i>x</i></th>         <th><a name="sqrt"></a><span class="ddoc_psymbol">sqrt</span>(<i>x</i>)</th>   <th>invalid?</th></tr>
-      <tr><td valign=top>-0.0</td>      <td valign=top>-0.0</td>      <td valign=top>no</td></tr>
-      <tr><td valign=top>&lt;0.0</td>  <td valign=top><span style="color:red">NAN</span></td>    <td valign=top>yes</td></tr>
-      <tr><td valign=top>+&infin;</td> <td valign=top>+&infin;</td> <td valign=top>no</td></tr>
-      </table><p></p>
-
-</dd>
-<dt class="d_decl">pure nothrow @safe real <a name="exp"></a><span class="ddoc_psymbol">exp</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="exp"></a><span class="ddoc_psymbol">exp</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="exp"></a><span class="ddoc_psymbol">exp</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".exp"></a>pure nothrow @trusted real <a name="exp"></a><span class="ddoc_psymbol">exp</span>(real <i>x</i>);
+<br><a name=".exp"></a>pure nothrow @safe double <a name="exp"></a><span class="ddoc_psymbol">exp</span>(double <i>x</i>);
+<br><a name=".exp"></a>pure nothrow @safe float <a name="exp"></a><span class="ddoc_psymbol">exp</span>(float <i>x</i>);
 </dt>
 <dd>Calculates e<span style="vertical-align:super;font-size:smaller"><i>x</i></span>.
 <p></p>
@@ -645,7 +632,7 @@ Compute square root of <i>x</i>.
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="expm1"></a><span class="ddoc_psymbol">expm1</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".expm1"></a>pure nothrow @trusted real <a name="expm1"></a><span class="ddoc_psymbol">expm1</span>(real <i>x</i>);
 </dt>
 <dd>Calculates the value of the natural logarithm base (e)
  raised to the power of <i>x</i>, minus 1.
@@ -664,7 +651,7 @@ For very small <i>x</i>, <a name="expm1"></a><span class="ddoc_psymbol">expm1</s
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="exp2"></a><span class="ddoc_psymbol">exp2</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".exp2"></a>pure nothrow @trusted real <a name="exp2"></a><span class="ddoc_psymbol">exp2</span>(real <i>x</i>);
 </dt>
 <dd>Calculates 2<span style="vertical-align:super;font-size:smaller"><i>x</i></span>.
 <p></p>
@@ -677,7 +664,7 @@ For very small <i>x</i>, <a name="expm1"></a><span class="ddoc_psymbol">expm1</s
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted creal <a name="expi"></a><span class="ddoc_psymbol">expi</span>(real <i>y</i>);
+<dt class="d_decl"><a name=".expi"></a>pure nothrow @trusted creal <a name="expi"></a><span class="ddoc_psymbol">expi</span>(real <i>y</i>);
 </dt>
 <dd>Calculate cos(<i>y</i>) + i sin(<i>y</i>).
 <p></p>
@@ -686,7 +673,7 @@ On many CPUs (such as x86), this is a very efficient operation;
  and is the preferred method when both are required.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="frexp"></a><span class="ddoc_psymbol">frexp</span>(real <i>value</i>, out int <i>exp</i>);
+<dt class="d_decl"><a name=".frexp"></a>pure nothrow @trusted real <a name="frexp"></a><span class="ddoc_psymbol">frexp</span>(real <i>value</i>, out int <i>exp</i>);
 </dt>
 <dd>Separate floating point <i>value</i> into significand and exponent.
 <p></p>
@@ -708,7 +695,7 @@ On many CPUs (such as x86), this is a very efficient operation;
       </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted int <a name="ilogb"></a><span class="ddoc_psymbol">ilogb</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".ilogb"></a>nothrow @trusted int <a name="ilogb"></a><span class="ddoc_psymbol">ilogb</span>(real <i>x</i>);
 </dt>
 <dd>Extracts the exponent of <i>x</i> as a signed integral value.
 <p></p>
@@ -725,7 +712,7 @@ If <i>x</i> is not a special value, the result is the same as
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="ldexp"></a><span class="ddoc_psymbol">ldexp</span>(real <i>n</i>, int <i>exp</i>);
+<dt class="d_decl"><a name=".ldexp"></a>pure nothrow @safe real <a name="ldexp"></a><span class="ddoc_psymbol">ldexp</span>(real <i>n</i>, int <i>exp</i>);
 </dt>
 <dd>Compute <i>n</i> * 2<span style="vertical-align:super;font-size:smaller"><i>exp</i></span>
 <p></p>
@@ -733,7 +720,7 @@ If <i>x</i> is not a special value, the result is the same as
 frexp<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="log"></a><span class="ddoc_psymbol">log</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".log"></a>pure nothrow @safe real <a name="log"></a><span class="ddoc_psymbol">log</span>(real <i>x</i>);
 </dt>
 <dd>Calculate the natural logarithm of <i>x</i>.
 <p></p>
@@ -746,7 +733,7 @@ frexp<p></p>
     </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="log10"></a><span class="ddoc_psymbol">log10</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".log10"></a>pure nothrow @safe real <a name="log10"></a><span class="ddoc_psymbol">log10</span>(real <i>x</i>);
 </dt>
 <dd>Calculate the base-10 logarithm of <i>x</i>.
 <p></p>
@@ -759,7 +746,7 @@ frexp<p></p>
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="log1p"></a><span class="ddoc_psymbol">log1p</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".log1p"></a>pure nothrow @safe real <a name="log1p"></a><span class="ddoc_psymbol">log1p</span>(real <i>x</i>);
 </dt>
 <dd>Calculates the natural logarithm of 1 + <i>x</i>.
 <p></p>
@@ -777,7 +764,7 @@ For very small <i>x</i>, <a name="log1p"></a><span class="ddoc_psymbol">log1p</s
   </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="log2"></a><span class="ddoc_psymbol">log2</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".log2"></a>pure nothrow @safe real <a name="log2"></a><span class="ddoc_psymbol">log2</span>(real <i>x</i>);
 </dt>
 <dd>Calculates the base-2 logarithm of <i>x</i>:
  log<sub>2</sub><i>x</i>
@@ -791,7 +778,7 @@ For very small <i>x</i>, <a name="log1p"></a><span class="ddoc_psymbol">log1p</s
   </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="logb"></a><span class="ddoc_psymbol">logb</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".logb"></a>nothrow @trusted real <a name="logb"></a><span class="ddoc_psymbol">logb</span>(real <i>x</i>);
 </dt>
 <dd>Extracts the exponent of <i>x</i> as a signed integral value.
 <p></p>
@@ -810,7 +797,7 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
       </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="modf"></a><span class="ddoc_psymbol">modf</span>(real <i>x</i>, ref real <i>y</i>);
+<dt class="d_decl"><a name=".fmod"></a>nothrow @trusted real <a name="fmod"></a><span class="ddoc_psymbol">fmod</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Calculates the remainder from the calculation <i>x</i>/<i>y</i>.
 <p></p>
@@ -820,7 +807,7 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
 
  <table border=1 cellpadding=4 cellspacing=0>
               <caption>Special Values</caption>
-               <tr><th><i>x</i></th>              <th><i>y</i></th>             <th><a name="modf"></a><span class="ddoc_psymbol">modf</span>(<i>x</i>, <i>y</i>)</th>   <th>invalid?</th></tr>
+               <tr><th><i>x</i></th>              <th><i>y</i></th>             <th><a name="fmod"></a><span class="ddoc_psymbol">fmod</span>(<i>x</i>, <i>y</i>)</th>   <th>invalid?</th></tr>
   <tr><td valign=top>&plusmn;0.0</td>   <td valign=top>not 0.0</td>       <td valign=top>&plusmn;0.0</td> <td valign=top>no</td></tr>
   <tr><td valign=top>&plusmn;&infin;</td>   <td valign=top>anything</td>      <td valign=top><span style="color:red">NAN</span></td>       <td valign=top>yes</td></tr>
   <tr><td valign=top>anything</td>       <td valign=top>&plusmn;0.0</td>  <td valign=top><span style="color:red">NAN</span></td>       <td valign=top>yes</td></tr>
@@ -828,7 +815,22 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
  </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="scalbn"></a><span class="ddoc_psymbol">scalbn</span>(real <i>x</i>, int <i>n</i>);
+<dt class="d_decl"><a name=".modf"></a>nothrow @trusted real <a name="modf"></a><span class="ddoc_psymbol">modf</span>(real <i>x</i>, ref real <i>i</i>);
+</dt>
+<dd>Breaks <i>x</i> into an integral part and a fractional part, each of which has
+ the same sign as <i>x</i>. The integral part is stored in <i>i</i>.
+<p></p>
+<b>Returns:</b><br>The fractional part of <i>x</i>.
+<p></p>
+
+ <table border=1 cellpadding=4 cellspacing=0>
+              <caption>Special Values</caption>
+               <tr><th><i>x</i></th>              <th><i>i</i> (on input)</th>  <th><a name="modf"></a><span class="ddoc_psymbol">modf</span>(<i>x</i>, <i>i</i>)</th>   <th><i>i</i> (on return)</th></tr>
+  <tr><td valign=top>&plusmn;&infin;</td>   <td valign=top>anything</td>      <td valign=top>&plusmn;0.0</td> <td valign=top>&plusmn;&infin;</td></tr>
+ </table><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".scalbn"></a>nothrow @trusted real <a name="scalbn"></a><span class="ddoc_psymbol">scalbn</span>(real <i>x</i>, int <i>n</i>);
 </dt>
 <dd>Efficiently calculates <i>x</i> * 2<span style="vertical-align:super;font-size:smaller"><i>n</i></span>.
 <p></p>
@@ -844,7 +846,7 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
       </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="cbrt"></a><span class="ddoc_psymbol">cbrt</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".cbrt"></a>nothrow @trusted real <a name="cbrt"></a><span class="ddoc_psymbol">cbrt</span>(real <i>x</i>);
 </dt>
 <dd>Calculates the cube root of <i>x</i>.
 <p></p>
@@ -857,7 +859,7 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="fabs"></a><span class="ddoc_psymbol">fabs</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".fabs"></a>pure nothrow @safe real <a name="fabs"></a><span class="ddoc_psymbol">fabs</span>(real <i>x</i>);
 </dt>
 <dd>Returns |<i>x</i>|
 <p></p>
@@ -869,14 +871,14 @@ If <i>x</i> is subnormal, it is treated as if it were normalized.
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="hypot"></a><span class="ddoc_psymbol">hypot</span>(real <i>x</i>, real <i>y</i>);
+<dt class="d_decl"><a name=".hypot"></a>pure nothrow @safe real <a name="hypot"></a><span class="ddoc_psymbol">hypot</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Calculates the length of the
  hypotenuse of a right-angled triangle with sides of length <i>x</i> and <i>y</i>.
  The hypotenuse is the value of the square root of
  the sums of the squares of <i>x</i> and <i>y</i>:
 <p></p>
-sqrt( + )
+sqrt(<i>x</i><sup>2</sup> + <i>y</i><sup>2</sup>)
 <p></p>
 
  Note that <a name="hypot"></a><span class="ddoc_psymbol">hypot</span>(<i>x</i>, <i>y</i>), <a name="hypot"></a><span class="ddoc_psymbol">hypot</span>(<i>y</i>, <i>x</i>) and
@@ -892,19 +894,19 @@ sqrt( + )
   </table><p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="ceil"></a><span class="ddoc_psymbol">ceil</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".ceil"></a>nothrow @trusted real <a name="ceil"></a><span class="ddoc_psymbol">ceil</span>(real <i>x</i>);
 </dt>
 <dd>Returns the value of <i>x</i> rounded upward to the next integer
  (toward positive infinity).<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="floor"></a><span class="ddoc_psymbol">floor</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".floor"></a>nothrow @trusted real <a name="floor"></a><span class="ddoc_psymbol">floor</span>(real <i>x</i>);
 </dt>
 <dd>Returns the value of <i>x</i> rounded downward to the next integer
  (toward negative infinity).<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="nearbyint"></a><span class="ddoc_psymbol">nearbyint</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".nearbyint"></a>nothrow @trusted real <a name="nearbyint"></a><span class="ddoc_psymbol">nearbyint</span>(real <i>x</i>);
 </dt>
 <dd>Rounds <i>x</i> to the nearest integer value, using the current rounding
  mode.
@@ -913,7 +915,7 @@ Unlike the rint functions, <a name="nearbyint"></a><span class="ddoc_psymbol">ne
  FE_INEXACT exception.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="rint"></a><span class="ddoc_psymbol">rint</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".rint"></a>pure nothrow @safe real <a name="rint"></a><span class="ddoc_psymbol">rint</span>(real <i>x</i>);
 </dt>
 <dd>Rounds <i>x</i> to the nearest integer value, using the current rounding
  mode.
@@ -923,7 +925,7 @@ Unlike the rint functions, <a name="nearbyint"></a><span class="ddoc_psymbol">ne
  the same operation, but does not set the FE_INEXACT exception.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted long <a name="lrint"></a><span class="ddoc_psymbol">lrint</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".lrint"></a>pure nothrow @trusted long <a name="lrint"></a><span class="ddoc_psymbol">lrint</span>(real <i>x</i>);
 </dt>
 <dd>Rounds <i>x</i> to the nearest integer value, using the current rounding
  mode.
@@ -935,14 +937,14 @@ This is generally the fastest method to convert a floating-point number
  <a name="lrint"></a><span class="ddoc_psymbol">lrint</span>(4.5) == 4, <a name="lrint"></a><span class="ddoc_psymbol">lrint</span>(5.5)==6.<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="round"></a><span class="ddoc_psymbol">round</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".round"></a>nothrow @trusted real <a name="round"></a><span class="ddoc_psymbol">round</span>(real <i>x</i>);
 </dt>
 <dd>Return the value of <i>x</i> rounded to the nearest integer.
  If the fractional part of <i>x</i> is exactly 0.5, the return value is rounded to
  the even integer.<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted long <a name="lround"></a><span class="ddoc_psymbol">lround</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".lround"></a>nothrow @trusted long <a name="lround"></a><span class="ddoc_psymbol">lround</span>(real <i>x</i>);
 </dt>
 <dd>Return the value of <i>x</i> rounded to the nearest integer.
 <p></p>
@@ -950,15 +952,15 @@ If the fractional part of <i>x</i> is exactly 0.5, the return value is rounded
  away from zero.<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="trunc"></a><span class="ddoc_psymbol">trunc</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".trunc"></a>nothrow @trusted real <a name="trunc"></a><span class="ddoc_psymbol">trunc</span>(real <i>x</i>);
 </dt>
 <dd>Returns the integer portion of <i>x</i>, dropping the fractional portion.
 <p></p>
 This is also known as "chop" rounding.<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @trusted real <a name="remainder"></a><span class="ddoc_psymbol">remainder</span>(real <i>x</i>, real <i>y</i>);
-<br>nothrow @trusted real <a name="remquo"></a><span class="ddoc_psymbol">remquo</span>(real <i>x</i>, real <i>y</i>, out int <i>n</i>);
+<dt class="d_decl"><a name=".remainder"></a>nothrow @trusted real <a name="remainder"></a><span class="ddoc_psymbol">remainder</span>(real <i>x</i>, real <i>y</i>);
+<br><a name=".remquo"></a>nothrow @trusted real <a name="remquo"></a><span class="ddoc_psymbol">remquo</span>(real <i>x</i>, real <i>y</i>, out int <i>n</i>);
 </dt>
 <dd>Calculate the <a name="remainder"></a><span class="ddoc_psymbol">remainder</span> <i>x</i> REM <i>y</i>, following IEC 60559.
 <p></p>
@@ -987,7 +989,7 @@ REM is the value of <i>x</i> - <i>y</i> * n, where n is the integer nearest the 
 remquo not supported on windows<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="IeeeFlags"></a><span class="ddoc_psymbol">IeeeFlags</span>;
+<dt class="d_decl"><a name=".IeeeFlags"></a>struct <a name="IeeeFlags"></a><span class="ddoc_psymbol">IeeeFlags</span>;
 </dt>
 <dd>IEEE exception status flags ('sticky bits')
 <p></p>
@@ -1021,45 +1023,45 @@ These flags indicate that an exceptional floating-point condition has occurred.
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">@property bool <a name="inexact"></a><span class="ddoc_psymbol">inexact</span>();
+<dl><dt class="d_decl"><a name=".IeeeFlags.inexact"></a>@property bool <a name="inexact"></a><span class="ddoc_psymbol">inexact</span>();
 </dt>
 <dd>The result cannot be represented exactly, so rounding occured.
  (example: x = sin(0.1); )<p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="underflow"></a><span class="ddoc_psymbol">underflow</span>();
+<dt class="d_decl"><a name=".IeeeFlags.underflow"></a>@property bool <a name="underflow"></a><span class="ddoc_psymbol">underflow</span>();
 </dt>
 <dd>A zero was generated by <a name="underflow"></a><span class="ddoc_psymbol">underflow</span> (example: x = real.min*real.epsilon/2;)<p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="overflow"></a><span class="ddoc_psymbol">overflow</span>();
+<dt class="d_decl"><a name=".IeeeFlags.overflow"></a>@property bool <a name="overflow"></a><span class="ddoc_psymbol">overflow</span>();
 </dt>
 <dd>An infinity was generated by <a name="overflow"></a><span class="ddoc_psymbol">overflow</span> (example: x = real.max*2;)<p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="divByZero"></a><span class="ddoc_psymbol">divByZero</span>();
+<dt class="d_decl"><a name=".IeeeFlags.divByZero"></a>@property bool <a name="divByZero"></a><span class="ddoc_psymbol">divByZero</span>();
 </dt>
 <dd>An infinity was generated by division by zero (example: x = 3/0.0; )<p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="invalid"></a><span class="ddoc_psymbol">invalid</span>();
+<dt class="d_decl"><a name=".IeeeFlags.invalid"></a>@property bool <a name="invalid"></a><span class="ddoc_psymbol">invalid</span>();
 </dt>
 <dd>A machine NaN was generated. (example: x = real.infinity * 0.0; )<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">void <a name="resetIeeeFlags"></a><span class="ddoc_psymbol">resetIeeeFlags</span>();
+<dt class="d_decl"><a name=".resetIeeeFlags"></a>void <a name="resetIeeeFlags"></a><span class="ddoc_psymbol">resetIeeeFlags</span>();
 </dt>
 <dd>Set all of the floating-point status flags to <b>false</b>.<p></p>
 
 </dd>
-<dt class="d_decl">@property IeeeFlags <a name="ieeeFlags"></a><span class="ddoc_psymbol">ieeeFlags</span>();
+<dt class="d_decl"><a name=".ieeeFlags"></a>@property IeeeFlags <a name="ieeeFlags"></a><span class="ddoc_psymbol">ieeeFlags</span>();
 </dt>
 <dd>Return a snapshot of the current state of the floating-point status flags.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="FloatingPointControl"></a><span class="ddoc_psymbol">FloatingPointControl</span>;
+<dt class="d_decl"><a name=".FloatingPointControl"></a>struct <a name="FloatingPointControl"></a><span class="ddoc_psymbol">FloatingPointControl</span>;
 </dt>
 <dd>Control the Floating point hardware
 <p></p>
@@ -1100,66 +1102,66 @@ Change the IEEE754 floating-point rounding mode and the floating-point
 </pre>
 <p></p>
 
-<dl><dt class="d_decl"><a name="severeExceptions"></a><span class="ddoc_psymbol">severeExceptions</span></dt>
+<dl><dt class="d_decl"><a name=".FloatingPointControl.severeExceptions"></a><a name="severeExceptions"></a><span class="ddoc_psymbol">severeExceptions</span></dt>
 <dd>Severe = The overflow, division by zero, and invalid exceptions.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="enableExceptions"></a><span class="ddoc_psymbol">enableExceptions</span>(uint <i>exceptions</i>);
+<dt class="d_decl"><a name=".FloatingPointControl.enableExceptions"></a>void <a name="enableExceptions"></a><span class="ddoc_psymbol">enableExceptions</span>(uint <i>exceptions</i>);
 </dt>
 <dd>Enable (unmask) specific hardware <i>exceptions</i>. Multiple <i>exceptions</i> may be ORed together.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="disableExceptions"></a><span class="ddoc_psymbol">disableExceptions</span>(uint <i>exceptions</i>);
+<dt class="d_decl"><a name=".FloatingPointControl.disableExceptions"></a>void <a name="disableExceptions"></a><span class="ddoc_psymbol">disableExceptions</span>(uint <i>exceptions</i>);
 </dt>
 <dd>Disable (mask) specific hardware <i>exceptions</i>. Multiple <i>exceptions</i> may be ORed together.<p></p>
 
 </dd>
-<dt class="d_decl">@property void <a name="rounding"></a><span class="ddoc_psymbol">rounding</span>(RoundingMode <i>newMode</i>);
+<dt class="d_decl"><a name=".FloatingPointControl.rounding"></a>@property void <a name="rounding"></a><span class="ddoc_psymbol">rounding</span>(RoundingMode <i>newMode</i>);
 </dt>
 <dd>Change the floating-point hardware <a name="rounding"></a><span class="ddoc_psymbol">rounding</span> mode<p></p>
 
 </dd>
-<dt class="d_decl">static @property uint <a name="enabledExceptions"></a><span class="ddoc_psymbol">enabledExceptions</span>();
+<dt class="d_decl"><a name=".FloatingPointControl.enabledExceptions"></a>static @property uint <a name="enabledExceptions"></a><span class="ddoc_psymbol">enabledExceptions</span>();
 </dt>
 <dd>Return the exceptions which are currently enabled (unmasked)<p></p>
 
 </dd>
-<dt class="d_decl">static @property RoundingMode <a name="rounding"></a><span class="ddoc_psymbol">rounding</span>();
+<dt class="d_decl"><a name=".FloatingPointControl.rounding"></a>static @property RoundingMode <a name="rounding"></a><span class="ddoc_psymbol">rounding</span>();
 </dt>
 <dd>Return the currently active <a name="rounding"></a><span class="ddoc_psymbol">rounding</span> mode<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">pure nothrow @trusted bool <a name="isNaN"></a><span class="ddoc_psymbol">isNaN</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".isNaN"></a>pure nothrow @trusted bool <a name="isNaN"></a><span class="ddoc_psymbol">isNaN</span>(real <i>x</i>);
 </dt>
 <dd>Returns !=0 if e is a NaN.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted int <a name="isFinite"></a><span class="ddoc_psymbol">isFinite</span>(real <i>e</i>);
+<dt class="d_decl"><a name=".isFinite"></a>pure nothrow @trusted int <a name="isFinite"></a><span class="ddoc_psymbol">isFinite</span>(real <i>e</i>);
 </dt>
 <dd>Returns !=0 if <i>e</i> is finite (not infinite or <span style="color:red">NAN</span>).<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted int <a name="isNormal"></a><span class="ddoc_psymbol">isNormal</span>(X)(X <i>x</i>);
+<dt class="d_decl"><a name=".isNormal"></a>pure nothrow @trusted int <a name="isNormal"></a><span class="ddoc_psymbol">isNormal</span>(X)(X <i>x</i>);
 </dt>
 <dd>Returns !=0 if x is normalized (not zero, subnormal, infinite, or <span style="color:red">NAN</span>).<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(float <i>f</i>);
-<br>pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(double <i>d</i>);
-<br>pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".isSubnormal"></a>pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(float <i>f</i>);
+<br><a name=".isSubnormal"></a>pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(double <i>d</i>);
+<br><a name=".isSubnormal"></a>pure nothrow @trusted int <a name="isSubnormal"></a><span class="ddoc_psymbol">isSubnormal</span>(real <i>x</i>);
 </dt>
 <dd>Is number subnormal? (Also called "denormal".)
  Subnormals have a 0 exponent and a 0 most significant mantissa bit.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted bool <a name="isInfinity"></a><span class="ddoc_psymbol">isInfinity</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".isInfinity"></a>pure nothrow @trusted bool <a name="isInfinity"></a><span class="ddoc_psymbol">isInfinity</span>(real <i>x</i>);
 </dt>
 <dd>Return !=0 if e is &plusmn;&infin;.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted bool <a name="isIdentical"></a><span class="ddoc_psymbol">isIdentical</span>(real <i>x</i>, real <i>y</i>);
+<dt class="d_decl"><a name=".isIdentical"></a>pure nothrow @trusted bool <a name="isIdentical"></a><span class="ddoc_psymbol">isIdentical</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Is the binary representation of <i>x</i> identical to <i>y</i>?
 <p></p>
@@ -1167,23 +1169,23 @@ Same as ==, except that positive and negative zero are not identical,
  and two <span style="color:red">NAN</span>s are identical if they have the same 'payload'.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted int <a name="signbit"></a><span class="ddoc_psymbol">signbit</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".signbit"></a>pure nothrow @trusted int <a name="signbit"></a><span class="ddoc_psymbol">signbit</span>(real <i>x</i>);
 </dt>
 <dd>Return 1 if sign bit of e is set, 0 if not.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="copysign"></a><span class="ddoc_psymbol">copysign</span>(real <i>to</i>, real <i>from</i>);
+<dt class="d_decl"><a name=".copysign"></a>pure nothrow @trusted real <a name="copysign"></a><span class="ddoc_psymbol">copysign</span>(real <i>to</i>, real <i>from</i>);
 </dt>
 <dd>Return a value composed of <i>to</i> with <i>from</i>'s sign bit.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe F <a name="sgn"></a><span class="ddoc_psymbol">sgn</span>(F)(F <i>x</i>);
+<dt class="d_decl"><a name=".sgn"></a>pure nothrow @safe F <a name="sgn"></a><span class="ddoc_psymbol">sgn</span>(F)(F <i>x</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode">-1</span> if <span class="d_inlinecode">x &lt; 0</span>, <span class="d_inlinecode">x</span> if <span class="d_inlinecode">x == 0</span>, <span class="d_inlinecode">1</span> if
 <span class="d_inlinecode">x &gt; 0</span>, and <span style="color:red">NAN</span> if x==<span style="color:red">NAN</span>.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="NaN"></a><span class="ddoc_psymbol">NaN</span>(ulong <i>payload</i>);
+<dt class="d_decl"><a name=".NaN"></a>pure nothrow @trusted real <a name="NaN"></a><span class="ddoc_psymbol">NaN</span>(ulong <i>payload</i>);
 </dt>
 <dd>Create a quiet <span style="color:red">NAN</span>, storing an integer inside the <i>payload</i>.
 <p></p>
@@ -1192,7 +1194,7 @@ For floats, the largest possible <i>payload</i> is 0x3F_FFFF.
  For 80-bit or 128-bit reals, it is 0x3FFF_FFFF_FFFF_FFFF.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted ulong <a name="getNaNPayload"></a><span class="ddoc_psymbol">getNaNPayload</span>(real <i>x</i>);
+<dt class="d_decl"><a name=".getNaNPayload"></a>pure nothrow @trusted ulong <a name="getNaNPayload"></a><span class="ddoc_psymbol">getNaNPayload</span>(real <i>x</i>);
 </dt>
 <dd>Extract an integral payload from a <span style="color:red">NAN</span>.
 <p></p>
@@ -1204,9 +1206,9 @@ For floats, the largest possible <i>payload</i> is 0x3F_FFFF.
  For 80-bit or 128-bit reals, it is 0x3FFF_FFFF_FFFF_FFFF.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(real <i>x</i>);
-<br>pure nothrow @trusted double <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(double <i>x</i>);
-<br>pure nothrow @trusted float <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".nextUp"></a>pure nothrow @trusted real <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(real <i>x</i>);
+<br><a name=".nextUp"></a>pure nothrow @trusted double <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(double <i>x</i>);
+<br><a name=".nextUp"></a>pure nothrow @trusted float <a name="nextUp"></a><span class="ddoc_psymbol">nextUp</span>(float <i>x</i>);
 </dt>
 <dd>Calculate the next largest floating point value after <i>x</i>.
 <p></p>
@@ -1225,9 +1227,9 @@ Return the least number greater than <i>x</i> that is representable as a real;
  </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(real <i>x</i>);
-<br>pure nothrow @safe double <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(double <i>x</i>);
-<br>pure nothrow @safe float <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(float <i>x</i>);
+<dt class="d_decl"><a name=".nextDown"></a>pure nothrow @safe real <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(real <i>x</i>);
+<br><a name=".nextDown"></a>pure nothrow @safe double <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(double <i>x</i>);
+<br><a name=".nextDown"></a>pure nothrow @safe float <a name="nextDown"></a><span class="ddoc_psymbol">nextDown</span>(float <i>x</i>);
 </dt>
 <dd>Calculate the next smallest floating point value before <i>x</i>.
 <p></p>
@@ -1246,7 +1248,7 @@ Return the greatest number less than <i>x</i> that is representable as a real;
  </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe T <a name="nextafter"></a><span class="ddoc_psymbol">nextafter</span>(T)(T <i>x</i>, T <i>y</i>);
+<dt class="d_decl"><a name=".nextafter"></a>pure nothrow @safe T <a name="nextafter"></a><span class="ddoc_psymbol">nextafter</span>(T)(T <i>x</i>, T <i>y</i>);
 </dt>
 <dd>Calculates the next representable value after x in the direction of y.
 <p></p>
@@ -1266,7 +1268,7 @@ This function is not generally very useful; it's almost always better to use
  not equal to y.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="fdim"></a><span class="ddoc_psymbol">fdim</span>(real <i>x</i>, real <i>y</i>);
+<dt class="d_decl"><a name=".fdim"></a>pure nothrow @safe real <a name="fdim"></a><span class="ddoc_psymbol">fdim</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Returns the positive difference between <i>x</i> and <i>y</i>.
 <p></p>
@@ -1278,17 +1280,17 @@ This function is not generally very useful; it's almost always better to use
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="fmax"></a><span class="ddoc_psymbol">fmax</span>(real <i>x</i>, real <i>y</i>);
+<dt class="d_decl"><a name=".fmax"></a>pure nothrow @safe real <a name="fmax"></a><span class="ddoc_psymbol">fmax</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Returns the larger of <i>x</i> and <i>y</i>.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="fmin"></a><span class="ddoc_psymbol">fmin</span>(real <i>x</i>, real <i>y</i>);
+<dt class="d_decl"><a name=".fmin"></a>pure nothrow @safe real <a name="fmin"></a><span class="ddoc_psymbol">fmin</span>(real <i>x</i>, real <i>y</i>);
 </dt>
 <dd>Returns the smaller of <i>x</i> and <i>y</i>.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @safe real <a name="fma"></a><span class="ddoc_psymbol">fma</span>(real <i>x</i>, real <i>y</i>, real <i>z</i>);
+<dt class="d_decl"><a name=".fma"></a>pure nothrow @safe real <a name="fma"></a><span class="ddoc_psymbol">fma</span>(real <i>x</i>, real <i>y</i>, real <i>z</i>);
 </dt>
 <dd>Returns (<i>x</i> * <i>y</i>) + <i>z</i>, rounding only once according to the
  current rounding mode.
@@ -1296,12 +1298,12 @@ This function is not generally very useful; it's almost always better to use
 <span style="color:red">BUGS:</span><br>Not currently implemented - rounds twice.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted Unqual!(F) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>n</i>);
+<dt class="d_decl"><a name=".pow"></a>pure nothrow @trusted Unqual!(F) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>n</i>);
 </dt>
 <dd>Compute the value of x <span style="vertical-align:super;font-size:smaller">n</span>, where n is an integer<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted typeof(Unqual!(F).init * Unqual!(G).init) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>n</i>);
+<dt class="d_decl"><a name=".pow"></a>pure nothrow @trusted typeof(Unqual!(F).init * Unqual!(G).init) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>n</i>);
 </dt>
 <dd>Compute the value of an integer x, raised to the power of a positive
  integer n.
@@ -1311,12 +1313,12 @@ If both x and n are 0, the result is 1.
  regardless of the value of x.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="pow"></a><span class="ddoc_psymbol">pow</span>(I, F)(I <i>x</i>, F <i>y</i>);
+<dt class="d_decl"><a name=".pow"></a>pure nothrow @trusted real <a name="pow"></a><span class="ddoc_psymbol">pow</span>(I, F)(I <i>x</i>, F <i>y</i>);
 </dt>
 <dd>Computes integer to floating point powers.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted Unqual!(Largest!(F,G)) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>y</i>);
+<dt class="d_decl"><a name=".pow"></a>pure nothrow @trusted Unqual!(Largest!(F, G)) <a name="pow"></a><span class="ddoc_psymbol">pow</span>(F, G)(F <i>x</i>, G <i>y</i>);
 </dt>
 <dd>Calculates x<span style="vertical-align:super;font-size:smaller">y</span>.
 <p></p>
@@ -1361,7 +1363,7 @@ If both x and n are 0, the result is 1.
  </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted int <a name="feqrel"></a><span class="ddoc_psymbol">feqrel</span>(X)(X <i>x</i>, X <i>y</i>);
+<dt class="d_decl"><a name=".feqrel"></a>pure nothrow @trusted int <a name="feqrel"></a><span class="ddoc_psymbol">feqrel</span>(X)(X <i>x</i>, X <i>y</i>);
 </dt>
 <dd>To what precision is x equal to y?
 <p></p>
@@ -1380,7 +1382,7 @@ If both x and n are 0, the result is 1.
       </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted real <a name="poly"></a><span class="ddoc_psymbol">poly</span>(real <i>x</i>, const real[] <i>A</i>);
+<dt class="d_decl"><a name=".poly"></a>pure nothrow @trusted real <a name="poly"></a><span class="ddoc_psymbol">poly</span>(real <i>x</i>, const real[] <i>A</i>);
 </dt>
 <dd>Evaluate polynomial <i>A</i>(<i>x</i>) = a<sub>0</sub> + a<sub>1</sub><i>x</i> + a<sub>2</sub><i>x</i><sup>2</sup>
                           + a<sub>3</sub><i>x</i><sup>3</sup>; ...
@@ -1393,7 +1395,7 @@ Uses Horner's rule <i>A</i>(<i>x</i>) = a<sub>0</sub> + <i>x</i>(a<sub>1</sub> +
 </table><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span>(T, U, V)(T <i>lhs</i>, U <i>rhs</i>, V <i>maxRelDiff</i>, V <i>maxAbsDiff</i> = 1e-05);
+<dt class="d_decl"><a name=".approxEqual"></a>bool <a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span>(T, U, V)(T <i>lhs</i>, U <i>rhs</i>, V <i>maxRelDiff</i>, V <i>maxAbsDiff</i> = 1e-05);
 </dt>
 <dd>Computes whether <span class="d_inlinecode">lhs</span> is approximately equal to <span class="d_inlinecode">rhs</span>
    admitting a maximum relative difference <span class="d_inlinecode">maxRelDiff</span> and a
@@ -1403,7 +1405,7 @@ If the two inputs are ranges, <span class="d_inlinecode"><a name="approxEqual"><
    only if the ranges have the same number of elements and if <span class="d_inlinecode">  <a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span></span> evaluates to <span class="d_inlinecode"><b>true</b></span> for each pair of elements.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span>(T, U)(T <i>lhs</i>, U <i>rhs</i>);
+<dt class="d_decl"><a name=".approxEqual"></a>bool <a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span>(T, U)(T <i>lhs</i>, U <i>rhs</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode"><a name="approxEqual"></a><span class="ddoc_psymbol">approxEqual</span>(lhs, rhs, 1e-2, 1e-5)</span>.<p></p>
 
@@ -1422,9 +1424,9 @@ If the two inputs are ranges, <span class="d_inlinecode"><a name="approxEqual"><
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

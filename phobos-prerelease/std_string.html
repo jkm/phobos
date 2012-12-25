@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.string - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:13 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/string.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdString" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.string</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/string.d -->
@@ -218,57 +237,13 @@ making code more robust.
 
 <p></p>
 <b>Source:</b><br>
-<a href="https://github.com/D-Programming-Language/phobos/blob/master/std/string.d">std/string.d</a>
-<p></p>
+<a href="https://github.com/D-Programming-Language/phobos/blob/master/std/string.d">std/string.d</a><p></p>
 
-<b><span style="color:red">IMPORTANT NOTE:</span></b> Beginning with version 2.052, the
-following symbols have been generalized beyond strings and moved to
-different modules. This action was prompted by the fact that
-generalized routines belong better in other places, although they
-still work for strings as expected. In order to use moved symbols, you
-will need to import the respective modules as follows:
-<p></p>
-
-<center><table cellspacing=0 cellpadding=5 class=book><caption></caption><p></p>
-
-<tr><th>Symbol</th> <th>Comment</th></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">cmp</span></td> <td valign=top>Moved to <a href="std_algorithm.html#cmp"><span class="d_inlinecode">std.algorithm.cmp</span></a> and
-generalized to work for all input ranges and accept a custom
-predicate.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">count</span></td> <td valign=top>Moved to <a href="std_algorithm.html#count"><span class="d_inlinecode">std.algorithm.count</span></a> and
-generalized to accept a custom predicate.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">ByCodeUnit</span></td> <td valign=top>Removed.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">insert</span></td> <td valign=top>Use <a href="std_array.html#insertInPlace"><span class="d_inlinecode">std.array.insertInPlace</span></a> instead.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">join</span></td> <td valign=top>Use <a href="std_array.html#join"><span class="d_inlinecode">std.array.join</span></a> instead.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">repeat</span></td> <td valign=top>Use <a href="std_array.html#replicate"><span class="d_inlinecode">std.array.replicate</span></a> instead.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">replace</span></td> <td valign=top>Use <a href="std_array.html#replace"><span class="d_inlinecode">std.array.replace</span></a> instead.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">replaceSlice</span></td> <td valign=top>Use <a href="std_array.html#replace"><span class="d_inlinecode">std.array.replace</span></a> instead.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">split</span></td> <td valign=top>Use <a href="std_array.html#split"><span class="d_inlinecode">std.array.split</span></a> instead.</td></tr>
-</table></center><p></p>
-
-<dl><dt class="d_decl">class <a name="StringException"></a><span class="ddoc_psymbol">StringException</span>: object.Exception;
+<dl><dt class="d_decl"><a name=".StringException"></a>class <a name="StringException"></a><span class="ddoc_psymbol">StringException</span>: object.Exception;
 </dt>
 <dd>Exception thrown on errors in std.string functions.<p></p>
 
-<dl><dt class="d_decl">this(string <i>msg</i>, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__, Throwable <i>next</i> = null);
+<dl><dt class="d_decl"><a name=".StringException.this"></a> this(string <i>msg</i>, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__, Throwable <i>next</i> = null);
 </dt>
 <dd><b>Parameters:</b><table class=parms><tr><td valign=top>string <i>msg</i></td>
 <td valign=top>The message for the exception.</td></tr>
@@ -283,95 +258,7 @@ generalized to accept a custom predicate.</td></tr>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">immutable char[16u] <a name="hexdigits"></a><span class="ddoc_psymbol">hexdigits</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#hexDigits"><span class="d_inlinecode">std.ascii.hexDigits</span></a> instead.</span>
-<p></p>
-0..9A..F<p></p>
-
-</dd>
-<dt class="d_decl">alias <a name="digits"></a><span class="ddoc_psymbol">digits</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#digits"><span class="d_inlinecode">std.ascii.digits</span></a> instead.</span>
-<p></p>
-0..9<p></p>
-
-</dd>
-<dt class="d_decl">immutable char[8u] <a name="octdigits"></a><span class="ddoc_psymbol">octdigits</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#octDigits"><span class="d_inlinecode">std.ascii.octDigits</span></a> instead.</span>
-<p></p>
-0..7<p></p>
-
-</dd>
-<dt class="d_decl">immutable char[26u] <a name="lowercase"></a><span class="ddoc_psymbol">lowercase</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#lowercase"><span class="d_inlinecode">std.ascii.lowercase</span></a> instead.</span>
-<p></p>
-a..z<p></p>
-
-</dd>
-<dt class="d_decl">immutable char[52u] <a name="letters"></a><span class="ddoc_psymbol">letters</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#letters"><span class="d_inlinecode">std.ascii.letters</span></a> instead.</span>
-<p></p>
-A..Za..z<p></p>
-
-</dd>
-<dt class="d_decl">immutable char[26u] <a name="uppercase"></a><span class="ddoc_psymbol">uppercase</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#uppercase"><span class="d_inlinecode">std.ascii.uppercase</span></a> instead.</span>
-<p></p>
-A..Z<p></p>
-
-</dd>
-<dt class="d_decl">alias <a name="whitespace"></a><span class="ddoc_psymbol">whitespace</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#whitespace"><span class="d_inlinecode">std.ascii.whitespace</span></a> instead.</span>
-<p></p>
-ASCII <a name="whitespace"></a><span class="ddoc_psymbol">whitespace</span>.<p></p>
-
-</dd>
-<dt class="d_decl">dchar <a name="LS"></a><span class="ddoc_psymbol">LS</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_uni.html#lineSep"><span class="d_inlinecode">std.uni.lineSep</span></a> instead.</span>
-<p></p>
-UTF line separator.<p></p>
-
-</dd>
-<dt class="d_decl">dchar <a name="PS"></a><span class="ddoc_psymbol">PS</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_uni.html#paraSep"><span class="d_inlinecode">std.uni.paraSep</span></a> instead.</span>
-<p></p>
-UTF paragraph separator.<p></p>
-
-</dd>
-<dt class="d_decl">alias <a name="newline"></a><span class="ddoc_psymbol">newline</span>;
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <a href="std_ascii.html#newline"><span class="d_inlinecode">std.ascii.newline</span></a> instead.</span>
-<p></p>
-Newline sequence for this system.<p></p>
-
-</dd>
-<dt class="d_decl">bool <a name="iswhite"></a><span class="ddoc_psymbol">iswhite</span>(dchar <i>c</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-       Please use <a href="std_ascii.html#isWhite"><span class="d_inlinecode">std.ascii.isWhite</span></a> or <a href="std_uni.html#isWhite"><span class="d_inlinecode">std.uni.isWhite</span></a> instead.</span>
-<p></p>
-Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
-
-</dd>
-<dt class="d_decl">int <a name="icmp"></a><span class="ddoc_psymbol">icmp</span>(alias pred = "a &lt; b", S1, S2)(S1 <i>s1</i>, S2 <i>s2</i>);
+<dt class="d_decl"><a name=".icmp"></a>int <a name="icmp"></a><span class="ddoc_psymbol">icmp</span>(alias pred = "a &lt; b", S1, S2)(S1 <i>s1</i>, S2 <i>s2</i>);
 </dt>
 <dd>Compares two ranges of characters lexicographically. The comparison is
     case insensitive. Use <span class="d_inlinecode">XREF algorithm, cmp</span> for a case sensitive
@@ -380,19 +267,19 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
     <span class="d_inlinecode"><a name="icmp"></a><span class="ddoc_psymbol">icmp</span>(r1, r2)</span> is equivalent to
     <span class="d_inlinecode">cmp!"std.uni.toLower(a) &lt; std.uni.toLower(b)"(r1, r2)</span>.
 <p></p>
-<center><table cellspacing=0 cellpadding=5 class=book><caption></caption>        <tr><td valign=top><span class="d_inlinecode">&lt; 0</span></td>  <td valign=top><span class="d_inlinecode">s1 &lt; s2</span> </td></tr>
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>        <tr><td valign=top><span class="d_inlinecode">&lt; 0</span></td>  <td valign=top><span class="d_inlinecode">s1 &lt; s2</span> </td></tr>
         <tr><td valign=top><span class="d_inlinecode">= 0</span></td>  <td valign=top><span class="d_inlinecode">s1 == s2</span></td></tr>
         <tr><td valign=top><span class="d_inlinecode">&gt; 0</span></td>  <td valign=top><span class="d_inlinecode">s1 &gt; s2</span></td></tr>
-     </table></center><p></p>
+     </table><p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow immutable(char)* <a name="toStringz"></a><span class="ddoc_psymbol">toStringz</span>(const(char)[] <i>s</i>);
-<br>pure nothrow immutable(char)* <a name="toStringz"></a><span class="ddoc_psymbol">toStringz</span>(string <i>s</i>);
+<dt class="d_decl"><a name=".toStringz"></a>pure nothrow immutable(char)* <a name="toStringz"></a><span class="ddoc_psymbol">toStringz</span>(const(char)[] <i>s</i>);
+<br><a name=".toStringz"></a>pure nothrow immutable(char)* <a name="toStringz"></a><span class="ddoc_psymbol">toStringz</span>(string <i>s</i>);
 </dt>
-<dd>Returns a C-style 0-terminated string equivalent to <span class="d_inlinecode"><i>s</i></span>. <span class="d_inlinecode"><i>s</i></span> must not
-    contain embedded <span class="d_inlinecode">0</span>'<i>s</i> as any C functions will treat the first <span class="d_inlinecode">0</span>
-    that it sees a the end of the string. I <span class="d_inlinecode"><i>s</i></span> is <span class="d_inlinecode"><b>null</b></span> or empty, then
-    a string containing only <span class="d_inlinecode">'\0'</span> is returned.
+<dd>Returns a C-style zero-terminated string equivalent to <span class="d_inlinecode"><i>s</i></span>. <span class="d_inlinecode"><i>s</i></span>
+    must not contain embedded <span class="d_inlinecode">'\0'</span>'<i>s</i> as any C function will treat the first
+    <span class="d_inlinecode">'\0'</span> that it sees as the end of the string. If <span class="d_inlinecode"><i>s</i>.empty</span> is
+    <span class="d_inlinecode"><b>true</b></span>, then a string containing only <span class="d_inlinecode">'\0'</span> is returned.
 <p></p>
 <span style="color:red">Important Note:</span> When passing a <span class="d_inlinecode">char*</span> to a C function, and the C
     function keeps it around for any reason, make sure that you keep a reference
@@ -400,12 +287,12 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
     cycle and cause a nasty bug when the C code tries to use it.<p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="CaseSensitive"></a><span class="ddoc_psymbol">CaseSensitive</span>;
+<dt class="d_decl"><a name=".CaseSensitive"></a>enum <a name="CaseSensitive"></a><span class="ddoc_psymbol">CaseSensitive</span>;
 </dt>
 <dd>Flag indicating whether a search is case-sensitive.<p></p>
 
 </dd>
-<dt class="d_decl">pure sizediff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(Char)(in Char[] <i>s</i>, dchar <i>c</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
+<dt class="d_decl"><a name=".indexOf"></a>pure ptrdiff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(Char)(in Char[] <i>s</i>, dchar <i>c</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
 </dt>
 <dd>Returns the index of the first occurence of <span class="d_inlinecode">c</span> in <span class="d_inlinecode">s</span>. If <span class="d_inlinecode">c</span>
     is not found, then <span class="d_inlinecode">-1</span> is returned.
@@ -413,7 +300,7 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
 <span class="d_inlinecode">cs</span> indicates whether the comparisons are case sensitive.<p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(Char1, Char2)(const(Char1)[] <i>s</i>, const(Char2)[] <i>sub</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
+<dt class="d_decl"><a name=".indexOf"></a>ptrdiff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(Char1, Char2)(const(Char1)[] <i>s</i>, const(Char2)[] <i>sub</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
 </dt>
 <dd>Returns the index of the first occurence of <span class="d_inlinecode">sub</span> in <span class="d_inlinecode">s</span>. If <span class="d_inlinecode">sub</span>
     is not found, then <span class="d_inlinecode">-1</span> is returned.
@@ -421,7 +308,7 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
 <span class="d_inlinecode">cs</span> indicates whether the comparisons are case sensitive.<p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="lastIndexOf"></a><span class="ddoc_psymbol">lastIndexOf</span>(Char)(const(Char)[] <i>s</i>, dchar <i>c</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
+<dt class="d_decl"><a name=".lastIndexOf"></a>ptrdiff_t <a name="lastIndexOf"></a><span class="ddoc_psymbol">lastIndexOf</span>(Char)(const(Char)[] <i>s</i>, dchar <i>c</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
 </dt>
 <dd>Returns the index of the last occurence of <span class="d_inlinecode">c</span> in <span class="d_inlinecode">s</span>. If <span class="d_inlinecode">c</span>
     is not found, then <span class="d_inlinecode">-1</span> is returned.
@@ -429,7 +316,7 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
 <span class="d_inlinecode">cs</span> indicates whether the comparisons are case sensitive.<p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="lastIndexOf"></a><span class="ddoc_psymbol">lastIndexOf</span>(Char1, Char2)(const(Char1)[] <i>s</i>, const(Char2)[] <i>sub</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
+<dt class="d_decl"><a name=".lastIndexOf"></a>ptrdiff_t <a name="lastIndexOf"></a><span class="ddoc_psymbol">lastIndexOf</span>(Char1, Char2)(const(Char1)[] <i>s</i>, const(Char2)[] <i>sub</i>, CaseSensitive <i>cs</i> = CaseSensitive.yes);
 </dt>
 <dd>Returns the index of the last occurence of <span class="d_inlinecode">sub</span> in <span class="d_inlinecode">s</span>. If <span class="d_inlinecode">sub</span>
     is not found, then <span class="d_inlinecode">-1</span> is returned.
@@ -437,235 +324,205 @@ Returns <b>true</b> if <i>c</i> is ASCII whitespace or unicode LS or PS.<p></p>
 <span class="d_inlinecode">cs</span> indicates whether the comparisons are case sensitive.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow auto <a name="representation"></a><span class="ddoc_psymbol">representation</span>(Char)(Char[] <i>s</i>);
+<dt class="d_decl"><a name=".representation"></a>pure nothrow auto <a name="representation"></a><span class="ddoc_psymbol">representation</span>(Char)(Char[] <i>s</i>);
 </dt>
-<dd>Returns the <a name="representation"></a><span class="ddoc_psymbol">representation</span> type of a string, which is the same type
+<dd>Returns the <a name="representation"></a><span class="ddoc_psymbol">representation</span> of a string, which has the same type
  as the string except the character type is replaced by <span class="d_inlinecode">ubyte</span>,
  <span class="d_inlinecode">ushort</span>, or <span class="d_inlinecode">uint</span> depending on the character width.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code">string s = <span class="d_string">"hello"</span>;
 <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(<span class="d_psymbol">representation</span>(s)) == <span class="d_keyword">immutable</span>(<span class="d_keyword">ubyte</span>)[]));
+<span class="d_keyword">assert</span>(<span class="d_psymbol">representation</span>(s) <span class="d_keyword">is</span> <span class="d_keyword">cast</span>(<span class="d_keyword">immutable</span>(<span class="d_keyword">ubyte</span>)[]) s);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">representation</span>(s) == [0x68, 0x65, 0x6c, 0x6c, 0x6f]);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">S <a name="tolower"></a><span class="ddoc_psymbol">tolower</span>(S)(S <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-       Please use <span class="d_inlinecode">toLower</span> instead.</span>
-<p></p>
-Convert string s[] to lower case.<p></p>
-
-</dd>
-<dt class="d_decl">pure @trusted S <a name="toLower"></a><span class="ddoc_psymbol">toLower</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".toLower"></a>pure @trusted S <a name="toLower"></a><span class="ddoc_psymbol">toLower</span>(S)(S <i>s</i>);
 </dt>
 <dd>Returns a string which is identical to <span class="d_inlinecode">s</span> except that all of its
     characters are lowercase (in unicode, not just ASCII). If <span class="d_inlinecode">s</span> does not
     have any uppercase characters, then <span class="d_inlinecode">s</span> is returned.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="tolowerInPlace"></a><span class="ddoc_psymbol">tolowerInPlace</span>(C)(ref C[] <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-         Please use <span class="d_inlinecode">toLowerInPlace</span> instead.</span>
-<p></p>
-Converts <span class="d_inlinecode">s</span> to lowercase in place.<p></p>
-
-</dd>
-<dt class="d_decl">void <a name="toLowerInPlace"></a><span class="ddoc_psymbol">toLowerInPlace</span>(C)(ref C[] <i>s</i>);
+<dt class="d_decl"><a name=".toLowerInPlace"></a>void <a name="toLowerInPlace"></a><span class="ddoc_psymbol">toLowerInPlace</span>(C)(ref C[] <i>s</i>);
 </dt>
 <dd>Converts <span class="d_inlinecode">s</span> to lowercase (in unicode, not just ASCII) in place.
     If <span class="d_inlinecode">s</span> does not have any uppercase characters, then <span class="d_inlinecode">s</span> is unaltered.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="toupper"></a><span class="ddoc_psymbol">toupper</span>(S)(S <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-       Please use <span class="d_inlinecode">toUpper</span> instead.</span>
-<p></p>
-Convert string s[] to upper case.<p></p>
-
-</dd>
-<dt class="d_decl">pure @trusted S <a name="toUpper"></a><span class="ddoc_psymbol">toUpper</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".toUpper"></a>pure @trusted S <a name="toUpper"></a><span class="ddoc_psymbol">toUpper</span>(S)(S <i>s</i>);
 </dt>
 <dd>Returns a string which is identical to <span class="d_inlinecode">s</span> except that all of its
     characters are uppercase (in unicode, not just ASCII). If <span class="d_inlinecode">s</span> does not
     have any lowercase characters, then <span class="d_inlinecode">s</span> is returned.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="toupperInPlace"></a><span class="ddoc_psymbol">toupperInPlace</span>(C)(ref C[] <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-          Please use <span class="d_inlinecode">toUpperInPlace</span> instead.</span>
-<p></p>
-Converts <span class="d_inlinecode">s</span> to uppercase in place.<p></p>
-
-</dd>
-<dt class="d_decl">void <a name="toUpperInPlace"></a><span class="ddoc_psymbol">toUpperInPlace</span>(C)(ref C[] <i>s</i>);
+<dt class="d_decl"><a name=".toUpperInPlace"></a>void <a name="toUpperInPlace"></a><span class="ddoc_psymbol">toUpperInPlace</span>(C)(ref C[] <i>s</i>);
 </dt>
 <dd>Converts <span class="d_inlinecode">s</span> to uppercase (in unicode, not just ASCII) in place.
     If <span class="d_inlinecode">s</span> does not have any lowercase characters, then <span class="d_inlinecode">s</span> is unaltered.<p></p>
 
 </dd>
-<dt class="d_decl">pure @trusted S <a name="capitalize"></a><span class="ddoc_psymbol">capitalize</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".capitalize"></a>pure @trusted S <a name="capitalize"></a><span class="ddoc_psymbol">capitalize</span>(S)(S <i>s</i>);
 </dt>
 <dd>Capitalize the first character of <span class="d_inlinecode">s</span> and conver the rest of <span class="d_inlinecode">s</span>
     to lowercase.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="capwords"></a><span class="ddoc_psymbol">capwords</span>(S)(S <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.</span>
-<p></p>
-Capitalize all words in string s[].
- Remove leading and trailing whitespace.
- Replace all sequences of whitespace with a single space.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(S)(S <i>s</i>, size_t <i>n</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012.
-        Please use <a href="std_array.html#replicate"><span class="d_inlinecode">std.array.replicate</span></a> instead.</span>
-<p></p>
-Repeat <span class="d_inlinecode">s</span> for <span class="d_inlinecode">n</span> times.<p></p>
-
-</dd>
-<dt class="d_decl">S[] <a name="splitlines"></a><span class="ddoc_psymbol">splitlines</span>(S)(S <i>s</i>);
-</dt>
-<dd>Split s[] into an array of lines,
- using CR, LF, or CR-LF as the delimiter.
- The delimiter is not included in the line.<p></p>
-
-</dd>
-<dt class="d_decl">S[] <a name="splitLines"></a><span class="ddoc_psymbol">splitLines</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".KeepTerminator"></a>enum <a name="KeepTerminator"></a><span class="ddoc_psymbol">KeepTerminator</span>;
+<br><a name=".splitLines"></a>S[] <a name="splitLines"></a><span class="ddoc_psymbol">splitLines</span>(S)(S <i>s</i>, KeepTerminator <i>keepTerm</i> = KeepTerminator.no);
 </dt>
 <dd>Split <span class="d_inlinecode">s</span> into an array of lines using <span class="d_inlinecode">'\r'</span>, <span class="d_inlinecode">'\n'</span>,
     <span class="d_inlinecode">"\r\n"</span>, <a href="std_uni.html#lineSep"><span class="d_inlinecode">std.uni.lineSep</span></a>, and <a href="std_uni.html#paraSep"><span class="d_inlinecode">std.uni.paraSep</span></a> as delimiters.
-    The delimiter is not included in the strings returned.<p></p>
+    If <span class="d_inlinecode">keepTerm</span> is set to <span class="d_inlinecode"><a name="KeepTerminator"></a><span class="ddoc_psymbol">KeepTerminator</span>.yes</span>, then the delimiter
+    is included in the strings returned.<p></p>
 
 </dd>
-<dt class="d_decl">String <a name="stripl"></a><span class="ddoc_psymbol">stripl</span>(String)(String <i>s</i>);
+<dt class="d_decl"><a name=".stripLeft"></a>pure @safe C[] <a name="stripLeft"></a><span class="ddoc_psymbol">stripLeft</span>(C)(C[] <i>str</i>);
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-        Please use <span class="d_inlinecode">stripLeft</span> instead.</span>
+<dd>Strips leading whitespace.
 <p></p>
-Strips leading whitespace.<p></p>
-
-</dd>
-<dt class="d_decl">pure @safe S <a name="stripLeft"></a><span class="ddoc_psymbol">stripLeft</span>(S)(S <i>s</i>);
-</dt>
-<dd>Strips leading whitespace.<p></p>
-
-</dd>
-<dt class="d_decl">String <a name="stripr"></a><span class="ddoc_psymbol">stripr</span>(String)(String <i>s</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-        Please use <span class="d_inlinecode">stripRight</span> instead.</span>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">stripLeft</span>(<span class="d_string">"     hello world     "</span>) ==
+       <span class="d_string">"hello world     "</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripLeft</span>(<span class="d_string">"\n\t\v\rhello world\n\t\v\r"</span>) ==
+       <span class="d_string">"hello world\n\t\v\r"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripLeft</span>(<span class="d_string">"hello world"</span>) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripLeft</span>([lineSep] ~ <span class="d_string">"hello world"</span> ~ lineSep) ==
+       <span class="d_string">"hello world"</span> ~ [lineSep]);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripLeft</span>([paraSep] ~ <span class="d_string">"hello world"</span> ~ paraSep) ==
+       <span class="d_string">"hello world"</span> ~ [paraSep]);
+</pre>
 <p></p>
-Strips trailing whitespace.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="stripRight"></a><span class="ddoc_psymbol">stripRight</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".stripRight"></a>C[] <a name="stripRight"></a><span class="ddoc_psymbol">stripRight</span>(C)(C[] <i>str</i>);
 </dt>
-<dd>Strips trailing whitespace.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="strip"></a><span class="ddoc_psymbol">strip</span>(S)(S <i>s</i>);
-</dt>
-<dd>Strips both leading and trailing whitespace.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="chomp"></a><span class="ddoc_psymbol">chomp</span>(S)(S <i>s</i>);
-<br>S <a name="chomp"></a><span class="ddoc_psymbol">chomp</span>(S, C)(S <i>s</i>, const(C)[] <i>delimiter</i>);
-</dt>
-<dd>Returns <span class="d_inlinecode">s</span> sans the trailing <span class="d_inlinecode">delimiter</span>, if any. If no <span class="d_inlinecode">delimiter</span>
-    is given, then any trailing  <span class="d_inlinecode">'\r'</span>, <span class="d_inlinecode">'\n'</span>, <span class="d_inlinecode">"\r\n"</span>,
-    <a href="std_uni.html#lineSep"><span class="d_inlinecode">std.uni.lineSep</span></a>, or <a href="std_uni.html#paraSep"><span class="d_inlinecode">std.uni.paraSep</span></a>s are removed.<p></p>
-
-</dd>
-<dt class="d_decl">C1[] <a name="chompPrefix"></a><span class="ddoc_psymbol">chompPrefix</span>(C1, C2)(C1[] <i>longer</i>, C2[] <i>shorter</i>);
-</dt>
-<dd>If <span class="d_inlinecode">longer.startsWith(shorter)</span>, returns <span class="d_inlinecode">longer[shorter.length .. $]</span>.
-    Otherwise, returns <span class="d_inlinecode">longer</span>.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="chop"></a><span class="ddoc_psymbol">chop</span>(S)(S <i>s</i>);
-</dt>
-<dd>Returns <span class="d_inlinecode">s</span> sans its last character, if there is one.
-    If <span class="d_inlinecode">s</span> ends in "\r\n", then both are removed.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="ljustify"></a><span class="ddoc_psymbol">ljustify</span>(S)(S <i>s</i>, size_t <i>width</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-        Please use <span class="d_inlinecode">leftJustify</span> instead.</span>
+<dd>Strips trailing whitespace.
 <p></p>
-Left justify string s[] in field width chars wide.<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">stripRight</span>(<span class="d_string">"     hello world     "</span>) ==
+       <span class="d_string">"     hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripRight</span>(<span class="d_string">"\n\t\v\rhello world\n\t\v\r"</span>) ==
+       <span class="d_string">"\n\t\v\rhello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripRight</span>(<span class="d_string">"hello world"</span>) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripRight</span>([lineSep] ~ <span class="d_string">"hello world"</span> ~ lineSep) ==
+       [lineSep] ~ <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">stripRight</span>([paraSep] ~ <span class="d_string">"hello world"</span> ~ paraSep) ==
+       [paraSep] ~ <span class="d_string">"hello world"</span>);
+</pre>
+<p></p>
 
 </dd>
-<dt class="d_decl">@trusted S <a name="leftJustify"></a><span class="ddoc_psymbol">leftJustify</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
+<dt class="d_decl"><a name=".strip"></a>C[] <a name="strip"></a><span class="ddoc_psymbol">strip</span>(C)(C[] <i>str</i>);
+</dt>
+<dd>Strips both leading and trailing whitespace.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">strip</span>(<span class="d_string">"     hello world     "</span>) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">strip</span>(<span class="d_string">"\n\t\v\rhello world\n\t\v\r"</span>) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">strip</span>(<span class="d_string">"hello world"</span>) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">strip</span>([lineSep] ~ <span class="d_string">"hello world"</span> ~ [lineSep]) ==
+       <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">strip</span>([paraSep] ~ <span class="d_string">"hello world"</span> ~ [paraSep]) ==
+       <span class="d_string">"hello world"</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".chomp"></a>C[] <a name="chomp"></a><span class="ddoc_psymbol">chomp</span>(C)(C[] <i>str</i>);
+<br><a name=".chomp"></a>C1[] <a name="chomp"></a><span class="ddoc_psymbol">chomp</span>(C1, C2)(C1[] <i>str</i>, const(C2)[] <i>delimiter</i>);
+</dt>
+<dd>If <span class="d_inlinecode">str</span> ends with <span class="d_inlinecode">delimiter</span>, then <span class="d_inlinecode">str</span> is returned without
+    <span class="d_inlinecode">delimiter</span> on its end. If it <span class="d_inlinecode">str</span> does <i>not</i> end with
+    <span class="d_inlinecode">delimiter</span>, then it is returned unchanged.
+<p></p>
+If no <span class="d_inlinecode">delimiter</span> is given, then one trailing  <span class="d_inlinecode">'\r'</span>, <span class="d_inlinecode">'\n'</span>,
+    <span class="d_inlinecode">"\r\n"</span>, <a href="std_uni.html#lineSep"><span class="d_inlinecode">std.uni.lineSep</span></a>, or <a href="std_uni.html#paraSep"><span class="d_inlinecode">std.uni.paraSep</span></a> is removed from
+    the end of <span class="d_inlinecode">str</span>. If <span class="d_inlinecode">str</span> does not end with any of those characters,
+    then it is returned unchanged.
+
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \n\r"</span>) == <span class="d_string">" hello world  \n"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \r\n"</span>) == <span class="d_string">" hello world  "</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \n\n"</span>) == <span class="d_string">" hello world  \n"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \n\n "</span>) == <span class="d_string">" hello world  \n\n "</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \n\n"</span> ~ [lineSep]) == <span class="d_string">" hello world  \n\n"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world  \n\n"</span> ~ [paraSep]) == <span class="d_string">" hello world  \n\n"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world"</span>) == <span class="d_string">" hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">""</span>) == <span class="d_string">""</span>);
+
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world"</span>, <span class="d_string">"orld"</span>) == <span class="d_string">" hello w"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">" hello world"</span>, <span class="d_string">" he"</span>) == <span class="d_string">" hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chomp</span>(<span class="d_string">""</span>, <span class="d_string">"hello"</span>) == <span class="d_string">""</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".chompPrefix"></a>C1[] <a name="chompPrefix"></a><span class="ddoc_psymbol">chompPrefix</span>(C1, C2)(C1[] <i>str</i>, C2[] <i>delimiter</i>);
+</dt>
+<dd>If <span class="d_inlinecode">str</span> starts with <span class="d_inlinecode">delimiter</span>, then the part of <span class="d_inlinecode">str</span> following
+    <span class="d_inlinecode">delimiter</span> is returned. If it <span class="d_inlinecode">str</span> does <i>not</i> start with
+    <span class="d_inlinecode">delimiter</span>, then it is returned unchanged.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">chompPrefix</span>(<span class="d_string">"hello world"</span>, <span class="d_string">"he"</span>) == <span class="d_string">"llo world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chompPrefix</span>(<span class="d_string">"hello world"</span>, <span class="d_string">"hello w"</span>) == <span class="d_string">"orld"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chompPrefix</span>(<span class="d_string">"hello world"</span>, <span class="d_string">" world"</span>) == <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chompPrefix</span>(<span class="d_string">""</span>, <span class="d_string">"hello"</span>) == <span class="d_string">""</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".chop"></a>S <a name="chop"></a><span class="ddoc_psymbol">chop</span>(S)(S <i>str</i>);
+</dt>
+<dd>Returns <span class="d_inlinecode">str</span> without its last character, if there is one. If <span class="d_inlinecode">str</span>
+    ends with <span class="d_inlinecode">"\r\n"</span>, then both are removed. If <span class="d_inlinecode">str</span> is empty, then
+    then it is returned unchanged.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"hello world"</span>) == <span class="d_string">"hello worl"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"hello world\n"</span>) == <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"hello world\r"</span>) == <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"hello world\n\r"</span>) == <span class="d_string">"hello world\n"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"hello world\r\n"</span>) == <span class="d_string">"hello world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">"Walter Bright"</span>) == <span class="d_string">"Walter Brigh"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">chop</span>(<span class="d_string">""</span>) == <span class="d_string">""</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".leftJustify"></a>@trusted S <a name="leftJustify"></a><span class="ddoc_psymbol">leftJustify</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
 </dt>
 <dd>Left justify <span class="d_inlinecode">s</span> in a field <span class="d_inlinecode">width</span> characters wide. <span class="d_inlinecode">fillChar</span>
     is the character that will be used to fill up the space in the field that
     <span class="d_inlinecode">s</span> doesn't fill.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="rjustify"></a><span class="ddoc_psymbol">rjustify</span>(S)(S <i>s</i>, size_t <i>width</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-        Please use <span class="d_inlinecode">rightJustify</span> instead.</span>
-<p></p>
-Left right string s[] in field width chars wide.<p></p>
-
-</dd>
-<dt class="d_decl">@trusted S <a name="rightJustify"></a><span class="ddoc_psymbol">rightJustify</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
+<dt class="d_decl"><a name=".rightJustify"></a>@trusted S <a name="rightJustify"></a><span class="ddoc_psymbol">rightJustify</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
 </dt>
 <dd>Right justify <span class="d_inlinecode">s</span> in a field <span class="d_inlinecode">width</span> characters wide. <span class="d_inlinecode">fillChar</span>
     is the character that will be used to fill up the space in the field that
     <span class="d_inlinecode">s</span> doesn't fill.<p></p>
 
 </dd>
-<dt class="d_decl">@trusted S <a name="center"></a><span class="ddoc_psymbol">center</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
+<dt class="d_decl"><a name=".center"></a>@trusted S <a name="center"></a><span class="ddoc_psymbol">center</span>(S)(S <i>s</i>, size_t <i>width</i>, dchar <i>fillChar</i> = ' ');
 </dt>
 <dd>Center <span class="d_inlinecode">s</span> in a field <span class="d_inlinecode">width</span> characters wide. <span class="d_inlinecode">fillChar</span>
     is the character that will be used to fill up the space in the field that
     <span class="d_inlinecode">s</span> doesn't fill.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="zfill"></a><span class="ddoc_psymbol">zfill</span>(S)(S <i>s</i>, int <i>width</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-       Please use <span class="d_inlinecode">rightJustify</span> with a fill character of '0' instead.</span>
-<p></p>
-Same as rjustify(), but fill with '0's.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="insert"></a><span class="ddoc_psymbol">insert</span>(S)(S <i>s</i>, size_t <i>index</i>, S <i>sub</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012.
-       Please use <a href="std_array.html#insertInPlace"><span class="d_inlinecode">std.array.insertInPlace</span></a> instead.</span>
-<p></p>
-Insert sub[] into s[] at location index.<p></p>
-
-</dd>
-<dt class="d_decl">S <a name="expandtabs"></a><span class="ddoc_psymbol">expandtabs</span>(S)(S <i>str</i>, size_t <i>tabsize</i> = 8);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.
-       Please use <span class="d_inlinecode">detab</span> instead.</span>
-<p></p>
-Replace tabs with the appropriate number of spaces.
- tabsize is the distance between tab stops.<p></p>
-
-</dd>
-<dt class="d_decl">pure @trusted S <a name="detab"></a><span class="ddoc_psymbol">detab</span>(S)(S <i>s</i>, size_t <i>tabSize</i> = 8);
+<dt class="d_decl"><a name=".detab"></a>pure @trusted S <a name="detab"></a><span class="ddoc_psymbol">detab</span>(S)(S <i>s</i>, size_t <i>tabSize</i> = 8);
 </dt>
 <dd>Replace each tab character in <span class="d_inlinecode">s</span> with the number of spaces necessary
     to align the following character at the next tab stop where <span class="d_inlinecode">tabSize</span>
     is the distance between tab stops.<p></p>
 
 </dd>
-<dt class="d_decl">pure @trusted S <a name="entab"></a><span class="ddoc_psymbol">entab</span>(S)(S <i>s</i>, size_t <i>tabSize</i> = 8);
+<dt class="d_decl"><a name=".entab"></a>pure @trusted S <a name="entab"></a><span class="ddoc_psymbol">entab</span>(S)(S <i>s</i>, size_t <i>tabSize</i> = 8);
 </dt>
 <dd>Replaces spaces in <span class="d_inlinecode">s</span> with the optimal number of tabs.
     All spaces and tabs at the end of a line are removed.
@@ -677,8 +534,8 @@ Replace tabs with the appropriate number of spaces.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">@safe C1[] <a name="translate"></a><span class="ddoc_psymbol">translate</span>(C1, C2 = immutable(char))(C1[] <i>str</i>, dchar[dchar] <i>transTable</i>, const(C2)[] <i>toRemove</i> = null);
-<br>@safe C1[] <a name="translate"></a><span class="ddoc_psymbol">translate</span>(C1, S, C2 = immutable(char))(C1[] <i>str</i>, S[dchar] <i>transTable</i>, const(C2)[] <i>toRemove</i> = null);
+<dt class="d_decl"><a name=".translate"></a>@safe C1[] <a name="translate"></a><span class="ddoc_psymbol">translate</span>(C1, C2 = immutable(char))(C1[] <i>str</i>, dchar[dchar] <i>transTable</i>, const(C2)[] <i>toRemove</i> = null);
+<br><a name=".translate"></a>@safe C1[] <a name="translate"></a><span class="ddoc_psymbol">translate</span>(C1, S, C2 = immutable(char))(C1[] <i>str</i>, S[dchar] <i>transTable</i>, const(C2)[] <i>toRemove</i> = null);
 </dt>
 <dd>Replaces the characters in <span class="d_inlinecode">str</span> which are keys in <span class="d_inlinecode">transTable</span> with
     their corresponding values in <span class="d_inlinecode">transTable</span>. <span class="d_inlinecode">transTable</span> is an AA
@@ -702,49 +559,131 @@ Replace tabs with the appropriate number of spaces.
 <b>Examples:</b><br><pre class="d_code"><span class="d_keyword">dchar</span>[<span class="d_keyword">dchar</span>] transTable1 = ['e' : '5', 'o' : '7', '5': 'q'];
 <span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable1) == <span class="d_string">"h5ll7 w7rld"</span>);
 
-<span class="d_keyword">dchar</span>[<span class="d_keyword">dchar</span>] transTable2 = ['e' : '5', 'o' : '7', '5': 'q'];
-<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable2, <span class="d_string">"low"</span>) == <span class="d_string">"h5 rd"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable1, <span class="d_string">"low"</span>) == <span class="d_string">"h5 rd"</span>);
 
-string[<span class="d_keyword">dchar</span>] transTable3 = ['e' : <span class="d_string">"5"</span>, 'o' : <span class="d_string">"orange"</span>];
-<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable3) == <span class="d_string">"h5llorange worangerld"</span>);
+string[<span class="d_keyword">dchar</span>] transTable2 = ['e' : <span class="d_string">"5"</span>, 'o' : <span class="d_string">"orange"</span>];
+<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable2) == <span class="d_string">"h5llorange worangerld"</span>);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">string <a name="maketrans"></a><span class="ddoc_psymbol">maketrans</span>(in char[] <i>from</i>, in char[] <i>to</i>);
+<dt class="d_decl"><a name=".translate"></a>nothrow @trusted C[] <a name="translate"></a><span class="ddoc_psymbol">translate</span>(C = immutable(char))(in char[] <i>str</i>, in char[] <i>transTable</i>, in char[] <i>toRemove</i> = null);
+<br><a name=".makeTrans"></a>pure nothrow @trusted string <a name="makeTrans"></a><span class="ddoc_psymbol">makeTrans</span>(in char[] <i>from</i>, in char[] <i>to</i>);
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in February 2012.</span>
+<dd>This is an <i><span style="color:red">ASCII-only</span></i> overload of <a href="#translate"><span class="d_inlinecode">translate</span></a>. It
+    will <i>not</i> work with Unicode. It exists as an optimization for the
+    cases where Unicode processing is not necessary.
 <p></p>
-Construct translation table for translate().
+Unlike the other overloads of <a href="#translate"><span class="d_inlinecode">translate</span></a>, this one does not take
+    an AA. Rather, it takes a <span class="d_inlinecode">string</span> generated by <a href="#makeTrans"><span class="d_inlinecode">makeTrans</span></a>.
 <p></p>
-<span style="color:red">BUGS:</span><br>only works with ASCII<p></p>
+
+    The array generated by <span class="d_inlinecode">makeTrans</span> is <span class="d_inlinecode">256</span> elements long such that
+    the index is equal to the ASCII character being replaced and the value is
+    equal to the character that it's being replaced with. Note that <a name="translate"></a><span class="ddoc_psymbol">translate</span>
+    does not decode any of the characters, so you can actually pass it Extended
+    ASCII characters if you want to (ASCII only actually uses <span class="d_inlinecode">128</span>
+    characters), but be warned that Extended ASCII characters are not valid
+    Unicode and therefore will result in a <span class="d_inlinecode">UTFException</span> being thrown from
+    most other Phobos functions.
+<p></p>
+
+    Also, because no decoding occurs, it is possible to use this overload to
+    <a name="translate"></a><span class="ddoc_psymbol">translate</span> ASCII characters within a proper UTF-8 string without altering the
+    other, non-ASCII characters. It's replacing any code unit greater than
+    <span class="d_inlinecode">127</span> with another code unit or replacing any code unit with another code
+    unit greater than <span class="d_inlinecode">127</span> which will cause UTF validation issues.
+
+<p></p>
+<b>See Also:</b><br><a href="#tr"><span class="d_inlinecode">tr</span></a>
+        <a href="std_array.html#replace"><span class="d_inlinecode">std.array.replace</span></a>
+
+<p></p>
+<b>Parameters:</b><table class=parms><tr><td valign=top>str</td>
+<td valign=top>The original string.</td></tr>
+<tr><td valign=top>transTable</td>
+<td valign=top>The string indicating which characters to replace and what
+                     to replace them with. It is generated by <a href="#makeTrans"><span class="d_inlinecode">makeTrans</span></a>.</td></tr>
+<tr><td valign=top>toRemove</td>
+<td valign=top>The characters to remove from the string.</td></tr>
+</table><p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">auto</span> transTable1 = makeTrans(<span class="d_string">"eo5"</span>, <span class="d_string">"57q"</span>);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable1) == <span class="d_string">"h5ll7 w7rld"</span>);
+
+<span class="d_keyword">assert</span>(<span class="d_psymbol">translate</span>(<span class="d_string">"hello world"</span>, transTable1, <span class="d_string">"low"</span>) == <span class="d_string">"h5 rd"</span>);
+</pre>
+<p></p>
 
 </dd>
-<dt class="d_decl">string <a name="translate"></a><span class="ddoc_psymbol">translate</span>()(in char[] <i>s</i>, in char[] <i>transtab</i>, in char[] <i>delchars</i>);
+<dt class="d_decl"><a name=".format"></a>string <a name="format"></a><span class="ddoc_psymbol">format</span>(Char, Args...)(in Char[] <i>fmt</i>, Args <i>args</i>);
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in February 2012.
-   Please use the version of <span class="d_inlinecode"><a name="translate"></a><span class="ddoc_psymbol">translate</span></span> which takes an AA instead.</span>
+<dd>Format arguments into a string.
 <p></p>
-Translate characters in s[] using table created by maketrans().
- Delete chars in delchars[].
+<span style="color:red"><a name="format"></a><span class="ddoc_psymbol">format</span>'s current implementation has been replaced with <a href="#xformat"><span class="d_inlinecode">xformat</span></a>'s
+        implementation. in November 2012.
+        This is seamless for most code, but it makes it so that the only
+        argument that can be a <a name="format"></a><span class="ddoc_psymbol">format</span> string is the first one, so any
+        code which used multiple <a name="format"></a><span class="ddoc_psymbol">format</span> strings has broken. Please change
+        your calls to <a name="format"></a><span class="ddoc_psymbol">format</span> accordingly.
 <p></p>
-<span style="color:red">BUGS:</span><br>only works with ASCII<p></p>
+
+        e.g.:
+<pre class="d_code"><span class="d_psymbol">format</span>(<span class="d_string">"key = %s"</span>, key, <span class="d_string">", value = %s"</span>, value)
+</pre>
+        needs to be rewritten as:
+<pre class="d_code"><span class="d_psymbol">format</span>(<span class="d_string">"key = %s, value = %s"</span>, key, value)
+</pre>
+   </span><p></p>
 
 </dd>
-<dt class="d_decl">string <a name="format"></a><span class="ddoc_psymbol">format</span>(...);
+<dt class="d_decl"><a name=".sformat"></a>char[] <a name="sformat"></a><span class="ddoc_psymbol">sformat</span>(Char, Args...)(char[] <i>buf</i>, in Char[] <i>fmt</i>, Args <i>args</i>);
 </dt>
-<dd>Format arguments into a string.<p></p>
-
-</dd>
-<dt class="d_decl">char[] <a name="sformat"></a><span class="ddoc_psymbol">sformat</span>(char[] <i>s</i>,...);
-</dt>
-<dd>Format arguments into string <i><i>s</i></i> which must be large
+<dd>Format arguments into string <i>s</i> which must be large
  enough to hold the result. Throws RangeError if it is not.
 <p></p>
-<b>Returns:</b><br><i>s</i><p></p>
+<b>Returns:</b><br>s
+<p></p>
+
+  <span style="color:red"><a name="sformat"></a><span class="ddoc_psymbol">sformat</span>'s current implementation has been replaced with <a href="#xsformat"><span class="d_inlinecode">xsformat</span></a>'s
+        implementation. in November 2012.
+        This is seamless for most code, but it makes it so that the only
+        argument that can be a format string is the first one, so any
+        code which used multiple format strings has broken. Please change
+        your calls to <a name="sformat"></a><span class="ddoc_psymbol">sformat</span> accordingly.
+<p></p>
+
+        e.g.:
+<pre class="d_code"><span class="d_psymbol">sformat</span>(buf, <span class="d_string">"key = %s"</span>, key, <span class="d_string">", value = %s"</span>, value)
+</pre>
+        needs to be rewritten as:
+<pre class="d_code"><span class="d_psymbol">sformat</span>(buf, <span class="d_string">"key = %s, value = %s"</span>, key, value)
+</pre>
+   </span><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="inPattern"></a><span class="ddoc_psymbol">inPattern</span>(S)(dchar <i>c</i>, in S <i>pattern</i>);
+<dt class="d_decl"><a name=".xformat"></a>string <a name="xformat"></a><span class="ddoc_psymbol">xformat</span>(Char, Args...)(in Char[] <i>fmt</i>, Args <i>args</i>);
+</dt>
+<dd>Format arguments into a string.
+<p></p>
+<a href="#format"><span class="d_inlinecode">format</span></a> has been changed to use this implementation in November 2012.
+ Then <a name="xformat"></a><span class="ddoc_psymbol">xformat</span> has been scheduled for deprecation at the same time.
+ It will be deprecateed in May 2013.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".xsformat"></a>char[] <a name="xsformat"></a><span class="ddoc_psymbol">xsformat</span>(Char, Args...)(char[] <i>buf</i>, in Char[] <i>fmt</i>, Args <i>args</i>);
+</dt>
+<dd>Format arguments into string <span class="d_param">buf</span> which must be large
+ enough to hold the result. Throws RangeError if it is not.
+<p></p>
+<a href="#sformat"><span class="d_inlinecode">sformat</span></a> has been changed to use this implementation in November 2012.
+ Then <a name="xsformat"></a><span class="ddoc_psymbol">xsformat</span> has been scheduled for deprecation at the same time.
+ It will be deprecateed in May 2013.
+
+<p></p>
+<b>Returns:</b><br>filled slice of <span class="d_param">buf</span><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".inPattern"></a>bool <a name="inPattern"></a><span class="ddoc_psymbol">inPattern</span>(S)(dchar <i>c</i>, in S <i>pattern</i>);
 </dt>
 <dd>See if character c is in the pattern.
 <p></p>
@@ -766,29 +705,29 @@ In the future, the pattern syntax may be improved
   to be more like regular expression character classes.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="inPattern"></a><span class="ddoc_psymbol">inPattern</span>(S)(dchar <i>c</i>, S[] <i>patterns</i>);
+<dt class="d_decl"><a name=".inPattern"></a>bool <a name="inPattern"></a><span class="ddoc_psymbol">inPattern</span>(S)(dchar <i>c</i>, S[] <i>patterns</i>);
 </dt>
 <dd>See if character c is in the intersection of the patterns.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="countchars"></a><span class="ddoc_psymbol">countchars</span>(S, S1)(S <i>s</i>, in S1 <i>pattern</i>);
+<dt class="d_decl"><a name=".countchars"></a>size_t <a name="countchars"></a><span class="ddoc_psymbol">countchars</span>(S, S1)(S <i>s</i>, in S1 <i>pattern</i>);
 </dt>
 <dd>Count characters in s that match pattern.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="removechars"></a><span class="ddoc_psymbol">removechars</span>(S)(S <i>s</i>, in S <i>pattern</i>);
+<dt class="d_decl"><a name=".removechars"></a>S <a name="removechars"></a><span class="ddoc_psymbol">removechars</span>(S)(S <i>s</i>, in S <i>pattern</i>);
 </dt>
 <dd>Return string that is s with all characters removed that match pattern.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="squeeze"></a><span class="ddoc_psymbol">squeeze</span>(S)(S <i>s</i>, in S <i>pattern</i> = null);
+<dt class="d_decl"><a name=".squeeze"></a>S <a name="squeeze"></a><span class="ddoc_psymbol">squeeze</span>(S)(S <i>s</i>, in S <i>pattern</i> = null);
 </dt>
 <dd>Return string where sequences of a character in s[] from pattern[]
  are replaced with a single instance of that character.
  If pattern is <b>null</b>, it defaults to all characters.<p></p>
 
 </dd>
-<dt class="d_decl">S1 <a name="munch"></a><span class="ddoc_psymbol">munch</span>(S1, S2)(ref S1 <i>s</i>, S2 <i>pattern</i>);
+<dt class="d_decl"><a name=".munch"></a>S1 <a name="munch"></a><span class="ddoc_psymbol">munch</span>(S1, S2)(ref S1 <i>s</i>, S2 <i>pattern</i>);
 </dt>
 <dd>Finds the position <span class="d_param">pos</span> of the first character in <span class="d_param">s</span> that does not match <span class="d_param">pattern</span> (in the terminology used by
  <a href="std_string.html">inPattern</a>). Updates <span class="d_param">s =
@@ -802,13 +741,14 @@ string t = <span class="d_psymbol">munch</span>(s, <span class="d_string">"01234
 t = <span class="d_psymbol">munch</span>(s, <span class="d_string">"0123456789"</span>);
 <span class="d_keyword">assert</span>(t == <span class="d_string">""</span> &amp;&amp; s == <span class="d_string">"abc"</span>);
 </pre>
+<p></p>
 
 The <span class="d_param"><a name="munch"></a><span class="ddoc_psymbol">munch</span></span> function is mostly convenient for skipping
 certain category of characters (e.g. whitespace) when parsing
 strings. (In such cases, the return value is not used.)<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="succ"></a><span class="ddoc_psymbol">succ</span>(S)(S <i>s</i>);
+<dt class="d_decl"><a name=".succ"></a>S <a name="succ"></a><span class="ddoc_psymbol">succ</span>(S)(S <i>s</i>);
 </dt>
 <dd>Return string that is the 'successor' to s[].
  If the rightmost character is a-zA-Z0-9, it is incremented within
@@ -816,7 +756,7 @@ strings. (In such cases, the return value is not used.)<p></p>
  repeated with the one to its immediate left.<p></p>
 
 </dd>
-<dt class="d_decl">C1[] <a name="tr"></a><span class="ddoc_psymbol">tr</span>(C1, C2, C3, C4 = immutable(char))(C1[] <i>str</i>, const(C2)[] <i>from</i>, const(C3)[] <i>to</i>, const(C4)[] <i>modifiers</i> = null);
+<dt class="d_decl"><a name=".tr"></a>C1[] <a name="tr"></a><span class="ddoc_psymbol">tr</span>(C1, C2, C3, C4 = immutable(char))(C1[] <i>str</i>, const(C2)[] <i>from</i>, const(C3)[] <i>to</i>, const(C4)[] <i>modifiers</i> = null);
 </dt>
 <dd>Replaces the characters in <span class="d_inlinecode">str</span> which are in <span class="d_inlinecode">from</span> with the
     the corresponding characters in <span class="d_inlinecode">to</span> and returns the resulting string.
@@ -836,13 +776,13 @@ strings. (In such cases, the return value is not used.)<p></p>
 <td valign=top>String containing modifiers.</td></tr>
 </table><p></p>
 <b>Modifiers:</b><br>
-<center><table cellspacing=0 cellpadding=5 class=book><caption></caption>        <tr><td valign=top>Modifier</td> <td valign=top>Description</td></tr>
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>        <tr><td valign=top>Modifier</td> <td valign=top>Description</td></tr>
         <tr><td valign=top><span class="d_inlinecode">'c'</span></td> <td valign=top>Complement the list of characters in <span class="d_inlinecode">from</span></td></tr>
         <tr><td valign=top><span class="d_inlinecode">'d'</span></td> <td valign=top>Removes matching characters with no corresponding
                               replacement in <span class="d_inlinecode">to</span></td></tr>
         <tr><td valign=top><span class="d_inlinecode">'s'</span></td> <td valign=top>Removes adjacent duplicates in the replaced
                               characters</td></tr>
-        </table></center>
+        </table>
 <p></p>
 
     If the modifier <span class="d_inlinecode">'d'</span> is present, then the number of characters in
@@ -864,7 +804,7 @@ strings. (In such cases, the return value is not used.)<p></p>
     for that).<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isNumeric"></a><span class="ddoc_psymbol">isNumeric</span>(const(char)[] <i>s</i>, in bool <i>bAllowSep</i> = false);
+<dt class="d_decl"><a name=".isNumeric"></a>bool <a name="isNumeric"></a><span class="ddoc_psymbol">isNumeric</span>(const(char)[] <i>s</i>, in bool <i>bAllowSep</i> = false);
 </dt>
 <dd>[in] string <i>s</i> can be formatted in the following ways:
 <p></p>
@@ -908,21 +848,7 @@ Integer Whole Number:
  function, or any of the conversion functions.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isNumeric"></a><span class="ddoc_psymbol">isNumeric</span>(...);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.</span>
-<p></p>
-Allow any object as a parameter<p></p>
-
-</dd>
-<dt class="d_decl">bool <a name="isNumeric"></a><span class="ddoc_psymbol">isNumeric</span>(TypeInfo[] <i>_arguments</i>, va_list <i>_argptr</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in January 2012.</span>
-<p></p>
-Check only the first parameter, all others will be ignored.<p></p>
-
-</dd>
-<dt class="d_decl">char[] <a name="soundex"></a><span class="ddoc_psymbol">soundex</span>(const(char)[] <i>string</i>, char[] <i>buffer</i> = null);
+<dt class="d_decl"><a name=".soundex"></a>char[] <a name="soundex"></a><span class="ddoc_psymbol">soundex</span>(const(char)[] <i>string</i>, char[] <i>buffer</i> = null);
 </dt>
 <dd>Soundex algorithm.
 <p></p>
@@ -953,7 +879,7 @@ The Soundex algorithm converts a word into 4 characters
   but this one is the standard one.<p></p>
 
 </dd>
-<dt class="d_decl">string[string] <a name="abbrev"></a><span class="ddoc_psymbol">abbrev</span>(string[] <i>values</i>);
+<dt class="d_decl"><a name=".abbrev"></a>string[string] <a name="abbrev"></a><span class="ddoc_psymbol">abbrev</span>(string[] <i>values</i>);
 </dt>
 <dd>Construct an associative array consisting of all
  abbreviations that uniquely map to the strings in <i>values</i>.
@@ -988,13 +914,13 @@ This is useful in cases where the user is expected to type
  </pre><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="column"></a><span class="ddoc_psymbol">column</span>(S)(S <i>str</i>, size_t <i>tabsize</i> = 8);
+<dt class="d_decl"><a name=".column"></a>size_t <a name="column"></a><span class="ddoc_psymbol">column</span>(S)(S <i>str</i>, size_t <i>tabsize</i> = 8);
 </dt>
 <dd>Compute <a name="column"></a><span class="ddoc_psymbol">column</span> number after string if string starts in the
  leftmost <a name="column"></a><span class="ddoc_psymbol">column</span>, which is numbered starting from 0.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="wrap"></a><span class="ddoc_psymbol">wrap</span>(S)(S <i>s</i>, size_t <i>columns</i> = 80, S <i>firstindent</i> = null, S <i>indent</i> = null, size_t <i>tabsize</i> = 8);
+<dt class="d_decl"><a name=".wrap"></a>S <a name="wrap"></a><span class="ddoc_psymbol">wrap</span>(S)(S <i>s</i>, size_t <i>columns</i> = 80, S <i>firstindent</i> = null, S <i>indent</i> = null, size_t <i>tabsize</i> = 8);
 </dt>
 <dd>Wrap text into a paragraph.
 <p></p>
@@ -1018,6 +944,43 @@ The input text string s is formed into a paragraph
 <b>Returns:</b><br>The resulting paragraph.<p></p>
 
 </dd>
+<dt class="d_decl"><a name=".outdent"></a>S <a name="outdent"></a><span class="ddoc_psymbol">outdent</span>(S)(S <i>str</i>);
+<br><a name=".outdent"></a>S[] <a name="outdent"></a><span class="ddoc_psymbol">outdent</span>(S)(S[] <i>lines</i>);
+</dt>
+<dd>Removes indentation from a multi-line string or an array of single-line strings.
+<p></p>
+This uniformly outdents the text as much as possible.
+ Whitespace-only lines are always converted to blank lines.
+<p></p>
+
+ A StringException will be thrown if inconsistent indentation prevents
+ the input from being outdented.
+<p></p>
+
+ Works at compile-time.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"> writeln(<span class="d_string">q{
+     import std.stdio;
+     void main() {
+         writeln("Hello");
+     }
+ }</span>.<span class="d_psymbol">outdent</span>());
+</pre>
+
+<p></p>
+<b>Output:</b><br>
+<pre class="d_code">
+ <span class="d_keyword">import</span> std.stdio;
+ <span class="d_keyword">void</span> main() {
+     writeln(<span class="d_string">"Hello"</span>);
+ }
+
+</pre>
+<p></p>
+
+</dd>
 </dl>
 
     
@@ -1032,9 +995,9 @@ The input text string s is formed into a paragraph
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

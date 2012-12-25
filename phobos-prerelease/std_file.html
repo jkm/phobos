@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.file - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:02 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/file.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdFile" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.file</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/file.d -->
@@ -217,16 +236,16 @@ to module <span class="d_inlinecode"><a href="std_stdio.html">std.stdio</a></spa
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/file.d">std/file.d</a><p></p>
 
-<dl><dt class="d_decl">class <a name="FileException"></a><span class="ddoc_psymbol">FileException</span>: object.Exception;
+<dl><dt class="d_decl"><a name=".FileException"></a>class <a name="FileException"></a><span class="ddoc_psymbol">FileException</span>: object.Exception;
 </dt>
 <dd>Exception thrown for file I/O errors.<p></p>
 
-<dl><dt class="d_decl">immutable uint <a name="errno"></a><span class="ddoc_psymbol">errno</span>;
+<dl><dt class="d_decl"><a name=".FileException.errno"></a>immutable uint <a name="errno"></a><span class="ddoc_psymbol">errno</span>;
 </dt>
 <dd>OS error code.<p></p>
 
 </dd>
-<dt class="d_decl">this(in char[] <i>name</i>, in char[] <i>msg</i>, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__);
+<dt class="d_decl"><a name=".FileException.this"></a> this(in char[] <i>name</i>, in char[] <i>msg</i>, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__);
 </dt>
 <dd>Constructor which takes an error message.
 <p></p>
@@ -241,10 +260,10 @@ to module <span class="d_inlinecode"><a href="std_stdio.html">std.stdio</a></spa
 </table><p></p>
 
 </dd>
-<dt class="d_decl">this(in char[] <i>name</i>, uint <i>errno</i> = std.<i>file</i>.getErrno, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__);
+<dt class="d_decl"><a name=".FileException.this"></a> this(in char[] <i>name</i>, uint <i>errno</i> = .<i>errno</i>, string <i>file</i> = __FILE__, size_t <i>line</i> = __LINE__);
 </dt>
 <dd>Constructor which takes the error number (<a href="http://google.com/search?btnI=I%27m+Feeling+Lucky&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=GetLastError">GetLastError</a>
-        in Windows, <span class="d_param">getErrno</span> in Posix).
+        in Windows, <span class="d_param"><i>errno</i></span> in Posix).
 <p></p>
 <b>Parameters:</b><table class=parms><tr><td valign=top>char[] <i>name</i></td>
 <td valign=top>Name of <i>file</i> for which the error occurred.</td></tr>
@@ -259,7 +278,7 @@ to module <span class="d_inlinecode"><a href="std_stdio.html">std.stdio</a></spa
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">void[] <a name="read"></a><span class="ddoc_psymbol">read</span>(in char[] <i>name</i>, size_t <i>upTo</i> = (uint).max);
+<dt class="d_decl"><a name=".read"></a>void[] <a name="read"></a><span class="ddoc_psymbol">read</span>(in char[] <i>name</i>, size_t <i>upTo</i> = (ulong).max);
 </dt>
 <dd>Read entire contents of file <span class="d_inlinecode"><i>name</i></span> and returns it as an untyped
 array. If the file size is larger than <span class="d_inlinecode"><i>upTo</i></span>, only <span class="d_inlinecode"><i>upTo</i></span>
@@ -282,7 +301,7 @@ bytes are <a name="read"></a><span class="ddoc_psymbol">read</span>.
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">S <a name="readText"></a><span class="ddoc_psymbol">readText</span>(S = string)(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".readText"></a>S <a name="readText"></a><span class="ddoc_psymbol">readText</span>(S = string)(in char[] <i>name</i>);
 </dt>
 <dd>Read and validates (using <a href="std_utf.html#validate"><span class="d_inlinecode">std.utf.validate</span></a>) a text file. <span class="d_inlinecode">S</span>
 can be a type of array of characters of any width and constancy. No
@@ -293,7 +312,7 @@ validation will fail.
 <b>Returns:</b><br>Array of characters read.
 
 <p></p>
-<b>Throws:</b><br><span class="d_inlinecode">FileException</span> on file error, <span class="d_inlinecode">UtfException</span> on UTF
+<b>Throws:</b><br><span class="d_inlinecode">FileException</span> on file error, <span class="d_inlinecode">UTFException</span> on UTF
 decoding error.
 
 <p></p>
@@ -305,7 +324,7 @@ enforce(chomp(<span class="d_psymbol">readText</span>(<span class="d_string">"de
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="write"></a><span class="ddoc_psymbol">write</span>(in char[] <i>name</i>, const void[] <i>buffer</i>);
+<dt class="d_decl"><a name=".write"></a>void <a name="write"></a><span class="ddoc_psymbol">write</span>(in char[] <i>name</i>, const void[] <i>buffer</i>);
 </dt>
 <dd>Write <span class="d_inlinecode"><i>buffer</i></span> to file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
@@ -324,7 +343,7 @@ enforce(chomp(<span class="d_psymbol">readText</span>(<span class="d_string">"de
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="append"></a><span class="ddoc_psymbol">append</span>(in char[] <i>name</i>, in void[] <i>buffer</i>);
+<dt class="d_decl"><a name=".append"></a>void <a name="append"></a><span class="ddoc_psymbol">append</span>(in char[] <i>name</i>, in void[] <i>buffer</i>);
 </dt>
 <dd>Appends <span class="d_inlinecode"><i>buffer</i></span> to file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
@@ -345,35 +364,28 @@ enforce(chomp(<span class="d_psymbol">readText</span>(<span class="d_string">"de
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="rename"></a><span class="ddoc_psymbol">rename</span>(in char[] <i>from</i>, in char[] <i>to</i>);
+<dt class="d_decl"><a name=".rename"></a>void <a name="rename"></a><span class="ddoc_psymbol">rename</span>(in char[] <i>from</i>, in char[] <i>to</i>);
 </dt>
 <dd>Rename file <span class="d_inlinecode"><i>from</i></span> <i>to</i> <span class="d_inlinecode"><i>to</i></span>.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="remove"></a><span class="ddoc_psymbol">remove</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".remove"></a>void <a name="remove"></a><span class="ddoc_psymbol">remove</span>(in char[] <i>name</i>);
 </dt>
 <dd>Delete file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="getSize"></a><span class="ddoc_psymbol">getSize</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".getSize"></a>ulong <a name="getSize"></a><span class="ddoc_psymbol">getSize</span>(in char[] <i>name</i>);
 </dt>
 <dd>Get size of file <span class="d_inlinecode"><i>name</i></span> in bytes.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error (e.g., file not found).<p></p>
 
 </dd>
-<dt class="d_decl">deprecated void <a name="getTimes"></a><span class="ddoc_psymbol">getTimes</span>(in char[] <i>name</i>, out d_time <i>ftc</i>, out d_time <i>fta</i>, out d_time <i>ftm</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use either the
-       version of <span class="d_inlinecode"><a name="getTimes"></a><span class="ddoc_psymbol">getTimes</span></span> which takes two arguments or <span class="d_inlinecode">getTimesWin</span>
-       (Windows-Only) instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">void <a name="getTimes"></a><span class="ddoc_psymbol">getTimes</span>(in char[] <i>name</i>, out SysTime <i>fileAccessTime</i>, out SysTime <i>fileModificationTime</i>);
+<dt class="d_decl"><a name=".getTimes"></a>void <a name="getTimes"></a><span class="ddoc_psymbol">getTimes</span>(in char[] <i>name</i>, out SysTime <i>fileAccessTime</i>, out SysTime <i>fileModificationTime</i>);
 </dt>
 <dd>Get the access and modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
@@ -387,7 +399,7 @@ enforce(chomp(<span class="d_psymbol">readText</span>(<span class="d_string">"de
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="getTimesWin"></a><span class="ddoc_psymbol">getTimesWin</span>(in char[] <i>name</i>, out SysTime <i>fileCreationTime</i>, out SysTime <i>fileAccessTime</i>, out SysTime <i>fileModificationTime</i>);
+<dt class="d_decl"><a name=".getTimesWin"></a>void <a name="getTimesWin"></a><span class="ddoc_psymbol">getTimesWin</span>(in char[] <i>name</i>, out SysTime <i>fileCreationTime</i>, out SysTime <i>fileAccessTime</i>, out SysTime <i>fileModificationTime</i>);
 </dt>
 <dd><span style="color:blue">This function is Windows-Only.</span>
 <p></p>
@@ -410,64 +422,14 @@ Get creation/access/modified times of file <span class="d_inlinecode"><i>name</i
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="getTimesPosix"></a><span class="ddoc_psymbol">getTimesPosix</span>(in char[] <i>name</i>, out SysTime <i>fileStatusChangeTime</i>, out SysTime <i>fileAccessTime</i>, out SysTime <i>fileModificationTime</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011. Please use the
-          <span class="d_inlinecode">getTimes</span> with two arguments instead.</span>
-<p></p>
-<span style="color:blue">This function is Posix-Only.</span>
-<p></p>
-
-    Get file status change time, acces time, and modification times
-    of file <span class="d_inlinecode"><i>name</i></span>.
-<p></p>
-
-    <span class="d_inlinecode">getTimes</span> is the same on both Windows and Posix, but it is not
-    possible to get the file creation time on Posix systems, so
-    <span class="d_inlinecode">getTimes</span> cannot give you the file creation time. <span class="d_inlinecode">getTimesWin</span>
-    does the same thing on Windows as <span class="d_inlinecode">getTimes</span> except that it also gives
-    you the file creation time. This function was created to do the same
-    thing that the old, 3 argument <span class="d_inlinecode">getTimes</span> was doing on Posix - giving
-    you the time that the file status last changed - but ultimately, that's
-    not really very useful, and we don't like having functions which are
-    OS-specific when we can reasonably avoid it. So, this function is being
-    deprecated. You can use <span class="d_inlinecode">DirEntry</span>'s  <span class="d_inlinecode">statBuf</span> property if you
-    really want to get at that information (along with all of the other
-    OS-specific stuff that <span class="d_inlinecode">stat</span> gives you).
-
-<p></p>
-<b>Parameters:</b><table class=parms><tr><td valign=top>char[] <i>name</i></td>
-<td valign=top>File <i>name</i> to get times for.</td></tr>
-<tr><td valign=top>SysTime <i>fileStatusChangeTime</i></td>
-<td valign=top>Time the file's status was last changed.</td></tr>
-<tr><td valign=top>SysTime <i>fileAccessTime</i></td>
-<td valign=top>Time the file was last accessed.</td></tr>
-<tr><td valign=top>SysTime <i>fileModificationTime</i></td>
-<td valign=top>Time the file was last modified.</td></tr>
-</table><p></p>
-<b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
-
-</dd>
-<dt class="d_decl">deprecated d_time <a name="lastModified"></a><span class="ddoc_psymbol">lastModified</span>(in char[] <i>name</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-       <span class="d_inlinecode">timeLastModified</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">deprecated d_time <a name="lastModified"></a><span class="ddoc_psymbol">lastModified</span>(in char[] <i>name</i>, d_time <i>returnIfMissing</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-       <span class="d_inlinecode">timeLastModified</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".timeLastModified"></a>SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns the time that the given file was last modified.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> if the given file does not exist.<p></p>
 
 </dd>
-<dt class="d_decl">SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>(in char[] <i>name</i>, SysTime <i>returnIfMissing</i>);
+<dt class="d_decl"><a name=".timeLastModified"></a>SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>(in char[] <i>name</i>, SysTime <i>returnIfMissing</i>);
 </dt>
 <dd>Returns the time that the given file was last modified. If the
     file does not exist, returns <span class="d_inlinecode"><i>returnIfMissing</i></span>.
@@ -498,12 +460,12 @@ A frequent usage pattern occurs in build automation tools such as
 <p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="exists"></a><span class="ddoc_psymbol">exists</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".exists"></a>@property bool <a name="exists"></a><span class="ddoc_psymbol">exists</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns whether the given file (or directory) <a name="exists"></a><span class="ddoc_psymbol">exists</span>.<p></p>
 
 </dd>
-<dt class="d_decl">uint <a name="getAttributes"></a><span class="ddoc_psymbol">getAttributes</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".getAttributes"></a>uint <a name="getAttributes"></a><span class="ddoc_psymbol">getAttributes</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns the attributes of the given file.
 <p></p>
@@ -523,7 +485,7 @@ Note that the file attributes on Windows and Posix systems are
 </table><p></p>
 
 </dd>
-<dt class="d_decl">uint <a name="getLinkAttributes"></a><span class="ddoc_psymbol">getLinkAttributes</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".getLinkAttributes"></a>uint <a name="getLinkAttributes"></a><span class="ddoc_psymbol">getLinkAttributes</span>(in char[] <i>name</i>);
 </dt>
 <dd>If the given file is a symbolic link, then this returns the attributes of the
     symbolic link itself rather than file that it points to. If the given file
@@ -541,7 +503,7 @@ On Windows, <a name="getLinkAttributes"></a><span class="ddoc_psymbol">getLinkAt
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="isDir"></a><span class="ddoc_psymbol">isDir</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".isDir"></a>@property bool <a name="isDir"></a><span class="ddoc_psymbol">isDir</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns whether the given file is a directory.
 <p></p>
@@ -557,26 +519,7 @@ On Windows, <a name="getLinkAttributes"></a><span class="ddoc_psymbol">getLinkAt
 <p></p>
 
 </dd>
-<dt class="d_decl">deprecated alias <a name="isdir"></a><span class="ddoc_psymbol">isdir</span>;
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-       <span class="d_inlinecode">isDir</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">nothrow @property bool <a name="isDir"></a><span class="ddoc_psymbol">isDir</span>(uint <i>attributes</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-          Please use <span class="d_inlinecode">attrIsDir</span> instead.</span>
-<p></p>
-Returns whether the given file <i>attributes</i> are for a directory.
-
-<p></p>
-<b>Parameters:</b><table class=parms><tr><td valign=top>uint <i>attributes</i></td>
-<td valign=top>The file <i>attributes</i>.</td></tr>
-</table><p></p>
-
-</dd>
-<dt class="d_decl">nothrow bool <a name="attrIsDir"></a><span class="ddoc_psymbol">attrIsDir</span>(uint <i>attributes</i>);
+<dt class="d_decl"><a name=".attrIsDir"></a>nothrow bool <a name="attrIsDir"></a><span class="ddoc_psymbol">attrIsDir</span>(uint <i>attributes</i>);
 </dt>
 <dd>Returns whether the given file <i>attributes</i> are for a directory.
 <p></p>
@@ -589,7 +532,7 @@ Returns whether the given file <i>attributes</i> are for a directory.
 <p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="isFile"></a><span class="ddoc_psymbol">isFile</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".isFile"></a>@property bool <a name="isFile"></a><span class="ddoc_psymbol">isFile</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns whether the given file (or directory) is a file.
 <p></p>
@@ -619,38 +562,7 @@ On Windows, if a file is not a directory, then it's a file. So,
 <p></p>
 
 </dd>
-<dt class="d_decl">deprecated alias <a name="isfile"></a><span class="ddoc_psymbol">isfile</span>;
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-       <span class="d_inlinecode">isDir</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">nothrow @property bool <a name="isFile"></a><span class="ddoc_psymbol">isFile</span>(uint <i>attributes</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-          Please use <span class="d_inlinecode">attrIsFile</span> instead.</span>
-<p></p>
-Returns whether the given file <i>attributes</i> are for a file.
-<p></p>
-
-    On Windows, if a file is not a directory, it's a file. So,
-    either <span class="d_inlinecode"><a name="isFile"></a><span class="ddoc_psymbol">isFile</span></span> or <span class="d_inlinecode">isDir</span> will return <span class="d_inlinecode"><b>true</b></span> for any given file.
-<p></p>
-
-    On Posix systems, if <span class="d_inlinecode"><a name="isFile"></a><span class="ddoc_psymbol">isFile</span></span> is <span class="d_inlinecode"><b>true</b></span>, that indicates that the file
-    is a regular file (e.g. not a block not device). So, on Posix systems,
-    it's possible for both <span class="d_inlinecode"><a name="isFile"></a><span class="ddoc_psymbol">isFile</span></span> and <span class="d_inlinecode">isDir</span> to be <span class="d_inlinecode"><b>false</b></span> for a
-    particular file (in which case, it's a special file). If a file is a special
-    file, you can use the <i>attributes</i> to check what type of special
-    file it is (see the man page for <span class="d_inlinecode">stat</span> for more information).
-
-<p></p>
-<b>Parameters:</b><table class=parms><tr><td valign=top>uint <i>attributes</i></td>
-<td valign=top>The file <i>attributes</i>.</td></tr>
-</table><p></p>
-
-</dd>
-<dt class="d_decl">nothrow bool <a name="attrIsFile"></a><span class="ddoc_psymbol">attrIsFile</span>(uint <i>attributes</i>);
+<dt class="d_decl"><a name=".attrIsFile"></a>nothrow bool <a name="attrIsFile"></a><span class="ddoc_psymbol">attrIsFile</span>(uint <i>attributes</i>);
 </dt>
 <dd>Returns whether the given file <i>attributes</i> are for a file.
 <p></p>
@@ -676,12 +588,12 @@ On Windows, if a file is not a directory, it's a file. So, either
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isSymlink"></a><span class="ddoc_psymbol">isSymlink</span>(C)(const(C)[] <i>name</i>);
+<dt class="d_decl"><a name=".isSymlink"></a>bool <a name="isSymlink"></a><span class="ddoc_psymbol">isSymlink</span>(C)(const(C)[] <i>name</i>);
 </dt>
 <dd>Returns whether the given file is a symbolic link.
 <p></p>
-Always return <b>false</b> on Windows. It exists on Windows so that you don't
-    have to special-case code for Windows when dealing with symbolic links.
+On Windows, returns <span class="d_inlinecode"><b>true</b></span> when the file is either a symbolic link or a
+    junction point.
 
 <p></p>
 <b>Parameters:</b><table class=parms><tr><td valign=top>name</td>
@@ -690,29 +602,12 @@ Always return <b>false</b> on Windows. It exists on Windows so that you don't
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> if the given file does not exist.<p></p>
 
 </dd>
-<dt class="d_decl">nothrow @property bool <a name="isSymLink"></a><span class="ddoc_psymbol">isSymLink</span>(uint <i>attributes</i>);
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-          Please use <span class="d_inlinecode">attrIsSymlink</span> instead.</span>
-<p></p>
-Returns whether the given file <i>attributes</i> are for a symbolic link.
-<p></p>
-
-    Always return <span class="d_inlinecode"><b>false</b></span> on Windows. It exists on Windows so that you don't
-    have to special-case code for Windows when dealing with symbolic links.
-
-<p></p>
-<b>Parameters:</b><table class=parms><tr><td valign=top>uint <i>attributes</i></td>
-<td valign=top>The file <i>attributes</i>.</td></tr>
-</table><p></p>
-
-</dd>
-<dt class="d_decl">nothrow bool <a name="attrIsSymlink"></a><span class="ddoc_psymbol">attrIsSymlink</span>(uint <i>attributes</i>);
+<dt class="d_decl"><a name=".attrIsSymlink"></a>nothrow bool <a name="attrIsSymlink"></a><span class="ddoc_psymbol">attrIsSymlink</span>(uint <i>attributes</i>);
 </dt>
 <dd>Returns whether the given file <i>attributes</i> are for a symbolic link.
 <p></p>
-Always return <span class="d_inlinecode"><b>false</b></span> on Windows. It exists on Windows so that you don't
-    have to special-case code for Windows when dealing with symbolic links.
+On Windows, return <span class="d_inlinecode"><b>true</b></span> when the file is either a symbolic link or a
+    junction point.
 
 <p></p>
 <b>Parameters:</b><table class=parms><tr><td valign=top>uint <i>attributes</i></td>
@@ -726,33 +621,33 @@ Always return <span class="d_inlinecode"><b>false</b></span> on Windows. It exis
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="chdir"></a><span class="ddoc_psymbol">chdir</span>(in char[] <i>pathname</i>);
+<dt class="d_decl"><a name=".chdir"></a>void <a name="chdir"></a><span class="ddoc_psymbol">chdir</span>(in char[] <i>pathname</i>);
 </dt>
 <dd>Change directory to <span class="d_inlinecode"><i>pathname</i></span>.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="mkdir"></a><span class="ddoc_psymbol">mkdir</span>(in char[] <i>pathname</i>);
+<dt class="d_decl"><a name=".mkdir"></a>void <a name="mkdir"></a><span class="ddoc_psymbol">mkdir</span>(in char[] <i>pathname</i>);
 </dt>
 <dd>Make directory <span class="d_inlinecode"><i>pathname</i></span>.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="mkdirRecurse"></a><span class="ddoc_psymbol">mkdirRecurse</span>(in char[] <i>pathname</i>);
+<dt class="d_decl"><a name=".mkdirRecurse"></a>void <a name="mkdirRecurse"></a><span class="ddoc_psymbol">mkdirRecurse</span>(in char[] <i>pathname</i>);
 </dt>
 <dd>Make directory and all parent directories as needed.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="rmdir"></a><span class="ddoc_psymbol">rmdir</span>(in char[] <i>pathname</i>);
+<dt class="d_decl"><a name=".rmdir"></a>void <a name="rmdir"></a><span class="ddoc_psymbol">rmdir</span>(in char[] <i>pathname</i>);
 </dt>
 <dd>Remove directory <span class="d_inlinecode"><i>pathname</i></span>.
 <p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="symlink"></a><span class="ddoc_psymbol">symlink</span>(C1, C2)(const(C1)[] <i>original</i>, const(C2)[] <i>link</i>);
+<dt class="d_decl"><a name=".symlink"></a>void <a name="symlink"></a><span class="ddoc_psymbol">symlink</span>(C1, C2)(const(C1)[] <i>original</i>, const(C2)[] <i>link</i>);
 </dt>
 <dd><span style="color:blue">This function is Posix-Only.</span>
 <p></p>
@@ -764,11 +659,16 @@ Creates a <a name="symlink"></a><span class="ddoc_psymbol">symlink</span>.
 <tr><td valign=top>link</td>
 <td valign=top>The <a name="symlink"></a><span class="ddoc_psymbol">symlink</span> to create.</td></tr>
 </table><p></p>
+<b>Note:</b><br>
+Relative paths are relative to the current working directory,
+        not the files being linked to or from.
+
+<p></p>
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error (which includes if the <a name="symlink"></a><span class="ddoc_psymbol">symlink</span> already
         exists).<p></p>
 
 </dd>
-<dt class="d_decl">string <a name="readLink"></a><span class="ddoc_psymbol">readLink</span>(C)(const(C)[] <i>link</i>);
+<dt class="d_decl"><a name=".readLink"></a>string <a name="readLink"></a><span class="ddoc_psymbol">readLink</span>(C)(const(C)[] <i>link</i>);
 </dt>
 <dd><span style="color:blue">This function is Posix-Only.</span>
 <p></p>
@@ -781,7 +681,14 @@ Returns the path to the file pointed to by a symlink. Note that the
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="DirEntry"></a><span class="ddoc_psymbol">DirEntry</span>;
+<dt class="d_decl"><a name=".getcwd"></a>string <a name="getcwd"></a><span class="ddoc_psymbol">getcwd</span>();
+</dt>
+<dd>Get current directory.
+<p></p>
+<b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".DirEntry"></a>struct <a name="DirEntry"></a><span class="ddoc_psymbol">DirEntry</span>;
 </dt>
 <dd>Info on a file, similar to what you'd get from stat on a Posix system.
 <p></p>
@@ -789,7 +696,7 @@ A <span class="d_inlinecode"><a name="DirEntry"></a><span class="ddoc_psymbol">D
         the <span class="d_inlinecode"><a name="DirEntry"></a><span class="ddoc_psymbol">DirEntry</span></span> for a specific file) or <span class="d_inlinecode">dirEntries</span> (to get a
         <span class="d_inlinecode"><a name="DirEntry"></a><span class="ddoc_psymbol">DirEntry</span></span> for each file/directory in a particular directory).<p></p>
 
-<dl><dt class="d_decl">const @property string <a name="name"></a><span class="ddoc_psymbol">name</span>();
+<dl><dt class="d_decl"><a name=".DirEntry.name"></a>const @property string <a name="name"></a><span class="ddoc_psymbol">name</span>();
 </dt>
 <dd>Returns the path to the file represented by this <span class="d_inlinecode">DirEntry</span>.
 <p></p>
@@ -802,7 +709,7 @@ A <span class="d_inlinecode"><a name="DirEntry"></a><span class="ddoc_psymbol">D
 <p></p>
 
 </dd>
-<dt class="d_decl">@property bool <a name="isDir"></a><span class="ddoc_psymbol">isDir</span>();
+<dt class="d_decl"><a name=".DirEntry.isDir"></a>@property bool <a name="isDir"></a><span class="ddoc_psymbol">isDir</span>();
 </dt>
 <dd>Returns whether the file represented by this <span class="d_inlinecode">DirEntry</span> is a
             directory.
@@ -816,13 +723,7 @@ A <span class="d_inlinecode"><a name="DirEntry"></a><span class="ddoc_psymbol">D
 <p></p>
 
 </dd>
-<dt class="d_decl">deprecated alias <a name="isdir"></a><span class="ddoc_psymbol">isdir</span>;
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-               <span class="d_inlinecode">isDir</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">@property bool <a name="isFile"></a><span class="ddoc_psymbol">isFile</span>();
+<dt class="d_decl"><a name=".DirEntry.isFile"></a>@property bool <a name="isFile"></a><span class="ddoc_psymbol">isFile</span>();
 </dt>
 <dd>Returns whether the file represented by this <span class="d_inlinecode">DirEntry</span> is a file.
 <p></p>
@@ -848,47 +749,22 @@ On Windows, if a file is not a directory, then it's a file. So,
 <p></p>
 
 </dd>
-<dt class="d_decl">deprecated alias <a name="isfile"></a><span class="ddoc_psymbol">isfile</span>;
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-               <span class="d_inlinecode">isFile</span> instead.</span><p></p>
-
-</dd>
-<dt class="d_decl">@property bool <a name="isSymlink"></a><span class="ddoc_psymbol">isSymlink</span>();
+<dt class="d_decl"><a name=".DirEntry.isSymlink"></a>@property bool <a name="isSymlink"></a><span class="ddoc_psymbol">isSymlink</span>();
 </dt>
 <dd>Returns whether the file represented by this <span class="d_inlinecode">DirEntry</span> is a
             symbolic link.
 <p></p>
-Always return <b>false</b> on Windows. It exists on Windows so that you don't
-            have to special-case code for Windows when dealing with symbolic links.<p></p>
+On Windows, return <span class="d_inlinecode"><b>true</b></span> when the file is either a symbolic
+            link or a junction point.<p></p>
 
 </dd>
-<dt class="d_decl">@property ulong <a name="size"></a><span class="ddoc_psymbol">size</span>();
+<dt class="d_decl"><a name=".DirEntry.size"></a>@property ulong <a name="size"></a><span class="ddoc_psymbol">size</span>();
 </dt>
 <dd>Returns the <a name="size"></a><span class="ddoc_psymbol">size</span> of the the file represented by this <span class="d_inlinecode">DirEntry</span>
             in bytes.<p></p>
 
 </dd>
-<dt class="d_decl">deprecated const @property d_time <a name="creationTime"></a><span class="ddoc_psymbol">creationTime</span>();
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-                   <span class="d_inlinecode">timeCreated</span> instead.</span>
-<p></p>
-Returns the creation time of the file represented by this
-            <span class="d_inlinecode">DirEntry</span>.
-<p></p>
-
-            <span style="color:red">Note that this property has existed for both Windows and Posix
-                  systems but that it is <i>incorrect</i> on Posix systems. Posix
-                  systems do not have access to the creation time of a file. On
-                  Posix systems this property has incorrectly been the time that
-                  the file's status status last changed. If you want that value,
-                  then get it from the <span class="d_inlinecode">statBuf</span> property, which gives you
-                  access to the <span class="d_inlinecode">stat</span> struct which Posix systems use (check
-                  out <span class="d_inlinecode">stat</span>'s man page for more details.)</span><p></p>
-
-</dd>
-<dt class="d_decl">const @property SysTime <a name="timeCreated"></a><span class="ddoc_psymbol">timeCreated</span>();
+<dt class="d_decl"><a name=".DirEntry.timeCreated"></a>const @property SysTime <a name="timeCreated"></a><span class="ddoc_psymbol">timeCreated</span>();
 </dt>
 <dd><span style="color:blue">This function is Windows-Only.</span>
 <p></p>
@@ -896,34 +772,7 @@ Returns the creation time of the file represented by this
             <span class="d_inlinecode">DirEntry</span>.<p></p>
 
 </dd>
-<dt class="d_decl">@property SysTime <a name="timeStatusChanged"></a><span class="ddoc_psymbol">timeStatusChanged</span>();
-</dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011. It will not be
-                  replaced. You can use <span class="d_inlinecode">attributes</span> to get at this
-                  information if you need it.</span>
-<p></p>
-<span style="color:blue">This function is Posix-Only.</span>
-<p></p>
-
-            Returns the last time that the status of file represented by this
-            <span class="d_inlinecode">DirEntry</span> was changed (i.e. owner, group, link count, mode, etc.).<p></p>
-
-</dd>
-<dt class="d_decl">deprecated @property d_time <a name="lastAccessTime"></a><span class="ddoc_psymbol">lastAccessTime</span>();
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-                  <span class="d_inlinecode">timeLastAccessed</span> instead.</span>
-<p></p>
-Returns the time that the file represented by this <span class="d_inlinecode">DirEntry</span> was
-            last accessed.
-<p></p>
-
-            Note that many file systems do not update the access time for files
-            (generally for performance reasons), so there's a good chance that
-            <span class="d_inlinecode"><a name="lastAccessTime"></a><span class="ddoc_psymbol">lastAccessTime</span></span> will return the same value as <span class="d_inlinecode">lastWriteTime</span>.<p></p>
-
-</dd>
-<dt class="d_decl">@property SysTime <a name="timeLastAccessed"></a><span class="ddoc_psymbol">timeLastAccessed</span>();
+<dt class="d_decl"><a name=".DirEntry.timeLastAccessed"></a>@property SysTime <a name="timeLastAccessed"></a><span class="ddoc_psymbol">timeLastAccessed</span>();
 </dt>
 <dd>Returns the time that the file represented by this <span class="d_inlinecode">DirEntry</span> was
             last accessed.
@@ -934,22 +783,13 @@ Note that many file systems do not update the access time for files
             <span class="d_inlinecode">timeLastModified</span>.<p></p>
 
 </dd>
-<dt class="d_decl">deprecated @property d_time <a name="lastWriteTime"></a><span class="ddoc_psymbol">lastWriteTime</span>();
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use
-                  <span class="d_inlinecode">timeLastModified</span> instead.</span>
-<p></p>
-Returns the time that the file represented by this <span class="d_inlinecode">DirEntry</span> was
-            last modified.<p></p>
-
-</dd>
-<dt class="d_decl">@property SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>();
+<dt class="d_decl"><a name=".DirEntry.timeLastModified"></a>@property SysTime <a name="timeLastModified"></a><span class="ddoc_psymbol">timeLastModified</span>();
 </dt>
 <dd>Returns the time that the file represented by this <span class="d_inlinecode">DirEntry</span> was
             last modified.<p></p>
 
 </dd>
-<dt class="d_decl">@property uint <a name="attributes"></a><span class="ddoc_psymbol">attributes</span>();
+<dt class="d_decl"><a name=".DirEntry.attributes"></a>@property uint <a name="attributes"></a><span class="ddoc_psymbol">attributes</span>();
 </dt>
 <dd>Returns the <a name="attributes"></a><span class="ddoc_psymbol">attributes</span> of the file represented by this <span class="d_inlinecode">DirEntry</span>.
 <p></p>
@@ -966,7 +806,7 @@ Note that the file <a name="attributes"></a><span class="ddoc_psymbol">attribute
             pointed to by the symbolic link.<p></p>
 
 </dd>
-<dt class="d_decl">@property uint <a name="linkAttributes"></a><span class="ddoc_psymbol">linkAttributes</span>();
+<dt class="d_decl"><a name=".DirEntry.linkAttributes"></a>@property uint <a name="linkAttributes"></a><span class="ddoc_psymbol">linkAttributes</span>();
 </dt>
 <dd>On Posix systems, if the file represented by this <span class="d_inlinecode">DirEntry</span> is a
             symbolic link, then <span class="d_inlinecode"><a name="linkAttributes"></a><span class="ddoc_psymbol">linkAttributes</span></span> are the attributes of the
@@ -978,7 +818,7 @@ On Windows, <span class="d_inlinecode"><a name="linkAttributes"></a><span class=
             Windows when dealing with symbolic links.<p></p>
 
 </dd>
-<dt class="d_decl">@property struct_stat64 <a name="statBuf"></a><span class="ddoc_psymbol">statBuf</span>();
+<dt class="d_decl"><a name=".DirEntry.statBuf"></a>@property stat_t <a name="statBuf"></a><span class="ddoc_psymbol">statBuf</span>();
 </dt>
 <dd><span style="color:blue">This function is Posix-Only.</span>
 <p></p>
@@ -987,10 +827,10 @@ The <span class="d_inlinecode">stat</span> struct gotten from calling <span clas
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">alias <a name="listdir"></a><span class="ddoc_psymbol">listdir</span>;
+<dt class="d_decl"><a name=".listdir"></a>deprecated alias listDir(C)(in C[] pathname) <a name="listdir"></a><span class="ddoc_psymbol">listdir</span>;
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011. Please use the
-       <span class="d_inlinecode">getTimes</span> with two arguments instead.</span>
+<dd><span style="color:red">Deprecated. It will be removed in November 2012.
+       Please use <a href="#dirEntries"><span class="d_inlinecode">dirEntries</span></a> instead.</span>
 <p></p>
 For each file and directory <span class="d_inlinecode">DirEntry</span> in <span class="d_inlinecode">pathname[]</span>
  pass it to the callback delegate.
@@ -1025,23 +865,12 @@ This program lists all the files in its
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="copy"></a><span class="ddoc_psymbol">copy</span>(in char[] <i>from</i>, in char[] <i>to</i>);
+<dt class="d_decl"><a name=".copy"></a>void <a name="copy"></a><span class="ddoc_psymbol">copy</span>(in char[] <i>from</i>, in char[] <i>to</i>);
 </dt>
 <dd>Copy file <span class="d_inlinecode"><i>from</i></span> <i>to</i> file <span class="d_inlinecode"><i>to</i></span>. File timestamps are preserved.<p></p>
 
 </dd>
-<dt class="d_decl">deprecated void <a name="setTimes"></a><span class="ddoc_psymbol">setTimes</span>(in char[] <i>name</i>, d_time <i>fta</i>, d_time <i>ftm</i>);
-</dt>
-<dd><span style="color:red">Deprecated. It will be removed in February 2012. Please use the
-             version which takes a <a href="std_datetime.html#SysTime"><span class="d_inlinecode">std.datetime.SysTime</span></a> instead.</span>
-<p></p>
-Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
-
-<p></p>
-<b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
-
-</dd>
-<dt class="d_decl">void <a name="setTimes"></a><span class="ddoc_psymbol">setTimes</span>(in char[] <i>name</i>, SysTime <i>fileAccessTime</i>, SysTime <i>fileModificationTime</i>);
+<dt class="d_decl"><a name=".setTimes"></a>void <a name="setTimes"></a><span class="ddoc_psymbol">setTimes</span>(in char[] <i>name</i>, SysTime <i>fileAccessTime</i>, SysTime <i>fileModificationTime</i>);
 </dt>
 <dd>Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
@@ -1053,7 +882,7 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> on error.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="rmdirRecurse"></a><span class="ddoc_psymbol">rmdirRecurse</span>(in char[] <i>pathname</i>);
+<dt class="d_decl"><a name=".rmdirRecurse"></a>void <a name="rmdirRecurse"></a><span class="ddoc_psymbol">rmdirRecurse</span>(in char[] <i>pathname</i>);
 </dt>
 <dd>Remove directory and all of its content and subdirectories,
     recursively.
@@ -1062,7 +891,7 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
         file is not a directory).<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="rmdirRecurse"></a><span class="ddoc_psymbol">rmdirRecurse</span>(ref DirEntry <i>de</i>);
+<dt class="d_decl"><a name=".rmdirRecurse"></a>void <a name="rmdirRecurse"></a><span class="ddoc_psymbol">rmdirRecurse</span>(ref DirEntry <i>de</i>);
 </dt>
 <dd>Remove directory and all of its content and subdirectories,
     recursively.
@@ -1071,28 +900,28 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
         file is not a directory).<p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="SpanMode"></a><span class="ddoc_psymbol">SpanMode</span>;
+<dt class="d_decl"><a name=".SpanMode"></a>enum <a name="SpanMode"></a><span class="ddoc_psymbol">SpanMode</span>;
 </dt>
 <dd>Dictates directory spanning policy for <span class="d_param">dirEntries</span> (see below).<p></p>
 
-<dl><dt class="d_decl"><a name="shallow"></a><span class="ddoc_psymbol">shallow</span></dt>
+<dl><dt class="d_decl"><a name=".SpanMode.shallow"></a><a name="shallow"></a><span class="ddoc_psymbol">shallow</span></dt>
 <dd>Only spans one directory. <p></p>
 
 </dd>
-<dt class="d_decl"><a name="depth"></a><span class="ddoc_psymbol">depth</span></dt>
+<dt class="d_decl"><a name=".SpanMode.depth"></a><a name="depth"></a><span class="ddoc_psymbol">depth</span></dt>
 <dd>Spans the directory <a name="depth"></a><span class="ddoc_psymbol">depth</span>-first, i.e. the content of any
      subdirectory is spanned before that subdirectory itself. Useful
      e.g. when recursively deleting files.  <p></p>
 
 </dd>
-<dt class="d_decl"><a name="breadth"></a><span class="ddoc_psymbol">breadth</span></dt>
+<dt class="d_decl"><a name=".SpanMode.breadth"></a><a name="breadth"></a><span class="ddoc_psymbol">breadth</span></dt>
 <dd>Spans the directory <a name="breadth"></a><span class="ddoc_psymbol">breadth</span>-first, i.e. the content of any
      subdirectory is spanned right after that subdirectory itself. <p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">auto <a name="dirEntries"></a><span class="ddoc_psymbol">dirEntries</span>(string <i>path</i>, SpanMode <i>mode</i>, bool <i>followSymlink</i> = true);
+<dt class="d_decl"><a name=".dirEntries"></a>auto <a name="dirEntries"></a><span class="ddoc_psymbol">dirEntries</span>(string <i>path</i>, SpanMode <i>mode</i>, bool <i>followSymlink</i> = true);
 </dt>
 <dd>Returns an input range of DirEntry that lazily iterates a given directory,
     also provides two ways of foreach iteration. The iteration variable can be of
@@ -1110,7 +939,7 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <tr><td valign=top>bool <i>followSymlink</i></td>
 <td valign=top>Whether symbolic links which point to directories
                          should be treated as directories and their contents
-                         iterated over. Ignored on Windows.</td></tr>
+                         iterated over.</td></tr>
 </table><p></p>
 <b>Examples:</b><br><pre class="d_code"><span class="d_comment">// Iterate a directory in depth
 </span><span class="d_keyword">foreach</span> (string name; <span class="d_psymbol">dirEntries</span>(<span class="d_string">"destroy/me"</span>, SpanMode.depth))
@@ -1127,7 +956,7 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 {
  writeln(e.name, <span class="d_string">"\t"</span>, e.size);
 }
-<span class="d_comment">// Iterate over all *.d files in current directory and all it's subdirectories
+<span class="d_comment">// Iterate over all *.d files in current directory and all its subdirectories
 </span><span class="d_keyword">auto</span> dFiles = filter!<span class="d_string">`endsWith(a.name,".d")`</span>(<span class="d_psymbol">dirEntries</span>(<span class="d_string">"."</span>,SpanMode.depth));
 <span class="d_keyword">foreach</span>(d; dFiles)
     writeln(d.name);
@@ -1142,7 +971,35 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 //<p></p>
 
 </dd>
-<dt class="d_decl">DirEntry <a name="dirEntry"></a><span class="ddoc_psymbol">dirEntry</span>(in char[] <i>name</i>);
+<dt class="d_decl"><a name=".dirEntries"></a>auto <a name="dirEntries"></a><span class="ddoc_psymbol">dirEntries</span>(string <i>path</i>, string <i>pattern</i>, SpanMode <i>mode</i>, bool <i>followSymlink</i> = true);
+</dt>
+<dd>Convenience wrapper for filtering file names with a glob <i>pattern</i>.
+<p></p>
+<b>Parameters:</b><table class=parms><tr><td valign=top>string <i>path</i></td>
+<td valign=top>The directory to iterate over.</td></tr>
+<tr><td valign=top>string <i>pattern</i></td>
+<td valign=top>String with wildcards, such as <span style="color:red">"*.d"</span>. The supported
+                   wildcard strings are described under
+                   <a href="std_<i>path</i>.html#globMatch"><span class="d_inlinecode">std.<i>path</i>.globMatch</span></a>.</td></tr>
+<tr><td valign=top>SpanMode <i>mode</i></td>
+<td valign=top>Whether the directory's sub-directories should be iterated
+               over depth-first (<span class="d_param">depth</span>), breadth-first
+               (<span class="d_param">breadth</span>), or not at all (<span class="d_param">shallow</span>).</td></tr>
+<tr><td valign=top>bool <i>followSymlink</i></td>
+<td valign=top>Whether symbolic links which point to directories
+                         should be treated as directories and their contents
+                         iterated over.</td></tr>
+</table><p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_comment">// Iterate over all D source files in current directory and all its
+</span><span class="d_comment">// subdirectories
+</span><span class="d_keyword">auto</span> dFiles = <span class="d_psymbol">dirEntries</span>(<span class="d_string">"."</span>,<span class="d_string">"*.{d,di}"</span>,SpanMode.depth);
+<span class="d_keyword">foreach</span>(d; dFiles)
+    writeln(d.name);
+</pre>
+//<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".dirEntry"></a>DirEntry <a name="dirEntry"></a><span class="ddoc_psymbol">dirEntry</span>(in char[] <i>name</i>);
 </dt>
 <dd>Returns a DirEntry for the given file (or directory).
 <p></p>
@@ -1152,7 +1009,7 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <b>Throws:</b><br><span class="d_inlinecode">FileException</span> if the file does not exist.<p></p>
 
 </dd>
-<dt class="d_decl">Select!(Types.length == 1,Types[0][],Tuple!(Types)[]) <a name="slurp"></a><span class="ddoc_psymbol">slurp</span>(Types...)(string <i>filename</i>, in char[] <i>format</i>);
+<dt class="d_decl"><a name=".slurp"></a>Select!(Types.length == 1, Types[0][], Tuple!(Types)[]) <a name="slurp"></a><span class="ddoc_psymbol">slurp</span>(Types...)(string <i>filename</i>, in char[] <i>format</i>);
 </dt>
 <dd>Reads an entire file into an array.
 <p></p>
@@ -1164,10 +1021,44 @@ Set access/modified times of file <span class="d_inlinecode"><i>name</i></span>.
 <p></p>
 
 </dd>
-<dt class="d_decl">string[] <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C)(in C[] <i>pathname</i>);
+<dt class="d_decl"><a name=".tempDir"></a>string <a name="tempDir"></a><span class="ddoc_psymbol">tempDir</span>();
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-          Please use <span class="d_inlinecode">dirEntries</span> instead.</span>
+<dd>Returns the path to a directory for temporary files.
+<p></p>
+On Windows, this function returns the result of calling the Windows API function
+<span class="d_inlinecode"><a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa364992.aspx">GetTempPath</a></span>.
+<p></p>
+
+On POSIX platforms, it searches through the following list of directories
+and returns the first one which is found to exist:
+<ol>   <li>The directory given by the <span class="d_inlinecode">TMPDIR</span> environment variable.</li>
+    <li>The directory given by the <span class="d_inlinecode">TEMP</span> environment variable.</li>
+    <li>The directory given by the <span class="d_inlinecode">TMP</span> environment variable.</li>
+    <li><span class="d_inlinecode">/tmp</span></li>
+    <li><span class="d_inlinecode">/var/tmp</span></li>
+    <li><span class="d_inlinecode">/usr/tmp</span></li>
+</ol>
+<p></p>
+
+On all platforms, <span class="d_inlinecode"><a name="tempDir"></a><span class="ddoc_psymbol">tempDir</span></span> returns <span class="d_inlinecode">"."</span> on failure, representing
+the current working directory.
+<p></p>
+
+The return value of the function is cached, so the procedures described
+above will only be performed the first time the function is called.  All
+subsequent runs will return the same string, regardless of whether
+environment variables and directory structures have changed in the
+meantime.
+<p></p>
+
+The POSIX <span class="d_inlinecode"><a name="tempDir"></a><span class="ddoc_psymbol">tempDir</span></span> algorithm is inspired by Python's
+<span class="d_inlinecode"><a href="http://docs.python.org/library/tempfile.html#tempfile.tempdir">tempfile.tempdir</a></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".listDir"></a>string[] <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C)(in C[] <i>pathname</i>);
+</dt>
+<dd><span style="color:red">Deprecated. It will be removed in November 2012.
+          Please use <a href="#dirEntries"><span class="d_inlinecode">dirEntries</span></a> instead.</span>
 <p></p>
 Returns the contents of the given directory.
 <p></p>
@@ -1194,10 +1085,10 @@ Returns the contents of the given directory.
 <p></p>
 
 </dd>
-<dt class="d_decl">string[] <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C, U)(in C[] <i>pathname</i>, U <i>filter</i>, bool <i>followSymlink</i> = true);
+<dt class="d_decl"><a name=".listDir"></a>string[] <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C, U)(in C[] <i>pathname</i>, U <i>filter</i>, bool <i>followSymlink</i> = true);
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-          Please use <span class="d_inlinecode">dirEntries</span> instead.</span>
+<dd><span style="color:red">Deprecated. It will be removed in November 2012.
+          Please use <a href="#dirEntries"><span class="d_inlinecode">dirEntries</span></a> instead.</span>
 <p></p>
 Returns all the files in the directory and its sub-directories
     which match pattern or regular expression r.
@@ -1229,6 +1120,7 @@ Returns all the files in the directory and its sub-directories
       writefln(d);
 }
 </pre>
+<p></p>
 
     A regular expression version that searches for all files with "d" or
     "obj" extensions:
@@ -1247,10 +1139,10 @@ Returns all the files in the directory and its sub-directories
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C, U)(in C[] <i>pathname</i>, U <i>callback</i>);
+<dt class="d_decl"><a name=".listDir"></a>void <a name="listDir"></a><span class="ddoc_psymbol">listDir</span>(C, U)(in C[] <i>pathname</i>, U <i>callback</i>);
 </dt>
-<dd><span style="color:red">Scheduled for deprecation in November 2011.
-       Please use <span class="d_inlinecode">dirEntries</span> instead.</span>
+<dd><span style="color:red">Deprecated. It will be removed in November 2012.
+       Please use <a href="#dirEntries"><span class="d_inlinecode">dirEntries</span></a> instead.</span>
 <p></p>
 For each file and directory name in pathname[],
  pass it to the callback delegate.
@@ -1302,9 +1194,9 @@ This program lists all the files in its
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

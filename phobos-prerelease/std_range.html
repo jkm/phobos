@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.range - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,13 +197,292 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:09 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/range.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdRange" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.range</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/range.d -->
-This module defines the notion of <a name="range"></a><span class="ddoc_psymbol">range</span> (by the membership tests <span class="d_inlinecode">isInputRange</span>, <span class="d_inlinecode">isForwardRange</span>, <span class="d_inlinecode">isBidirectionalRange</span>, <span class="d_inlinecode">isRandomAccessRange</span>), <a name="range"></a><span class="ddoc_psymbol">range</span> capability tests (such as <span class="d_inlinecode">hasLength</span>
-or <span class="d_inlinecode">hasSlicing</span>), and a few useful range incarnations.
+This module defines the notion of a <a name="range"></a><span class="ddoc_psymbol">range</span>. Ranges generalize the concept of
+arrays, lists, or anything that involves sequential access. This abstraction
+enables the same set of algorithms (see <a href="std_algorithm.html">std.algorithm</a>) to be used with a vast variety of different concrete types. For
+example, a linear search algorithm such as <a href="std_algorithm.html#find">std.algorithm.find</a> works not just for arrays, but for linked-lists, input
+files, incoming network data, etc.
+<p></p>
+For more detailed information about the conceptual aspect of ranges and the
+motivation behind them, see Andrei Alexandrescu's article
+<a href="http://www.informit.com/articles/printerfriendly.aspx?p=1407357&rll=1"><i>On Iteration</i></a>.
+<p></p>
+
+This module defines several templates for testing whether a given object is a
+range, and what kind of range it is:
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>    <tr><td valign=top><span class="d_inlinecode"><a href="#isInputRange"><span class="d_inlinecode">isInputRange</span></a></span></td>
+        <td valign=top>Tests if something is an <i>input range</i>, defined to be
+        something from which one can sequentially read data using the
+        primitives <span class="d_inlinecode">front</span>, <span class="d_inlinecode">popFront</span>, and <span class="d_inlinecode">empty</span>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#isOutputRange"><span class="d_inlinecode">isOutputRange</span></a></span></td>
+        <td valign=top>Tests if something is an <i>output range</i>, defined to be
+        something to which one can sequentially write data using the <span class="d_inlinecode"><a href="#       put"><span class="d_inlinecode">       put</span></a></span> primitive.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#isForwardRange"><span class="d_inlinecode">isForwardRange</span></a></span></td>
+        <td valign=top>Tests if something is a <i>forward range</i>, defined to be an
+        input range with the additional capability that one can save one's
+        current position with the <span class="d_inlinecode">save</span> primitive, thus allowing one to
+        iterate over the same range multiple times.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#isBidirectionalRange"><span class="d_inlinecode">isBidirectionalRange</span></a></span></td>
+        <td valign=top>Tests if something is a <i>bidirectional range</i>, that is, a
+        forward range that allows reverse traversal using the primitives <span class="d_inlinecode">       back</span> and <span class="d_inlinecode">popBack</span>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#isRandomAccessRange"><span class="d_inlinecode">isRandomAccessRange</span></a></span></td>
+        <td valign=top>Tests if something is a <i>random access range</i>, which is a
+        bidirectional range that also supports the array subscripting
+        operation via the primitive <span class="d_inlinecode">opIndex</span>.
+    </td></tr>
+</table>
+<p></p>
+
+A number of templates are provided that test for various range capabilities:
+<p></p>
+
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>    <tr><td valign=top><span class="d_inlinecode"><a href="#hasMobileElements"><span class="d_inlinecode">hasMobileElements</span></a></span></td>
+        <td valign=top>Tests if a given range's elements can be moved around using the
+        primitives <span class="d_inlinecode">moveFront</span>, <span class="d_inlinecode">moveBack</span>, or <span class="d_inlinecode">moveAt</span>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#ElementType"><span class="d_inlinecode">ElementType</span></a></span></td>
+        <td valign=top>Returns the element type of a given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#ElementEncodingType"><span class="d_inlinecode">ElementEncodingType</span></a></span></td>
+        <td valign=top>Returns the encoding element type of a given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#hasSwappableElements"><span class="d_inlinecode">hasSwappableElements</span></a></span></td>
+        <td valign=top>Tests if a range is a forward range with swappable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#hasAssignableElements"><span class="d_inlinecode">hasAssignableElements</span></a></span></td>
+        <td valign=top>Tests if a range is a forward range with mutable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#hasLvalueElements"><span class="d_inlinecode">hasLvalueElements</span></a></span></td>
+        <td valign=top>Tests if a range is a forward range with elements that can be
+        passed by reference and have their address taken.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#hasLength"><span class="d_inlinecode">hasLength</span></a></span></td>
+        <td valign=top>Tests if a given range has the <span class="d_inlinecode">length</span> attribute.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#isInfinite"><span class="d_inlinecode">isInfinite</span></a></span></td>
+        <td valign=top>Tests if a given range is an <i>infinite range</i>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#hasSlicing"><span class="d_inlinecode">hasSlicing</span></a></span></td>
+        <td valign=top>Tests if a given range supports the array slicing operation <span class="d_inlinecode">       R[x..y]</span>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#walkLength"><span class="d_inlinecode">walkLength</span></a></span></td>
+        <td valign=top>Computes the length of any range in O(n) time.
+    </td></tr>
+</table>
+<p></p>
+
+A rich set of range creation and composition templates are provided that let
+you construct new ranges out of existing ranges:
+<p></p>
+
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>    <tr><td valign=top><span class="d_inlinecode"><a href="#retro"><span class="d_inlinecode">retro</span></a></span></td>
+        <td valign=top>Iterates a bidirectional range backwards.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#stride"><span class="d_inlinecode">stride</span></a></span></td>
+        <td valign=top>Iterates a range with stride <i>n</i>.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#chain"><span class="d_inlinecode">chain</span></a></span></td>
+        <td valign=top>Concatenates several ranges into a single range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#roundRobin"><span class="d_inlinecode">roundRobin</span></a></span></td>
+        <td valign=top>Given <i>n</i> ranges, creates a new range that return the <i>n</i>
+        first elements of each range, in turn, then the second element of each
+        range, and so on, in a round-robin fashion.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#radial"><span class="d_inlinecode">radial</span></a></span></td>
+        <td valign=top>Given a random-access range and a starting point, creates a
+        range that alternately returns the next left and next right element to
+        the starting point.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#take"><span class="d_inlinecode">take</span></a></span></td>
+        <td valign=top>Creates a sub-range consisting of only up to the first <i>n</i>
+        elements of the given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#takeExactly"><span class="d_inlinecode">takeExactly</span></a></span></td>
+        <td valign=top>Like <span class="d_inlinecode">take</span>, but assumes the given range actually has <i>n</i>
+        elements, and therefore also defines the <span class="d_inlinecode">length</span> property.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#takeOne"><span class="d_inlinecode">takeOne</span></a></span></td>
+        <td valign=top>Creates a random-access range consisting of exactly the first
+        element of the given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#takeNone"><span class="d_inlinecode">takeNone</span></a></span></td>
+        <td valign=top>Creates a random-access range consisting of zero elements of the
+        given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#drop"><span class="d_inlinecode">drop</span></a></span></td>
+        <td valign=top>Creates the range that results from discarding the first <i>n</i>
+        elements from the given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#dropExactly"><span class="d_inlinecode">dropExactly</span></a></span></td>
+        <td valign=top>Creates the range that results from discarding exactly <i>n</i>
+        of the first elements from the given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#dropOne"><span class="d_inlinecode">dropOne</span></a></span></td>
+        <td valign=top>Creates the range that results from discarding
+        the first elements from the given range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#repeat"><span class="d_inlinecode">repeat</span></a></span></td>
+        <td valign=top>Creates a range that consists of a single element repeated <i>n</i>
+        times, or an infinite range repeating that element indefinitely.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#cycle"><span class="d_inlinecode">cycle</span></a></span></td>
+        <td valign=top>Creates an infinite range that repeats the given forward range
+        indefinitely. Good for implementing circular buffers.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#zip"><span class="d_inlinecode">zip</span></a></span></td>
+        <td valign=top>Given <i>n</i> ranges, creates a range that successively returns a
+        tuple of all the first elements, a tuple of all the second elements,
+        etc.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#lockstep"><span class="d_inlinecode">lockstep</span></a></span></td>
+        <td valign=top>Iterates <i>n</i> ranges in lockstep, for use in a <span class="d_inlinecode">foreach</span>
+        loop. Similar to <span class="d_inlinecode">zip</span>, except that <span class="d_inlinecode">lockstep</span> is designed
+        especially for <span class="d_inlinecode">foreach</span> loops.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#recurrence"><span class="d_inlinecode">recurrence</span></a></span></td>
+        <td valign=top>Creates a forward range whose values are defined by a
+        mathematical recurrence relation.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#sequence"><span class="d_inlinecode">sequence</span></a></span></td>
+        <td valign=top>Similar to <span class="d_inlinecode">recurrence</span>, except that a random-access range is
+        created.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#iota"><span class="d_inlinecode">iota</span></a></span></td>
+        <td valign=top>Creates a range consisting of numbers between a starting point
+        and ending point, spaced apart by a given interval.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#frontTransversal"><span class="d_inlinecode">frontTransversal</span></a></span></td>
+        <td valign=top>Creates a range that iterates over the first elements of the
+        given ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#transversal"><span class="d_inlinecode">transversal</span></a></span></td>
+        <td valign=top>Creates a range that iterates over the <i>n</i>'th elements of the
+        given random-access ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#indexed"><span class="d_inlinecode">indexed</span></a></span></td>
+        <td valign=top>Creates a range that offers a view of a given range as though
+        its elements were reordered according to a given range of indices.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#chunks"><span class="d_inlinecode">chunks</span></a></span></td>
+        <td valign=top>Creates a range that returns fixed-size chunks of the original
+        range.
+    </td></tr>
+</table>
+<p></p>
+
+These range-construction tools are implemented using templates; but sometimes
+an object-based interface for ranges is needed. For this purpose, this module
+provides a number of object and <span class="d_inlinecode">interface</span> definitions that can be used to
+wrap around range objects created by the above templates:
+<p></p>
+
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>    <tr><td valign=top><span class="d_inlinecode"><a href="#InputRange"><span class="d_inlinecode">InputRange</span></a></span></td>
+        <td valign=top>Wrapper for input ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#InputAssignable"><span class="d_inlinecode">InputAssignable</span></a></span></td>
+        <td valign=top>Wrapper for input ranges with assignable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#ForwardRange"><span class="d_inlinecode">ForwardRange</span></a></span></td>
+        <td valign=top>Wrapper for forward ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#ForwardAssignable"><span class="d_inlinecode">ForwardAssignable</span></a></span></td>
+        <td valign=top>Wrapper for forward ranges with assignable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#BidirectionalRange"><span class="d_inlinecode">BidirectionalRange</span></a></span></td>
+        <td valign=top>Wrapper for bidirectional ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#BidirectionalAssignable"><span class="d_inlinecode">BidirectionalAssignable</span></a></span></td>
+        <td valign=top>Wrapper for bidirectional ranges with assignable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#RandomAccessFinite"><span class="d_inlinecode">RandomAccessFinite</span></a></span></td>
+        <td valign=top>Wrapper for finite random-access ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#RandomAccessAssignable"><span class="d_inlinecode">RandomAccessAssignable</span></a></span></td>
+        <td valign=top>Wrapper for finite random-access ranges with assignable elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#RandomAccessInfinite"><span class="d_inlinecode">RandomAccessInfinite</span></a></span></td>
+        <td valign=top>Wrapper for infinite random-access ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#OutputRange"><span class="d_inlinecode">OutputRange</span></a></span></td>
+        <td valign=top>Wrapper for output ranges.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#OutputRangeObject"><span class="d_inlinecode">OutputRangeObject</span></a></span></td>
+        <td valign=top>Class that implements the <span class="d_inlinecode">OutputRange</span> interface and wraps the
+        <span class="d_inlinecode">put</span> methods in virtual functions.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#InputRangeObject"><span class="d_inlinecode">InputRangeObject</span></a></span></td>
+        <td valign=top>Class that implements the <span class="d_inlinecode">InputRange</span> interface and wraps the
+        input range methods in virtual functions.
+    </td></tr>
+</table>
+<p></p>
+
+Ranges whose elements are sorted afford better efficiency with certain
+operations. For this, the <span class="d_inlinecode"><a href="#assumeSorted"><span class="d_inlinecode">assumeSorted</span></a></span> function can be used to
+construct a <span class="d_inlinecode"><a href="#SortedRange"><span class="d_inlinecode">SortedRange</span></a></span> from a pre-sorted range. The <span class="d_inlinecode"><a href="std_algorithm.html#sort">std.algorithm.sort</a></span> function also conveniently
+returns a <span class="d_inlinecode">SortedRange</span>. <span class="d_inlinecode">SortedRange</span> objects provide some additional
+range operations that take advantage of the fact that the range is sorted.
+<p></p>
+
+Finally, this module also defines some convenience functions for
+manipulating ranges:
+<p></p>
+
+<table cellspacing=0 cellpadding=5 class=book><caption></caption>    <tr><td valign=top><span class="d_inlinecode"><a href="#popFrontN"><span class="d_inlinecode">popFrontN</span></a></span></td>
+        <td valign=top>Advances a given range by up to <i>n</i> elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#popBackN"><span class="d_inlinecode">popBackN</span></a></span></td>
+        <td valign=top>Advances a given bidirectional range from the right by up to
+        <i>n</i> elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#popFrontExactly"><span class="d_inlinecode">popFrontExactly</span></a></span></td>
+        <td valign=top>Advances a given range by up exactly <i>n</i> elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#popBackExactly"><span class="d_inlinecode">popBackExactly</span></a></span></td>
+        <td valign=top>Advances a given bidirectional range from the right by exactly
+        <i>n</i> elements.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#moveFront"><span class="d_inlinecode">moveFront</span></a></span></td>
+        <td valign=top>Removes the front element of a range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#moveBack"><span class="d_inlinecode">moveBack</span></a></span></td>
+        <td valign=top>Removes the back element of a bidirectional range.
+    </td></tr>
+    <tr><td valign=top><span class="d_inlinecode"><a href="#moveAt"><span class="d_inlinecode">moveAt</span></a></span></td>
+        <td valign=top>Removes the <i>i</i>'th element of a random-access range.
+    </td></tr>
+</table>
+
 <p></p>
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/range.d">std/range.d</a>
@@ -213,10 +491,11 @@ or <span class="d_inlinecode">hasSlicing</span>), and a few useful range incarna
 <b>License:</b><br><a href="http://boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
 
 <p></p>
-<b>Authors:</b><br><a href="http://erdani.com">Andrei Alexandrescu</a>, David Simcha. Credit
-for some of the ideas in building this module goes to <a href="http://fantascienza.net/leonardo/so/">Leonardo Maffi</a>.<p></p>
+<b>Authors:</b><br><a href="http://erdani.com">Andrei Alexandrescu</a>, David Simcha,
+and Jonathan M Davis. Credit for some of the ideas in building this module goes
+to <a href="http://fantascienza.net/leonardo/so/">Leonardo Maffi</a>.<p></p>
 
-<dl><dt class="d_decl">template <a name="isInputRange"></a><span class="ddoc_psymbol">isInputRange</span>(R)</dt>
+<dl><dt class="d_decl"><a name=".isInputRange"></a>template <a name="isInputRange"></a><span class="ddoc_psymbol">isInputRange</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is an input range. An input range must
 define the primitives <span class="d_inlinecode">empty</span>, <span class="d_inlinecode">popFront</span>, and <span class="d_inlinecode">front</span>. The
 following code should compile for any input range.
@@ -226,6 +505,7 @@ following code should compile for any input range.
 </span>r.popFront();     <span class="d_comment">// can invoke popFront()
 </span><span class="d_keyword">auto</span> h = r.front; <span class="d_comment">// can get the front of the range of non-void type
 </span></pre>
+<p></p>
 
 The semantics of an input range (not checkable during compilation) are
 assumed to be the following (<span class="d_inlinecode">r</span> is an object of type <span class="d_inlinecode">R</span>):
@@ -240,50 +520,41 @@ element in the range. Calling <span class="d_inlinecode">r.popFront</span> is al
 calling <span class="d_inlinecode">r.empty</span> has, or would have, returned <span class="d_inlinecode"><b>false</b></span>.</li></ul><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="put"></a><span class="ddoc_psymbol">put</span>(R, E)(ref R <i>r</i>, E <i>e</i>);
+<dt class="d_decl"><a name=".put"></a>void <a name="put"></a><span class="ddoc_psymbol">put</span>(R, E)(ref R <i>r</i>, E <i>e</i>);
 </dt>
 <dd>Outputs <span class="d_inlinecode">e</span> to <span class="d_inlinecode">r</span>. The exact effect is dependent upon the two
-types. which must be an output range. Several cases are accepted, as
-described below. The code snippets are attempted in order, and the
-first to compile "wins" and gets evaluated.
+types. Several cases are accepted, as described below. The code snippets
+are attempted in order, and the first to compile "wins" and gets
+evaluated.
 <p></p>
-<center><table cellspacing=0 cellpadding=5 class=book><caption></caption><p></p>
-
-<tr><th>Code Snippet</th> <th>Scenario</th></tr>
-<p></p>
-
+<table cellspacing=0 cellpadding=5 class=book><caption></caption><tr><th>Code Snippet</th> <th>Scenario
+</th></tr>
 <tr><td valign=top><span class="d_inlinecode">r.<a name="put"></a><span class="ddoc_psymbol">put</span>(e);</span></td> <td valign=top><span class="d_inlinecode">R</span> specifically defines a method
-<span class="d_inlinecode"><a name="put"></a><span class="ddoc_psymbol">put</span></span> accepting an <span class="d_inlinecode">E</span>.</td></tr>
-<p></p>
-
+    <span class="d_inlinecode"><a name="put"></a><span class="ddoc_psymbol">put</span></span> accepting an <span class="d_inlinecode">E</span>.
+</td></tr>
 <tr><td valign=top><span class="d_inlinecode">r.<a name="put"></a><span class="ddoc_psymbol">put</span>([ e ]);</span></td> <td valign=top><span class="d_inlinecode">R</span> specifically defines a
-method <span class="d_inlinecode"><a name="put"></a><span class="ddoc_psymbol">put</span></span> accepting an <span class="d_inlinecode">E[]</span>.</td></tr>
-<p></p>
-
+    method <span class="d_inlinecode"><a name="put"></a><span class="ddoc_psymbol">put</span></span> accepting an <span class="d_inlinecode">E[]</span>.
+</td></tr>
 <tr><td valign=top><span class="d_inlinecode">r.front = e; r.popFront();</span></td> <td valign=top><span class="d_inlinecode">R</span> is an input
-range and <span class="d_inlinecode">e</span> is assignable to <span class="d_inlinecode">r.front</span>.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">for (; !e.empty; e.popFront()) <a name="put"></a><span class="ddoc_psymbol">put</span>(r, e.front);</span></td> <td valign=top>Copying range <span class="d_inlinecode">E</span> to range <span class="d_inlinecode">R</span>.</td></tr>
-<p></p>
-
-<tr><td valign=top><span class="d_inlinecode">r(e);</span></td> <td valign=top><span class="d_inlinecode">R</span> is e.g. a delegate accepting an <span class="d_inlinecode">E</span>.</td></tr>
-<p></p>
-
+    range and <span class="d_inlinecode">e</span> is assignable to <span class="d_inlinecode">r.front</span>.
+</td></tr>
+<tr><td valign=top><span class="d_inlinecode">for (; !e.empty; e.popFront()) <a name="put"></a><span class="ddoc_psymbol">put</span>(r, e.front);</span></td> <td valign=top>   Copying range <span class="d_inlinecode">E</span> to range <span class="d_inlinecode">R</span>.
+</td></tr>
+<tr><td valign=top><span class="d_inlinecode">r(e);</span></td> <td valign=top><span class="d_inlinecode">R</span> is e.g. a delegate accepting an <span class="d_inlinecode">   E</span>.
+</td></tr>
 <tr><td valign=top><span class="d_inlinecode">r([ e ]);</span></td> <td valign=top><span class="d_inlinecode">R</span> is e.g. a <span class="d_inlinecode">delegate</span>
-accepting an <span class="d_inlinecode">E[]</span>.</td></tr>
-<p></p>
-
-</table></center><p></p>
+    accepting an <span class="d_inlinecode">E[]</span>.
+</td></tr>
+</table><p></p>
 
 </dd>
-<dt class="d_decl">template <a name="isOutputRange"></a><span class="ddoc_psymbol">isOutputRange</span>(R,E)</dt>
+<dt class="d_decl"><a name=".isOutputRange"></a>template <a name="isOutputRange"></a><span class="ddoc_psymbol">isOutputRange</span>(R, E)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is an output range for elements of type
 <span class="d_inlinecode">E</span>. An output range is defined functionally as a range that
 supports the operation <span class="d_inlinecode">put(r, e)</span> as defined above.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="isForwardRange"></a><span class="ddoc_psymbol">isForwardRange</span>(R)</dt>
+<dt class="d_decl"><a name=".isForwardRange"></a>template <a name="isForwardRange"></a><span class="ddoc_psymbol">isForwardRange</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is a forward range. A forward range is an
 input range <span class="d_inlinecode">r</span> that can save "checkpoints" by saving <span class="d_inlinecode">r.save</span>
 to another value of type <span class="d_inlinecode">R</span>. Notable examples of input ranges that
@@ -300,6 +571,7 @@ The following code should compile for any forward range.
 R r1;
 R r2 = r1.save; <span class="d_comment">// can save the current position into another range
 </span></pre>
+<p></p>
 
 Saving a range is not duplicating it; in the example above, <span class="d_inlinecode">r1</span>
 and <span class="d_inlinecode">r2</span> still refer to the same underlying data. They just
@@ -312,7 +584,7 @@ that backtracking must be possible by saving a copy of the range
 object with <span class="d_inlinecode">save</span> and using it later.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="isBidirectionalRange"></a><span class="ddoc_psymbol">isBidirectionalRange</span>(R)</dt>
+<dt class="d_decl"><a name=".isBidirectionalRange"></a>template <a name="isBidirectionalRange"></a><span class="ddoc_psymbol">isBidirectionalRange</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is a bidirectional range. A bidirectional
 range is a forward range that also offers the primitives <span class="d_inlinecode">back</span> and
 <span class="d_inlinecode">popBack</span>. The following code should compile for any bidirectional
@@ -325,6 +597,7 @@ range.
 </span><span class="d_keyword">auto</span> w = r.front;
 <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(t) == <span class="d_keyword">typeof</span>(w))); <span class="d_comment">// same type for front and back
 </span></pre>
+<p></p>
 
 The semantics of a bidirectional range (not checkable during
 compilation) are assumed to be the following (<span class="d_inlinecode">r</span> is an object of
@@ -336,19 +609,35 @@ element in the range. Calling <span class="d_inlinecode">r.back</span> is allowe
 <span class="d_inlinecode">r.empty</span> has, or would have, returned <span class="d_inlinecode"><b>false</b></span>.</li></ul><p></p>
 
 </dd>
-<dt class="d_decl">template <a name="isRandomAccessRange"></a><span class="ddoc_psymbol">isRandomAccessRange</span>(R)</dt>
+<dt class="d_decl"><a name=".isRandomAccessRange"></a>template <a name="isRandomAccessRange"></a><span class="ddoc_psymbol">isRandomAccessRange</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is a random-access range. A random-access
 range is a bidirectional range that also offers the primitive <span class="d_inlinecode">opIndex</span>, OR an infinite forward range that offers <span class="d_inlinecode">opIndex</span>. In
 either case, the range must either offer <span class="d_inlinecode">length</span> or be
 infinite. The following code should compile for any random-access
 range.
 <p></p>
-<pre class="d_code">R r;
-<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isForwardRange!R);  <span class="d_comment">// range is forward
-</span><span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isBidirectionalRange!R || isInfinite!R);
-                                  <span class="d_comment">// range is bidirectional or infinite
-</span><span class="d_keyword">auto</span> e = r[1];                    <span class="d_comment">// can index
-</span></pre>
+<pre class="d_code"><span class="d_comment">// range is finite and bidirectional or infinite and forward.
+</span><span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isBidirectionalRange!R ||
+              isForwardRange!R &amp;&amp; isInfinite!R);
+
+R r = <span class="d_keyword">void</span>;
+<span class="d_keyword">auto</span> e = r[1]; <span class="d_comment">// can index
+</span><span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(e) == <span class="d_keyword">typeof</span>(r.front))); <span class="d_comment">// same type for indexed and front
+</span><span class="d_keyword">static</span> <span class="d_keyword">assert</span>(!isNarrowString!R); <span class="d_comment">// narrow strings cannot be indexed as ranges
+</span><span class="d_keyword">static</span> <span class="d_keyword">assert</span>(hasLength!R || isInfinite!R); <span class="d_comment">// must have length or be infinite
+</span>
+<span class="d_comment">// $ must work as it does with arrays if opIndex works with $
+</span><span class="d_keyword">static</span> <span class="d_keyword">if</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r[$])))
+{
+    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r.front) == <span class="d_keyword">typeof</span>(r[$])));
+
+    <span class="d_comment">// $ - 1 doesn't make sense with infinite ranges but needs to work
+</span>    <span class="d_comment">// with finite ones.
+</span>    <span class="d_keyword">static</span> <span class="d_keyword">if</span>(!isInfinite!R)
+        <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r.front) == <span class="d_keyword">typeof</span>(r[$ - 1])));
+}
+</pre>
+<p></p>
 
 The semantics of a random-access range (not checkable during
 compilation) are assumed to be the following (<span class="d_inlinecode">r</span> is an object of
@@ -362,33 +651,35 @@ variable-length encodings (UTF-8 and UTF-16 respectively). These types
 are bidirectional ranges only.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasMobileElements"></a><span class="ddoc_psymbol">hasMobileElements</span>(R)</dt>
-<dd>Returns <span class="d_inlinecode"><b>true</b></span> iff the range supports the <span class="d_inlinecode">moveFront</span> primitive,
+<dt class="d_decl"><a name=".hasMobileElements"></a>template <a name="hasMobileElements"></a><span class="ddoc_psymbol">hasMobileElements</span>(R)</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> iff <span class="d_inlinecode">R</span> supports the <span class="d_inlinecode">moveFront</span> primitive,
 as well as <span class="d_inlinecode">moveBack</span> and <span class="d_inlinecode">moveAt</span> if it's a bidirectional or
 random access range.  These may be explicitly implemented, or may work
 via the default behavior of the module level functions <span class="d_inlinecode">moveFront</span>
 and friends.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>(R)</dt>
+<dt class="d_decl"><a name=".ElementType"></a>template <a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>(R)</dt>
 <dd>The element type of <span class="d_inlinecode">R</span>. <span class="d_inlinecode">R</span> does not have to be a range. The
 element type is determined as the type yielded by <span class="d_inlinecode">r.front</span> for an
-object <span class="d_inlinecode">r</span> or type <span class="d_inlinecode">R</span>. For example, <span class="d_inlinecode"><a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>!(T[])</span> is
-<span class="d_inlinecode">T</span>. If <span class="d_inlinecode">R</span> is not a range, <span class="d_inlinecode"><a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>!R</span> is <span class="d_inlinecode">void</span>.<p></p>
+object <span class="d_inlinecode">r</span> of type <span class="d_inlinecode">R</span>. For example, <span class="d_inlinecode"><a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>!(T[])</span> is
+<span class="d_inlinecode">T</span> if <span class="d_inlinecode">T[]</span> isn't a narrow string; if it is, the element type is
+<span class="d_inlinecode">dchar</span>. If <span class="d_inlinecode">R</span> doesn't have <span class="d_inlinecode">front</span>, <span class="d_inlinecode"><a name="ElementType"></a><span class="ddoc_psymbol">ElementType</span>!R</span> is
+<span class="d_inlinecode">void</span>.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="ElementEncodingType"></a><span class="ddoc_psymbol">ElementEncodingType</span>(R)</dt>
+<dt class="d_decl"><a name=".ElementEncodingType"></a>template <a name="ElementEncodingType"></a><span class="ddoc_psymbol">ElementEncodingType</span>(R)</dt>
 <dd>The encoding element type of <span class="d_inlinecode">R</span>. For narrow strings (<span class="d_inlinecode">char[]</span>,
 <span class="d_inlinecode">wchar[]</span> and their qualified variants including <span class="d_inlinecode">string</span> and
 <span class="d_inlinecode">wstring</span>), <span class="d_inlinecode"><a name="ElementEncodingType"></a><span class="ddoc_psymbol">ElementEncodingType</span></span> is the character type of the
-string. For all other ranges, <span class="d_inlinecode"><a name="ElementEncodingType"></a><span class="ddoc_psymbol">ElementEncodingType</span></span> is the same as
+string. For all other types, <span class="d_inlinecode"><a name="ElementEncodingType"></a><span class="ddoc_psymbol">ElementEncodingType</span></span> is the same as
 <span class="d_inlinecode">ElementType</span>.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasSwappableElements"></a><span class="ddoc_psymbol">hasSwappableElements</span>(R)</dt>
+<dt class="d_decl"><a name=".hasSwappableElements"></a>template <a name="hasSwappableElements"></a><span class="ddoc_psymbol">hasSwappableElements</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is a forward range and has swappable
-elements. The following code should compile for any random-access
-range.
+elements. The following code should compile for any range
+with swappable elements.
 <p></p>
 <pre class="d_code">R r;
 <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isForwardRange!(R));   <span class="d_comment">// range is forward
@@ -397,10 +688,10 @@ range.
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasAssignableElements"></a><span class="ddoc_psymbol">hasAssignableElements</span>(R)</dt>
+<dt class="d_decl"><a name=".hasAssignableElements"></a>template <a name="hasAssignableElements"></a><span class="ddoc_psymbol">hasAssignableElements</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is a forward range and has mutable
-elements. The following code should compile for any random-access
-range.
+elements. The following code should compile for any range
+with assignable elements.
 <p></p>
 <pre class="d_code">R r;
 <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isForwardRange!R);  <span class="d_comment">// range is forward
@@ -410,12 +701,12 @@ r.front = e;                      <span class="d_comment">// can assign elements
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasLvalueElements"></a><span class="ddoc_psymbol">hasLvalueElements</span>(R)</dt>
+<dt class="d_decl"><a name=".hasLvalueElements"></a>template <a name="hasLvalueElements"></a><span class="ddoc_psymbol">hasLvalueElements</span>(R)</dt>
 <dd>Tests whether <span class="d_inlinecode">R</span> has lvalue elements.  These are defined as elements that
 can be passed by reference and have their address taken.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasLength"></a><span class="ddoc_psymbol">hasLength</span>(R)</dt>
+<dt class="d_decl"><a name=".hasLength"></a>template <a name="hasLength"></a><span class="ddoc_psymbol">hasLength</span>(R)</dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> has a <span class="d_inlinecode">length</span> member that returns an
 integral type. <span class="d_inlinecode">R</span> does not have to be a range. Note that <span class="d_inlinecode">length</span> is an optional primitive as no range must implement it. Some
 ranges do not store their length explicitly, some cannot compute it
@@ -429,12 +720,12 @@ the number of encoding units, and as such is not useful with
 range-oriented algorithms.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="isInfinite"></a><span class="ddoc_psymbol">isInfinite</span>(Range)</dt>
-<dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">Range</span> is an infinite input range. An
+<dt class="d_decl"><a name=".isInfinite"></a>template <a name="isInfinite"></a><span class="ddoc_psymbol">isInfinite</span>(R)</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> is an infinite input range. An
 infinite input range is an input range that has a statically-defined
-enumerated member called <span class="d_inlinecode">empty</span> that is always <span class="d_inlinecode"><b>false</b></span>, for
+enumerated member called <span class="d_inlinecode">empty</span> that is always <span class="d_inlinecode"><b>false</b></span>,
+for example:
 <p></p>
-<b>example:</b><br>
 <pre class="d_code"><span class="d_keyword">struct</span> MyInfiniteRange
 {
     <span class="d_keyword">enum</span> <span class="d_keyword">bool</span> empty = <span class="d_keyword">false</span>;
@@ -444,35 +735,82 @@ enumerated member called <span class="d_inlinecode">empty</span> that is always 
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="hasSlicing"></a><span class="ddoc_psymbol">hasSlicing</span>(Range)</dt>
-<dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">Range</span> offers a slicing operator with
-integral boundaries, that in turn returns an input range type. The
-following code should compile for <span class="d_inlinecode"><a name="hasSlicing"></a><span class="ddoc_psymbol">hasSlicing</span></span> to be <span class="d_inlinecode"><b>true</b></span>:
+<dt class="d_decl"><a name=".hasSlicing"></a>template <a name="hasSlicing"></a><span class="ddoc_psymbol">hasSlicing</span>(R)</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">R</span> offers a slicing operator with integral boundaries
+that returns a forward range type.
 <p></p>
-<pre class="d_code">Range r;
-<span class="d_keyword">auto</span> s = r[1 .. 2];
-<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isInputRange!(<span class="d_keyword">typeof</span>(s)));
+For finite ranges, the result of <span class="d_inlinecode">opSlice</span> must be of the same type as the
+original range type. If the range defines <span class="d_inlinecode">opDollar</span>, then it must support
+subtraction.
+<p></p>
+
+For infinite ranges, when <i>not</i> using <span class="d_inlinecode">opDollar</span>, the result of
+<span class="d_inlinecode">opSlice</span> must be the result of <a href="#take"><span class="d_inlinecode">take</span></a> or <a href="#takeExactly"><span class="d_inlinecode">takeExactly</span></a> on the
+original range (they both return the same type for infinite ranges). However,
+when using <span class="d_inlinecode">opDollar</span>, the result of <span class="d_inlinecode">opSlice</span> must be that of the
+original range type.
+<p></p>
+
+The following code must compile for <span class="d_inlinecode"><a name="hasSlicing"></a><span class="ddoc_psymbol">hasSlicing</span></span> to be <span class="d_inlinecode"><b>true</b></span>:
+<p></p>
+
+<pre class="d_code">R r = <span class="d_keyword">void</span>;
+
+<span class="d_keyword">static</span> <span class="d_keyword">if</span>(isInfinite!R)
+    <span class="d_keyword">typeof</span>(take(r, 1)) s = r[1 .. 2];
+<span class="d_keyword">else</span>
+{
+    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r[1 .. 2]) == R));
+    R s = r[1 .. 2];
+}
+
+s = r[1 .. 2];
+
+<span class="d_keyword">static</span> <span class="d_keyword">if</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r[0 .. $])))
+{
+    <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r[0 .. $]) == R));
+    R t = r[0 .. $];
+    t = r[0 .. $];
+
+    <span class="d_keyword">static</span> <span class="d_keyword">if</span>(!isInfinite!R)
+    {
+        <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(<span class="d_keyword">is</span>(<span class="d_keyword">typeof</span>(r[0 .. $ - 1]) == R));
+        R u = r[0 .. $ - 1];
+        u = r[0 .. $ - 1];
+    }
+}
+
+<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isForwardRange!(<span class="d_keyword">typeof</span>(r[1 .. 2])));
+<span class="d_keyword">static</span> <span class="d_keyword">assert</span>(hasLength!(<span class="d_keyword">typeof</span>(r[1 .. 2])));
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="walkLength"></a><span class="ddoc_psymbol">walkLength</span>(Range)(Range <i>range</i>, const size_t <i>upTo</i> = size_t.max);
+<dt class="d_decl"><a name=".walkLength"></a>auto <a name="walkLength"></a><span class="ddoc_psymbol">walkLength</span>(Range)(Range <i>range</i>);
+<br><a name=".walkLength"></a>auto <a name="walkLength"></a><span class="ddoc_psymbol">walkLength</span>(Range)(Range <i>range</i>, const size_t <i>upTo</i>);
 </dt>
 <dd>This is a best-effort implementation of <span class="d_inlinecode">length</span> for any kind of
 range.
 <p></p>
-If <span class="d_inlinecode">hasLength!(Range)</span>, simply returns <span class="d_inlinecode">range.length</span> without
-checking <span class="d_inlinecode">upTo</span>.
+If <span class="d_inlinecode">hasLength!Range</span>, simply returns <span class="d_inlinecode">range.length</span> without
+checking <span class="d_inlinecode">upTo</span> (when specified).
 <p></p>
 
 Otherwise, walks the range through its length and returns the number
 of elements seen. Performes <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">range.empty</span>
-and <span class="d_inlinecode">range.popFront()</span>, where <span class="d_inlinecode">n</span> is the effective length of <span class="d_inlinecode">range</span>. The <span class="d_inlinecode">upTo</span> parameter is useful to "cut the losses" in case
+and <span class="d_inlinecode">range.popFront()</span>, where <span class="d_inlinecode">n</span> is the effective length of <span class="d_inlinecode">range</span>.
+<p></p>
+
+The <span class="d_inlinecode">upTo</span> parameter is useful to "cut the losses" in case
 the interest is in seeing whether the range has at least some number
-of elements. If the parameter <span class="d_inlinecode">upTo</span> is specified, stops if <span class="d_inlinecode">upTo</span> steps have been taken and returns <span class="d_inlinecode">upTo</span>.<p></p>
+of elements. If the parameter <span class="d_inlinecode">upTo</span> is specified, stops if <span class="d_inlinecode">upTo</span> steps have been taken and returns <span class="d_inlinecode">upTo</span>.
+<p></p>
+
+Infinite ranges are compatible, provided the parameter <span class="d_inlinecode">upTo</span> is
+specified, in which case the implementation simply returns upTo.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="retro"></a><span class="ddoc_psymbol">retro</span>(Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".retro"></a>auto <a name="retro"></a><span class="ddoc_psymbol">retro</span>(Range)(Range <i>r</i>);
 </dt>
 <dd>Iterates a bidirectional range backwards. The original range can be
 accessed by using the <span class="d_inlinecode">source</span> property. Applying <a name="retro"></a><span class="ddoc_psymbol">retro</span> twice to
@@ -487,7 +825,7 @@ the same range yields the original range.
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="stride"></a><span class="ddoc_psymbol">stride</span>(Range)(Range <i>r</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".stride"></a>auto <a name="stride"></a><span class="ddoc_psymbol">stride</span>(Range)(Range <i>r</i>, size_t <i>n</i>);
 </dt>
 <dd>Iterates range <span class="d_inlinecode">r</span> with <a name="stride"></a><span class="ddoc_psymbol">stride</span> <span class="d_inlinecode">n</span>. If the range is a
 random-access range, moves by indexing into the range; otehrwise,
@@ -506,7 +844,7 @@ product of the two applications.
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="chain"></a><span class="ddoc_psymbol">chain</span>(Ranges...)(Ranges <i>rs</i>);
+<dt class="d_decl"><a name=".chain"></a>auto <a name="chain"></a><span class="ddoc_psymbol">chain</span>(Ranges...)(Ranges <i>rs</i>);
 </dt>
 <dd>Spans multiple ranges in sequence. The function <span class="d_inlinecode"><a name="chain"></a><span class="ddoc_psymbol">chain</span></span> takes any
 number of ranges and returns a <span class="d_inlinecode">Chain!(R1, R2,...)</span> object. The
@@ -529,7 +867,7 @@ range's type.
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="roundRobin"></a><span class="ddoc_psymbol">roundRobin</span>(Rs...)(Rs <i>rs</i>);
+<dt class="d_decl"><a name=".roundRobin"></a>auto <a name="roundRobin"></a><span class="ddoc_psymbol">roundRobin</span>(Rs...)(Rs <i>rs</i>);
 </dt>
 <dd><span class="d_inlinecode"><a name="roundRobin"></a><span class="ddoc_psymbol">roundRobin</span>(r1, r2, r3)</span> yields <span class="d_inlinecode">r1.front</span>, then <span class="d_inlinecode">r2.front</span>,
 then <span class="d_inlinecode">r3.front</span>, after which it pops off one element from each and
@@ -546,8 +884,8 @@ finish early).
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="radial"></a><span class="ddoc_psymbol">radial</span>(Range, I)(Range <i>r</i>, I <i>startingIndex</i>);
-<br>auto <a name="radial"></a><span class="ddoc_psymbol">radial</span>(R)(R <i>r</i>);
+<dt class="d_decl"><a name=".radial"></a>auto <a name="radial"></a><span class="ddoc_psymbol">radial</span>(Range, I)(Range <i>r</i>, I <i>startingIndex</i>);
+<br><a name=".radial"></a>auto <a name="radial"></a><span class="ddoc_psymbol">radial</span>(R)(R <i>r</i>);
 </dt>
 <dd>Iterates a random-access range starting from a given point and
 progressively extending left and right from that point. If no initial
@@ -563,8 +901,8 @@ a = [ 1, 2, 3, 4 ];
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Take"></a><span class="ddoc_psymbol">Take</span>(Range) if (isInputRange!(Unqual!(Range)) &amp;&amp; !(hasSlicing!(Unqual!(Range)) || is(Range T == <a name="Take"></a><span class="ddoc_psymbol">Take</span>!(T))));
-<br>Take!(R) <a name="take"></a><span class="ddoc_psymbol">take</span>(R)(R <i>input</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".Take"></a>struct <a name="Take"></a><span class="ddoc_psymbol">Take</span>(Range) if (isInputRange!(Unqual!(Range)) &amp;&amp; !(!isInfinite!(Unqual!(Range)) &amp;&amp; hasSlicing!(Unqual!(Range)) || is(Range T == <a name="Take"></a><span class="ddoc_psymbol">Take</span>!(T))));
+<br><a name=".take"></a>Take!(R) <a name="take"></a><span class="ddoc_psymbol">take</span>(R)(R <i>input</i>, size_t <i>n</i>);
 </dt>
 <dd>Lazily takes only up to <span class="d_inlinecode">n</span> elements of a range. This is
 particularly useful when using with infinite ranges. If the range
@@ -580,27 +918,20 @@ offers random access and <span class="d_inlinecode">length</span>, <span class="
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="takeExactly"></a><span class="ddoc_psymbol">takeExactly</span>(R)(R <i>range</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".takeExactly"></a>auto <a name="takeExactly"></a><span class="ddoc_psymbol">takeExactly</span>(R)(R <i>range</i>, size_t <i>n</i>);
 </dt>
 <dd>Similar to <a href="#take"><span class="d_inlinecode">take</span></a>, but assumes that <span class="d_inlinecode">range</span> has at least <span class="d_inlinecode">n</span> elements. Consequently, the result of <span class="d_inlinecode"><a name="takeExactly"></a><span class="ddoc_psymbol">takeExactly</span>(range, n)</span>
 always defines the <span class="d_inlinecode">length</span> property (and initializes it to <span class="d_inlinecode">n</span>)
 even when <span class="d_inlinecode">range</span> itself does not define <span class="d_inlinecode">length</span>.
 <p></p>
-If <span class="d_inlinecode">R</span> has slicing, <span class="d_inlinecode"><a name="takeExactly"></a><span class="ddoc_psymbol">takeExactly</span></span> simply returns a slice of <span class="d_inlinecode">range</span>. Otherwise if <span class="d_inlinecode">R</span> is an input range, the type of the result
-is an input range with length. Finally, if <span class="d_inlinecode">R</span> is a forward range
-(including bidirectional), the type of the result is a forward range
-with length.<p></p>
+The result of <span class="d_inlinecode"><a name="takeExactly"></a><span class="ddoc_psymbol">takeExactly</span></span> is identical to that of <a href="#take"><span class="d_inlinecode">take</span></a> in
+cases where the original range defines <span class="d_inlinecode">length</span> or is infinite.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span>(R)(R <i>source</i>);
-<br>auto <a name="takeNone"></a><span class="ddoc_psymbol">takeNone</span>(R)();
+<dt class="d_decl"><a name=".takeOne"></a>auto <a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span>(R)(R <i>source</i>);
 </dt>
 <dd>Returns a range with at most one element; for example, <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span>([42, 43, 44])</span> returns a range consisting of the integer <span class="d_inlinecode">42</span>. Calling <span class="d_inlinecode">popFront()</span> off that range renders it empty.
 <p></p>
-Sometimes an empty range with the same signature is needed. For such
-ranges use <span class="d_inlinecode">takeNone!R()</span>. For example:
-<p></p>
-
 <pre class="d_code"><span class="d_keyword">auto</span> s = <span class="d_psymbol">takeOne</span>([42, 43, 44]);
 <span class="d_keyword">static</span> <span class="d_keyword">assert</span>(isRandomAccessRange!(<span class="d_keyword">typeof</span>(s)));
 <span class="d_keyword">assert</span>(s.length == 1);
@@ -613,71 +944,189 @@ s.front() = 43;
 s.popFront();
 <span class="d_keyword">assert</span>(s.length == 0);
 <span class="d_keyword">assert</span>(s.empty);
-s = takeNone!(<span class="d_keyword">int</span>[])();
-<span class="d_keyword">assert</span>(s.length == 0);
-<span class="d_keyword">assert</span>(s.empty);
 </pre>
+<p></p>
 
-In effect <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span>(r)</span> is somewhat equivalent to  and
-<span class="d_inlinecode">takeNone(r)</span> is equivalent to <span class="d_inlinecode">take(r, 0)</span>, but in certain
-interfaces it is important to know statically that the range may only
+In effect <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span>(r)</span> is somewhat equivalent to <span class="d_inlinecode">take(r, 1)</span> but in
+certain interfaces it is important to know statically that the range may only
 have at most one element.
 <p></p>
 
-The type returned by <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span></span> and <span class="d_inlinecode">takeNone</span> is a random-access
-range with length regardless of <span class="d_inlinecode">R</span>'s capability (another feature
-that distinguishes <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span></span>/<span class="d_inlinecode">takeNone</span> from <span class="d_inlinecode">take</span>).<p></p>
+The type returned by <span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span></span> is a random-access range with length
+regardless of <span class="d_inlinecode">R</span>'s capabilities (another feature that distinguishes
+<span class="d_inlinecode"><a name="takeOne"></a><span class="ddoc_psymbol">takeOne</span></span> from <span class="d_inlinecode">take</span>).<p></p>
 
 </dd>
-<dt class="d_decl">R <a name="drop"></a><span class="ddoc_psymbol">drop</span>(R)(R <i>range</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".takeNone"></a>auto <a name="takeNone"></a><span class="ddoc_psymbol">takeNone</span>(R)();
 </dt>
-<dd>Convenience function which calls <span class="d_inlinecode"><a href="#popFrontN"><span class="d_inlinecode">popFrontN</span></a>(range, n)</span> and
-    returns <span class="d_inlinecode">range</span>.
+<dd>Returns an empty range which is statically known to be empty and is
+    guaranteed to have <span class="d_inlinecode">length</span> and be random access regardless of <span class="d_inlinecode">R</span>'s
+    capabilities.
 <p></p>
-<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">drop</span>([0, 2, 1, 5, 0, 3], 3) == [5, 0, 3]);
-<span class="d_keyword">assert</span>(<span class="d_psymbol">drop</span>(<span class="d_string">"hello world"</span>, 6) == <span class="d_string">"world"</span>);
-<span class="d_keyword">assert</span>(<span class="d_psymbol">drop</span>(<span class="d_string">"hello world"</span>, 50).empty);
-<span class="d_keyword">assert</span>(equal(<span class="d_psymbol">drop</span>(take(<span class="d_string">"hello world"</span>, 6), 3), <span class="d_string">"lo "</span>));
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">auto</span> range = <span class="d_psymbol">takeNone</span>!(<span class="d_keyword">int</span>[])();
+<span class="d_keyword">assert</span>(range.length == 0);
+<span class="d_keyword">assert</span>(range.empty);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="popFrontN"></a><span class="ddoc_psymbol">popFrontN</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".takeNone"></a>auto <a name="takeNone"></a><span class="ddoc_psymbol">takeNone</span>(R)(R <i>range</i>);
 </dt>
-<dd>Eagerly advances <span class="d_inlinecode">r</span> itself (not a copy) <span class="d_inlinecode">n</span> times (by calling
-<span class="d_inlinecode">r.popFront</span> at most <span class="d_inlinecode">n</span> times). The pass of <span class="d_inlinecode">r</span> into <span class="d_inlinecode"><a name="popFrontN"></a><span class="ddoc_psymbol">popFrontN</span></span> is by reference, so the original range is
-affected. Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b> steps for ranges that support
-slicing, and in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b> time for all other ranges.
+<dd>Creates an empty range from the given range in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>. If it can, it
+    will return the same range type. If not, it will return
+    <span class="d_inlinecode">takeExactly(range, 0)</span>.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">takeNone</span>([42, 27, 19]).empty);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">takeNone</span>(<span class="d_string">"dlang.org"</span>).empty);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">takeNone</span>(filter!<span class="d_string">"true"</span>([42, 27, 19])).empty);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".drop"></a>R <a name="drop"></a><span class="ddoc_psymbol">drop</span>(R)(R <i>range</i>, size_t <i>n</i>);
+<br><a name=".dropBack"></a>R <a name="dropBack"></a><span class="ddoc_psymbol">dropBack</span>(R)(R <i>range</i>, size_t <i>n</i>);
+</dt>
+<dd>Convenience function which calls
+    <span class="d_inlinecode">range.<a href="#popFrontN"><span class="d_inlinecode">popFrontN</span></a>(n)</span> and returns <span class="d_inlinecode">range</span>. <span class="d_inlinecode"><a name="drop"></a><span class="ddoc_psymbol">drop</span></span>
+    makes it easier to pop elements from a range
+    and then pass it to another function within a single expression,
+    whereas <span class="d_inlinecode">popFrontN</span> would require multiple statements.
+<p></p>
+<span class="d_inlinecode">dropBack</span> provides the same functionality but instead calls
+    <span class="d_inlinecode">range.popBackN(n)</span>.
+
+<p></p>
+<b>Note:</b><br>
+<span class="d_inlinecode"><a name="drop"></a><span class="ddoc_psymbol">drop</span></span> and <span class="d_inlinecode">dropBack</span> will only pop <i>up to</i>
+    <span class="d_inlinecode">n</span> elements but will stop if the range is empty first.
+
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>([0, 2, 1, 5, 0, 3].<span class="d_psymbol">drop</span>(3) == [5, 0, 3]);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.<span class="d_psymbol">drop</span>(6) == <span class="d_string">"world"</span>);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.<span class="d_psymbol">drop</span>(50).empty);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.take(6).<span class="d_psymbol">drop</span>(3).equal(<span class="d_string">"lo "</span>));
+</pre>
+<p></p>
+
+<pre class="d_code"><span class="d_comment">//Remove all but the first two elements
+</span><span class="d_keyword">auto</span> a = DList!<span class="d_keyword">int</span>(0, 1, 9, 9, 9);
+a.remove(a[].<span class="d_psymbol">drop</span>(2));
+<span class="d_keyword">assert</span>(a[].equal(a[].take(2)));
+</pre>
+<p></p>
+
+<pre class="d_code"><span class="d_keyword">assert</span>([0, 2, 1, 5, 0, 3].dropBack(3) == [0, 2, 1]);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.dropBack(6) == <span class="d_string">"hello"</span>);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.dropBack(50).empty);
+<span class="d_keyword">assert</span>(<span class="d_string">"hello world"</span>.<span class="d_psymbol">drop</span>(4).dropBack(4).equal(<span class="d_string">"o w"</span>));
+</pre>
+<p></p>
+
+<pre class="d_code"><span class="d_comment">//insert before the last two elements
+</span><span class="d_keyword">auto</span> a = DList!<span class="d_keyword">int</span>(0, 1, 2, 5, 6);
+a.insertAfter(a[].dropBack(2), [3, 4]);
+<span class="d_keyword">assert</span>(a[].equal(iota(0, 7)));
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".dropExactly"></a>R <a name="dropExactly"></a><span class="ddoc_psymbol">dropExactly</span>(R)(R <i>range</i>, size_t <i>n</i>);
+<br><a name=".dropBackExactly"></a>R <a name="dropBackExactly"></a><span class="ddoc_psymbol">dropBackExactly</span>(R)(R <i>range</i>, size_t <i>n</i>);
+</dt>
+<dd>Similar to <a href="#drop"><span class="d_inlinecode">drop</span></a> and <span class="d_inlinecode">dropBack</span> but they call
+    <span class="d_inlinecode">range.<a href="#popFrontExactly"><span class="d_inlinecode">popFrontExactly</span></a>(n)</span> and <span class="d_inlinecode">range.popBackExactly(n)</span>
+    instead.
+<p></p>
+<b>Note:</b><br>
+Unlike <span class="d_inlinecode">drop</span>, <span class="d_inlinecode"><a name="dropExactly"></a><span class="ddoc_psymbol">dropExactly</span></span> will assume that the
+    range holds at least <span class="d_inlinecode">n</span> elements. This makes <span class="d_inlinecode"><a name="dropExactly"></a><span class="ddoc_psymbol">dropExactly</span></span>
+    faster than <span class="d_inlinecode">drop</span>, but it also means that if <span class="d_inlinecode">range</span> does
+    not contain at least <span class="d_inlinecode">n</span> elements, it will attempt to call <span class="d_inlinecode">popFront</span>
+    on an empty range, which is undefined behavior. So, only use
+    <span class="d_inlinecode">popFrontExactly</span> when it is guaranteed that <span class="d_inlinecode">range</span> holds at least
+    <span class="d_inlinecode">n</span> elements.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".dropOne"></a>R <a name="dropOne"></a><span class="ddoc_psymbol">dropOne</span>(R)(R <i>range</i>);
+<br><a name=".dropBackOne"></a>R <a name="dropBackOne"></a><span class="ddoc_psymbol">dropBackOne</span>(R)(R <i>range</i>);
+</dt>
+<dd>Convenience function which calls
+    <span class="d_inlinecode">range.popFront()</span> and returns <span class="d_inlinecode">range</span>. <span class="d_inlinecode"><a name="dropOne"></a><span class="ddoc_psymbol">dropOne</span></span>
+    makes it easier to pop an element from a range
+    and then pass it to another function within a single expression,
+    whereas <span class="d_inlinecode">popFront</span> would require multiple statements.
+<p></p>
+<span class="d_inlinecode">dropBackOne</span> provides the same functionality but instead calls
+    <span class="d_inlinecode">range.popBack()</span>.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">auto</span> dl = DList!<span class="d_keyword">int</span>(9, 1, 2, 3, 9);
+<span class="d_keyword">assert</span>(dl[].<span class="d_psymbol">dropOne</span>().dropBackOne().equal([1, 2, 3]));
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".popFrontN"></a>size_t <a name="popFrontN"></a><span class="ddoc_psymbol">popFrontN</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
+<br><a name=".popBackN"></a>size_t <a name="popBackN"></a><span class="ddoc_psymbol">popBackN</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
+</dt>
+<dd>Eagerly advances <span class="d_inlinecode">r</span> itself (not a copy) up to <span class="d_inlinecode">n</span> times (by
+    calling <span class="d_inlinecode">r.popFront()</span>. <span class="d_inlinecode"><a name="popFrontN"></a><span class="ddoc_psymbol">popFrontN</span></span> takes <span class="d_inlinecode">r</span> by <span class="d_inlinecode">ref</span>,
+    so it mutates the original range. Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b> steps for ranges
+    that support slicing and have length.
+    Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b> time for all other ranges.
+<p></p>
+<b>Returns:</b><br>How much <span class="d_inlinecode">r</span> was actually advanced, which may be less than <span class="d_inlinecode">n</span> if
+    <span class="d_inlinecode">r</span> did not have at least <span class="d_inlinecode">n</span> element.
+<p></p>
+
+    <span class="d_inlinecode">popBackN</span> will behave the same but instead removes elements from
+    the back of the (bidirectional) range instead of the front.
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] a = [ 1, 2, 3, 4, 5 ];
 a.<span class="d_psymbol">popFrontN</span>(2);
 <span class="d_keyword">assert</span>(a == [ 3, 4, 5 ]);
+a.<span class="d_psymbol">popFrontN</span>(7);
+<span class="d_keyword">assert</span>(a == [ ]);
+</pre>
+<p></p>
+
+<pre class="d_code"><span class="d_keyword">int</span>[] a = [ 1, 2, 3, 4, 5 ];
+a.popBackN(2);
+<span class="d_keyword">assert</span>(a == [ 1, 2, 3 ]);
+a.popBackN(7);
+<span class="d_keyword">assert</span>(a == [ ]);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="popBackN"></a><span class="ddoc_psymbol">popBackN</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".popFrontExactly"></a>void <a name="popFrontExactly"></a><span class="ddoc_psymbol">popFrontExactly</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
+<br><a name=".popBackExactly"></a>void <a name="popBackExactly"></a><span class="ddoc_psymbol">popBackExactly</span>(Range)(ref Range <i>r</i>, size_t <i>n</i>);
 </dt>
-<dd>Eagerly reduces <span class="d_inlinecode">r</span> itself (not a copy) <span class="d_inlinecode">n</span> times from its right
-   side (by calling <span class="d_inlinecode">r.popBack</span> <span class="d_inlinecode">n</span> times). The pass of <span class="d_inlinecode">r</span> into
-   <span class="d_inlinecode"><a name="popBackN"></a><span class="ddoc_psymbol">popBackN</span></span> is by reference, so the original range is
-   affected. Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b> steps for ranges that support
-   slicing, and in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b> time for all other ranges.
+<dd>Eagerly advances <span class="d_inlinecode">r</span> itself (not a copy) exactly <span class="d_inlinecode">n</span> times (by
+    calling <span class="d_inlinecode">r.popFront</span>. <span class="d_inlinecode"><a name="popFrontExactly"></a><span class="ddoc_psymbol">popFrontExactly</span></span> takes <span class="d_inlinecode">r</span> by <span class="d_inlinecode">ref</span>,
+    so it mutates the original range. Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b> steps for ranges
+    that support slicing, and have either length or are infinite.
+    Completes in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b> time for all other ranges.
 <p></p>
-Returns the actual number of elements popped.
+<b>Note:</b><br>
+Unlike <a href="#popFrontN"><span class="d_inlinecode">popFrontN</span></a>, <span class="d_inlinecode"><a name="popFrontExactly"></a><span class="ddoc_psymbol">popFrontExactly</span></span> will assume that the
+    range holds at least <span class="d_inlinecode">n</span> elements. This makes <span class="d_inlinecode"><a name="popFrontExactly"></a><span class="ddoc_psymbol">popFrontExactly</span></span>
+    faster than <span class="d_inlinecode">popFrontN</span>, but it also means that if <span class="d_inlinecode">range</span> does
+    not contain at least <span class="d_inlinecode">n</span> elements, it will attempt to call <span class="d_inlinecode">popFront</span>
+    on an empty range, which is undefined behavior. So, only use
+    <span class="d_inlinecode"><a name="popFrontExactly"></a><span class="ddoc_psymbol">popFrontExactly</span></span> when it is guaranteed that <span class="d_inlinecode">range</span> holds at least
+    <span class="d_inlinecode">n</span> elements.
+<p></p>
 
-<p></p>
-<b>Example:</b><br>
-<pre class="d_code">   <span class="d_keyword">int</span>[] a = [ 1, 2, 3, 4, 5 ];
-   a.<span class="d_psymbol">popBackN</span>(2);
-   <span class="d_keyword">assert</span>(a == [ 1, 2, 3 ]);
-</pre>
-<p></p>
+    <span class="d_inlinecode">popBackExactly</span> will behave the same but instead removes elements from
+    the back of the (bidirectional) range instead of the front.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Repeat"></a><span class="ddoc_psymbol">Repeat</span>(T);
-<br>Repeat!(T) <a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(T)(T <i>value</i>);
+<dt class="d_decl"><a name=".Repeat"></a>struct <a name="Repeat"></a><span class="ddoc_psymbol">Repeat</span>(T);
+<br><a name=".repeat"></a>Repeat!(T) <a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(T)(T <i>value</i>);
 </dt>
 <dd>Repeats one value forever.
 <p></p>
@@ -686,42 +1135,40 @@ Returns the actual number of elements popped.
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">T <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>Repeat!(T) <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
+<dl><dt class="d_decl"><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".back"></a>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".save"></a>Repeat!(T) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".opIndex"></a>T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
 </dt>
 <dd>Range primitive implementations.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">Take!(Repeat!(T)) <a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(T)(T <i>value</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".repeat"></a>Take!(Repeat!(T)) <a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(T)(T <i>value</i>, size_t <i>n</i>);
 </dt>
 <dd>Repeats <span class="d_inlinecode">value</span> exactly <span class="d_inlinecode">n</span> times. Equivalent to <span class="d_inlinecode">  take(<a name="repeat"></a><span class="ddoc_psymbol">repeat</span>(value), n)</span>.<p></p>
 
 </dd>
-<dt class="d_decl">Take!(Repeat!(T)) <a name="replicate"></a><span class="ddoc_psymbol">replicate</span>(T)(T <i>value</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".replicate"></a>Take!(Repeat!(T)) <a name="replicate"></a><span class="ddoc_psymbol">replicate</span>(T)(T <i>value</i>, size_t <i>n</i>);
 </dt>
-<dd>Equivalent to <span class="d_inlinecode">repeat(value, n)</span>. Scheduled for deprecation.<p></p>
+<dd><span style="color:red">Deprecated. It will be removed in January 2013.
+          Please use <a href="#repeat"><span class="d_inlinecode">repeat</span></a> instead.</span><p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span>(Range) if (isForwardRange!(Unqual!(Range)) &amp;&amp; !isInfinite!(Unqual!(Range)));
-<br>template <a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span>(R) if (isInfinite!(R))<br>struct <a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span>(R) if (isStaticArray!(R));
-<br>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(R <i>input</i>);
-<br>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(R <i>input</i>, size_t <i>index</i>);
-<br>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(R <i>input</i>);
-<br>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(ref R <i>input</i>, size_t <i>index</i> = 0);
+<dt class="d_decl"><a name=".Cycle"></a>struct <a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span>(Range) if (isForwardRange!(Unqual!(Range)) &amp;&amp; !isInfinite!(Unqual!(Range)));
+<br><a name=".cycle"></a>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(R <i>input</i>);
+<br><a name=".cycle"></a>Cycle!(R) <a name="cycle"></a><span class="ddoc_psymbol">cycle</span>(R)(R <i>input</i>, size_t <i>index</i> = 0);
 </dt>
 <dd>Repeats the given forward range ad infinitum. If the original range is
 infinite (fact that would make <span class="d_inlinecode"><a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span></span> the identity application),
 <span class="d_inlinecode"><a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span></span> detects that and aliases itself to the range type
 itself. If the original range has random access, <span class="d_inlinecode"><a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span></span> offers
 random access and also offers a constructor taking an initial position
-<span class="d_inlinecode">index</span>. <span class="d_inlinecode"><a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span></span> is specialized for statically-sized arrays,
+<span class="d_inlinecode">index</span>. <span class="d_inlinecode"><a name="Cycle"></a><span class="ddoc_psymbol">Cycle</span></span> works with static arrays in addition to ranges,
 mostly for performance reasons.
 <p></p>
 <b>Example:</b><br>
@@ -732,21 +1179,10 @@ mostly for performance reasons.
 <b>Tip:</b><br>
 This is a great way to implement simple circular buffers.<p></p>
 
-<dl><dt class="d_decl">@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType!(R) <i>val</i>);
-<br>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>auto <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType!(R) <i>val</i>, size_t <i>n</i>);
-<br>Cycle!(R) <a name="save"></a><span class="ddoc_psymbol">save</span>();
-</dt>
-<dd>Range primitive implementations.<p></p>
-
 </dd>
-</dl>
-</dd>
-<dt class="d_decl">struct <a name="Zip"></a><span class="ddoc_psymbol">Zip</span>(Ranges...) if (Ranges.length &amp;&amp; allSatisfy!(isInputRange,staticMap!(Unqual,Ranges)));
-<br>auto <a name="zip"></a><span class="ddoc_psymbol">zip</span>(R...)(R <i>ranges</i>);
-<br>auto <a name="zip"></a><span class="ddoc_psymbol">zip</span>(R...)(StoppingPolicy <i>sp</i>, R <i>ranges</i>);
+<dt class="d_decl"><a name=".Zip"></a>struct <a name="Zip"></a><span class="ddoc_psymbol">Zip</span>(Ranges...) if (Ranges.length &amp;&amp; allSatisfy!(isInputRange, staticMap!(Unqual, Ranges)));
+<br><a name=".zip"></a>auto <a name="zip"></a><span class="ddoc_psymbol">zip</span>(R...)(R <i>ranges</i>);
+<br><a name=".zip"></a>auto <a name="zip"></a><span class="ddoc_psymbol">zip</span>(R...)(StoppingPolicy <i>sp</i>, R <i>ranges</i>);
 </dt>
 <dd>Iterate several ranges in lockstep. The element type is a proxy tuple
    that allows accessing the current element in the <span class="d_inlinecode">n</span>th range by
@@ -761,6 +1197,7 @@ This is a great way to implement simple circular buffers.<p></p>
    write(e[0], ':', e[1], ' ');
    }
 </pre>
+<p></p>
 
    <span class="d_inlinecode"><a name="Zip"></a><span class="ddoc_psymbol">Zip</span></span> offers the lowest range facilities of all components, e.g. it
    offers random access iff all ranges offer random access, and also
@@ -777,87 +1214,93 @@ This is a great way to implement simple circular buffers.<p></p>
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">auto this(R <i>rs</i>, StoppingPolicy <i>s</i> = StoppingPolicy.shortest);
+<dl><dt class="d_decl"><a name=".this"></a> this(R <i>rs</i>, StoppingPolicy <i>s</i> = StoppingPolicy.shortest);
 </dt>
 <dd>Builds an object. Usually this is invoked indirectly by using the
    <a href="#zip"><span class="d_inlinecode">zip</span></a> function.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if the range is at end. The test depends on the
    stopping policy.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<dt class="d_decl"><a name=".front"></a>ElementType <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd>Returns the current iterated element.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType <i>v</i>);
+<dt class="d_decl"><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType <i>v</i>);
 </dt>
 <dd>Sets the <a name="front"></a><span class="ddoc_psymbol">front</span> of all iterated ranges.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<dt class="d_decl"><a name=".moveFront"></a>ElementType <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
 </dt>
 <dd>Moves out the front.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<dt class="d_decl"><a name=".back"></a>ElementType <a name="back"></a><span class="ddoc_psymbol">back</span>();
 </dt>
 <dd>Returns the rightmost element.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<dt class="d_decl"><a name=".moveBack"></a>ElementType <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
 </dt>
 <dd>Moves out the back.
 <p></p>
 Returns the rightmost element.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="back"></a><span class="ddoc_psymbol">back</span>(ElementType <i>v</i>);
+<dt class="d_decl"><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(ElementType <i>v</i>);
 </dt>
 <dd>Returns the current iterated element.
 <p></p>
 Returns the rightmost element.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<dt class="d_decl"><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
 </dt>
 <dd>Advances to the next element in all controlled ranges.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<dt class="d_decl"><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
 </dt>
 <dd>Calls <span class="d_inlinecode"><a name="popBack"></a><span class="ddoc_psymbol">popBack</span></span> for all controlled ranges.<p></p>
 
 </dd>
-<dt class="d_decl">@property auto <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>@property auto <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Returns the <a name="length"></a><span class="ddoc_psymbol">length</span> of this range. Defined only if all ranges define
    <span class="d_inlinecode"><a name="length"></a><span class="ddoc_psymbol">length</span></span>.<p></p>
 
 </dd>
-<dt class="d_decl">Zip <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>from</i>, size_t <i>to</i>);
+<dt class="d_decl"><a name=".opDollar"></a>alias length <a name="opDollar"></a><span class="ddoc_psymbol">opDollar</span>;
+</dt>
+<dd>Returns the length of this range. Defined only if all ranges define
+   <span class="d_inlinecode">length</span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opSlice"></a>Zip <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>from</i>, size_t <i>to</i>);
 </dt>
 <dd>Returns a slice of the range. Defined only if all range define
    slicing.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
+<dt class="d_decl"><a name=".opIndex"></a>ElementType <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
 </dt>
 <dd>Returns the <span class="d_inlinecode"><i>n</i></span>th element in the composite range. Defined if all
    ranges offer random access.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType <i>v</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType <i>v</i>, size_t <i>n</i>);
 </dt>
 <dd>Assigns to the <span class="d_inlinecode"><i>n</i></span>th element in the composite range. Defined if
    all ranges offer random access.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
+<dt class="d_decl"><a name=".moveAt"></a>ElementType <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
 </dt>
 <dd>Destructively reads the <span class="d_inlinecode"><i>n</i></span>th element in the composite
    range. Defined if all ranges offer random access.<p></p>
@@ -865,28 +1308,28 @@ Returns the rightmost element.<p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">enum <a name="StoppingPolicy"></a><span class="ddoc_psymbol">StoppingPolicy</span>;
+<dt class="d_decl"><a name=".StoppingPolicy"></a>enum <a name="StoppingPolicy"></a><span class="ddoc_psymbol">StoppingPolicy</span>;
 </dt>
 <dd>Dictates how iteration in a <span class="d_inlinecode">Zip</span> should stop. By default stop at
    the end of the shortest of all ranges.<p></p>
 
-<dl><dt class="d_decl"><a name="shortest"></a><span class="ddoc_psymbol">shortest</span></dt>
+<dl><dt class="d_decl"><a name=".StoppingPolicy.shortest"></a><a name="shortest"></a><span class="ddoc_psymbol">shortest</span></dt>
 <dd>Stop when the <a name="shortest"></a><span class="ddoc_psymbol">shortest</span> range is exhausted<p></p>
 
 </dd>
-<dt class="d_decl"><a name="longest"></a><span class="ddoc_psymbol">longest</span></dt>
+<dt class="d_decl"><a name=".StoppingPolicy.longest"></a><a name="longest"></a><span class="ddoc_psymbol">longest</span></dt>
 <dd>Stop when the <a name="longest"></a><span class="ddoc_psymbol">longest</span> range is exhausted<p></p>
 
 </dd>
-<dt class="d_decl"><a name="requireSameLength"></a><span class="ddoc_psymbol">requireSameLength</span></dt>
+<dt class="d_decl"><a name=".StoppingPolicy.requireSameLength"></a><a name="requireSameLength"></a><span class="ddoc_psymbol">requireSameLength</span></dt>
 <dd>Require that all ranges are equal<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Lockstep"></a><span class="ddoc_psymbol">Lockstep</span>(Ranges...) if (Ranges.length &gt; 1 &amp;&amp; allSatisfy!(isInputRange,staticMap!(Unqual,Ranges)));
-<br>Lockstep!(Ranges) <a name="lockstep"></a><span class="ddoc_psymbol">lockstep</span>(Ranges...)(Ranges <i>ranges</i>);
-<br>Lockstep!(Ranges) <a name="lockstep"></a><span class="ddoc_psymbol">lockstep</span>(Ranges...)(Ranges <i>ranges</i>, StoppingPolicy <i>s</i>);
+<dt class="d_decl"><a name=".Lockstep"></a>struct <a name="Lockstep"></a><span class="ddoc_psymbol">Lockstep</span>(Ranges...) if (Ranges.length &gt; 1 &amp;&amp; allSatisfy!(isInputRange, staticMap!(Unqual, Ranges)));
+<br><a name=".lockstep"></a>Lockstep!(Ranges) <a name="lockstep"></a><span class="ddoc_psymbol">lockstep</span>(Ranges...)(Ranges <i>ranges</i>);
+<br><a name=".lockstep"></a>Lockstep!(Ranges) <a name="lockstep"></a><span class="ddoc_psymbol">lockstep</span>(Ranges...)(Ranges <i>ranges</i>, StoppingPolicy <i>s</i>);
 </dt>
 <dd>Iterate multiple ranges in lockstep using a <span class="d_inlinecode">foreach</span> loop.  If only a single
    range is passed in, the <span class="d_inlinecode"><a name="Lockstep"></a><span class="ddoc_psymbol">Lockstep</span></span> aliases itself away.  If the
@@ -895,6 +1338,9 @@ Returns the rightmost element.<p></p>
    lengths and <span class="d_inlinecode">s</span> == <span class="d_inlinecode">StoppingPolicy.requireSameLength</span>, throw an
    exception.  <span class="d_inlinecode">s</span> may not be <span class="d_inlinecode">StoppingPolicy.longest</span>, and passing this
    will throw an exception.
+<p></p>
+By default <span class="d_inlinecode">StoppingPolicy</span> is set to <span class="d_inlinecode">StoppingPolicy.shortest</span>.
+
 <p></p>
 <span style="color:red">BUGS:</span><br>If a range does not offer lvalue access, but <span class="d_inlinecode">ref</span> is used in the
    <span class="d_inlinecode">foreach</span> loop, it will be silently accepted but any modifications
@@ -919,8 +1365,8 @@ Returns the rightmost element.<p></p>
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Recurrence"></a><span class="ddoc_psymbol">Recurrence</span>(alias fun,StateType,size_t stateSize);
-<br>Recurrence!(fun,CommonType!(State),State.length) <a name="recurrence"></a><span class="ddoc_psymbol">recurrence</span>(alias fun, State...)(State <i>initial</i>);
+<dt class="d_decl"><a name=".Recurrence"></a>struct <a name="Recurrence"></a><span class="ddoc_psymbol">Recurrence</span>(alias fun, StateType, size_t stateSize);
+<br><a name=".recurrence"></a>Recurrence!(fun, CommonType!(State), State.length) <a name="recurrence"></a><span class="ddoc_psymbol">recurrence</span>(alias fun, State...)(State <i>initial</i>);
 </dt>
 <dd>Creates a mathematical sequence given the initial values and a
 recurrence function that computes the next value from the existing
@@ -941,7 +1387,7 @@ and the zero-based index in the recurrence has name <span class="d_inlinecode">"
 given string must return the desired value for <span class="d_inlinecode">a[n]</span> given <span class="d_inlinecode">a[n
 - 1]</span>, <span class="d_inlinecode">a[n - 2]</span>, <span class="d_inlinecode">a[n - 3]</span>,..., <span class="d_inlinecode">a[n - stateSize]</span>. The
 state size is dictated by the number of arguments passed to the call
-to <span class="d_inlinecode">recurrence</span>. The <span class="d_inlinecode"><a name="Recurrence"></a><span class="ddoc_psymbol">Recurrence</span></span> class itself takes care of
+to <span class="d_inlinecode">recurrence</span>. The <span class="d_inlinecode"><a name="Recurrence"></a><span class="ddoc_psymbol">Recurrence</span></span> struct itself takes care of
 managing the recurrence's state and shifting it appropriately.
 
 <p></p>
@@ -956,8 +1402,8 @@ managing the recurrence's state and shifting it appropriately.
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Sequence"></a><span class="ddoc_psymbol">Sequence</span>(alias fun,State);
-<br>Sequence!(fun,Tuple!(State)) <a name="sequence"></a><span class="ddoc_psymbol">sequence</span>(alias fun, State...)(State <i>args</i>);
+<dt class="d_decl"><a name=".Sequence"></a>struct <a name="Sequence"></a><span class="ddoc_psymbol">Sequence</span>(alias fun, State);
+<br><a name=".sequence"></a>Sequence!(fun, Tuple!(State)) <a name="sequence"></a><span class="ddoc_psymbol">sequence</span>(alias fun, State...)(State <i>args</i>);
 </dt>
 <dd><span class="d_inlinecode"><a name="Sequence"></a><span class="ddoc_psymbol">Sequence</span></span> is similar to <span class="d_inlinecode">Recurrence</span> except that iteration is
    presented in the so-called <a href="http://en.wikipedia.org/wiki/Closed_form">   closed form</a>. This means that the <span class="d_inlinecode">n</span>th element in the series is
@@ -977,16 +1423,18 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E, S)(B <i>begin</i>, E <i>end</i>, S <i>step</i>);
-<br>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E)(B <i>begin</i>, E <i>end</i>);
-<br>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E)(B <i>begin</i>, E <i>end</i>);
-<br>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(E)(E <i>end</i>);
+<dt class="d_decl"><a name=".iota"></a>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E, S)(B <i>begin</i>, E <i>end</i>, S <i>step</i>);
+<br><a name=".iota"></a>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E)(B <i>begin</i>, E <i>end</i>);
+<br><a name=".iota"></a>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(B, E)(B <i>begin</i>, E <i>end</i>);
+<br><a name=".iota"></a>auto <a name="iota"></a><span class="ddoc_psymbol">iota</span>(E)(E <i>end</i>);
 </dt>
 <dd>Returns a range that goes through the numbers <span class="d_inlinecode">begin</span>, <span class="d_inlinecode">begin +
    step</span>, <span class="d_inlinecode">begin + 2 * step</span>, <span class="d_inlinecode">...</span>, up to and excluding <span class="d_inlinecode">  end</span>. The range offered is a random access range. The two-arguments
-   version has <span class="d_inlinecode">step = 1</span>. If <span class="d_inlinecode">begin &lt; end &amp;&amp; step &lt;= 0</span> or <span class="d_inlinecode">  begin &gt; end &amp;&amp; step &gt;= 0</span>, then an empty range is returned. If <span class="d_inlinecode">  begin != end</span> and <span class="d_inlinecode">step == 0</span>, an exception is thrown.
+   version has <span class="d_inlinecode">step = 1</span>. If <span class="d_inlinecode">begin &lt; end &amp;&amp; step &lt; 0</span> or <span class="d_inlinecode">  begin &gt; end &amp;&amp; step &gt; 0</span> or <span class="d_inlinecode">begin == end</span>, then an empty range is
+   returned.
 <p></p>
-<b>Throws:</b><br><span class="d_inlinecode">Exception</span> if <span class="d_inlinecode">step == 0</span>
+<b>Throws:</b><br><span class="d_inlinecode">Exception</span> if <span class="d_inlinecode">begin != end &amp;&amp; step == 0</span>, an exception is
+   thrown.
 
 <p></p>
 <b>Example:</b><br>
@@ -1001,24 +1449,24 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 <p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="TransverseOptions"></a><span class="ddoc_psymbol">TransverseOptions</span>;
+<dt class="d_decl"><a name=".TransverseOptions"></a>enum <a name="TransverseOptions"></a><span class="ddoc_psymbol">TransverseOptions</span>;
 </dt>
-<dd>Options for the <span class="d_inlinecode">FrontTransversal</span> and <span class="d_inlinecode">Transversal</span> ranges
+<dd>Options for the <a href="#FrontTransversal"><span class="d_inlinecode">FrontTransversal</span></a> and <a href="#Transversal"><span class="d_inlinecode">Transversal</span></a> ranges
    (below).<p></p>
 
-<dl><dt class="d_decl"><a name="assumeJagged"></a><span class="ddoc_psymbol">assumeJagged</span></dt>
+<dl><dt class="d_decl"><a name=".TransverseOptions.assumeJagged"></a><a name="assumeJagged"></a><span class="ddoc_psymbol">assumeJagged</span></dt>
 <dd>When transversed, the elements of a range of ranges are assumed to
    have different lengths (e.g. a jagged array).<p></p>
 
 </dd>
-<dt class="d_decl"><a name="enforceNotJagged"></a><span class="ddoc_psymbol">enforceNotJagged</span></dt>
+<dt class="d_decl"><a name=".TransverseOptions.enforceNotJagged"></a><a name="enforceNotJagged"></a><span class="ddoc_psymbol">enforceNotJagged</span></dt>
 <dd>The transversal enforces that the elements of a range of ranges have
        all the same length (e.g. an array of arrays, all having the same
        length). Checking is done once upon construction of the transversal
        range.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="assumeNotJagged"></a><span class="ddoc_psymbol">assumeNotJagged</span></dt>
+<dt class="d_decl"><a name=".TransverseOptions.assumeNotJagged"></a><a name="assumeNotJagged"></a><span class="ddoc_psymbol">assumeNotJagged</span></dt>
 <dd>The transversal assumes, without verifying, that the elements of a
        range of ranges have all the same length. This option is useful if
        checking was already done from the outside of the range.<p></p>
@@ -1026,8 +1474,8 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="FrontTransversal"></a><span class="ddoc_psymbol">FrontTransversal</span>(Ror,TransverseOptions opt = TransverseOptions.assumeJagged);
-<br>FrontTransversal!(RangeOfRanges,opt) <a name="frontTransversal"></a><span class="ddoc_psymbol">frontTransversal</span>(TransverseOptions opt = TransverseOptions.assumeJagged, RangeOfRanges)(RangeOfRanges <i>rr</i>);
+<dt class="d_decl"><a name=".FrontTransversal"></a>struct <a name="FrontTransversal"></a><span class="ddoc_psymbol">FrontTransversal</span>(Ror, TransverseOptions opt = TransverseOptions.assumeJagged);
+<br><a name=".frontTransversal"></a>FrontTransversal!(RangeOfRanges, opt) <a name="frontTransversal"></a><span class="ddoc_psymbol">frontTransversal</span>(TransverseOptions opt = TransverseOptions.assumeJagged, RangeOfRanges)(RangeOfRanges <i>rr</i>);
 </dt>
 <dd>Given a range of ranges, iterate transversally through the first
    elements of each of the enclosed ranges.
@@ -1041,37 +1489,43 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">auto this(RangeOfRanges <i>input</i>);
+<dl><dt class="d_decl"><a name=".this"></a> this(RangeOfRanges <i>input</i>);
 </dt>
 <dd>Construction from an <i>input</i>.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>ElementType <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
+<br><a name=".front"></a>@property ref auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".moveFront"></a>ElementType <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
 </dt>
 <dd>Forward range primitives.<p></p>
 
 </dd>
-<dt class="d_decl">@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>ElementType <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<dt class="d_decl"><a name=".save"></a>FrontTransversal <a name="save"></a><span class="ddoc_psymbol">save</span>();
+</dt>
+<dd>Duplicates this <span class="d_inlinecode">frontTransversal</span>. Note that only the encapsulating
+   range of range will be duplicated. Underlying ranges will not be
+   duplicated.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".back"></a>@property ref auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".moveBack"></a>ElementType <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
 </dt>
 <dd>Bidirectional primitives. They are offered if <span class="d_inlinecode">  isBidirectionalRange!RangeOfRanges</span>.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
-<br>ElementType <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
-<br>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType <i>val</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".opIndex"></a>ref auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
+<br><a name=".moveAt"></a>ElementType <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
+<br><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType <i>val</i>, size_t <i>n</i>);
 </dt>
 <dd>Random-access primitive. It is offered if <span class="d_inlinecode">  isRandomAccessRange!RangeOfRanges &amp;&amp; (opt ==
    TransverseOptions.assumeNotJagged || opt ==
    TransverseOptions.enforceNotJagged)</span>.<p></p>
 
 </dd>
-<dt class="d_decl">typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
+<dt class="d_decl"><a name=".opSlice"></a>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
 </dt>
 <dd>Slicing if offered if <span class="d_inlinecode">RangeOfRanges</span> supports slicing and all the
    conditions for supporting indexing are met.<p></p>
@@ -1079,8 +1533,8 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Transversal"></a><span class="ddoc_psymbol">Transversal</span>(Ror,TransverseOptions opt = TransverseOptions.assumeJagged);
-<br>Transversal!(RangeOfRanges,opt) <a name="transversal"></a><span class="ddoc_psymbol">transversal</span>(TransverseOptions opt = TransverseOptions.assumeJagged, RangeOfRanges)(RangeOfRanges <i>rr</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".Transversal"></a>struct <a name="Transversal"></a><span class="ddoc_psymbol">Transversal</span>(Ror, TransverseOptions opt = TransverseOptions.assumeJagged);
+<br><a name=".transversal"></a>Transversal!(RangeOfRanges, opt) <a name="transversal"></a><span class="ddoc_psymbol">transversal</span>(TransverseOptions opt = TransverseOptions.assumeJagged, RangeOfRanges)(RangeOfRanges <i>rr</i>, size_t <i>n</i>);
 </dt>
 <dd>Given a range of ranges, iterate transversally through the the <span class="d_inlinecode">  n</span>th element of each of the enclosed ranges. All elements of the
    enclosing range must offer random access.
@@ -1094,40 +1548,41 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">auto this(RangeOfRanges <i>input</i>, size_t <i>n</i>);
+<dl><dt class="d_decl"><a name=".this"></a> this(RangeOfRanges <i>input</i>, size_t <i>n</i>);
 </dt>
 <dd>Construction from an <i>input</i> and an index.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>E <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>(E <i>val</i>);
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>;
+<br><a name=".front"></a>@property ref auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".moveFront"></a>E <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<br><a name=".front"></a>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>(E <i>val</i>);
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".save"></a>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd>Forward range primitives.<p></p>
 
 </dd>
-<dt class="d_decl">@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>E <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
-<br>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>(E <i>val</i>);
+<dt class="d_decl"><a name=".back"></a>@property ref auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".moveBack"></a>E <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<br><a name=".back"></a>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>(E <i>val</i>);
 </dt>
 <dd>Bidirectional primitives. They are offered if <span class="d_inlinecode">  isBidirectionalRange!RangeOfRanges</span>.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
-<br>E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
-<br>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(E <i>val</i>, size_t <i>n</i>);
-<br>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".opIndex"></a>ref auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>n</i>);
+<br><a name=".moveAt"></a>E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>n</i>);
+<br><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(E <i>val</i>, size_t <i>n</i>);
+<br><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<br><a name=".opDollar"></a>alias length <a name="opDollar"></a><span class="ddoc_psymbol">opDollar</span>;
 </dt>
 <dd>Random-access primitive. It is offered if <span class="d_inlinecode">  isRandomAccessRange!RangeOfRanges &amp;&amp; (opt ==
    TransverseOptions.assumeNotJagged || opt ==
    TransverseOptions.enforceNotJagged)</span>.<p></p>
 
 </dd>
-<dt class="d_decl">typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
+<dt class="d_decl"><a name=".opSlice"></a>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
 </dt>
 <dd>Slicing if offered if <span class="d_inlinecode">RangeOfRanges</span> supports slicing and all the
    conditions for supporting indexing are met.<p></p>
@@ -1135,8 +1590,8 @@ The state of the sequence is stored as a <span class="d_inlinecode">Tuple</span>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Indexed"></a><span class="ddoc_psymbol">Indexed</span>(Source,Indices) if (isRandomAccessRange!(Source) &amp;&amp; isInputRange!(Indices) &amp;&amp; is(typeof(Source.init[ElementType!(Indices).init])));
-<br>Indexed!(Source,Indices) <a name="indexed"></a><span class="ddoc_psymbol">indexed</span>(Source, Indices)(Source <i>source</i>, Indices <i>indices</i>);
+<dt class="d_decl"><a name=".Indexed"></a>struct <a name="Indexed"></a><span class="ddoc_psymbol">Indexed</span>(Source, Indices) if (isRandomAccessRange!(Source) &amp;&amp; isInputRange!(Indices) &amp;&amp; is(typeof(Source.init[ElementType!(Indices).init])));
+<br><a name=".indexed"></a>Indexed!(Source, Indices) <a name="indexed"></a><span class="ddoc_psymbol">indexed</span>(Source, Indices)(Source <i>source</i>, Indices <i>indices</i>);
 </dt>
 <dd>This struct takes two ranges, <span class="d_inlinecode">source</span> and <span class="d_inlinecode">indices</span>, and creates a view
 of <span class="d_inlinecode">source</span> as if its elements were reordered according to <span class="d_inlinecode">indices</span>.
@@ -1161,35 +1616,35 @@ random-access, respectively.
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType!(Source) <i>newVal</i>);
-<br>auto <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
-<br>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>(ElementType!(Source) <i>newVal</i>);
-<br>auto <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
-<br>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
-<br>auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>index</i>);
-<br>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
-<br>auto <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType!(Source) <i>newVal</i>, size_t <i>index</i>);
-<br>auto <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>index</i>);
+<dl><dt class="d_decl"><a name=".front"></a>@property ref auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".save"></a>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".front"></a>@property ref auto <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType!(Source) <i>newVal</i>);
+<br><a name=".moveFront"></a>auto <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<br><a name=".back"></a>@property ref auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".back"></a>@property ref auto <a name="back"></a><span class="ddoc_psymbol">back</span>(ElementType!(Source) <i>newVal</i>);
+<br><a name=".moveBack"></a>auto <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<br><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<br><a name=".opIndex"></a>ref auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>index</i>);
+<br><a name=".opSlice"></a>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
+<br><a name=".opIndexAssign"></a>auto <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(ElementType!(Source) <i>newVal</i>, size_t <i>index</i>);
+<br><a name=".moveAt"></a>auto <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>index</i>);
 </dt>
 <dd>Range primitives<p></p>
 
 </dd>
-<dt class="d_decl">Source <a name="source"></a><span class="ddoc_psymbol">source</span>();
+<dt class="d_decl"><a name=".source"></a>Source <a name="source"></a><span class="ddoc_psymbol">source</span>();
 </dt>
 <dd>Returns the <a name="source"></a><span class="ddoc_psymbol">source</span> range.<p></p>
 
 </dd>
-<dt class="d_decl">Indices <a name="indices"></a><span class="ddoc_psymbol">indices</span>();
+<dt class="d_decl"><a name=".indices"></a>Indices <a name="indices"></a><span class="ddoc_psymbol">indices</span>();
 </dt>
 <dd>Returns the <a name="indices"></a><span class="ddoc_psymbol">indices</span> range.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="physicalIndex"></a><span class="ddoc_psymbol">physicalIndex</span>(size_t <i>logicalIndex</i>);
+<dt class="d_decl"><a name=".physicalIndex"></a>size_t <a name="physicalIndex"></a><span class="ddoc_psymbol">physicalIndex</span>(size_t <i>logicalIndex</i>);
 </dt>
 <dd>Returns the physical index into the source range corresponding to a
         given logical index.  This is useful, for example, when indexing
@@ -1203,8 +1658,8 @@ random-access, respectively.
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Chunks"></a><span class="ddoc_psymbol">Chunks</span>(Source) if (hasSlicing!(Source) &amp;&amp; hasLength!(Source));
-<br>Chunks!(Source) <a name="chunks"></a><span class="ddoc_psymbol">chunks</span>(Source)(Source <i>source</i>, size_t <i>chunkSize</i>);
+<dt class="d_decl"><a name=".Chunks"></a>struct <a name="Chunks"></a><span class="ddoc_psymbol">Chunks</span>(Source) if (isInputRange!(Source) &amp;&amp; hasSlicing!(Source) &amp;&amp; hasLength!(Source));
+<br><a name=".chunks"></a>Chunks!(Source) <a name="chunks"></a><span class="ddoc_psymbol">chunks</span>(Source)(Source <i>source</i>, size_t <i>chunkSize</i>);
 </dt>
 <dd>This range iterates over fixed-sized chunks of size <span class="d_inlinecode">chunkSize</span> of a
 <span class="d_inlinecode">source</span> range.  <span class="d_inlinecode">Source</span> must be an input range with slicing and length.
@@ -1222,59 +1677,57 @@ element of this range will contain fewer than <span class="d_inlinecode">chunkSi
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">auto this(Source <i>source</i>, size_t <i>chunkSize</i>);
+<dl><dt class="d_decl"><a name=".this"></a> this(Source <i>source</i>, size_t <i>chunkSize</i>);
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
-<br>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>index</i>);
-<br>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
-<br>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
-<br>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<dt class="d_decl"><a name=".front"></a>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".save"></a>typeof(this) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".opIndex"></a>auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>index</i>);
+<br><a name=".opSlice"></a>typeof(this) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>lower</i>, size_t <i>upper</i>);
+<br><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<br><a name=".back"></a>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
 </dt>
 <dd>Range primitives.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">ElementType!(R) <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>(R)(R <i>r</i>);
+<dt class="d_decl"><a name=".moveFront"></a>ElementType!(R) <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>(R)(R <i>r</i>);
 </dt>
 <dd>Moves the front of <span class="d_inlinecode">r</span> out and returns it. Leaves <span class="d_inlinecode">r.front</span> in a
    destroyable state that does not allocate any resources (usually equal
    to its <span class="d_inlinecode">.init</span> value).<p></p>
 
 </dd>
-<dt class="d_decl">ElementType!(R) <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>(R)(R <i>r</i>);
+<dt class="d_decl"><a name=".moveBack"></a>ElementType!(R) <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>(R)(R <i>r</i>);
 </dt>
 <dd>Moves the back of <span class="d_inlinecode">r</span> out and returns it. Leaves <span class="d_inlinecode">r.back</span> in a
    destroyable state that does not allocate any resources (usually equal
    to its <span class="d_inlinecode">.init</span> value).<p></p>
 
 </dd>
-<dt class="d_decl">ElementType!(R) <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(R, I)(R <i>r</i>, I <i>i</i>);
+<dt class="d_decl"><a name=".moveAt"></a>ElementType!(R) <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(R, I)(R <i>r</i>, I <i>i</i>);
 </dt>
 <dd>Moves element at index <span class="d_inlinecode">i</span> of <span class="d_inlinecode">r</span> out and returns it. Leaves <span class="d_inlinecode">  r.front</span> in a destroyable state that does not allocate any resources
    (usually equal to its <span class="d_inlinecode">.init</span> value).<p></p>
 
 </dd>
-<dt class="d_decl">interface <a name="InputRange"></a><span class="ddoc_psymbol">InputRange</span>(E);
+<dt class="d_decl"><a name=".InputRange"></a>interface <a name="InputRange"></a><span class="ddoc_psymbol">InputRange</span>(E);
 </dt>
 <dd>These interfaces are intended to provide virtual function-based wrappers
  around input ranges with element type E.  This is useful where a well-defined
  binary interface is required, such as when a DLL function or virtual function
  needs to accept a generic range as a parameter.  Note that
- <span class="d_inlinecode">isInputRange</span> and friends check for conformance to structural
+ <a href="#isInputRange"><span class="d_inlinecode">isInputRange</span></a> and friends check for conformance to structural
  interfaces, not for implementation of these <span class="d_inlinecode">interface</span> types.
 <p></p>
-<b>Examples:</b><br><pre class="d_code"> <span class="d_keyword">class</span> UsesRanges {
-     <span class="d_keyword">void</span> useRange(<span class="d_psymbol">InputRange</span> range) {
-         <span class="d_comment">// Function body.
-</span>     }
- }
+<b>Examples:</b><br><pre class="d_code"> <span class="d_keyword">void</span> useRange(<span class="d_psymbol">InputRange</span>!<span class="d_keyword">int</span> range) {
+     <span class="d_comment">// Function body.
+</span> }
 
  <span class="d_comment">// Create a range type.
 </span> <span class="d_keyword">auto</span> squares = map!<span class="d_string">"a * a"</span>(iota(10));
@@ -1283,8 +1736,7 @@ element of this range will contain fewer than <span class="d_inlinecode">chunkSi
 </span> <span class="d_keyword">auto</span> squaresWrapped = inputRangeObject(squares);
 
  <span class="d_comment">// Use it.
-</span> <span class="d_keyword">auto</span> usesRanges = <span class="d_keyword">new</span> UsesRanges;
- usesRanges.useRange(squaresWrapped);
+</span> useRange(squaresWrapped);
 </pre>
 
 <p></p>
@@ -1295,196 +1747,199 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
  Infiniteness of the wrapped range is not propagated.
 <p></p>
 
- Length is not propagated in the case of non-random access ranges.<p></p>
+ Length is not propagated in the case of non-random access ranges.
 
-<dl><dt class="d_decl">E <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<p></p>
+<b>See Also:</b><br><a href="#inputRangeObject"><span class="d_inlinecode">inputRangeObject</span></a><p></p>
+
+<dl><dt class="d_decl"><a name=".front"></a>E <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<dt class="d_decl"><a name=".moveFront"></a>E <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<dt class="d_decl"><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(int delegate(ref E));
-<br>int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(int delegate(ref size_t, ref E));
+<dt class="d_decl"><a name=".opApply"></a>int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(int delegate(E));
+<br><a name=".opApply"></a>int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(int delegate(size_t, E));
 </dt>
 <dd><span class="d_inlinecode">foreach</span> iteration uses <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>, since one delegate call per loop
- iteration is faster than three virtual function calls.
-<p></p>
-<span style="color:red">BUGS:</span><br>If a <span class="d_inlinecode">ref</span> variable is provided as the loop variable,
-        changes made to the loop variable will not be propagated to the
-        underlying range.  If the address of the loop variable is escaped,
-        undefined behavior will result.  This is related to DMD bug 2443.<p></p>
+ iteration is faster than three virtual function calls.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="ForwardRange"></a><span class="ddoc_psymbol">ForwardRange</span>(E): InputRange!(E);
+<dt class="d_decl"><a name=".ForwardRange"></a>interface <a name="ForwardRange"></a><span class="ddoc_psymbol">ForwardRange</span>(E): InputRange!(E);
 </dt>
 <dd>Interface for a forward range of type <span class="d_inlinecode">E</span>.<p></p>
 
-<dl><dt class="d_decl">ForwardRange!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>ForwardRange!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="BidirectionalRange"></a><span class="ddoc_psymbol">BidirectionalRange</span>(E): ForwardRange!(E);
+<dt class="d_decl"><a name=".BidirectionalRange"></a>interface <a name="BidirectionalRange"></a><span class="ddoc_psymbol">BidirectionalRange</span>(E): ForwardRange!(E);
 </dt>
 <dd>Interface for a bidirectional range of type <span class="d_inlinecode">E</span>.<p></p>
 
-<dl><dt class="d_decl">BidirectionalRange!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>BidirectionalRange!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<dt class="d_decl"><a name=".back"></a>E <a name="back"></a><span class="ddoc_psymbol">back</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<dt class="d_decl"><a name=".moveBack"></a>E <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<dt class="d_decl"><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="RandomAccessFinite"></a><span class="ddoc_psymbol">RandomAccessFinite</span>(E): BidirectionalRange!(E);
+<dt class="d_decl"><a name=".RandomAccessFinite"></a>interface <a name="RandomAccessFinite"></a><span class="ddoc_psymbol">RandomAccessFinite</span>(E): BidirectionalRange!(E);
 </dt>
 <dd>Interface for a finite random access range of type <span class="d_inlinecode">E</span>.<p></p>
 
-<dl><dt class="d_decl">RandomAccessFinite!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>RandomAccessFinite!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
+<dt class="d_decl"><a name=".opIndex"></a>E <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t);
+<dt class="d_decl"><a name=".moveAt"></a>E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t);
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">RandomAccessFinite!(E) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t, size_t);
+<dt class="d_decl"><a name=".opDollar"></a>alias length <a name="opDollar"></a><span class="ddoc_psymbol">opDollar</span>;
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".opSlice"></a>RandomAccessFinite!(E) <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t, size_t);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="RandomAccessInfinite"></a><span class="ddoc_psymbol">RandomAccessInfinite</span>(E): ForwardRange!(E);
+<dt class="d_decl"><a name=".RandomAccessInfinite"></a>interface <a name="RandomAccessInfinite"></a><span class="ddoc_psymbol">RandomAccessInfinite</span>(E): ForwardRange!(E);
 </dt>
 <dd>Interface for an infinite random access range of type <span class="d_inlinecode">E</span>.<p></p>
 
-<dl><dt class="d_decl">E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t);
+<dl><dt class="d_decl"><a name=".moveAt"></a>E <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t);
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">RandomAccessInfinite!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dt class="d_decl"><a name=".save"></a>RandomAccessInfinite!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">E <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
+<dt class="d_decl"><a name=".opIndex"></a>E <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="InputAssignable"></a><span class="ddoc_psymbol">InputAssignable</span>(E): InputRange!(E);
+<dt class="d_decl"><a name=".InputAssignable"></a>interface <a name="InputAssignable"></a><span class="ddoc_psymbol">InputAssignable</span>(E): InputRange!(E);
 </dt>
 <dd>Adds assignable elements to InputRange.<p></p>
 
-<dl><dt class="d_decl">void <a name="front"></a><span class="ddoc_psymbol">front</span>(E <i>newVal</i>);
+<dl><dt class="d_decl"><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(E <i>newVal</i>);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="ForwardAssignable"></a><span class="ddoc_psymbol">ForwardAssignable</span>(E): InputAssignable!(E), ForwardRange!(E);
+<dt class="d_decl"><a name=".ForwardAssignable"></a>interface <a name="ForwardAssignable"></a><span class="ddoc_psymbol">ForwardAssignable</span>(E): InputAssignable!(E), ForwardRange!(E);
 </dt>
 <dd>Adds assignable elements to ForwardRange.<p></p>
 
-<dl><dt class="d_decl">ForwardAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>ForwardAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="BidirectionalAssignable"></a><span class="ddoc_psymbol">BidirectionalAssignable</span>(E): ForwardAssignable!(E), BidirectionalRange!(E);
+<dt class="d_decl"><a name=".BidirectionalAssignable"></a>interface <a name="BidirectionalAssignable"></a><span class="ddoc_psymbol">BidirectionalAssignable</span>(E): ForwardAssignable!(E), BidirectionalRange!(E);
 </dt>
 <dd>Adds assignable elements to BidirectionalRange.<p></p>
 
-<dl><dt class="d_decl">BidirectionalAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>BidirectionalAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">void <a name="back"></a><span class="ddoc_psymbol">back</span>(E <i>newVal</i>);
+<dt class="d_decl"><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(E <i>newVal</i>);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="RandomFiniteAssignable"></a><span class="ddoc_psymbol">RandomFiniteAssignable</span>(E): RandomAccessFinite!(E), BidirectionalAssignable!(E);
+<dt class="d_decl"><a name=".RandomFiniteAssignable"></a>interface <a name="RandomFiniteAssignable"></a><span class="ddoc_psymbol">RandomFiniteAssignable</span>(E): RandomAccessFinite!(E), BidirectionalAssignable!(E);
 </dt>
 <dd>Adds assignable elements to RandomAccessFinite.<p></p>
 
-<dl><dt class="d_decl">RandomFiniteAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dl><dt class="d_decl"><a name=".save"></a>RandomFiniteAssignable!(E) <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(E <i>val</i>, size_t <i>index</i>);
+<dt class="d_decl"><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(E <i>val</i>, size_t <i>index</i>);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">interface <a name="OutputRange"></a><span class="ddoc_psymbol">OutputRange</span>(E);
+<dt class="d_decl"><a name=".OutputRange"></a>interface <a name="OutputRange"></a><span class="ddoc_psymbol">OutputRange</span>(E);
 </dt>
 <dd>Interface for an output range of type <span class="d_inlinecode">E</span>.  Usage is similar to the
  <span class="d_inlinecode">InputRange</span> interface and descendants.<p></p>
 
-<dl><dt class="d_decl">void <a name="put"></a><span class="ddoc_psymbol">put</span>(E);
+<dl><dt class="d_decl"><a name=".put"></a>void <a name="put"></a><span class="ddoc_psymbol">put</span>(E);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">class <a name="OutputRangeObject"></a><span class="ddoc_psymbol">OutputRangeObject</span>(R,E...): staticMap!(OutputRange,E);
+<dt class="d_decl"><a name=".OutputRangeObject"></a>class <a name="OutputRangeObject"></a><span class="ddoc_psymbol">OutputRangeObject</span>(R, E...): staticMap!(OutputRange, E);
 </dt>
 <dd>Implements the <span class="d_inlinecode">OutputRange</span> interface for all types E and wraps the
  <span class="d_inlinecode">put</span> method for each type <span class="d_inlinecode">E</span> in a virtual function.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="MostDerivedInputRange"></a><span class="ddoc_psymbol">MostDerivedInputRange</span>(R) if (isInputRange!(Unqual!(R)))</dt>
+<dt class="d_decl"><a name=".MostDerivedInputRange"></a>template <a name="MostDerivedInputRange"></a><span class="ddoc_psymbol">MostDerivedInputRange</span>(R) if (isInputRange!(Unqual!(R)))</dt>
 <dd>Returns the interface type that best matches <span class="d_inlinecode">R</span>.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="InputRangeObject"></a><span class="ddoc_psymbol">InputRangeObject</span>(R) if (isInputRange!(Unqual!(R)))</dt>
+<dt class="d_decl"><a name=".InputRangeObject"></a>template <a name="InputRangeObject"></a><span class="ddoc_psymbol">InputRangeObject</span>(R) if (isInputRange!(Unqual!(R)))</dt>
 <dd>Implements the most derived interface that <span class="d_inlinecode">R</span> works with and wraps
  all relevant range primitives in virtual functions.  If <span class="d_inlinecode">R</span> is already
  derived from the <span class="d_inlinecode">InputRange</span> interface, aliases itself away.<p></p>
 
 </dd>
-<dt class="d_decl">InputRangeObject!(R) <a name="inputRangeObject"></a><span class="ddoc_psymbol">inputRangeObject</span>(R)(R <i>range</i>);
+<dt class="d_decl"><a name=".inputRangeObject"></a>InputRangeObject!(R) <a name="inputRangeObject"></a><span class="ddoc_psymbol">inputRangeObject</span>(R)(R <i>range</i>);
 </dt>
-<dd>Convenience function for creating a <span class="d_inlinecode">InputRangeObject</span> of the proper type.<p></p>
+<dd>Convenience function for creating an <span class="d_inlinecode">InputRangeObject</span> of the proper type.
+ See <a href="#InputRange"><span class="d_inlinecode">InputRange</span></a> for an example.<p></p>
 
 </dd>
-<dt class="d_decl">template <a name="outputRangeObject"></a><span class="ddoc_psymbol">outputRangeObject</span>(E...)</dt>
-<dd>Convenience function for creating a <span class="d_inlinecode">OutputRangeObject</span> with a base range
+<dt class="d_decl"><a name=".outputRangeObject"></a>template <a name="outputRangeObject"></a><span class="ddoc_psymbol">outputRangeObject</span>(E...)</dt>
+<dd>Convenience function for creating an <span class="d_inlinecode">OutputRangeObject</span> with a base range
  of type <span class="d_inlinecode">R</span> that accepts types <span class="d_inlinecode">E</span>.
 <p></p>
 <b>Examples:</b><br><pre class="d_code"> <span class="d_keyword">uint</span>[] outputArray;
@@ -1495,36 +1950,48 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">OutputRangeObject!(R,E) <a name="outputRangeObject"></a><span class="ddoc_psymbol">outputRangeObject</span>(R)(R <i>range</i>);
+<dl><dt class="d_decl"><a name=".outputRangeObject"></a>OutputRangeObject!(R, E) <a name="outputRangeObject"></a><span class="ddoc_psymbol">outputRangeObject</span>(R)(R <i>range</i>);
 </dt>
 <dd><p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">enum <a name="SearchPolicy"></a><span class="ddoc_psymbol">SearchPolicy</span>;
+<dt class="d_decl"><a name=".isTwoWayCompatible"></a>template <a name="isTwoWayCompatible"></a><span class="ddoc_psymbol">isTwoWayCompatible</span>(alias fn, T1, T2)</dt>
+<dd>Returns <b>true</b> if <span class="d_inlinecode">fn</span> accepts variables of type T1 and T2 in any order.
+  The following code should compile:
+<pre class="d_code">  T1 foo();
+  T2 bar();
+
+  fn(foo(), bar());
+  fn(bar(), foo());
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".SearchPolicy"></a>enum <a name="SearchPolicy"></a><span class="ddoc_psymbol">SearchPolicy</span>;
 </dt>
 <dd>Policy used with the searching primitives <span class="d_inlinecode">lowerBound</span>, <span class="d_inlinecode">  upperBound</span>, and <span class="d_inlinecode">equalRange</span> of <a href="#SortedRange"><span class="d_inlinecode">SortedRange</span></a> below.<p></p>
 
-<dl><dt class="d_decl"><a name="trot"></a><span class="ddoc_psymbol">trot</span></dt>
+<dl><dt class="d_decl"><a name=".SearchPolicy.trot"></a><a name="trot"></a><span class="ddoc_psymbol">trot</span></dt>
 <dd>Searches with a step that is grows linearly (1, 2, 3,...)
        leading to a quadratic search schedule (indexes tried are 0, 1,
-       3, 5, 8, 12, 17, 23,...) Once the search overshoots its target,
+       3, 6, 10, 15, 21, 28,...) Once the search overshoots its target,
        the remaining interval is searched using binary search. The
        search is completed in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">sqrt(n)</span><b><i>)</i></b> time. Use it when you
        are reasonably confident that the value is around the beginning
        of the range.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="gallop"></a><span class="ddoc_psymbol">gallop</span></dt>
+<dt class="d_decl"><a name=".SearchPolicy.gallop"></a><a name="gallop"></a><span class="ddoc_psymbol">gallop</span></dt>
 <dd>Performs a <a href="http://google.com/search?btnI=I%27m+Feeling+Lucky&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=galloping search algorithm">galloping search algorithm</a>, i.e. searches
        with a step that doubles every time, (1, 2, 4, 8, ...)  leading
-       to an exponential search schedule (indexes tried are 0, 1, 2,
-       4, 8, 16, 32,...) Once the search overshoots its target, the
+       to an exponential search schedule (indexes tried are 0, 1, 3,
+       7, 15, 31, 63,...) Once the search overshoots its target, the
        remaining interval is searched using binary search. A value is
        found in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b> time.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="binarySearch"></a><span class="ddoc_psymbol">binarySearch</span></dt>
+<dt class="d_decl"><a name=".SearchPolicy.binarySearch"></a><a name="binarySearch"></a><span class="ddoc_psymbol">binarySearch</span></dt>
 <dd>Searches using a classic interval halving policy. The search
        starts in the middle of the range, and each search step cuts
        the range in half. This policy finds a value in <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>
@@ -1533,19 +2000,19 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
        of <span class="d_inlinecode">trot</span>, <span class="d_inlinecode">gallop</span>, <span class="d_inlinecode">trotBackwards</span>, and <span class="d_inlinecode">      gallopBackwards</span> strategies.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="trotBackwards"></a><span class="ddoc_psymbol">trotBackwards</span></dt>
+<dt class="d_decl"><a name=".SearchPolicy.trotBackwards"></a><a name="trotBackwards"></a><span class="ddoc_psymbol">trotBackwards</span></dt>
 <dd>Similar to <span class="d_inlinecode">trot</span> but starts backwards. Use it when
        confident that the value is around the end of the range.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="gallopBackwards"></a><span class="ddoc_psymbol">gallopBackwards</span></dt>
+<dt class="d_decl"><a name=".SearchPolicy.gallopBackwards"></a><a name="gallopBackwards"></a><span class="ddoc_psymbol">gallopBackwards</span></dt>
 <dd>Similar to <span class="d_inlinecode">gallop</span> but starts backwards. Use it when
        confident that the value is around the end of the range.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="SortedRange"></a><span class="ddoc_psymbol">SortedRange</span>(Range,alias pred = "a &lt; b") if (isRandomAccessRange!(Range));
+<dt class="d_decl"><a name=".SortedRange"></a>struct <a name="SortedRange"></a><span class="ddoc_psymbol">SortedRange</span>(Range, alias pred = "a &lt; b") if (isRandomAccessRange!(Range) &amp;&amp; hasLength!(Range));
 </dt>
 <dd>Represents a sorted random-access range. In addition to the regular
    range primitives, supports fast operations using binary search. To
@@ -1558,13 +2025,14 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 <b>Example:</b><br>
 <pre class="d_code">   <span class="d_keyword">auto</span> a = [ 1, 2, 3, 42, 52, 64 ];
    <span class="d_keyword">auto</span> r = assumeSorted(a);
-   <span class="d_keyword">assert</span>(r.canFind(3));
-   <span class="d_keyword">assert</span>(!r.canFind(32));
+   <span class="d_keyword">assert</span>(r.contains(3));
+   <span class="d_keyword">assert</span>(!r.contains(32));
    <span class="d_keyword">auto</span> r1 = sort!<span class="d_string">"a &gt; b"</span>(a);
-   <span class="d_keyword">assert</span>(r1.canFind(3));
-   <span class="d_keyword">assert</span>(!r1.canFind(32));
+   <span class="d_keyword">assert</span>(r1.contains(3));
+   <span class="d_keyword">assert</span>(!r1.contains(32));
    <span class="d_keyword">assert</span>(r1.release() == [ 64, 52, 42, 3, 2, 1 ]);
 </pre>
+<p></p>
 
    <span class="d_inlinecode"><a name="SortedRange"></a><span class="ddoc_psymbol">SortedRange</span></span> could accept ranges weaker than random-access, but it
    is unable to provide interesting functionality for them. Therefore,
@@ -1579,38 +2047,39 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 <b>Example:</b><br>
 <pre class="d_code">   <span class="d_keyword">auto</span> a = [ 1, 2, 3, 42, 52, 64 ];
    <span class="d_keyword">auto</span> r = assumeSorted(a);
-   <span class="d_keyword">assert</span>(r.canFind(42));
+   <span class="d_keyword">assert</span>(r.contains(42));
    swap(a[3], a[5]);                      <span class="d_comment">// illegal to break sortedness of original range
-</span>   <span class="d_keyword">assert</span>(!r.canFind(42));                <span class="d_comment">// passes although it shouldn't
+</span>   <span class="d_keyword">assert</span>(!r.contains(42));                <span class="d_comment">// passes although it shouldn't
 </span></pre>
 <p></p>
 
-<dl><dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
-<br>@property auto <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
-<br>auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
-<br>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dl><dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".save"></a>@property auto <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".front"></a>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".back"></a>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".opIndex"></a>auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
+<br><a name=".opSlice"></a>auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
+<br><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Range primitives.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="release"></a><span class="ddoc_psymbol">release</span>();
+<dt class="d_decl"><a name=".release"></a>auto <a name="release"></a><span class="ddoc_psymbol">release</span>();
 </dt>
 <dd>Releases the controlled range and returns it.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="lowerBound"></a><span class="ddoc_psymbol">lowerBound</span>(SearchPolicy sp = SearchPolicy.binarySearch, V)(V <i>value</i>);
+<dt class="d_decl"><a name=".lowerBound"></a>auto <a name="lowerBound"></a><span class="ddoc_psymbol">lowerBound</span>(SearchPolicy sp = SearchPolicy.binarySearch, V)(V <i>value</i>);
 </dt>
 <dd>This function uses binary search with policy <span class="d_inlinecode">sp</span> to find the
    largest left subrange on which <span class="d_inlinecode">pred(x, value)</span> is <span class="d_inlinecode"><b>true</b></span> for
    all <span class="d_inlinecode">x</span> (e.g., if <span class="d_inlinecode">pred</span> is "less than", returns the portion of
    the range with elements strictly smaller than <span class="d_inlinecode">value</span>). The search
    schedule and its complexity are documented in
-   <a href="#SearchPolicy"><span class="d_inlinecode">SearchPolicy</span></a>.  See also STL's <a href="http://  sgi.com/tech/stl/lower_bound.html">lower_bound</a>.
+   <a href="#SearchPolicy"><span class="d_inlinecode">SearchPolicy</span></a>.  See also STL's
+   <a href="http://sgi.com/tech/stl/lower_bound.html">lower_bound</a>.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code">   <span class="d_keyword">auto</span> a = assumeSorted([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]);
@@ -1620,13 +2089,14 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="upperBound"></a><span class="ddoc_psymbol">upperBound</span>(SearchPolicy sp = SearchPolicy.binarySearch, V)(V <i>value</i>);
+<dt class="d_decl"><a name=".upperBound"></a>auto <a name="upperBound"></a><span class="ddoc_psymbol">upperBound</span>(SearchPolicy sp = SearchPolicy.binarySearch, V)(V <i>value</i>);
 </dt>
 <dd>This function uses binary search with policy <span class="d_inlinecode">sp</span> to find the
    largest right subrange on which <span class="d_inlinecode">pred(value, x)</span> is <span class="d_inlinecode"><b>true</b></span>
    for all <span class="d_inlinecode">x</span> (e.g., if <span class="d_inlinecode">pred</span> is "less than", returns the
    portion of the range with elements strictly greater than <span class="d_inlinecode">  value</span>). The search schedule and its complexity are documented in
-   <a href="#SearchPolicy"><span class="d_inlinecode">SearchPolicy</span></a>.  See also STL's <a href="http://  sgi.com/tech/stl/lower_bound.html">upper_bound</a>.
+   <a href="#SearchPolicy"><span class="d_inlinecode">SearchPolicy</span></a>.  See also STL's
+   <a href="http://sgi.com/tech/stl/lower_bound.html">upper_bound</a>.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code">   <span class="d_keyword">auto</span> a = assumeSorted([ 1, 2, 3, 3, 3, 4, 4, 5, 6 ]);
@@ -1636,7 +2106,7 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="equalRange"></a><span class="ddoc_psymbol">equalRange</span>(V)(V <i>value</i>);
+<dt class="d_decl"><a name=".equalRange"></a>auto <a name="equalRange"></a><span class="ddoc_psymbol">equalRange</span>(V)(V <i>value</i>);
 </dt>
 <dd>Returns the subrange containing all elements <span class="d_inlinecode">e</span> for which both <span class="d_inlinecode">  pred(e, value)</span> and <span class="d_inlinecode">pred(value, e)</span> evaluate to <span class="d_inlinecode"><b>false</b></span> (e.g.,
    if <span class="d_inlinecode">pred</span> is "less than", returns the portion of the range with
@@ -1657,7 +2127,7 @@ These interfaces are not capable of forwarding <span class="d_inlinecode">ref</s
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="trisect"></a><span class="ddoc_psymbol">trisect</span>(V)(V <i>value</i>);
+<dt class="d_decl"><a name=".trisect"></a>auto <a name="trisect"></a><span class="ddoc_psymbol">trisect</span>(V)(V <i>value</i>);
 </dt>
 <dd>Returns a tuple <span class="d_inlinecode">r</span> such that <span class="d_inlinecode">r[0]</span> is the same as the result
 of <span class="d_inlinecode">lowerBound(value)</span>, <span class="d_inlinecode">r[1]</span> is the same as the result of <span class="d_inlinecode">equalRange(value)</span>, and <span class="d_inlinecode">r[2]</span> is the same as the result of <span class="d_inlinecode">upperBound(value)</span>. The call is faster than computing all three
@@ -1673,24 +2143,25 @@ separately. Uses a search schedule similar to <span class="d_inlinecode">equalRa
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="contains"></a><span class="ddoc_psymbol">contains</span>(V)(V <i>value</i>);
+<dt class="d_decl"><a name=".contains"></a>bool <a name="contains"></a><span class="ddoc_psymbol">contains</span>(V)(V <i>value</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if <span class="d_inlinecode">value</span> can be found in <span class="d_inlinecode">range</span>, which is assumed to be sorted. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(r.length)</span><b><i>)</i></b>
 evaluations of <span class="d_inlinecode">pred</span>. See also STL's <a href="http://sgi.com/tech/stl/binary_search.html">binary_search</a>.<p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>;
+<dt class="d_decl"><a name=".canFind"></a>alias contains <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>;
 </dt>
-<dd>Deprecated alias for <span class="d_inlinecode">contains</span>.<p></p>
+<dd><span style="color:red">Deprecated. It will be removed in January 2013.
+          Please use <a href="#contains"><span class="d_inlinecode">contains</span></a> instead.</span><p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">auto <a name="assumeSorted"></a><span class="ddoc_psymbol">assumeSorted</span>(alias pred = "a &lt; b", R)(R <i>r</i>);
+<dt class="d_decl"><a name=".assumeSorted"></a>auto <a name="assumeSorted"></a><span class="ddoc_psymbol">assumeSorted</span>(alias pred = "a &lt; b", R)(R <i>r</i>);
 </dt>
 <dd>Assumes <span class="d_inlinecode">r</span> is sorted by predicate <span class="d_inlinecode">pred</span> and returns the
 corresponding <span class="d_inlinecode">SortedRange!(pred, R)</span> having <span class="d_inlinecode">r</span> as support. To
-keep the checking costs low, the cost is <b><i>&Omicron;</i>(</b><span class="d_inlinecode">(1)</span><b><i>)</i></b> in release mode
+keep the checking costs low, the cost is <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b> in release mode
 (no checks for sortedness are performed). In debug mode, a few random
 elements of <span class="d_inlinecode">r</span> are checked for sortedness. The size of the sample
 is proportional <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(r.length)</span><b><i>)</i></b>. That way, checking has no
@@ -1699,6 +2170,190 @@ ranges (such as binary search). The probability of an arbitrary
 unsorted range failing the test is very high (however, an
 almost-sorted range is likely to pass it). To check for sortedness at
 cost <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>, use <a href="std_algorithm.html#isSorted"><span class="d_inlinecode">std.algorithm.isSorted</span></a>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".RefRange"></a>struct <a name="RefRange"></a><span class="ddoc_psymbol">RefRange</span>(R) if (isForwardRange!(R));
+</dt>
+<dd>Wrapper which effectively makes it possible to pass a range by reference.
+    Both the original range and the <a name="RefRange"></a><span class="ddoc_psymbol">RefRange</span> will always have the exact same
+    elements. Any operation done on one will affect the other. So, for instance,
+    if it's passed to a function which would implicitly copy the original range
+    if it were passed to it, the original range is <i>not</i> copied but is
+    consumed as if it were a reference type.
+<p></p>
+Note that <span class="d_inlinecode">save</span> works as normal and operates on a new range, so if
+    <span class="d_inlinecode">save</span> is ever called on the <a name="RefRange"></a><span class="ddoc_psymbol">RefRange</span>, then no operations on the saved
+    range will affect the original.
+
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">import</span> std.algorithm;
+<span class="d_keyword">ubyte</span>[] buffer = [1, 9, 45, 12, 22];
+<span class="d_keyword">auto</span> found1 = find(buffer, 45);
+<span class="d_keyword">assert</span>(found1 == [45, 12, 22]);
+<span class="d_keyword">assert</span>(buffer == [1, 9, 45, 12, 22]);
+
+<span class="d_keyword">auto</span> wrapped1 = refRange(&amp;buffer);
+<span class="d_keyword">auto</span> found2 = find(wrapped1, 45);
+<span class="d_keyword">assert</span>(*found2.ptr == [45, 12, 22]);
+<span class="d_keyword">assert</span>(buffer == [45, 12, 22]);
+
+<span class="d_keyword">auto</span> found3 = find(wrapped2.save, 22);
+<span class="d_keyword">assert</span>(*found3.ptr == [22]);
+<span class="d_keyword">assert</span>(buffer == [45, 12, 22]);
+
+string str = <span class="d_string">"hello world"</span>;
+<span class="d_keyword">auto</span> wrappedStr = refRange(&amp;str);
+<span class="d_keyword">assert</span>(str.front == 'h');
+str.popFrontN(5);
+<span class="d_keyword">assert</span>(str == <span class="d_string">" world"</span>);
+<span class="d_keyword">assert</span>(wrappedStr.front == ' ');
+<span class="d_keyword">assert</span>(*wrappedStr.ptr == <span class="d_string">" world"</span>);
+</pre>
+<p></p>
+
+<dl><dt class="d_decl"><a name=".this"></a>pure nothrow @safe  this(R* <i>range</i>);
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".opAssign"></a>auto <a name="opAssign"></a><span class="ddoc_psymbol">opAssign</span>(RefRange <i>rhs</i>);
+</dt>
+<dd>This does not assign the pointer of <span class="d_inlinecode"><i>rhs</i></span> to this <span class="d_inlinecode">RefRange</span>.
+        Rather it assigns the range pointed to by <span class="d_inlinecode"><i>rhs</i></span> to the range pointed
+        to by this <span class="d_inlinecode">RefRange</span>. This is because <i>any</i> operation on a
+        <span class="d_inlinecode">RefRange</span> is the same is if it occurred to the original range. The
+        one exception is when a <span class="d_inlinecode">RefRange</span> is assigned <span class="d_inlinecode"><b>null</b></span> either
+        directly or because <span class="d_inlinecode"><i>rhs</i></span> is <span class="d_inlinecode"><b>null</b></span>. In that case, <span class="d_inlinecode">RefRange</span>
+        no longer refers to the original range but is <span class="d_inlinecode"><b>null</b></span>.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">ubyte</span>[] buffer1 = [1, 2, 3, 4, 5];
+<span class="d_keyword">ubyte</span>[] buffer2 = [6, 7, 8, 9, 10];
+<span class="d_keyword">auto</span> wrapped1 = refRange(&amp;buffer1);
+<span class="d_keyword">auto</span> wrapped2 = refRange(&amp;buffer2);
+<span class="d_keyword">assert</span>(wrapped1.ptr <span class="d_keyword">is</span> &amp;buffer1);
+<span class="d_keyword">assert</span>(wrapped2.ptr <span class="d_keyword">is</span> &amp;buffer2);
+<span class="d_keyword">assert</span>(wrapped1.ptr !<span class="d_keyword">is</span> wrapped2.ptr);
+<span class="d_keyword">assert</span>(buffer1 != buffer2);
+
+wrapped1 = wrapped2;
+
+<span class="d_comment">//Everything points to the same stuff as before.
+</span><span class="d_keyword">assert</span>(wrapped1.ptr <span class="d_keyword">is</span> &amp;buffer1);
+<span class="d_keyword">assert</span>(wrapped2.ptr <span class="d_keyword">is</span> &amp;buffer2);
+<span class="d_keyword">assert</span>(wrapped1.ptr !<span class="d_keyword">is</span> wrapped2.ptr);
+
+<span class="d_comment">//But buffer1 has changed due to the assignment.
+</span><span class="d_keyword">assert</span>(buffer1 == [6, 7, 8, 9, 10]);
+<span class="d_keyword">assert</span>(buffer2 == [6, 7, 8, 9, 10]);
+
+buffer2 = [11, 12, 13, 14, 15];
+
+<span class="d_comment">//Everything points to the same stuff as before.
+</span><span class="d_keyword">assert</span>(wrapped1.ptr <span class="d_keyword">is</span> &amp;buffer1);
+<span class="d_keyword">assert</span>(wrapped2.ptr <span class="d_keyword">is</span> &amp;buffer2);
+<span class="d_keyword">assert</span>(wrapped1.ptr !<span class="d_keyword">is</span> wrapped2.ptr);
+
+<span class="d_comment">//But buffer2 has changed due to the assignment.
+</span><span class="d_keyword">assert</span>(buffer1 == [6, 7, 8, 9, 10]);
+<span class="d_keyword">assert</span>(buffer2 == [11, 12, 13, 14, 15]);
+
+wrapped2 = <span class="d_keyword">null</span>;
+
+<span class="d_comment">//The pointer changed for wrapped2 but not wrapped1.
+</span><span class="d_keyword">assert</span>(wrapped1.ptr <span class="d_keyword">is</span> &amp;buffer1);
+<span class="d_keyword">assert</span>(wrapped2.ptr <span class="d_keyword">is</span> <span class="d_keyword">null</span>);
+<span class="d_keyword">assert</span>(wrapped1.ptr !<span class="d_keyword">is</span> wrapped2.ptr);
+
+<span class="d_comment">//buffer2 is not affected by the assignment.
+</span><span class="d_keyword">assert</span>(buffer1 == [6, 7, 8, 9, 10]);
+<span class="d_keyword">assert</span>(buffer2 == [11, 12, 13, 14, 15]);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opAssign"></a>auto <a name="opAssign"></a><span class="ddoc_psymbol">opAssign</span>(typeof(null) <i>rhs</i>);
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".ptr"></a>inout pure nothrow @safe inout(R*) <a name="ptr"></a><span class="ddoc_psymbol">ptr</span>();
+</dt>
+<dd>A pointer to the wrapped range.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".front"></a>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>const @property auto <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>@property auto <a name="front"></a><span class="ddoc_psymbol">front</span>(ElementType!(R) <i>value</i>);
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".empty"></a>const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".save"></a>@property auto <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".save"></a>const @property auto <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".opSlice"></a>auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+<br><a name=".opSlice"></a>const auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+</dt>
+<dd><p></p>
+</dd>
+<dt class="d_decl"><a name=".back"></a>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".back"></a>const @property auto <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".back"></a>@property auto <a name="back"></a><span class="ddoc_psymbol">back</span>(ElementType!(R) <i>value</i>);
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+</dt>
+<dd>Only defined if <span class="d_inlinecode">isBidirectionalRange!R</span> is <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opIndex"></a>ref auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(IndexType)(IndexType <i>index</i>);
+<br><a name=".opIndex"></a>const ref auto <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(IndexType)(IndexType <i>index</i>);
+</dt>
+<dd>Only defined if <span class="d_inlinecode">isRandomAccesRange!R</span> is <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".moveFront"></a>auto <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+</dt>
+<dd>Only defined if <span class="d_inlinecode">hasMobileElements!R</span> and <span class="d_inlinecode">isForwardRange!R</span> are
+        <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".moveBack"></a>auto <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+</dt>
+<dd>Only defined if <span class="d_inlinecode">hasMobileElements!R</span> and <span class="d_inlinecode">isBidirectionalRange!R</span>
+        are <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".moveAt"></a>auto <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(IndexType)(IndexType <i>index</i>);
+</dt>
+<dd>Only defined if <span class="d_inlinecode">hasMobileElements!R</span> and <span class="d_inlinecode">isRandomAccessRange!R</span>
+        are <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".length"></a>@property auto <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<br><a name=".length"></a>const @property auto <a name="length"></a><span class="ddoc_psymbol">length</span>();
+</dt>
+<dd>Only defined if <span class="d_inlinecode">hasLength!R</span> is <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opSlice"></a>auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(IndexType1, IndexType2)(IndexType1 <i>begin</i>, IndexType2 <i>end</i>);
+<br><a name=".opSlice"></a>const auto <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(IndexType1, IndexType2)(IndexType1 <i>begin</i>, IndexType2 <i>end</i>);
+</dt>
+<dd>Only defined if <span class="d_inlinecode">hasSlicing!R</span> is <span class="d_inlinecode"><b>true</b></span>.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl"><a name=".refRange"></a>auto <a name="refRange"></a><span class="ddoc_psymbol">refRange</span>(R)(R* <i>range</i>);
+</dt>
+<dd>Helper function for constructing a <a href="#RefRange"><span class="d_inlinecode">RefRange</span></a>.
+<p></p>
+If the given range is not a forward range or it is a class type (and thus is
+    already a reference type), then the original range is returned rather than
+    a <a href="#RefRange"><span class="d_inlinecode">RefRange</span></a>.<p></p>
 
 </dd>
 </dl>
@@ -1715,9 +2370,9 @@ cost <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>,
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

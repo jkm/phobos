@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.encoding - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:01 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/encoding.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdEncoding" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.encoding</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/encoding.d -->
@@ -230,6 +249,7 @@ e.g.
 
 <pre class="d_code">    <span class="d_keyword">auto</span> e = EncodingScheme.create(<span class="d_string">"utf-8"</span>);
 </pre>
+<p></p>
 
 This library supplies <span class="d_inlinecode">EncodingScheme</span> subclasses for ASCII,
 ISO-8859-1 (also known as LATIN-1), WINDOWS-1252, UTF-8, and (on
@@ -247,38 +267,38 @@ This library provides a mechanism whereby other modules may add <span class="d_i
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/encoding.d">std/encoding.d</a><p></p>
 
-<dl><dt class="d_decl">dchar <a name="INVALID_SEQUENCE"></a><span class="ddoc_psymbol">INVALID_SEQUENCE</span>;
+<dl><dt class="d_decl"><a name=".INVALID_SEQUENCE"></a>dchar <a name="INVALID_SEQUENCE"></a><span class="ddoc_psymbol">INVALID_SEQUENCE</span>;
 </dt>
 <dd>Special value returned by <span class="d_inlinecode">safeDecode</span> <p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="AsciiChar"></a><span class="ddoc_psymbol">AsciiChar</span>;
-<br>alias <a name="AsciiString"></a><span class="ddoc_psymbol">AsciiString</span>;
+<dt class="d_decl"><a name=".AsciiChar"></a>enum <a name="AsciiChar"></a><span class="ddoc_psymbol">AsciiChar</span>;
+<br><a name=".AsciiString"></a>alias immutable(AsciiChar)[] <a name="AsciiString"></a><span class="ddoc_psymbol">AsciiString</span>;
 </dt>
 <dd>Defines various character sets. <p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="Latin1Char"></a><span class="ddoc_psymbol">Latin1Char</span>;
+<dt class="d_decl"><a name=".Latin1Char"></a>enum <a name="Latin1Char"></a><span class="ddoc_psymbol">Latin1Char</span>;
 </dt>
 <dd>Defines an Latin1-encoded character. <p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="Latin1String"></a><span class="ddoc_psymbol">Latin1String</span>;
+<dt class="d_decl"><a name=".Latin1String"></a>alias immutable(Latin1Char)[] <a name="Latin1String"></a><span class="ddoc_psymbol">Latin1String</span>;
 </dt>
 <dd>Defines an Latin1-encoded string (as an array of <span class="d_inlinecode">immutable(Latin1Char)</span>).<p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="Windows1252Char"></a><span class="ddoc_psymbol">Windows1252Char</span>;
+<dt class="d_decl"><a name=".Windows1252Char"></a>enum <a name="Windows1252Char"></a><span class="ddoc_psymbol">Windows1252Char</span>;
 </dt>
 <dd>Defines a Windows1252-encoded character. <p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="Windows1252String"></a><span class="ddoc_psymbol">Windows1252String</span>;
+<dt class="d_decl"><a name=".Windows1252String"></a>alias immutable(Windows1252Char)[] <a name="Windows1252String"></a><span class="ddoc_psymbol">Windows1252String</span>;
 </dt>
 <dd>Defines an Windows1252-encoded string (as an array of <span class="d_inlinecode">immutable(Windows1252Char)</span>).<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isValidCodePoint"></a><span class="ddoc_psymbol">isValidCodePoint</span>(dchar <i>c</i>);
+<dt class="d_decl"><a name=".isValidCodePoint"></a>bool <a name="isValidCodePoint"></a><span class="ddoc_psymbol">isValidCodePoint</span>(dchar <i>c</i>);
 </dt>
 <dd>Returns <b>true</b> if <i>c</i> is a valid code point
 <p></p>
@@ -299,7 +319,7 @@ This function supercedes <span class="d_inlinecode">std.utf.startsValidDchar()</
 </table><p></p>
 
 </dd>
-<dt class="d_decl">string <a name="encodingName"></a><span class="ddoc_psymbol">encodingName</span>(T)();
+<dt class="d_decl"><a name=".encodingName"></a>string <a name="encodingName"></a><span class="ddoc_psymbol">encodingName</span>(T)();
 </dt>
 <dd>Returns the name of an encoding.
 <p></p>
@@ -315,7 +335,7 @@ The type of encoding cannot be deduced. Therefore, it is necessary to
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="canEncode"></a><span class="ddoc_psymbol">canEncode</span>(E)(dchar <i>c</i>);
+<dt class="d_decl"><a name=".canEncode"></a>bool <a name="canEncode"></a><span class="ddoc_psymbol">canEncode</span>(E)(dchar <i>c</i>);
 </dt>
 <dd>Returns <b>true</b> iff it is possible to represent the specifed codepoint
  in the encoding.
@@ -332,7 +352,7 @@ The type of encoding cannot be deduced. Therefore, it is necessary to
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isValidCodeUnit"></a><span class="ddoc_psymbol">isValidCodeUnit</span>(E)(E <i>c</i>);
+<dt class="d_decl"><a name=".isValidCodeUnit"></a>bool <a name="isValidCodeUnit"></a><span class="ddoc_psymbol">isValidCodeUnit</span>(E)(E <i>c</i>);
 </dt>
 <dd>Returns <b>true</b> if the code unit is legal. For example, the byte 0x80 would
  not be legal in ASCII, because ASCII code units must always be in the range
@@ -346,7 +366,7 @@ The type of encoding cannot be deduced. Therefore, it is necessary to
 </table><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isValid"></a><span class="ddoc_psymbol">isValid</span>(E)(const(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".isValid"></a>bool <a name="isValid"></a><span class="ddoc_psymbol">isValid</span>(E)(const(E)[] <i>s</i>);
 </dt>
 <dd>Returns <b>true</b> if the string is encoded correctly
 <p></p>
@@ -364,7 +384,7 @@ This function supercedes std.utf.validate(), however note that this
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="validLength"></a><span class="ddoc_psymbol">validLength</span>(E)(const(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".validLength"></a>size_t <a name="validLength"></a><span class="ddoc_psymbol">validLength</span>(E)(const(E)[] <i>s</i>);
 </dt>
 <dd>Returns the length of the longest possible substring, starting from
  the first code unit, which is validly encoded.
@@ -377,7 +397,7 @@ This function supercedes std.utf.validate(), however note that this
 </table><p></p>
 
 </dd>
-<dt class="d_decl">immutable(E)[] <a name="sanitize"></a><span class="ddoc_psymbol">sanitize</span>(E)(immutable(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".sanitize"></a>immutable(E)[] <a name="sanitize"></a><span class="ddoc_psymbol">sanitize</span>(E)(immutable(E)[] <i>s</i>);
 </dt>
 <dd>Sanitizes a string by replacing malformed code unit sequences with valid
  code unit sequences. The result is guaranteed to be valid for this encoding.
@@ -398,7 +418,7 @@ If the input string is already valid, this function returns the original,
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="firstSequence"></a><span class="ddoc_psymbol">firstSequence</span>(E)(const(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".firstSequence"></a>size_t <a name="firstSequence"></a><span class="ddoc_psymbol">firstSequence</span>(E)(const(E)[] <i>s</i>);
 </dt>
 <dd>Returns the length of the first encoded sequence.
 <p></p>
@@ -414,7 +434,7 @@ This is enforced by the function's in-contract.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="lastSequence"></a><span class="ddoc_psymbol">lastSequence</span>(E)(const(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".lastSequence"></a>size_t <a name="lastSequence"></a><span class="ddoc_psymbol">lastSequence</span>(E)(const(E)[] <i>s</i>);
 </dt>
 <dd>Returns the length the last encoded sequence.
 <p></p>
@@ -430,7 +450,7 @@ The input to this function MUST be validly encoded.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="index"></a><span class="ddoc_psymbol">index</span>(E)(const(E)[] <i>s</i>, int <i>n</i>);
+<dt class="d_decl"><a name=".index"></a>ptrdiff_t <a name="index"></a><span class="ddoc_psymbol">index</span>(E)(const(E)[] <i>s</i>, int <i>n</i>);
 </dt>
 <dd>Returns the array <a name="index"></a><span class="ddoc_psymbol">index</span> at which the (n+1)th code point begins.
 <p></p>
@@ -450,7 +470,7 @@ This function supercedes std.utf.toUTFindex().
 </table><p></p>
 
 </dd>
-<dt class="d_decl">dchar <a name="decode"></a><span class="ddoc_psymbol">decode</span>(S)(ref S <i>s</i>);
+<dt class="d_decl"><a name=".decode"></a>dchar <a name="decode"></a><span class="ddoc_psymbol">decode</span>(S)(ref S <i>s</i>);
 </dt>
 <dd>Decodes a single code point.
 <p></p>
@@ -475,7 +495,7 @@ This function supercedes std.utf.<a name="decode"></a><span class="ddoc_psymbol"
 </table><p></p>
 
 </dd>
-<dt class="d_decl">dchar <a name="decodeReverse"></a><span class="ddoc_psymbol">decodeReverse</span>(E)(ref const(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".decodeReverse"></a>dchar <a name="decodeReverse"></a><span class="ddoc_psymbol">decodeReverse</span>(E)(ref const(E)[] <i>s</i>);
 </dt>
 <dd>Decodes a single code point from the end of a string.
 <p></p>
@@ -495,7 +515,7 @@ This function removes one or more code units from the end of a string,
 </table><p></p>
 
 </dd>
-<dt class="d_decl">dchar <a name="safeDecode"></a><span class="ddoc_psymbol">safeDecode</span>(S)(ref S <i>s</i>);
+<dt class="d_decl"><a name=".safeDecode"></a>dchar <a name="safeDecode"></a><span class="ddoc_psymbol">safeDecode</span>(S)(ref S <i>s</i>);
 </dt>
 <dd>Decodes a single code point. The input does not have to be valid.
 <p></p>
@@ -516,7 +536,7 @@ This function removes one or more code units from the start of a string,
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="encodedLength"></a><span class="ddoc_psymbol">encodedLength</span>(E)(dchar <i>c</i>);
+<dt class="d_decl"><a name=".encodedLength"></a>size_t <a name="encodedLength"></a><span class="ddoc_psymbol">encodedLength</span>(E)(dchar <i>c</i>);
 </dt>
 <dd>Returns the number of code units required to encode a single code point.
 <p></p>
@@ -536,7 +556,7 @@ The input to this function MUST be a valid code point.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">E[] <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>);
+<dt class="d_decl"><a name=".encode"></a>E[] <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>);
 </dt>
 <dd>Encodes a single code point.
 <p></p>
@@ -565,7 +585,7 @@ This function supercedes std.utf.<a name="encode"></a><span class="ddoc_psymbol"
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>, E[] <i>array</i>);
+<dt class="d_decl"><a name=".encode"></a>size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>, E[] <i>array</i>);
 </dt>
 <dd>Encodes a single code point into an array.
 <p></p>
@@ -596,7 +616,7 @@ This function supercedes std.utf.<a name="encode"></a><span class="ddoc_psymbol"
 <b>Returns:</b><br>the number of code units written to the array<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>, void delegate(E) <i>dg</i>);
+<dt class="d_decl"><a name=".encode"></a>void <a name="encode"></a><span class="ddoc_psymbol">encode</span>(E)(dchar <i>c</i>, void delegate(E) <i>dg</i>);
 </dt>
 <dd>Encodes a single code point to a delegate.
 <p></p>
@@ -625,7 +645,7 @@ This function supercedes std.utf.<a name="encode"></a><span class="ddoc_psymbol"
 </table><p></p>
 
 </dd>
-<dt class="d_decl">CodePoints!(E) <a name="codePoints"></a><span class="ddoc_psymbol">codePoints</span>(E)(immutable(E)[] <i>s</i>);
+<dt class="d_decl"><a name=".codePoints"></a>CodePoints!(E) <a name="codePoints"></a><span class="ddoc_psymbol">codePoints</span>(E)(immutable(E)[] <i>s</i>);
 </dt>
 <dd>Returns a foreachable struct which can bidirectionally iterate over all
  code points in a string.
@@ -656,12 +676,13 @@ This function supercedes std.utf.decode().
      <span class="d_comment">// do something with c (which will always be a dchar)
 </span> }
 </pre>
+<p></p>
 
  Note that, currently, foreach(c:<a name="codePoints"></a><span class="ddoc_psymbol">codePoints</span>(s)) is superior to foreach(c;s)
  in that the latter will fall over on encountering U+FFFF.<p></p>
 
 </dd>
-<dt class="d_decl">CodeUnits!(E) <a name="codeUnits"></a><span class="ddoc_psymbol">codeUnits</span>(E)(dchar <i>c</i>);
+<dt class="d_decl"><a name=".codeUnits"></a>CodeUnits!(E) <a name="codeUnits"></a><span class="ddoc_psymbol">codeUnits</span>(E)(dchar <i>c</i>);
 </dt>
 <dd>Returns a foreachable struct which can bidirectionally iterate over all
  code units in a code point.
@@ -697,13 +718,13 @@ This function supercedes std.utf.encode().
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(Tgt, Src, R)(in Src[] <i>s</i>, R <i>range</i>);
+<dt class="d_decl"><a name=".encode"></a>size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(Tgt, Src, R)(in Src[] <i>s</i>, R <i>range</i>);
 </dt>
 <dd>Encodes <span class="d_inlinecode">c</span> in units of type <span class="d_inlinecode">E</span> and writes the result to the
 output range <span class="d_inlinecode">R</span>. Returns the number of <span class="d_inlinecode">E</span>s written.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="transcode"></a><span class="ddoc_psymbol">transcode</span>(Src, Dst)(immutable(Src)[] <i>s</i>, out immutable(Dst)[] <i>r</i>);
+<dt class="d_decl"><a name=".transcode"></a>void <a name="transcode"></a><span class="ddoc_psymbol">transcode</span>(Src, Dst)(immutable(Src)[] <i>s</i>, out immutable(Dst)[] <i>r</i>);
 </dt>
 <dd>Convert a string from one encoding to another. (See also to!() below).
 <p></p>
@@ -736,16 +757,16 @@ This function supercedes std.utf.toUTF8(), std.utf.toUTF16() and
 <p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingException"></a><span class="ddoc_psymbol">EncodingException</span>: object.Exception;
+<dt class="d_decl"><a name=".EncodingException"></a>class <a name="EncodingException"></a><span class="ddoc_psymbol">EncodingException</span>: object.Exception;
 </dt>
 <dd>The base class for exceptions thrown by this module <p></p>
 
 </dd>
-<dt class="d_decl">abstract class <a name="EncodingScheme"></a><span class="ddoc_psymbol">EncodingScheme</span>;
+<dt class="d_decl"><a name=".EncodingScheme"></a>abstract class <a name="EncodingScheme"></a><span class="ddoc_psymbol">EncodingScheme</span>;
 </dt>
 <dd>Abstract base class of all encoding schemes <p></p>
 
-<dl><dt class="d_decl">static void <a name="register"></a><span class="ddoc_psymbol">register</span>(string <i>className</i>);
+<dl><dt class="d_decl"><a name=".EncodingScheme.register"></a>static void <a name="register"></a><span class="ddoc_psymbol">register</span>(string <i>className</i>);
 </dt>
 <dd>Registers a subclass of EncodingScheme.
 <p></p>
@@ -764,7 +785,7 @@ This function allows user-defined subclasses of EncodingScheme to
 <p></p>
 
 </dd>
-<dt class="d_decl">static EncodingScheme <a name="create"></a><span class="ddoc_psymbol">create</span>(string <i>encodingName</i>);
+<dt class="d_decl"><a name=".EncodingScheme.create"></a>static EncodingScheme <a name="create"></a><span class="ddoc_psymbol">create</span>(string <i>encodingName</i>);
 </dt>
 <dd>Obtains a subclass of EncodingScheme which is capable of encoding
  and decoding the named encoding scheme.
@@ -778,23 +799,23 @@ This function is only aware of EncodingSchemes which have been
 <p></p>
 
 </dd>
-<dt class="d_decl">abstract const const string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
+<dt class="d_decl"><a name=".EncodingScheme.toString"></a>abstract const const string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
 </dt>
 <dd>Returns the standard name of the encoding scheme<p></p>
 
 </dd>
-<dt class="d_decl">abstract const const string[] <a name="names"></a><span class="ddoc_psymbol">names</span>();
+<dt class="d_decl"><a name=".EncodingScheme.names"></a>abstract const const string[] <a name="names"></a><span class="ddoc_psymbol">names</span>();
 </dt>
 <dd>Returns an array of all known <a name="names"></a><span class="ddoc_psymbol">names</span> for this encoding scheme<p></p>
 
 </dd>
-<dt class="d_decl">abstract const const bool <a name="canEncode"></a><span class="ddoc_psymbol">canEncode</span>(dchar <i>c</i>);
+<dt class="d_decl"><a name=".EncodingScheme.canEncode"></a>abstract const const bool <a name="canEncode"></a><span class="ddoc_psymbol">canEncode</span>(dchar <i>c</i>);
 </dt>
 <dd>Returns <b>true</b> if the character <i>c</i> can be represented
  in this encoding scheme.<p></p>
 
 </dd>
-<dt class="d_decl">abstract const const size_t <a name="encodedLength"></a><span class="ddoc_psymbol">encodedLength</span>(dchar <i>c</i>);
+<dt class="d_decl"><a name=".EncodingScheme.encodedLength"></a>abstract const const size_t <a name="encodedLength"></a><span class="ddoc_psymbol">encodedLength</span>(dchar <i>c</i>);
 </dt>
 <dd>Returns the number of ubytes required to encode this code point.
 <p></p>
@@ -807,7 +828,7 @@ The input to this function MUST be a valid code point.
 <b>Returns:</b><br>the number of ubytes required.<p></p>
 
 </dd>
-<dt class="d_decl">abstract const const size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(dchar <i>c</i>, ubyte[] <i>buffer</i>);
+<dt class="d_decl"><a name=".EncodingScheme.encode"></a>abstract const const size_t <a name="encode"></a><span class="ddoc_psymbol">encode</span>(dchar <i>c</i>, ubyte[] <i>buffer</i>);
 </dt>
 <dd>Encodes a single code point into a user-supplied, fixed-size <i>buffer</i>.
 <p></p>
@@ -826,7 +847,7 @@ This function encodes a single code point into one or more ubytes.
 <b>Returns:</b><br>the number of ubytes written.<p></p>
 
 </dd>
-<dt class="d_decl">abstract const const dchar <a name="decode"></a><span class="ddoc_psymbol">decode</span>(ref const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.decode"></a>abstract const const dchar <a name="decode"></a><span class="ddoc_psymbol">decode</span>(ref const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Decodes a single code point.
 <p></p>
@@ -842,7 +863,7 @@ This function removes one or more ubytes from the start of an array,
 </table><p></p>
 
 </dd>
-<dt class="d_decl">abstract const const dchar <a name="safeDecode"></a><span class="ddoc_psymbol">safeDecode</span>(ref const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.safeDecode"></a>abstract const const dchar <a name="safeDecode"></a><span class="ddoc_psymbol">safeDecode</span>(ref const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Decodes a single code point. The input does not have to be valid.
 <p></p>
@@ -860,7 +881,7 @@ This function removes one or more ubytes from the start of an array,
 </table><p></p>
 
 </dd>
-<dt class="d_decl">abstract const const immutable(ubyte)[] <a name="replacementSequence"></a><span class="ddoc_psymbol">replacementSequence</span>();
+<dt class="d_decl"><a name=".EncodingScheme.replacementSequence"></a>abstract const const @property immutable(ubyte)[] <a name="replacementSequence"></a><span class="ddoc_psymbol">replacementSequence</span>();
 </dt>
 <dd>Returns the sequence of ubytes to be used to represent
  any character which cannot be represented in the encoding scheme.
@@ -869,7 +890,7 @@ Normally this will be a representation of some substitution
  character, such as U+FFFD or '?'.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isValid"></a><span class="ddoc_psymbol">isValid</span>(const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.isValid"></a>bool <a name="isValid"></a><span class="ddoc_psymbol">isValid</span>(const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Returns <b>true</b> if the array is encoded correctly
 <p></p>
@@ -878,7 +899,7 @@ Normally this will be a representation of some substitution
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="validLength"></a><span class="ddoc_psymbol">validLength</span>(const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.validLength"></a>size_t <a name="validLength"></a><span class="ddoc_psymbol">validLength</span>(const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Returns the length of the longest possible substring, starting from
  the first element, which is validly encoded.
@@ -888,7 +909,7 @@ Normally this will be a representation of some substitution
 </table><p></p>
 
 </dd>
-<dt class="d_decl">immutable(ubyte)[] <a name="sanitize"></a><span class="ddoc_psymbol">sanitize</span>(immutable(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.sanitize"></a>immutable(ubyte)[] <a name="sanitize"></a><span class="ddoc_psymbol">sanitize</span>(immutable(ubyte)[] <i>s</i>);
 </dt>
 <dd>Sanitizes an array by replacing malformed ubyte sequences with valid
  ubyte sequences. The result is guaranteed to be valid for this
@@ -904,7 +925,7 @@ If the input array is already valid, this function returns the
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="firstSequence"></a><span class="ddoc_psymbol">firstSequence</span>(const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.firstSequence"></a>size_t <a name="firstSequence"></a><span class="ddoc_psymbol">firstSequence</span>(const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Returns the length of the first encoded sequence.
 <p></p>
@@ -917,7 +938,7 @@ The input to this function MUST be validly encoded.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(const(ubyte)[] <i>s</i>);
+<dt class="d_decl"><a name=".EncodingScheme.count"></a>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(const(ubyte)[] <i>s</i>);
 </dt>
 <dd>Returns the total number of code points encoded in a ubyte array.
 <p></p>
@@ -930,7 +951,7 @@ The input to this function MUST be validly encoded.
 </table><p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="index"></a><span class="ddoc_psymbol">index</span>(const(ubyte)[] <i>s</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".EncodingScheme.index"></a>ptrdiff_t <a name="index"></a><span class="ddoc_psymbol">index</span>(const(ubyte)[] <i>s</i>, size_t <i>n</i>);
 </dt>
 <dd>Returns the array <a name="index"></a><span class="ddoc_psymbol">index</span> at which the (<i>n</i>+1)th code point begins.
 <p></p>
@@ -945,7 +966,7 @@ The input to this function MUST be validly encoded.
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeASCII"></a><span class="ddoc_psymbol">EncodingSchemeASCII</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeASCII"></a>class <a name="EncodingSchemeASCII"></a><span class="ddoc_psymbol">EncodingSchemeASCII</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle ASCII
 <p></p>
@@ -963,7 +984,7 @@ This scheme recognises the following names:
                  "us"<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeLatin1"></a><span class="ddoc_psymbol">EncodingSchemeLatin1</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeLatin1"></a>class <a name="EncodingSchemeLatin1"></a><span class="ddoc_psymbol">EncodingSchemeLatin1</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle Latin-1
 <p></p>
@@ -979,7 +1000,7 @@ This scheme recognises the following names:
                  "latin1"<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeWindows1252"></a><span class="ddoc_psymbol">EncodingSchemeWindows1252</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeWindows1252"></a>class <a name="EncodingSchemeWindows1252"></a><span class="ddoc_psymbol">EncodingSchemeWindows1252</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle Windows-1252
 <p></p>
@@ -987,7 +1008,7 @@ This scheme recognises the following names:
                  "windows-1252"<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeUtf8"></a><span class="ddoc_psymbol">EncodingSchemeUtf8</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeUtf8"></a>class <a name="EncodingSchemeUtf8"></a><span class="ddoc_psymbol">EncodingSchemeUtf8</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle UTF-8
 <p></p>
@@ -995,7 +1016,7 @@ This scheme recognises the following names:
                  "UTF-8"<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeUtf16Native"></a><span class="ddoc_psymbol">EncodingSchemeUtf16Native</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeUtf16Native"></a>class <a name="EncodingSchemeUtf16Native"></a><span class="ddoc_psymbol">EncodingSchemeUtf16Native</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle UTF-16 in native byte order
 <p></p>
@@ -1004,7 +1025,7 @@ This scheme recognises the following names:
                  "UTF-16BE" (big-endian architecture only)<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="EncodingSchemeUtf32Native"></a><span class="ddoc_psymbol">EncodingSchemeUtf32Native</span>: std.encoding.EncodingScheme;
+<dt class="d_decl"><a name=".EncodingSchemeUtf32Native"></a>class <a name="EncodingSchemeUtf32Native"></a><span class="ddoc_psymbol">EncodingSchemeUtf32Native</span>: std.encoding.EncodingScheme;
 </dt>
 <dd>EncodingScheme to handle UTF-32 in native byte order
 <p></p>
@@ -1027,9 +1048,9 @@ This scheme recognises the following names:
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

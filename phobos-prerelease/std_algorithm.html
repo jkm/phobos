@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.algorithm - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,17 +197,40 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:31:54 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/algorithm.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdAlgorithm" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.algorithm</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/algorithm.d -->
 <script type="text/javascript">inhibitQuickIndex = 1</script>
 <p></p>
-<center><table cellspacing=0 cellpadding=5 class=book><caption></caption><tr><th>Category</th> <th>Functions</th>
+<table cellspacing=0 cellpadding=5 class=book><caption></caption><tr><th>Category</th> <th>Functions</th>
 </tr>
 <tr><td valign=top class="donthyphenate">Searching</td> <td valign=top><font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#balancedParens">balancedParens</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#boyerMooreFinder">boyerMooreFinder</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#canFind">canFind</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#count">count</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#countUntil">countUntil</a>&nbsp;</font>
-<font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#endsWith">endsWith</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#find">find</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findAdjacent">findAdjacent</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findAmong">findAmong</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSkip">findSkip</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplit">findSplit</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplitAfter">findSplitAfter</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplitBefore">findSplitBefore</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#indexOf">indexOf</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#minCount">minCount</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#minPos">minPos</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#mismatch">mismatch</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#skipOver">skipOver</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#startsWith">startsWith</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#until">until</a>&nbsp;</font> </td>
+<font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#endsWith">endsWith</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#commonPrefix">commonPrefix</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#find">find</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findAdjacent">findAdjacent</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findAmong">findAmong</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSkip">findSkip</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplit">findSplit</a>&nbsp;</font>
+<font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplitAfter">findSplitAfter</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#findSplitBefore">findSplitBefore</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#indexOf">indexOf</a>&nbsp;</font>
+<font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#minCount">minCount</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#minPos">minPos</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#mismatch">mismatch</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#skipOver">skipOver</a>&nbsp;</font>
+<font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#startsWith">startsWith</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#until">until</a>&nbsp;</font> </td>
 </tr>
 <tr><td valign=top class="donthyphenate">Comparison</td> <td valign=top><font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#cmp">cmp</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#equal">equal</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#levenshteinDistance">levenshteinDistance</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#levenshteinDistanceAndPath">levenshteinDistanceAndPath</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#max">max</a>&nbsp;</font>
 <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#min">min</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#mismatch">mismatch</a>&nbsp;</font> </td>
@@ -224,7 +246,7 @@ function listanchors()
 <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#nWayUnion">nWayUnion</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#setDifference">setDifference</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#setIntersection">setIntersection</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#setSymmetricDifference">setSymmetricDifference</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#setUnion">setUnion</a>&nbsp;</font> </td>
 </tr>
 <tr><td valign=top class="donthyphenate">Mutation</td> <td valign=top><font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#bringToFront">bringToFront</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#copy">copy</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#fill">fill</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#initializeAll">initializeAll</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#move">move</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#moveAll">moveAll</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#moveSome">moveSome</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#remove">remove</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#reverse">reverse</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#swap">swap</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#swapRanges">swapRanges</a>&nbsp;</font> <font face='Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace'><a href="#uninitializedFill">uninitializedFill</a>&nbsp;</font> </td></tr>
-</table></center>
+</table>
 <p></p>
 
 Implements algorithms oriented mainly towards processing of
@@ -256,8 +278,9 @@ sort!(greater)(a);  <span class="d_comment">// predicate as alias
 </span>                    <span class="d_comment">// (no ambiguity with array name)
 </span>sort(a);            <span class="d_comment">// no predicate, "a &lt; b" is implicit
 </span></pre>
+<p></p>
 
-<center><table cellspacing=0 cellpadding=5 class=book><caption>Cheat Sheet</caption><tr><th>Function Name</th> <th>Description</th>
+<table cellspacing=0 cellpadding=5 class=book><caption>Cheat Sheet</caption><tr><th>Function Name</th> <th>Description</th>
 </tr>
 <tr class=leadingrow><td colspan=2><b><em>&nbsp;&nbsp;&nbsp;&nbsp;Searching
 </em></b></td></tr>
@@ -282,7 +305,8 @@ example, <span class="d_inlinecode">countUntil("hello!", "o")</span> returns <sp
 returns <span class="d_inlinecode"><b>true</b></span>.</td>
 </tr>
 <tr><td valign=top><a href="#find"><span class="d_inlinecode">find</span></a></td> <td valign=top><span class="d_inlinecode">find("hello world",
-"or")</span> returns <span class="d_inlinecode">"orld"</span> using linear search.</td>
+"or")</span> returns <span class="d_inlinecode">"orld"</span> using linear search. (For binary search refer
+to <a href="std_range.html#sortedRange"><span class="d_inlinecode">std.range.sortedRange</span></a>.)</td>
 </tr>
 <tr><td valign=top class="donthyphenate"><a href="#findAdjacent"><span class="d_inlinecode">findAdjacent</span></a></td> <td valign=top><span class="d_inlinecode">findAdjacent([1, 2,
 3, 3, 4])</span> returns the subrange starting with two equal adjacent
@@ -467,7 +491,7 @@ ranges.</td>
 <tr><td valign=top class="donthyphenate"><a href="#uninitializedFill"><span class="d_inlinecode">uninitializedFill</span></a></td> <td valign=top>Fills a range
 (assumed uninitialized) with a value.</td>
 </tr>
-</table></center>
+</table>
 
 <p></p>
 <b>License:</b><br><a href="http://boost.org/LICENSE_1_0.txt">Boost License 1.0</a>.
@@ -479,14 +503,15 @@ ranges.</td>
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/algorithm.d">std/algorithm.d</a><p></p>
 
-<dl><dt class="d_decl">template <a name="map"></a><span class="ddoc_psymbol">map</span>(fun...) if (fun.length &gt;= 1)</dt>
-<dd>Implements the homonym function (also known as <span class="d_inlinecode">transform</span>) present
+<dl><dt class="d_decl"><a name=".map"></a>template <a name="map"></a><span class="ddoc_psymbol">map</span>(fun...) if (fun.length &gt;= 1)</dt>
+<dd><span class="d_inlinecode">auto <a name="map"></a><span class="ddoc_psymbol">map</span>(Range)(Range r) if (isInputRange!(Unqual!Range));</span>
+<p></p>
+Implements the homonym function (also known as <span class="d_inlinecode">transform</span>) present
 in many languages of functional flavor. The call <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span>!(fun)(range)</span>
 returns a range of which elements are obtained by applying <span class="d_inlinecode">fun(x)</span>
 left to right for all <span class="d_inlinecode">x</span> in <span class="d_inlinecode">range</span>. The original ranges are
-not changed. Evaluation is done lazily. The range returned by <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span></span>
-caches the last value such that evaluating <span class="d_inlinecode">front</span> multiple times
-does not result in multiple calls to <span class="d_inlinecode">fun</span>.
+not changed. Evaluation is done lazily.
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] arr1 = [ 1, 2, 3, 4 ];
@@ -494,6 +519,7 @@ does not result in multiple calls to <span class="d_inlinecode">fun</span>.
 <span class="d_keyword">auto</span> squares = <span class="d_psymbol">map</span>!(<span class="d_string">"a * a"</span>)(chain(arr1, arr2));
 <span class="d_keyword">assert</span>(equal(squares, [ 1, 4, 9, 16, 25, 36 ]));
 </pre>
+<p></p>
 
 Multiple functions can be passed to <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span></span>. In that case, the
 element type of <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span></span> is a tuple containing one element for each
@@ -507,24 +533,30 @@ function.
     writeln(e[0], <span class="d_string">" "</span>, e[1]);
 }
 </pre>
-
-You may alias <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span></span> with some function(s) to a symbol and use it
 <p></p>
-<b>separately:</b><br>
+
+You may alias <span class="d_inlinecode"><a name="map"></a><span class="ddoc_psymbol">map</span></span> with some function(s) to a symbol and use
+it separately:
+<p></p>
+
 <pre class="d_code"><span class="d_keyword">alias</span> <span class="d_psymbol">map</span>!(to!string) stringize;
 <span class="d_keyword">assert</span>(equal(stringize([ 1, 2, 3, 4 ]), [ <span class="d_string">"1"</span>, <span class="d_string">"2"</span>, <span class="d_string">"3"</span>, <span class="d_string">"4"</span> ]));
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="reduce"></a><span class="ddoc_psymbol">reduce</span>(fun...) if (fun.length &gt;= 1)</dt>
-<dd>Implements the homonym function (also known as <span class="d_inlinecode">accumulate</span>, <span class="d_inlinecode">compress</span>, <span class="d_inlinecode">inject</span>, or <span class="d_inlinecode">foldl</span>) present in various programming
+<dt class="d_decl"><a name=".reduce"></a>template <a name="reduce"></a><span class="ddoc_psymbol">reduce</span>(fun...) if (fun.length &gt;= 1)</dt>
+<dd><span class="d_inlinecode">auto <a name="reduce"></a><span class="ddoc_psymbol">reduce</span>(Args...)(Args args)
+    if (Args.length &gt; 0 &amp;&amp; Args.length &lt;= 2 &amp;&amp; isIterable!(Args[$ - 1]));</span>
+<p></p>
+Implements the homonym function (also known as <span class="d_inlinecode">accumulate</span>, <span class="d_inlinecode">compress</span>, <span class="d_inlinecode">inject</span>, or <span class="d_inlinecode">foldl</span>) present in various programming
 languages of functional flavor. The call <span class="d_inlinecode"><a name="reduce"></a><span class="ddoc_psymbol">reduce</span>!(fun)(seed,
 range)</span> first assigns <span class="d_inlinecode">seed</span> to an internal variable <span class="d_inlinecode">result</span>,
 also called the accumulator. Then, for each element <span class="d_inlinecode">x</span> in <span class="d_inlinecode">range</span>, <span class="d_inlinecode">result = fun(result, x)</span> gets evaluated. Finally, <span class="d_inlinecode">result</span> is returned. The one-argument version <span class="d_inlinecode"><a name="reduce"></a><span class="ddoc_psymbol">reduce</span>!(fun)(range)</span>
 works similarly, but it uses the first element of the range as the
 seed (the range must be non-empty).
 <p></p>
+
 Many aggregate range operations turn out to be solved with <span class="d_inlinecode"><a name="reduce"></a><span class="ddoc_psymbol">reduce</span></span>
 quickly and easily. The example below illustrates <span class="d_inlinecode"><a name="reduce"></a><span class="ddoc_psymbol">reduce</span></span>'s
 remarkable power and flexibility.
@@ -559,6 +591,7 @@ remarkable power and flexibility.
 <span class="d_keyword">auto</span> r1 = <span class="d_psymbol">reduce</span>!(<span class="d_string">"a + b"</span>)(chain(a, b, c));
 <span class="d_keyword">assert</span>(r1 == 112.5);
 </pre>
+<p></p>
 
 <b>Multiple functions:</b><br> Sometimes it is very useful to
 compute multiple aggregates in one pass. One advantage is that the
@@ -588,9 +621,9 @@ correspondingly increased.
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="fill"></a><span class="ddoc_psymbol">fill</span>(Range, Value)(Range <i>range</i>, Value <i>filler</i>);
+<dt class="d_decl"><a name=".fill"></a>void <a name="fill"></a><span class="ddoc_psymbol">fill</span>(Range, Value)(Range <i>range</i>, Value <i>filler</i>);
 </dt>
-<dd>Fills a range with a value.
+<dd>Fills <span class="d_inlinecode">range</span> with a <span class="d_inlinecode">filler</span>.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] a = [ 1, 2, 3, 4 ];
@@ -600,7 +633,7 @@ correspondingly increased.
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="fill"></a><span class="ddoc_psymbol">fill</span>(Range1, Range2)(Range1 <i>range</i>, Range2 <i>filler</i>);
+<dt class="d_decl"><a name=".fill"></a>void <a name="fill"></a><span class="ddoc_psymbol">fill</span>(Range1, Range2)(Range1 <i>range</i>, Range2 <i>filler</i>);
 </dt>
 <dd>Fills <span class="d_inlinecode">range</span> with a pattern copied from <span class="d_inlinecode">filler</span>. The length of
 <span class="d_inlinecode">range</span> does not have to be a multiple of the length of <span class="d_inlinecode">filler</span>. If <span class="d_inlinecode">filler</span> is empty, an exception is thrown.
@@ -614,7 +647,7 @@ correspondingly increased.
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="uninitializedFill"></a><span class="ddoc_psymbol">uninitializedFill</span>(Range, Value)(Range <i>range</i>, Value <i>filler</i>);
+<dt class="d_decl"><a name=".uninitializedFill"></a>void <a name="uninitializedFill"></a><span class="ddoc_psymbol">uninitializedFill</span>(Range, Value)(Range <i>range</i>, Value <i>filler</i>);
 </dt>
 <dd>Fills a range with a value. Assumes that the range does not currently
 contain meaningful content. This is of interest for structs that
@@ -630,7 +663,7 @@ S[] s = (<span class="d_keyword">cast</span>(S*) malloc(5 * S.sizeof))[0 .. 5];
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="initializeAll"></a><span class="ddoc_psymbol">initializeAll</span>(Range)(Range <i>range</i>);
+<dt class="d_decl"><a name=".initializeAll"></a>void <a name="initializeAll"></a><span class="ddoc_psymbol">initializeAll</span>(Range)(Range <i>range</i>);
 </dt>
 <dd>Initializes all elements of a range with their <span class="d_inlinecode">.init</span>
 value. Assumes that the range does not currently contain meaningful
@@ -645,11 +678,14 @@ S[] s = (<span class="d_keyword">cast</span>(S*) malloc(5 * S.sizeof))[0 .. 5];
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="filter"></a><span class="ddoc_psymbol">filter</span>(alias pred) if (is(typeof(unaryFun!(pred))))</dt>
-<dd>Implements the homonym function present in various programming
-languages of functional flavor. The call <span class="d_inlinecode"><a name="filter"></a><span class="ddoc_psymbol">filter</span>!(fun)(range)</span>
-returns a new range only containing elements <span class="d_inlinecode">x</span> in <span class="d_inlinecode">r</span> for
+<dt class="d_decl"><a name=".filter"></a>template <a name="filter"></a><span class="ddoc_psymbol">filter</span>(alias pred) if (is(typeof(unaryFun!(pred))))</dt>
+<dd><span class="d_inlinecode">auto <a name="filter"></a><span class="ddoc_psymbol">filter</span>(Range)(Range rs) if (isInputRange!(Unqual!Range));</span>
+<p></p>
+Implements the homonym function present in various programming
+languages of functional flavor. The call <span class="d_inlinecode"><a name="filter"></a><span class="ddoc_psymbol">filter</span>!(predicate)(range)</span>
+returns a new range only containing elements <span class="d_inlinecode">x</span> in <span class="d_inlinecode">range</span> for
 which <span class="d_inlinecode">predicate(x)</span> is <span class="d_inlinecode"><b>true</b></span>.
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] arr = [ 1, 2, 3, 4, 5 ];
@@ -669,13 +705,16 @@ which <span class="d_inlinecode">predicate(x)</span> is <span class="d_inlinecod
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="filterBidirectional"></a><span class="ddoc_psymbol">filterBidirectional</span>(alias pred)</dt>
-<dd>Similar to <span class="d_inlinecode">filter</span>, except it defines a bidirectional
+<dt class="d_decl"><a name=".filterBidirectional"></a>template <a name="filterBidirectional"></a><span class="ddoc_psymbol">filterBidirectional</span>(alias pred)</dt>
+<dd><span class="d_inlinecode">auto <a name="filterBidirectional"></a><span class="ddoc_psymbol">filterBidirectional</span>(Range)(Range r) if (isBidirectionalRange!(Unqual!Range));</span>
+<p></p>
+Similar to <span class="d_inlinecode">filter</span>, except it defines a bidirectional
  range. There is a speed disadvantage - the constructor spends time
  finding the last element in the range that satisfies the filtering
  condition (in addition to finding the first one). The advantage is
  that the filtered range can be spanned from both directions. Also,
  <a href="std_range.html#retro"><span class="d_inlinecode">std.range.retro</span></a> can be applied against the filtered range.
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] arr = [ 1, 2, 3, 4, 5 ];
@@ -692,38 +731,38 @@ which <span class="d_inlinecode">predicate(x)</span> is <span class="d_inlinecod
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="move"></a><span class="ddoc_psymbol">move</span>(T)(ref T <i>source</i>, ref T <i>target</i>);
-<br>T <a name="move"></a><span class="ddoc_psymbol">move</span>(T)(ref T <i>src</i>);
+<dt class="d_decl"><a name=".move"></a>void <a name="move"></a><span class="ddoc_psymbol">move</span>(T)(ref T <i>source</i>, ref T <i>target</i>);
+<br><a name=".move"></a>T <a name="move"></a><span class="ddoc_psymbol">move</span>(T)(ref T <i>source</i>);
 </dt>
 <dd>Moves <span class="d_inlinecode">source</span> into <span class="d_inlinecode">target</span> via a destructive
 copy. Specifically: <ul><li>If <span class="d_inlinecode">hasAliasing!T</span> is <b>true</b> (see
 <a href="std_traits.html#hasAliasing"><span class="d_inlinecode">std.traits.hasAliasing</span></a>), then the representation of <span class="d_inlinecode">source</span>
 is bitwise copied into <span class="d_inlinecode">target</span> and then <span class="d_inlinecode">source = T.init</span> is
 evaluated.</li>  <li>Otherwise, <span class="d_inlinecode">target = source</span> is evaluated.</li></ul> See
-also <a href="std_contracts.html#pointsTo"><span class="d_inlinecode">std.contracts.pointsTo</span></a>.
+also <a href="std_exception.html#pointsTo"><span class="d_inlinecode">std.exception.pointsTo</span></a>.
 <p></p>
 <b>Preconditions:</b><br>
 <span class="d_inlinecode">&source == &target || !pointsTo(source, source)</span><p></p>
 
 </dd>
-<dt class="d_decl">Range2 <a name="moveAll"></a><span class="ddoc_psymbol">moveAll</span>(Range1, Range2)(Range1 <i>src</i>, Range2 <i>tgt</i>);
+<dt class="d_decl"><a name=".moveAll"></a>Range2 <a name="moveAll"></a><span class="ddoc_psymbol">moveAll</span>(Range1, Range2)(Range1 <i>src</i>, Range2 <i>tgt</i>);
 </dt>
 <dd>For each element <span class="d_inlinecode">a</span> in <span class="d_inlinecode">src</span> and each element <span class="d_inlinecode">b</span> in <span class="d_inlinecode">tgt</span> in lockstep in increasing order, calls <span class="d_inlinecode">move(a, b)</span>. Returns
 the leftover portion of <span class="d_inlinecode">tgt</span>. Throws an exeption if there is not
 enough room in <span class="d_inlinecode">tgt</span> to acommodate all of <span class="d_inlinecode">src</span>.
 <p></p>
 <b>Preconditions:</b><br>
-<span class="d_inlinecode">walkLength(src) &gt;= walkLength(tgt)</span><p></p>
+<span class="d_inlinecode">walkLength(src) &lt;= walkLength(tgt)</span><p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(Range1,Range2) <a name="moveSome"></a><span class="ddoc_psymbol">moveSome</span>(Range1, Range2)(Range1 <i>src</i>, Range2 <i>tgt</i>);
+<dt class="d_decl"><a name=".moveSome"></a>Tuple!(Range1, Range2) <a name="moveSome"></a><span class="ddoc_psymbol">moveSome</span>(Range1, Range2)(Range1 <i>src</i>, Range2 <i>tgt</i>);
 </dt>
 <dd>For each element <span class="d_inlinecode">a</span> in <span class="d_inlinecode">src</span> and each element <span class="d_inlinecode">b</span> in <span class="d_inlinecode">tgt</span> in lockstep in increasing order, calls <span class="d_inlinecode">move(a, b)</span>. Stops
 when either <span class="d_inlinecode">src</span> or <span class="d_inlinecode">tgt</span> have been exhausted. Returns the
 leftover portions of the two ranges.<p></p>
 
 </dd>
-<dt class="d_decl">pure nothrow @trusted void <a name="swap"></a><span class="ddoc_psymbol">swap</span>(T)(ref T <i>lhs</i>, ref T <i>rhs</i>);
+<dt class="d_decl"><a name=".swap"></a>pure nothrow @trusted void <a name="swap"></a><span class="ddoc_psymbol">swap</span>(T)(ref T <i>lhs</i>, ref T <i>rhs</i>);
 </dt>
 <dd>Swaps <span class="d_inlinecode">lhs</span> and <span class="d_inlinecode">rhs</span>. See also <a href="std_exception.html#pointsTo"><span class="d_inlinecode">std.exception.pointsTo</span></a>.
 <p></p>
@@ -732,10 +771,42 @@ leftover portions of the two ranges.<p></p>
 &amp;&amp; !pointsTo(rhs, rhs)</span><p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="splitter"></a><span class="ddoc_psymbol">splitter</span>(Range, Separator)(Range <i>r</i>, Separator <i>s</i>);
+<dt class="d_decl"><a name=".forward"></a>template <a name="forward"></a><span class="ddoc_psymbol">forward</span>(args...)</dt>
+<dd>Forwards function arguments with saving ref-ness.
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">int</span> foo(<span class="d_keyword">int</span> n) { <span class="d_keyword">return</span> 1; }
+<span class="d_keyword">int</span> foo(<span class="d_keyword">ref</span> <span class="d_keyword">int</span> n) { <span class="d_keyword">return</span> 2; }
+<span class="d_keyword">int</span> bar()(<span class="d_keyword">auto</span> <span class="d_keyword">ref</span> <span class="d_keyword">int</span> x) { <span class="d_keyword">return</span> foo(<span class="d_psymbol">forward</span>!x); }
+
+<span class="d_keyword">assert</span>(bar(1) == 1);
+<span class="d_keyword">int</span> i;
+<span class="d_keyword">assert</span>(bar(i) == 2);
+</pre>
+<p></p>
+
+<pre class="d_code"><span class="d_keyword">void</span> foo(<span class="d_keyword">int</span> n, <span class="d_keyword">ref</span> string s) { s = <span class="d_keyword">null</span>; <span class="d_keyword">foreach</span> (i; 0..n) s ~= <span class="d_string">"Hello"</span>; }
+
+<span class="d_comment">// forwards all arguments which are bound to parameter tuple
+</span><span class="d_keyword">void</span> bar(Args...)(<span class="d_keyword">auto</span> <span class="d_keyword">ref</span> Args args) { <span class="d_keyword">return</span> foo(<span class="d_psymbol">forward</span>!args); }
+
+<span class="d_comment">// forwards all arguments with swapping order
+</span><span class="d_keyword">void</span> baz(Args...)(<span class="d_keyword">auto</span> <span class="d_keyword">ref</span> Args args) { <span class="d_keyword">return</span> foo(<span class="d_psymbol">forward</span>!args[$/2..$], <span class="d_psymbol">forward</span>!args[0..$/2]); }
+
+string s;
+bar(1, s);
+<span class="d_keyword">assert</span>(s == <span class="d_string">"Hello"</span>);
+baz(s, 2);
+<span class="d_keyword">assert</span>(s == <span class="d_string">"HelloHello"</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".splitter"></a>auto <a name="splitter"></a><span class="ddoc_psymbol">splitter</span>(Range, Separator)(Range <i>r</i>, Separator <i>s</i>);
 </dt>
 <dd>Splits a range using an element as a separator. This can be used with
-any range type, but is most popular with string types.
+any narrow string type or sliceable range type, but is most popular
+with string types.
 <p></p>
 Two adjacent separators are considered to surround an empty element in
 the split range.
@@ -761,16 +832,19 @@ a = [ 0, 1 ];
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="splitter"></a><span class="ddoc_psymbol">splitter</span>(Range, Separator)(Range <i>r</i>, Separator <i>s</i>);
+<dt class="d_decl"><a name=".splitter"></a>auto <a name="splitter"></a><span class="ddoc_psymbol">splitter</span>(Range, Separator)(Range <i>r</i>, Separator <i>s</i>);
 </dt>
 <dd>Splits a range using another range as a separator. This can be used
-with any range type, but is most popular with string types.<p></p>
+with any narrow string type or sliceable range type, but is most popular
+with string types.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="joiner"></a><span class="ddoc_psymbol">joiner</span>(RoR, Separator)(RoR <i>r</i>, Separator <i>sep</i>);
+<dt class="d_decl"><a name=".joiner"></a>auto <a name="joiner"></a><span class="ddoc_psymbol">joiner</span>(RoR, Separator)(RoR <i>r</i>, Separator <i>sep</i>);
+<br><a name=".joiner"></a>auto <a name="joiner"></a><span class="ddoc_psymbol">joiner</span>(RoR)(RoR <i>r</i>);
 </dt>
 <dd>Lazily joins a range of ranges with a separator. The separator itself
-is a range.
+is a range. If you do not provide a separator, then the ranges are
+joined directly without anything in between them.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">assert</span>(equal(<span class="d_psymbol">joiner</span>([<span class="d_string">""</span>], <span class="d_string">"xyz"</span>), <span class="d_string">""</span>));
@@ -780,11 +854,12 @@ is a range.
 <span class="d_keyword">assert</span>(equal(<span class="d_psymbol">joiner</span>([<span class="d_string">"abc"</span>, <span class="d_string">"def"</span>], <span class="d_string">"xyz"</span>), <span class="d_string">"abcxyzdef"</span>));
 <span class="d_keyword">assert</span>(equal(<span class="d_psymbol">joiner</span>([<span class="d_string">"Mary"</span>, <span class="d_string">"has"</span>, <span class="d_string">"a"</span>, <span class="d_string">"little"</span>, <span class="d_string">"lamb"</span>], <span class="d_string">"..."</span>),
   <span class="d_string">"Mary...has...a...little...lamb"</span>));
+<span class="d_keyword">assert</span>(equal(<span class="d_psymbol">joiner</span>([<span class="d_string">"abc"</span>, <span class="d_string">"def"</span>]), <span class="d_string">"abcdef"</span>));
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="uniq"></a><span class="ddoc_psymbol">uniq</span>(alias pred = "a == b", Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".uniq"></a>auto <a name="uniq"></a><span class="ddoc_psymbol">uniq</span>(alias pred = "a == b", Range)(Range <i>r</i>);
 </dt>
 <dd>Iterates unique consecutive elements of the given range (functionality
 akin to the <a href="http://wikipedia.org/wiki/Uniq">uniq</a> system
@@ -799,8 +874,8 @@ bidirectional, <span class="d_inlinecode"><a name="uniq"></a><span class="ddoc_p
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Group"></a><span class="ddoc_psymbol">Group</span>(alias pred,R) if (isInputRange!(R));
-<br>Group!(pred,Range) <a name="group"></a><span class="ddoc_psymbol">group</span>(alias pred = "a == b", Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".Group"></a>struct <a name="Group"></a><span class="ddoc_psymbol">Group</span>(alias pred, R) if (isInputRange!(R));
+<br><a name=".group"></a>Group!(pred, Range) <a name="group"></a><span class="ddoc_psymbol">group</span>(alias pred = "a == b", Range)(Range <i>r</i>);
 </dt>
 <dd>Similarly to <span class="d_inlinecode">uniq</span>, <span class="d_inlinecode">group</span> iterates unique consecutive
 elements of the given range. The element type is <span class="d_inlinecode">Tuple!(ElementType!R, uint)</span> because it includes the count of
@@ -819,7 +894,7 @@ forward range in all other cases.
 <p></p>
 
 </dd>
-<dt class="d_decl">R <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", R, E)(R <i>haystack</i>, E <i>needle</i>);
+<dt class="d_decl"><a name=".find"></a>R <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", R, E)(R <i>haystack</i>, E <i>needle</i>);
 </dt>
 <dd>Finds an individual element in an input range. Elements of <span class="d_inlinecode">haystack</span> are compared with <span class="d_inlinecode">needle</span> by using predicate <span class="d_inlinecode">pred</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">walkLength(haystack)</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>. See also <a href="http://sgi.com/tech/stl/find.html">STL's find</a>.
 <p></p>
@@ -857,7 +932,7 @@ needle)</span> is <span class="d_inlinecode"><b>true</b></span> (if no such posi
 <p></p>
 
 </dd>
-<dt class="d_decl">R1 <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<dt class="d_decl"><a name=".find"></a>R1 <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
 </dt>
 <dd>Finds a forward range in another. Elements are compared for
 equality. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">walkLength(haystack) * walkLength(needle)</span><b><i>)</i></b>
@@ -886,9 +961,9 @@ such position exists, returns <span class="d_inlinecode">haystack</span> advance
 <p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(Range,size_t) <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", Range, Ranges...)(Range <i>haystack</i>, Ranges <i>needles</i>);
-<br>struct <a name="BoyerMooreFinder"></a><span class="ddoc_psymbol">BoyerMooreFinder</span>(alias pred,Range);
-<br>BoyerMooreFinder!(binaryFun!(pred),Range) <a name="boyerMooreFinder"></a><span class="ddoc_psymbol">boyerMooreFinder</span>(alias pred = "a == b", Range)(Range <i>needle</i>);
+<dt class="d_decl"><a name=".find"></a>Tuple!(Range, size_t) <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred = "a == b", Range, Ranges...)(Range <i>haystack</i>, Ranges <i>needles</i>);
+<br><a name=".BoyerMooreFinder"></a>struct <a name="BoyerMooreFinder"></a><span class="ddoc_psymbol">BoyerMooreFinder</span>(alias pred, Range);
+<br><a name=".boyerMooreFinder"></a>BoyerMooreFinder!(binaryFun!(pred), Range) <a name="boyerMooreFinder"></a><span class="ddoc_psymbol">boyerMooreFinder</span>(alias pred = "a == b", Range)(Range <i>needle</i>);
 </dt>
 <dd>Finds two or more <span class="d_inlinecode">needles</span> into a <span class="d_inlinecode">haystack</span>. The predicate <span class="d_inlinecode">pred</span> is used throughout to compare elements. By default, elements are
 compared for equality.
@@ -930,6 +1005,7 @@ to coerce one side of the comparison into the other's side type.
 <span class="d_comment">// Mixed types allowed if comparable
 </span><span class="d_keyword">assert</span>(<span class="d_psymbol">find</span>(a, 5, [ 1.2, 3.5 ], 2.0, [ 1 ]) == tuple([ 2, 3 ], 3));
 </pre>
+<p></p>
 
 The complexity of the search is <b><i>&Omicron;</i>(</b><span class="d_inlinecode">haystack.length *
 max(needles.length)</span><b><i>)</i></b>. (For needles that are individual items, length
@@ -938,7 +1014,7 @@ subranges at once maximizes cache usage by moving in <span class="d_inlinecode">
 few times as possible.<p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred, Range)(Range <i>haystack</i>);
+<dt class="d_decl"><a name=".find"></a>Range <a name="find"></a><span class="ddoc_psymbol">find</span>(alias pred, Range)(Range <i>haystack</i>);
 </dt>
 <dd>Advances the input range <span class="d_inlinecode">haystack</span> by calling <span class="d_inlinecode">haystack.popFront</span>
 until either <span class="d_inlinecode">pred(haystack.front)</span>, or <span class="d_inlinecode">haystack.empty</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">haystack.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>. See also <a href="http://sgi.com/tech/stl/find_if.html">STL's find_if</a>.
@@ -958,7 +1034,7 @@ To <a name="find"></a><span class="ddoc_psymbol">find</span> the last element of
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="findSkip"></a><span class="ddoc_psymbol">findSkip</span>(alias pred = "a == b", R1, R2)(ref R1 <i>haystack</i>, R2 <i>needle</i>);
+<dt class="d_decl"><a name=".findSkip"></a>bool <a name="findSkip"></a><span class="ddoc_psymbol">findSkip</span>(alias pred = "a == b", R1, R2)(ref R1 <i>haystack</i>, R2 <i>needle</i>);
 </dt>
 <dd>If <span class="d_inlinecode">needle</span> occurs in <span class="d_inlinecode">haystack</span>, positions <span class="d_inlinecode">haystack</span>
  right after the first occurrence of <span class="d_inlinecode">needle</span> and returns <span class="d_inlinecode"><b>true</b></span>. Otherwise, leaves <span class="d_inlinecode">haystack</span> as is and returns <span class="d_inlinecode"><b>false</b></span>.
@@ -973,16 +1049,18 @@ s = <span class="d_string">"abcdef"</span>;
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="findSplit"></a><span class="ddoc_psymbol">findSplit</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
-<br>auto <a name="findSplitBefore"></a><span class="ddoc_psymbol">findSplitBefore</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
-<br>auto <a name="findSplitAfter"></a><span class="ddoc_psymbol">findSplitAfter</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<dt class="d_decl"><a name=".findSplit"></a>auto <a name="findSplit"></a><span class="ddoc_psymbol">findSplit</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<br><a name=".findSplitBefore"></a>auto <a name="findSplitBefore"></a><span class="ddoc_psymbol">findSplitBefore</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<br><a name=".findSplitAfter"></a>auto <a name="findSplitAfter"></a><span class="ddoc_psymbol">findSplitAfter</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
 </dt>
 <dd>These functions find the first occurrence of <span class="d_inlinecode">needle</span> in <span class="d_inlinecode">haystack</span> and then split <span class="d_inlinecode">haystack</span> as follows.
 <p></p>
 <span class="d_inlinecode"><a name="findSplit"></a><span class="ddoc_psymbol">findSplit</span></span> returns a tuple <span class="d_inlinecode">result</span> containing <i>three</i>
 ranges. <span class="d_inlinecode">result[0]</span> is the portion of <span class="d_inlinecode">haystack</span> before <span class="d_inlinecode">needle</span>, <span class="d_inlinecode">result[1]</span> is the portion of <span class="d_inlinecode">haystack</span> that matches
 <span class="d_inlinecode">needle</span>, and <span class="d_inlinecode">result[2]</span> is the portion of <span class="d_inlinecode">haystack</span> after
-the match.
+the match. If <span class="d_inlinecode">needle</span> was not found, <span class="d_inlinecode">result[0]</span>
+comprehends <span class="d_inlinecode">haystack</span> entirely and <span class="d_inlinecode">result[1]</span> and <span class="d_inlinecode">result[2]</span>
+are empty.
 <p></p>
 
 <span class="d_inlinecode">findSplitBefore</span> returns a tuple <span class="d_inlinecode">result</span> containing two
@@ -1008,26 +1086,27 @@ must be a forward range and the type of <span class="d_inlinecode">result[0]</sp
 
 <p></p>
 <b>Example:</b><br>
-<pre class="d_code"><span class="d_keyword">auto</span> a = [ 1, 2, 3, 4, 5, 6, 7, 8 ];
-<span class="d_keyword">auto</span> r = <span class="d_psymbol">findSplit</span>(a, [9, 1]);
+<pre class="d_code"><span class="d_keyword">auto</span> a = <span class="d_string">"Carl Sagan Memorial Station"</span>;
+<span class="d_keyword">auto</span> r = <span class="d_psymbol">findSplit</span>(a, <span class="d_string">"Velikovsky"</span>);
 <span class="d_keyword">assert</span>(r[0] == a);
 <span class="d_keyword">assert</span>(r[1].empty);
 <span class="d_keyword">assert</span>(r[2].empty);
-r = <span class="d_psymbol">findSplit</span>(a, [ 3, 4 ]);
-<span class="d_keyword">assert</span>(r[0] == a[0 .. 2]);
-<span class="d_keyword">assert</span>(r[1] == a[2 .. 4]);
-<span class="d_keyword">assert</span>(r[2] == a[4 .. $]);
-<span class="d_keyword">auto</span> r1 = findSplitBefore(a, [ 7, 8 ]);
-<span class="d_keyword">assert</span>(r1[0] == a[0 .. 6]);
-<span class="d_keyword">assert</span>(r1[1] == a[6 .. $]);
-<span class="d_keyword">auto</span> r1 = findSplitAfter(a, [ 7, 8 ]);
-<span class="d_keyword">assert</span>(r1[0] == a);
-<span class="d_keyword">assert</span>(r1[1].empty);
+r = <span class="d_psymbol">findSplit</span>(a, <span class="d_string">" "</span>);
+<span class="d_keyword">assert</span>(r[0] == <span class="d_string">"Carl"</span>);
+<span class="d_keyword">assert</span>(r[1] == <span class="d_string">" "</span>);
+<span class="d_keyword">assert</span>(r[2] == <span class="d_string">"Sagan Memorial Station"</span>);
+<span class="d_keyword">auto</span> r1 = findSplitBefore(a, <span class="d_string">"Sagan"</span>);
+<span class="d_keyword">assert</span>(r1[0] == <span class="d_string">"Carl "</span>, r1[0]);
+<span class="d_keyword">assert</span>(r1[1] == <span class="d_string">"Sagan Memorial Station"</span>);
+<span class="d_keyword">auto</span> r2 = findSplitAfter(a, <span class="d_string">"Sagan"</span>);
+<span class="d_keyword">assert</span>(r2[0] == <span class="d_string">"Carl Sagan"</span>);
+<span class="d_keyword">assert</span>(r2[1] == <span class="d_string">" Memorial Station"</span>);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="countUntil"></a><span class="ddoc_psymbol">countUntil</span>(alias pred = "a == b", R, N)(R <i>haystack</i>, N <i>needle</i>);
+<dt class="d_decl"><a name=".countUntil"></a>ptrdiff_t <a name="countUntil"></a><span class="ddoc_psymbol">countUntil</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<br><a name=".countUntil"></a>ptrdiff_t <a name="countUntil"></a><span class="ddoc_psymbol">countUntil</span>(alias pred = "a == b", R, N)(R <i>haystack</i>, N <i>needle</i>);
 </dt>
 <dd>Returns the number of elements which must be popped from the front of
     <span class="d_inlinecode">haystack</span> before reaching an element for which
@@ -1041,6 +1120,10 @@ r = <span class="d_psymbol">findSplit</span>(a, [ 3, 4 ]);
 <b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"hello world"</span>, <span class="d_string">"world"</span>) == 6);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"hello world"</span>, 'r') == 8);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"hello world"</span>, <span class="d_string">"programming"</span>) == -1);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"日本語"</span>, <span class="d_string">"本語"</span>) == 1);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"日本語"</span>, '語')   == 2);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"日本語"</span>, <span class="d_string">"五"</span>) == -1);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>(<span class="d_string">"日本語"</span>, '五') == -1);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>([0, 7, 12, 22, 9], [12, 22]) == 2);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>([0, 7, 12, 22, 9], 9) == 4);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>!<span class="d_string">"a &gt; b"</span>([0, 7, 12, 22, 9], 20) == 3);
@@ -1048,10 +1131,10 @@ r = <span class="d_psymbol">findSplit</span>(a, [ 3, 4 ]);
 <p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="countUntil"></a><span class="ddoc_psymbol">countUntil</span>(alias pred, R)(R <i>haystack</i>);
+<dt class="d_decl"><a name=".countUntil"></a>ptrdiff_t <a name="countUntil"></a><span class="ddoc_psymbol">countUntil</span>(alias pred, R)(R <i>haystack</i>);
 </dt>
 <dd>Returns the number of elements which must be popped from <span class="d_inlinecode">haystack</span>
-    before <span class="d_inlinecode">pred(hastack.front)</span> is <span class="d_inlinecode"><b>true</b>.</span>.
+    before <span class="d_inlinecode">pred(haystack.front)</span> is <span class="d_inlinecode"><b>true</b></span>.
 <p></p>
 <b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>!(std.uni.isWhite)(<span class="d_string">"hello world"</span>) == 5);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">countUntil</span>!(std.ascii.isDigit)(<span class="d_string">"hello world"</span>) == -1);
@@ -1060,30 +1143,47 @@ r = <span class="d_psymbol">findSplit</span>(a, [ 3, 4 ]);
 <p></p>
 
 </dd>
-<dt class="d_decl">sizediff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<dt class="d_decl"><a name=".indexOf"></a>ptrdiff_t <a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
 </dt>
-<dd>Same as <span class="d_inlinecode">countUntil</span>. This symbol has been scheduled for
- deprecation because it is easily confused with the homonym function
- in <span class="d_inlinecode">std.string</span>.<p></p>
+<dd><span style="color:red">Deprecated. It will be removed in January 2013.
+        Currently defaults to <a href="#countUntil"><span class="d_inlinecode">countUntil</span></a> instead.</span>
+<p></p>
+Not to be confused with its homonym function
+ in <span class="d_inlinecode">std.string</span>.
+<p></p>
+
+ Please use <span class="d_inlinecode">std.string.<a name="indexOf"></a><span class="ddoc_psymbol">indexOf</span></span> if you wish to find
+ the index of a character in a string.
+<p></p>
+
+ Otherwise, please use <span class="d_inlinecode">std.string.countUntil</span> to find
+ an element's logical position in a range.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"> <span class="d_keyword">assert</span>(std.string.<span class="d_psymbol">indexOf</span>(<span class="d_string">"日本語"</span>, '本') == 3);
+ <span class="d_keyword">assert</span>(std.algorithm.countUntil(<span class="d_string">"日本語"</span>, '本') == 1);
+</pre>
+<p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="OpenRight"></a><span class="ddoc_psymbol">OpenRight</span>;
+<dt class="d_decl"><a name=".OpenRight"></a>enum <a name="OpenRight"></a><span class="ddoc_psymbol">OpenRight</span>;
 </dt>
 <dd>Interval option specifier for <span class="d_inlinecode">until</span> (below) and others.<p></p>
 
-<dl><dt class="d_decl"><a name="no"></a><span class="ddoc_psymbol">no</span></dt>
+<dl><dt class="d_decl"><a name=".OpenRight.no"></a><a name="no"></a><span class="ddoc_psymbol">no</span></dt>
 <dd>Interval is closed to the right (last element included)<p></p>
 
 </dd>
-<dt class="d_decl"><a name="yes"></a><span class="ddoc_psymbol">yes</span></dt>
+<dt class="d_decl"><a name=".OpenRight.yes"></a><a name="yes"></a><span class="ddoc_psymbol">yes</span></dt>
 <dd>Interval is open to the right (last element is not included)<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Until"></a><span class="ddoc_psymbol">Until</span>(alias pred,Range,Sentinel) if (isInputRange!(Range));
-<br>Until!(pred,Range,Sentinel) <a name="until"></a><span class="ddoc_psymbol">until</span>(alias pred = "a == b", Range, Sentinel)(Range <i>range</i>, Sentinel <i>sentinel</i>, OpenRight <i>openRight</i> = OpenRight.yes);
-<br>Until!(pred,Range,void) <a name="until"></a><span class="ddoc_psymbol">until</span>(alias pred, Range)(Range <i>range</i>, OpenRight <i>openRight</i> = OpenRight.yes);
+<dt class="d_decl"><a name=".Until"></a>struct <a name="Until"></a><span class="ddoc_psymbol">Until</span>(alias pred, Range, Sentinel) if (isInputRange!(Range));
+<br><a name=".until"></a>Until!(pred, Range, Sentinel) <a name="until"></a><span class="ddoc_psymbol">until</span>(alias pred = "a == b", Range, Sentinel)(Range <i>range</i>, Sentinel <i>sentinel</i>, OpenRight <i>openRight</i> = OpenRight.yes);
+<br><a name=".until"></a>Until!(pred, Range, void) <a name="until"></a><span class="ddoc_psymbol">until</span>(alias pred, Range)(Range <i>range</i>, OpenRight <i>openRight</i> = OpenRight.yes);
 </dt>
 <dd>Lazily iterates <span class="d_inlinecode">range</span> until value <span class="d_inlinecode">sentinel</span> is found, at
 which point it stops.
@@ -1096,9 +1196,9 @@ which point it stops.
 <p></p>
 
 </dd>
-<dt class="d_decl">uint <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", Range, Ranges...)(Range <i>doesThisStart</i>, Ranges <i>withOneOfThese</i>);
-<br>bool <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", R1, R2)(R1 <i>doesThisStart</i>, R2 <i>withThis</i>);
-<br>bool <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", R, E)(R <i>doesThisStart</i>, E <i>withThis</i>);
+<dt class="d_decl"><a name=".startsWith"></a>uint <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", Range, Ranges...)(Range <i>doesThisStart</i>, Ranges <i>withOneOfThese</i>);
+<br><a name=".startsWith"></a>bool <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", R1, R2)(R1 <i>doesThisStart</i>, R2 <i>withThis</i>);
+<br><a name=".startsWith"></a>bool <a name="startsWith"></a><span class="ddoc_psymbol">startsWith</span>(alias pred = "a == b", R, E)(R <i>doesThisStart</i>, E <i>withThis</i>);
 </dt>
 <dd>If the range <span class="d_inlinecode">doesThisStart</span> starts with <i>any</i> of the <span class="d_inlinecode">withOneOfThese</span> ranges or elements, returns 1 if it starts with <span class="d_inlinecode">withOneOfThese[0]</span>, 2 if it starts with <span class="d_inlinecode">withOneOfThese[1]</span>, and so
 on. If none match, returns 0. In the case where <span class="d_inlinecode">doesThisStart</span> starts
@@ -1123,22 +1223,22 @@ list matches).
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="skipOver"></a><span class="ddoc_psymbol">skipOver</span>(alias pred = "a == b", R1, R2)(ref R1 <i>r1</i>, R2 <i>r2</i>);
+<dt class="d_decl"><a name=".skipOver"></a>bool <a name="skipOver"></a><span class="ddoc_psymbol">skipOver</span>(alias pred = "a == b", R1, R2)(ref R1 <i>r1</i>, R2 <i>r2</i>);
 </dt>
 <dd>If <span class="d_inlinecode">startsWith(r1, r2)</span>, consume the corresponding elements off <span class="d_inlinecode">r1</span> and return <span class="d_inlinecode"><b>true</b></span>. Otherwise, leave <span class="d_inlinecode">r1</span> unchanged and
 return <span class="d_inlinecode"><b>false</b></span>.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="skipOver"></a><span class="ddoc_psymbol">skipOver</span>(alias pred = "a == b", R, E)(ref R <i>r</i>, E <i>e</i>);
+<dt class="d_decl"><a name=".skipOver"></a>bool <a name="skipOver"></a><span class="ddoc_psymbol">skipOver</span>(alias pred = "a == b", R, E)(ref R <i>r</i>, E <i>e</i>);
 </dt>
 <dd>Checks whether a range starts with an element, and if so, consume that
 element off <span class="d_inlinecode">r</span> and return <span class="d_inlinecode"><b>true</b></span>. Otherwise, leave <span class="d_inlinecode">r</span>
 unchanged and return <span class="d_inlinecode"><b>false</b></span>.<p></p>
 
 </dd>
-<dt class="d_decl">uint <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", Range, Ranges...)(Range <i>doesThisEnd</i>, Ranges <i>withOneOfThese</i>);
-<br>bool <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", R1, R2)(R1 <i>doesThisEnd</i>, R2 <i>withThis</i>);
-<br>bool <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", R, E)(R <i>doesThisEnd</i>, E <i>withThis</i>);
+<dt class="d_decl"><a name=".endsWith"></a>uint <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", Range, Ranges...)(Range <i>doesThisEnd</i>, Ranges <i>withOneOfThese</i>);
+<br><a name=".endsWith"></a>bool <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", R1, R2)(R1 <i>doesThisEnd</i>, R2 <i>withThis</i>);
+<br><a name=".endsWith"></a>bool <a name="endsWith"></a><span class="ddoc_psymbol">endsWith</span>(alias pred = "a == b", R, E)(R <i>doesThisEnd</i>, E <i>withThis</i>);
 </dt>
 <dd>The reciprocal of <span class="d_inlinecode">startsWith</span>.
 <p></p>
@@ -1157,7 +1257,19 @@ unchanged and return <span class="d_inlinecode"><b>false</b></span>.<p></p>
 <p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="findAdjacent"></a><span class="ddoc_psymbol">findAdjacent</span>(alias pred = "a == b", Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".commonPrefix"></a>auto <a name="commonPrefix"></a><span class="ddoc_psymbol">commonPrefix</span>(alias pred = "a == b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
+</dt>
+<dd>Returns the common prefix of two ranges. Example:
+<p></p>
+<pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">commonPrefix</span>(<span class="d_string">"hello, world"</span>, <span class="d_string">"hello, there"</span>) == <span class="d_string">"hello, "</span>);
+</pre>
+<p></p>
+
+The type of the result is the same as <span class="d_inlinecode">takeExactly(r1, n)</span>, where
+<span class="d_inlinecode">n</span> is the number of elements that both ranges start with.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".findAdjacent"></a>Range <a name="findAdjacent"></a><span class="ddoc_psymbol">findAdjacent</span>(alias pred = "a == b", Range)(Range <i>r</i>);
 </dt>
 <dd>Advances <span class="d_inlinecode">r</span> until it finds the first two adjacent elements <span class="d_inlinecode">a</span>,
 <span class="d_inlinecode">b</span> that satisfy <span class="d_inlinecode">pred(a, b)</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b>
@@ -1173,7 +1285,7 @@ p = <span class="d_psymbol">findAdjacent</span>!(<span class="d_string">"a &lt; 
 <p></p>
 
 </dd>
-<dt class="d_decl">Range1 <a name="findAmong"></a><span class="ddoc_psymbol">findAmong</span>(alias pred = "a == b", Range1, Range2)(Range1 <i>seq</i>, Range2 <i>choices</i>);
+<dt class="d_decl"><a name=".findAmong"></a>Range1 <a name="findAmong"></a><span class="ddoc_psymbol">findAmong</span>(alias pred = "a == b", Range1, Range2)(Range1 <i>seq</i>, Range2 <i>choices</i>);
 </dt>
 <dd>Advances <span class="d_inlinecode">seq</span> by calling <span class="d_inlinecode">seq.popFront</span> until either <span class="d_inlinecode">find!(pred)(choices, seq.front)</span> is <span class="d_inlinecode"><b>true</b></span>, or <span class="d_inlinecode">seq</span> becomes
 empty. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">seq.length * choices.length</span><b><i>)</i></b> evaluations of
@@ -1188,9 +1300,9 @@ find_first_of</a>.
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "a == b", Range, E)(Range <i>r</i>, E <i>value</i>);
-<br>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
-<br>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "true", Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".count"></a>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "a == b", Range, E)(Range <i>haystack</i>, E <i>needle</i>);
+<br><a name=".count"></a>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "a == b", R1, R2)(R1 <i>haystack</i>, R2 <i>needle</i>);
+<br><a name=".count"></a>size_t <a name="count"></a><span class="ddoc_psymbol">count</span>(alias pred = "true", R)(R <i>haystack</i>);
 </dt>
 <dd>The first version counts the number of elements <span class="d_inlinecode">x</span> in <span class="d_inlinecode">r</span> for
 which <span class="d_inlinecode">pred(x, value)</span> is <span class="d_inlinecode"><b>true</b></span>. <span class="d_inlinecode">pred</span> defaults to
@@ -1206,6 +1318,11 @@ are not considered, for example <span class="d_inlinecode"><a name="count"></a><
 The third version counts the elements for which <span class="d_inlinecode">pred(x)</span> is <span class="d_inlinecode"><b>true</b></span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>.
 
 <p></p>
+<b>Note:</b><br>
+Regardless of the overload, <span class="d_inlinecode"><a name="count"></a><span class="ddoc_psymbol">count</span></span> will not accept
+infinite ranges for <span class="d_inlinecode">haystack</span>.
+
+<p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_comment">// count elements in range
 </span><span class="d_keyword">int</span>[] a = [ 1, 2, 4, 3, 2, 5, 3, 2, 4 ];
@@ -1215,13 +1332,15 @@ The third version counts the elements for which <span class="d_inlinecode">pred(
 </span><span class="d_keyword">assert</span>(<span class="d_psymbol">count</span>(<span class="d_string">"abcadfabf"</span>, <span class="d_string">"ab"</span>) == 2);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">count</span>(<span class="d_string">"ababab"</span>, <span class="d_string">"abab"</span>) == 1);
 <span class="d_keyword">assert</span>(<span class="d_psymbol">count</span>(<span class="d_string">"ababab"</span>, <span class="d_string">"abx"</span>) == 0);
+<span class="d_comment">// fuzzy count range in range
+</span><span class="d_keyword">assert</span>(<span class="d_psymbol">count</span>!<span class="d_string">"std.uni.toLower(a) == std.uni.toLower(b)"</span>(<span class="d_string">"AbcAdFaBf"</span>, <span class="d_string">"ab"</span>) == 2);
 <span class="d_comment">// count predicate in range
 </span><span class="d_keyword">assert</span>(<span class="d_psymbol">count</span>!(<span class="d_string">"a &gt; 1"</span>)(a) == 8);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="balancedParens"></a><span class="ddoc_psymbol">balancedParens</span>(Range, E)(Range <i>r</i>, E <i>lPar</i>, E <i>rPar</i>, size_t <i>maxNestingLevel</i> = size_t.max);
+<dt class="d_decl"><a name=".balancedParens"></a>bool <a name="balancedParens"></a><span class="ddoc_psymbol">balancedParens</span>(Range, E)(Range <i>r</i>, E <i>lPar</i>, E <i>rPar</i>, size_t <i>maxNestingLevel</i> = size_t.max);
 </dt>
 <dd>Checks whether <span class="d_inlinecode">r</span> has "balanced parentheses", i.e. all instances
 of <span class="d_inlinecode">lPar</span> are closed by corresponding instances of <span class="d_inlinecode">rPar</span>. The
@@ -1242,7 +1361,8 @@ s = <span class="d_string">"1 + (2 * 3 + 1) / (2 - 5)"</span>;
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="equal"></a><span class="ddoc_psymbol">equal</span>(alias pred = "a == b", Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
+<dt class="d_decl"><a name=".equal"></a>bool <a name="equal"></a><span class="ddoc_psymbol">equal</span>(Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
+<br><a name=".equal"></a>bool <a name="equal"></a><span class="ddoc_psymbol">equal</span>(alias pred, Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if the two ranges compare <a name="equal"></a><span class="ddoc_psymbol">equal</span> element
 for element, according to binary predicate <span class="d_inlinecode">pred</span>. The ranges may
@@ -1257,7 +1377,7 @@ have different element types, as long as <span class="d_inlinecode">pred(a, b)</
 <span class="d_keyword">assert</span>(<span class="d_psymbol">equal</span>(a, a));
 
 <span class="d_comment">// different types
-</span><span class="d_keyword">double</span>[] b = [ 1., 2, 4, 3];
+</span><span class="d_keyword">double</span>[] b = [ 1.0, 2, 4, 3];
 <span class="d_keyword">assert</span>(!<span class="d_psymbol">equal</span>(a, b[1..$]));
 <span class="d_keyword">assert</span>(<span class="d_psymbol">equal</span>(a, b));
 
@@ -1268,7 +1388,7 @@ have different element types, as long as <span class="d_inlinecode">pred(a, b)</
 <p></p>
 
 </dd>
-<dt class="d_decl">int <a name="cmp"></a><span class="ddoc_psymbol">cmp</span>(alias pred = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
+<dt class="d_decl"><a name=".cmp"></a>int <a name="cmp"></a><span class="ddoc_psymbol">cmp</span>(alias pred = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
 </dt>
 <dd>Performs three-way lexicographical comparison on two input ranges
 according to predicate <span class="d_inlinecode">pred</span>. Iterating <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span> in
@@ -1285,13 +1405,13 @@ If the ranges are strings, <span class="d_inlinecode"><a name="cmp"></a><span cl
 appropriately and compares the ranges one code point at a time.<p></p>
 
 </dd>
-<dt class="d_decl">MinType!(T1,T2,T) <a name="min"></a><span class="ddoc_psymbol">min</span>(T1, T2, T...)(T1 <i>a</i>, T2 <i>b</i>, T <i>xs</i>);
+<dt class="d_decl"><a name=".min"></a>MinType!(T1, T2, T) <a name="min"></a><span class="ddoc_psymbol">min</span>(T1, T2, T...)(T1 <i>a</i>, T2 <i>b</i>, T <i>xs</i>);
 </dt>
 <dd>Returns the minimum of the passed-in values. The type of the result is
 computed by using <a href="std_traits.html#CommonType"><span class="d_inlinecode">std.traits.CommonType</span></a>.<p></p>
 
 </dd>
-<dt class="d_decl">MaxType!(T1,T2,T) <a name="max"></a><span class="ddoc_psymbol">max</span>(T1, T2, T...)(T1 <i>a</i>, T2 <i>b</i>, T <i>xs</i>);
+<dt class="d_decl"><a name=".max"></a>MaxType!(T1, T2, T) <a name="max"></a><span class="ddoc_psymbol">max</span>(T1, T2, T...)(T1 <i>a</i>, T2 <i>b</i>, T <i>xs</i>);
 </dt>
 <dd>Returns the maximum of the passed-in values. The type of the result is
 computed by using <a href="std_traits.html#CommonType"><span class="d_inlinecode">std.traits.CommonType</span></a>.
@@ -1310,7 +1430,7 @@ computed by using <a href="std_traits.html#CommonType"><span class="d_inlinecode
 <p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(ElementType!(Range),size_t) <a name="minCount"></a><span class="ddoc_psymbol">minCount</span>(alias pred = "a &lt; b", Range)(Range <i>range</i>);
+<dt class="d_decl"><a name=".minCount"></a>Tuple!(ElementType!(Range), size_t) <a name="minCount"></a><span class="ddoc_psymbol">minCount</span>(alias pred = "a &lt; b", Range)(Range <i>range</i>);
 </dt>
 <dd>Returns the minimum element of a range together with the number of
 occurrences. The function can actually be used for counting the
@@ -1327,7 +1447,7 @@ not provided).
 <p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="minPos"></a><span class="ddoc_psymbol">minPos</span>(alias pred = "a &lt; b", Range)(Range <i>range</i>);
+<dt class="d_decl"><a name=".minPos"></a>Range <a name="minPos"></a><span class="ddoc_psymbol">minPos</span>(alias pred = "a &lt; b", Range)(Range <i>range</i>);
 </dt>
 <dd>Returns the position of the minimum element of forward range <span class="d_inlinecode">range</span>, i.e. a subrange of <span class="d_inlinecode">range</span> starting at the position of its
 smallest element and with the same ending as <span class="d_inlinecode">range</span>. The function
@@ -1344,7 +1464,7 @@ predicate (that's why <span class="d_inlinecode">maxPos</span> is not provided).
 <p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(Range1,Range2) <a name="mismatch"></a><span class="ddoc_psymbol">mismatch</span>(alias pred = "a == b", Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
+<dt class="d_decl"><a name=".mismatch"></a>Tuple!(Range1, Range2) <a name="mismatch"></a><span class="ddoc_psymbol">mismatch</span>(alias pred = "a == b", Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
 </dt>
 <dd>Sequentially compares elements in <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span> in lockstep, and
 stops at the first <a name="mismatch"></a><span class="ddoc_psymbol">mismatch</span> (according to <span class="d_inlinecode">pred</span>, by default
@@ -1354,7 +1474,7 @@ evaluations of <span class="d_inlinecode">pred</span>. See also <a href="http://
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[]    x = [ 1,  5, 2, 7,   4, 3 ];
-<span class="d_keyword">double</span>[] y = [ 1., 5, 2, 7.3, 4, 8 ];
+<span class="d_keyword">double</span>[] y = [ 1.0, 5, 2, 7.3, 4, 8 ];
 <span class="d_keyword">auto</span> m = <span class="d_psymbol">mismatch</span>(x, y);
 <span class="d_keyword">assert</span>(m[0] == x[3 .. $]);
 <span class="d_keyword">assert</span>(m[1] == y[3 .. $]);
@@ -1362,7 +1482,7 @@ evaluations of <span class="d_inlinecode">pred</span>. See also <a href="http://
 <p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="EditOp"></a><span class="ddoc_psymbol">EditOp</span>;
+<dt class="d_decl"><a name=".EditOp"></a>enum <a name="EditOp"></a><span class="ddoc_psymbol">EditOp</span>;
 </dt>
 <dd>Encodes <a href="http://realityinteractive.com/rgrzywinski/archives/000249.html">edit operations</a> necessary to transform one sequence into
 another. Given sequences <span class="d_inlinecode">s</span> (source) and <span class="d_inlinecode">t</span> (target), a
@@ -1375,25 +1495,25 @@ searches, diff-style programs that compute the difference between
 files, efficient encoding of patches, DNA sequence analysis, and
 plagiarism detection.<p></p>
 
-<dl><dt class="d_decl"><a name="none"></a><span class="ddoc_psymbol">none</span></dt>
+<dl><dt class="d_decl"><a name=".EditOp.none"></a><a name="none"></a><span class="ddoc_psymbol">none</span></dt>
 <dd>Current items are equal; no editing is necessary. <p></p>
 
 </dd>
-<dt class="d_decl"><a name="substitute"></a><span class="ddoc_psymbol">substitute</span></dt>
+<dt class="d_decl"><a name=".EditOp.substitute"></a><a name="substitute"></a><span class="ddoc_psymbol">substitute</span></dt>
 <dd>Substitute current item in target with current item in source. <p></p>
 
 </dd>
-<dt class="d_decl"><a name="insert"></a><span class="ddoc_psymbol">insert</span></dt>
+<dt class="d_decl"><a name=".EditOp.insert"></a><a name="insert"></a><span class="ddoc_psymbol">insert</span></dt>
 <dd>Insert current item from the source into the target. <p></p>
 
 </dd>
-<dt class="d_decl"><a name="remove"></a><span class="ddoc_psymbol">remove</span></dt>
+<dt class="d_decl"><a name=".EditOp.remove"></a><a name="remove"></a><span class="ddoc_psymbol">remove</span></dt>
 <dd>Remove current item from the target. <p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">size_t <a name="levenshteinDistance"></a><span class="ddoc_psymbol">levenshteinDistance</span>(alias equals = "a == b", Range1, Range2)(Range1 <i>s</i>, Range2 <i>t</i>);
+<dt class="d_decl"><a name=".levenshteinDistance"></a>size_t <a name="levenshteinDistance"></a><span class="ddoc_psymbol">levenshteinDistance</span>(alias equals = "a == b", Range1, Range2)(Range1 <i>s</i>, Range2 <i>t</i>);
 </dt>
 <dd>Returns the <a href="http://wikipedia.org/wiki/Levenshtein_distance">Levenshtein
 distance</a> between <span class="d_inlinecode">s</span> and <span class="d_inlinecode">t</span>. The Levenshtein distance computes
@@ -1411,7 +1531,7 @@ into <span class="d_inlinecode">t</span>.  Performs <b><i>&Omicron;</i>(</b><spa
 <p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(size_t,EditOp[]) <a name="levenshteinDistanceAndPath"></a><span class="ddoc_psymbol">levenshteinDistanceAndPath</span>(alias equals = "a == b", Range1, Range2)(Range1 <i>s</i>, Range2 <i>t</i>);
+<dt class="d_decl"><a name=".levenshteinDistanceAndPath"></a>Tuple!(size_t, EditOp[]) <a name="levenshteinDistanceAndPath"></a><span class="ddoc_psymbol">levenshteinDistanceAndPath</span>(alias equals = "a == b", Range1, Range2)(Range1 <i>s</i>, Range2 <i>t</i>);
 </dt>
 <dd>Returns the Levenshtein distance and the edit path between <span class="d_inlinecode">s</span> and
 <span class="d_inlinecode">t</span>.
@@ -1425,7 +1545,7 @@ into <span class="d_inlinecode">t</span>.  Performs <b><i>&Omicron;</i>(</b><spa
 <p></p>
 
 </dd>
-<dt class="d_decl">Range2 <a name="copy"></a><span class="ddoc_psymbol">copy</span>(Range1, Range2)(Range1 <i>source</i>, Range2 <i>target</i>);
+<dt class="d_decl"><a name=".copy"></a>Range2 <a name="copy"></a><span class="ddoc_psymbol">copy</span>(Range1, Range2)(Range1 <i>source</i>, Range2 <i>target</i>);
 </dt>
 <dd>Copies the content of <span class="d_inlinecode">source</span> into <span class="d_inlinecode">target</span> and returns the
 remaining (unfilled) part of <span class="d_inlinecode">target</span>. See also <a href="http://sgi.com/tech/stl/copy.html">STL's copy</a>. If a behavior similar to
@@ -1440,6 +1560,7 @@ needed, use <span class="d_inlinecode"><a name="copy"></a><span class="ddoc_psym
 <span class="d_keyword">assert</span>(c[0 .. a.length + b.length] == a ~ b);
 <span class="d_keyword">assert</span>(d.length == 10);
 </pre>
+<p></p>
 
 As long as the target range elements support assignment from source
 range elements, different types of ranges are accepted.
@@ -1450,6 +1571,7 @@ range elements, different types of ranges are accepted.
 <span class="d_keyword">double</span>[] b = <span class="d_keyword">new</span> <span class="d_keyword">double</span>[a.length];
 <span class="d_keyword">auto</span> d = <span class="d_psymbol">copy</span>(a, b);
 </pre>
+<p></p>
 
 To <a name="copy"></a><span class="ddoc_psymbol">copy</span> at most <span class="d_inlinecode">n</span> elements from range <span class="d_inlinecode">a</span> to range <span class="d_inlinecode">b</span>, you
 may want to use <span class="d_inlinecode"><a name="copy"></a><span class="ddoc_psymbol">copy</span>(take(a, n), b)</span>. To <a name="copy"></a><span class="ddoc_psymbol">copy</span> those elements from
@@ -1466,7 +1588,7 @@ want to use <span class="d_inlinecode"><a name="copy"></a><span class="ddoc_psym
 <p></p>
 
 </dd>
-<dt class="d_decl">Tuple!(Range1,Range2) <a name="swapRanges"></a><span class="ddoc_psymbol">swapRanges</span>(Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
+<dt class="d_decl"><a name=".swapRanges"></a>Tuple!(Range1, Range2) <a name="swapRanges"></a><span class="ddoc_psymbol">swapRanges</span>(Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
 </dt>
 <dd>Swaps all elements of <span class="d_inlinecode">r1</span> with successive elements in <span class="d_inlinecode">r2</span>.
 Returns a tuple containing the remainder portions of <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span> that were not swapped (one of them will be empty). The ranges may
@@ -1484,9 +1606,10 @@ swapping.
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="reverse"></a><span class="ddoc_psymbol">reverse</span>(Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".reverse"></a>void <a name="reverse"></a><span class="ddoc_psymbol">reverse</span>(Range)(Range <i>r</i>);
+<br><a name=".reverse"></a>void <a name="reverse"></a><span class="ddoc_psymbol">reverse</span>(Range)(Range <i>r</i>);
 </dt>
-<dd>Reverses <span class="d_inlinecode">r</span> in-place.  Performs <span class="d_inlinecode">r.length</span> evaluations of <span class="d_inlinecode">swap</span>. See also <a href="http://sgi.com/tech/stl/reverse.html">STL's reverse</a>.
+<dd>Reverses <span class="d_inlinecode">r</span> in-place.  Performs <span class="d_inlinecode">r.length / 2</span> evaluations of <span class="d_inlinecode">swap</span>. See also <a href="http://sgi.com/tech/stl/reverse.html">STL's reverse</a>.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] arr = [ 1, 2, 3 ];
@@ -1496,7 +1619,21 @@ swapping.
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="bringToFront"></a><span class="ddoc_psymbol">bringToFront</span>(Range1, Range2)(Range1 <i>front</i>, Range2 <i>back</i>);
+<dt class="d_decl"><a name=".reverse"></a>void <a name="reverse"></a><span class="ddoc_psymbol">reverse</span>(Char)(Char[] <i>s</i>);
+</dt>
+<dd>Reverses <span class="d_inlinecode">r</span> in-place, where <span class="d_inlinecode">r</span> is a narrow string (having
+elements of type <span class="d_inlinecode">char</span> or <span class="d_inlinecode">wchar</span>). UTF sequences consisting of
+multiple code units are preserved properly.
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">char</span>[] arr = <span class="d_string">"hello\U00010143\u0100\U00010143"</span>.dup;
+<span class="d_psymbol">reverse</span>(arr);
+<span class="d_keyword">assert</span>(arr == <span class="d_string">"\U00010143\u0100\U00010143olleh"</span>);
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".bringToFront"></a>size_t <a name="bringToFront"></a><span class="ddoc_psymbol">bringToFront</span>(Range1, Range2)(Range1 <i>front</i>, Range2 <i>back</i>);
 </dt>
 <dd>The <span class="d_inlinecode"><a name="bringToFront"></a><span class="ddoc_psymbol">bringToFront</span></span> function has considerable flexibility and
 usefulness. It can rotate elements in one buffer left or right, swap
@@ -1519,6 +1656,7 @@ buffer. For example:
 <span class="d_psymbol">bringToFront</span>(arr[0 .. 4], arr[4 .. $]);
 <span class="d_keyword">assert</span>(arr == [ 1, 2, 3, 4, 5, 6, 7 ]);
 </pre>
+<p></p>
 
 The <span class="d_inlinecode">front</span> range may actually "step over" the <span class="d_inlinecode">back</span>
 range. This is very useful with forward ranges that cannot compute
@@ -1533,6 +1671,7 @@ the example below, <span class="d_inlinecode">r2</span> is a right subrange of <
 <span class="d_psymbol">bringToFront</span>(r1, r2);
 <span class="d_keyword">assert</span>(equal(list[], [ 1, 2, 3, 4, 5, 6, 7 ]));
 </pre>
+<p></p>
 
 Elements can be swapped across ranges of different types:
 <p></p>
@@ -1543,6 +1682,7 @@ Elements can be swapped across ranges of different types:
 <span class="d_keyword">assert</span>(equal(list[], [ 1, 2, 3, 4 ]));
 <span class="d_keyword">assert</span>(equal(vec, [ 5, 6, 7 ]));
 </pre>
+<p></p>
 
 Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">max(front.length, back.length)</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">swap</span>. See also <a href="http://sgi.com/tech/stl/rotate.html">STL's rotate</a>.
 
@@ -1555,7 +1695,7 @@ reachable from <span class="d_inlinecode">front</span> and <span class="d_inline
 <b>Returns:</b><br>The number of elements brought to the front, i.e., the length of <span class="d_inlinecode">back</span>.<p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="SwapStrategy"></a><span class="ddoc_psymbol">SwapStrategy</span>;
+<dt class="d_decl"><a name=".SwapStrategy"></a>enum <a name="SwapStrategy"></a><span class="ddoc_psymbol">SwapStrategy</span>;
 </dt>
 <dd>Defines the swapping strategy for algorithms that need to swap
 elements in a range (such as partition and sort). The strategy
@@ -1585,24 +1725,24 @@ constraints. Similarly, <span class="d_inlinecode">semistable</span> may be cost
 algorithms in this module parameterized by <span class="d_inlinecode"><a name="SwapStrategy"></a><span class="ddoc_psymbol">SwapStrategy</span></span> all
 choose <span class="d_inlinecode"><a name="SwapStrategy"></a><span class="ddoc_psymbol">SwapStrategy</span>.unstable</span> as the default.<p></p>
 
-<dl><dt class="d_decl"><a name="unstable"></a><span class="ddoc_psymbol">unstable</span></dt>
+<dl><dt class="d_decl"><a name=".SwapStrategy.unstable"></a><a name="unstable"></a><span class="ddoc_psymbol">unstable</span></dt>
 <dd>Allows freely swapping of elements as long as the output
        satisfies the algorithm's requirements.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="semistable"></a><span class="ddoc_psymbol">semistable</span></dt>
+<dt class="d_decl"><a name=".SwapStrategy.semistable"></a><a name="semistable"></a><span class="ddoc_psymbol">semistable</span></dt>
 <dd>In algorithms partitioning ranges in two, preserve relative
        ordering of elements only to the left of the partition point.<p></p>
 
 </dd>
-<dt class="d_decl"><a name="stable"></a><span class="ddoc_psymbol">stable</span></dt>
+<dt class="d_decl"><a name=".SwapStrategy.stable"></a><a name="stable"></a><span class="ddoc_psymbol">stable</span></dt>
 <dd>Preserve the relative ordering of elements to the largest
        extent allowed by the algorithm's requirements.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(SwapStrategy s = SwapStrategy.stable, Range, Offset...)(Range <i>range</i>, Offset <i>offset</i>);
+<dt class="d_decl"><a name=".remove"></a>Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(SwapStrategy s = SwapStrategy.stable, Range, Offset...)(Range <i>range</i>, Offset <i>offset</i>);
 </dt>
 <dd>Eliminates elements at given offsets from <span class="d_inlinecode">range</span> and returns the
 shortened range. In the simplest call, one element is removed.
@@ -1611,6 +1751,7 @@ shortened range. In the simplest call, one element is removed.
 <span class="d_keyword">assert</span>(<span class="d_psymbol">remove</span>(a, 1) == [ 3, 7, 8 ]);
 <span class="d_keyword">assert</span>(a == [ 3, 7, 8, 8 ]);
 </pre>
+<p></p>
 
 In the case above the element at offset <span class="d_inlinecode">1</span> is removed and <span class="d_inlinecode"><a name="remove"></a><span class="ddoc_psymbol">remove</span></span> returns the range smaller by one element. The original array
 has remained of the same length because all functions in <span class="d_inlinecode">std.algorithm</span> only change <i>content</i>, not <i>topology</i>. The value
@@ -1630,6 +1771,7 @@ be passed in increasing order, otherwise an exception occurs.
 <span class="d_keyword">assert</span>(<span class="d_psymbol">remove</span>(a, 1, 3, 5) ==
     [ 0, 2, 4, 6, 7, 8, 9, 10 ]);
 </pre>
+<p></p>
 
 (Note how all indices refer to slots in the <i>original</i> array, not
 in the array as it is being progressively shortened.) Finally, any
@@ -1640,6 +1782,7 @@ offsets can be passed in.
 <pre class="d_code"><span class="d_keyword">int</span>[] a = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
 <span class="d_keyword">assert</span>(<span class="d_psymbol">remove</span>(a, 1, tuple(3, 5), 9) == [ 0, 2, 6, 7, 8, 10 ]);
 </pre>
+<p></p>
 
 In this case, the slots at positions 1, 3, 4, and 9 are removed from
 the array. The tuple passes in a range closed to the left and open to
@@ -1655,6 +1798,7 @@ pass <span class="d_inlinecode">SwapStrategy.unstable</span> to <span class="d_i
 <pre class="d_code"><span class="d_keyword">int</span>[] a = [ 0, 1, 2, 3 ];
 <span class="d_keyword">assert</span>(<span class="d_psymbol">remove</span>!(SwapStrategy.unstable)(a, 1) == [ 0, 3, 2 ]);
 </pre>
+<p></p>
 
 In the case above, the element at slot <span class="d_inlinecode">1</span> is removed, but replaced
 with the last element of the range. Taking advantage of the relaxation
@@ -1678,24 +1822,23 @@ several times, but more elements are moved than in the previous
 cases.</li></ul><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(alias pred, SwapStrategy s = SwapStrategy.stable, Range)(Range <i>range</i>);
+<dt class="d_decl"><a name=".remove"></a>Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(alias pred, SwapStrategy s = SwapStrategy.stable, Range)(Range <i>range</i>);
 </dt>
-<dd>Reduces the length of the bidirectional range <span class="d_inlinecode">range</span> by only
-keeping elements that satisfy <span class="d_inlinecode">pred</span>. If <span class="d_inlinecode">s =
-SwapStrategy.unstable</span>, elements are moved from the right end of the
-range over the elements to eliminate. If <span class="d_inlinecode">s = SwapStrategy.stable</span>
-(the default), elements are moved progressively to front such that
-their relative order is preserved. Returns the tail portion of the
-range that was moved.
+<dd>Reduces the length of the bidirectional range <span class="d_inlinecode">range</span> by removing
+elements that satisfy <span class="d_inlinecode">pred</span>. If <span class="d_inlinecode">s = SwapStrategy.unstable</span>,
+elements are moved from the right end of the range over the elements
+to eliminate. If <span class="d_inlinecode">s = SwapStrategy.stable</span> (the default),
+elements are moved progressively to front such that their relative
+order is preserved. Returns the filtered range.
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] a = [ 1, 2, 3, 2, 3, 4, 5, 2, 5, 6 ];
-<span class="d_keyword">assert</span>(a[0 .. <span class="d_psymbol">remove</span>!(<span class="d_string">"a == 2"</span>)(a).length] == [ 1, 3, 3, 4, 5, 5, 6 ]);
+<span class="d_keyword">assert</span>(<span class="d_psymbol">remove</span>!(<span class="d_string">"a == 2"</span>)(a) == [ 1, 3, 3, 4, 5, 5, 6 ]);
 </pre>
 <p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="partition"></a><span class="ddoc_psymbol">partition</span>(alias predicate, SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".partition"></a>Range <a name="partition"></a><span class="ddoc_psymbol">partition</span>(alias predicate, SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
 </dt>
 <dd>Partitions a range in two using <span class="d_inlinecode">pred</span> as a
 predicate. Specifically, reorders the range <span class="d_inlinecode">r = [left,
@@ -1756,7 +1899,7 @@ r = <span class="d_psymbol">partition</span>!(fun, SwapStrategy.semistable)(arr)
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isPartitioned"></a><span class="ddoc_psymbol">isPartitioned</span>(alias pred, Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".isPartitioned"></a>bool <a name="isPartitioned"></a><span class="ddoc_psymbol">isPartitioned</span>(alias pred, Range)(Range <i>r</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if <span class="d_inlinecode">r</span> is partitioned according to predicate <span class="d_inlinecode">pred</span>.
 <p></p>
@@ -1767,7 +1910,7 @@ r = <span class="d_psymbol">partition</span>!(fun, SwapStrategy.semistable)(arr)
 <p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="partition3"></a><span class="ddoc_psymbol">partition3</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, E)(Range <i>r</i>, E <i>pivot</i>);
+<dt class="d_decl"><a name=".partition3"></a>auto <a name="partition3"></a><span class="ddoc_psymbol">partition3</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, E)(Range <i>r</i>, E <i>pivot</i>);
 </dt>
 <dd>Rearranges elements in <span class="d_inlinecode">r</span> in three adjacent ranges and returns
 them. The first and leftmost range only contains elements in <span class="d_inlinecode">r</span>
@@ -1780,7 +1923,7 @@ than <span class="d_inlinecode">pivot</span>. The less-than test is defined by t
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">auto</span> a = [ 8, 3, 4, 1, 4, 7, 4 ];
 <span class="d_keyword">auto</span> pieces = <span class="d_psymbol">partition3</span>(a, 4);
-<span class="d_keyword">assert</span>(a == [ 1, 3, 4, 4, 4, 7, 8 ];
+<span class="d_keyword">assert</span>(a == [ 1, 3, 4, 4, 4, 7, 8 ]);
 <span class="d_keyword">assert</span>(pieces[0] == [ 1, 3 ]);
 <span class="d_keyword">assert</span>(pieces[1] == [ 4, 4, 4 ]);
 <span class="d_keyword">assert</span>(pieces[2] == [ 7, 8 ]);
@@ -1790,7 +1933,7 @@ than <span class="d_inlinecode">pivot</span>. The less-than test is defined by t
 <span style="color:red">BUGS:</span><br>stable <span class="d_inlinecode"><a name="partition3"></a><span class="ddoc_psymbol">partition3</span></span> has not been implemented yet.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="topN"></a><span class="ddoc_psymbol">topN</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>, size_t <i>nth</i>);
+<dt class="d_decl"><a name=".topN"></a>void <a name="topN"></a><span class="ddoc_psymbol">topN</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>, size_t <i>nth</i>);
 </dt>
 <dd>Reorders the range <span class="d_inlinecode">r</span> using <span class="d_inlinecode">swap</span> such that <span class="d_inlinecode">r[nth]</span> refers
 to the element that would fall there if the range were fully
@@ -1815,18 +1958,34 @@ stable) evaluations of <span class="d_inlinecode">less</span> and <span class="d
 <span style="color:red">BUGS:</span><br>Stable <a name="topN"></a><span class="ddoc_psymbol">topN</span> has not been implemented yet.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="topN"></a><span class="ddoc_psymbol">topN</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
+<dt class="d_decl"><a name=".topN"></a>void <a name="topN"></a><span class="ddoc_psymbol">topN</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range1, Range2)(Range1 <i>r1</i>, Range2 <i>r2</i>);
 </dt>
 <dd>Stores the smallest elements of the two ranges in the left-hand range.<p></p>
 
 </dd>
-<dt class="d_decl">SortedRange!(Range,less) <a name="sort"></a><span class="ddoc_psymbol">sort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".sort"></a>SortedRange!(Range, less) <a name="sort"></a><span class="ddoc_psymbol">sort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
 </dt>
-<dd>Sorts a random-access range according to predicate <span class="d_inlinecode">less</span>. Performs
+<dd>Sorts a random-access range according to the predicate <span class="d_inlinecode">less</span>. Performs
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length * log(r.length)</span><b><i>)</i></b> (if unstable) or <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length *
 log(r.length) * log(r.length)</span><b><i>)</i></b> (if stable) evaluations of <span class="d_inlinecode">less</span>
 and <span class="d_inlinecode">swap</span>. See also STL's <a href="http://sgi.com/tech/stl/sort.html">sort</a>
 and <a href="http://sgi.com/tech/stl/stable_sort.html">stable_sort</a>.
+<p></p>
+<span class="d_inlinecode"><a name="sort"></a><span class="ddoc_psymbol">sort</span></span> returns a <a href="std_range.html#SortedRange"><span class="d_inlinecode">std.range.SortedRange</span></a> over the original range, which
+functions that can take advantage of sorted data can then use to know that the
+range is sorted and adjust accordingly. The <a href="std_range.html#SortedRange"><span class="d_inlinecode">std.range.SortedRange</span></a> is a
+wrapper around the original range, so both it and the original range are sorted,
+but other functions won't know that the original range has been sorted, whereas
+they <i>can</i> know that <a href="std_range.html#SortedRange"><span class="d_inlinecode">std.range.SortedRange</span></a> has been sorted.
+
+<p></p>
+<b>See Also:</b><br><a href="std_range.html#assumeSorted"><span class="d_inlinecode">std.range.assumeSorted</span></a>
+
+<p></p>
+<b>Remark:</b><br>
+Stable <a name="sort"></a><span class="ddoc_psymbol">sort</span> is implementated as Timsort, the original code at
+<a href="http://github.com/Xinok/XSort">XSort</a> by Xinok, public domain.
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">int</span>[] array = [ 1, 2, 3, 4 ];
@@ -1848,13 +2007,17 @@ and <a href="http://sgi.com/tech/stl/stable_sort.html">stable_sort</a>.
 <p></p>
 
 </dd>
-<dt class="d_decl">template <a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span>(less...)</dt>
-<dd>Sorts a range by multiple keys. The call <span class="d_inlinecode"><a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span>!("a.id &lt; b.id",
+<dt class="d_decl"><a name=".multiSort"></a>template <a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span>(less...)</dt>
+<dd><span class="d_inlinecode">void <a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span>(Range)(Range r)
+    if (validPredicates!(ElementType!Range, less));</span>
+<p></p>
+Sorts a range by multiple keys. The call <span class="d_inlinecode"><a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span>!("a.id &lt; b.id",
 "a.date &gt; b.date")(r)</span> sorts the range <span class="d_inlinecode">r</span> by <span class="d_inlinecode">id</span> ascending,
 and sorts elements that have the same <span class="d_inlinecode">id</span> by <span class="d_inlinecode">date</span>
 descending. Such a call is equivalent to <span class="d_inlinecode">sort!"a.id != b.id ? a.id
 &lt; b.id : a.date &gt; b.date"(r)</span>, but <span class="d_inlinecode"><a name="multiSort"></a><span class="ddoc_psymbol">multiSort</span></span> is faster because it
 does fewer comparisons (in addition to being more convenient).
+
 <p></p>
 <b>Example:</b><br>
 <pre class="d_code"><span class="d_keyword">static</span> <span class="d_keyword">struct</span> Point { <span class="d_keyword">int</span> x, y; }
@@ -1866,11 +2029,11 @@ does fewer comparisons (in addition to being more convenient).
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="schwartzSort"></a><span class="ddoc_psymbol">schwartzSort</span>(alias transform, alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".schwartzSort"></a>void <a name="schwartzSort"></a><span class="ddoc_psymbol">schwartzSort</span>(alias transform, alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>);
 </dt>
 <dd>Sorts a range using an algorithm akin to the <a href="http://wikipedia.org/wiki/Schwartzian_transform">Schwartzian transform</a>, also
 known as the decorate-sort-undecorate pattern in Python and Lisp. (Not
-to be confused with <a href="http://youtube.com/watch?v=S25Zf8svHZQ">the other
+to be confused with <a href="http://youtube.com/watch?v=UHw6KXbvazs">the other
 Schwartz</a>.) This function is helpful when the sort comparison includes
 an expensive computation. The complexity is the same as that of the
 corresponding <span class="d_inlinecode">sort</span>, but <span class="d_inlinecode"><a name="schwartzSort"></a><span class="ddoc_psymbol">schwartzSort</span></span> evaluates <span class="d_inlinecode">transform</span> only <span class="d_inlinecode">r.length</span> times (less than half when compared to
@@ -1884,6 +2047,7 @@ string[] array = ...;
 <span class="d_comment">// Sort strings by hash, fast (only computes arr.length hashes):
 </span><span class="d_psymbol">schwartzSort</span>!(hashFun, <span class="d_string">"a &lt; b"</span>)(array);
 </pre>
+<p></p>
 
 The <span class="d_inlinecode"><a name="schwartzSort"></a><span class="ddoc_psymbol">schwartzSort</span></span> function might require less temporary data and
 be faster than the Perl idiom or the decorate-sort-undecorate idiom
@@ -1897,7 +2061,7 @@ Schwartz sorting, a function <span class="d_inlinecode">schwartzIsSorted</span> 
 because the effect can be achieved by calling <span class="d_inlinecode">isSorted!less(map!transform(r))</span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="partialSort"></a><span class="ddoc_psymbol">partialSort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>, size_t <i>n</i>);
+<dt class="d_decl"><a name=".partialSort"></a>void <a name="partialSort"></a><span class="ddoc_psymbol">partialSort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range)(Range <i>r</i>, size_t <i>n</i>);
 </dt>
 <dd>Reorders the random-access range <span class="d_inlinecode">r</span> such that the range <span class="d_inlinecode">r[0
 .. mid]</span> is the same as if the entire <span class="d_inlinecode">r</span> were sorted, and leaves
@@ -1913,7 +2077,7 @@ implementation simply calls <span class="d_inlinecode">topN!(less, ss)(r, n)</sp
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="completeSort"></a><span class="ddoc_psymbol">completeSort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range1, Range2)(SortedRange!(Range1,less) <i>lhs</i>, Range2 <i>rhs</i>);
+<dt class="d_decl"><a name=".completeSort"></a>void <a name="completeSort"></a><span class="ddoc_psymbol">completeSort</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range1, Range2)(SortedRange!(Range1, less) <i>lhs</i>, Range2 <i>rhs</i>);
 </dt>
 <dd>Sorts the random-access range <span class="d_inlinecode">chain(lhs, rhs)</span> according to
 predicate <span class="d_inlinecode">less</span>. The left-hand side of the range <span class="d_inlinecode">lhs</span> is
@@ -1933,7 +2097,7 @@ rhs.length)</span><b><i>)</i></b> (worst-case) evaluations of <span class="d_inl
 <p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="isSorted"></a><span class="ddoc_psymbol">isSorted</span>(alias less = "a &lt; b", Range)(Range <i>r</i>);
+<dt class="d_decl"><a name=".isSorted"></a>bool <a name="isSorted"></a><span class="ddoc_psymbol">isSorted</span>(alias less = "a &lt; b", Range)(Range <i>r</i>);
 </dt>
 <dd>Checks whether a forward range is sorted according to the comparison
 operation <span class="d_inlinecode">less</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">less</span>.
@@ -1949,8 +2113,8 @@ sort!(<span class="d_string">"a &gt; b"</span>)(arr);
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="makeIndex"></a><span class="ddoc_psymbol">makeIndex</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, RangeIndex)(Range <i>r</i>, RangeIndex <i>index</i>);
-<br>void <a name="makeIndex"></a><span class="ddoc_psymbol">makeIndex</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, RangeIndex)(Range <i>r</i>, RangeIndex <i>index</i>);
+<dt class="d_decl"><a name=".makeIndex"></a>void <a name="makeIndex"></a><span class="ddoc_psymbol">makeIndex</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, RangeIndex)(Range <i>r</i>, RangeIndex <i>index</i>);
+<br><a name=".makeIndex"></a>void <a name="makeIndex"></a><span class="ddoc_psymbol">makeIndex</span>(alias less = "a &lt; b", SwapStrategy ss = SwapStrategy.unstable, Range, RangeIndex)(Range <i>r</i>, RangeIndex <i>index</i>);
 </dt>
 <dd>Computes an index for <span class="d_inlinecode">r</span> based on the comparison <span class="d_inlinecode">less</span>. The
 index is a sorted array of pointers or indices into the original
@@ -1991,33 +2155,57 @@ latter requires it to be a random-access range.
 <p></p>
 
 </dd>
-<dt class="d_decl">enum <a name="SortOutput"></a><span class="ddoc_psymbol">SortOutput</span>;
+<dt class="d_decl"><a name=".SortOutput"></a>enum <a name="SortOutput"></a><span class="ddoc_psymbol">SortOutput</span>;
 </dt>
 <dd>Specifies whether the output of certain algorithm is desired in sorted
 format.<p></p>
 
-<dl><dt class="d_decl"><a name="no"></a><span class="ddoc_psymbol">no</span></dt>
+<dl><dt class="d_decl"><a name=".SortOutput.no"></a><a name="no"></a><span class="ddoc_psymbol">no</span></dt>
 <dd>Don't sort output<p></p>
 
 </dd>
-<dt class="d_decl"><a name="yes"></a><span class="ddoc_psymbol">yes</span></dt>
+<dt class="d_decl"><a name=".SortOutput.yes"></a><a name="yes"></a><span class="ddoc_psymbol">yes</span></dt>
 <dd>Sort output<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">bool <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>(alias pred = "a == b", Range, V)(Range <i>range</i>, V <i>value</i>);
+<dt class="d_decl"><a name=".canFind"></a>bool <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>(alias pred = "a == b", R, E)(R <i>haystack</i>, E <i>needle</i>);
 </dt>
-<dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if <span class="d_inlinecode">value</span> can be found in <span class="d_inlinecode">range</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>. <p></p>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if <span class="d_inlinecode">value</span> can be found in <span class="d_inlinecode">range</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">needle.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>(alias pred, Range)(Range <i>range</i>);
+<dt class="d_decl"><a name=".canFind"></a>size_t <a name="canFind"></a><span class="ddoc_psymbol">canFind</span>(alias pred = "a == b", Range, Ranges...)(Range <i>haystack</i>, Ranges <i>needles</i>);
+</dt>
+<dd>Returns the 1-based index of the first needle found in <span class="d_inlinecode">haystack</span>. If no
+    needle is found, then <span class="d_inlinecode">0</span> is returned.
+<p></p>
+So, if used directly in the condition of an if statement or loop, the result
+    will be <span class="d_inlinecode"><b>true</b></span> if one of the needles is found and <span class="d_inlinecode"><b>false</b></span> if none are
+    found, whereas if the result is used elsewhere, it can either be cast to
+    <span class="d_inlinecode">bool</span> for the same effect or used to get which needle was found first
+    without having to deal with the tuple that <span class="d_inlinecode">LREF find</span> returns for the
+    same operation.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".any"></a>bool <a name="any"></a><span class="ddoc_psymbol">any</span>(alias pred, Range)(Range <i>range</i>);
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if a value <span class="d_inlinecode">v</span> satisfying the
 predicate <span class="d_inlinecode">pred</span> can be found in the forward range <span class="d_inlinecode">range</span>. Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>.<p></p>
 
 </dd>
-<dt class="d_decl">TRange <a name="topNCopy"></a><span class="ddoc_psymbol">topNCopy</span>(alias less = "a &lt; b", SRange, TRange)(SRange <i>source</i>, TRange <i>target</i>, SortOutput <i>sorted</i> = SortOutput.no);
+<dt class="d_decl"><a name=".all"></a>bool <a name="all"></a><span class="ddoc_psymbol">all</span>(alias pred, R)(R <i>range</i>);
+</dt>
+<dd>Returns <span class="d_inlinecode"><b>true</b></span> if and only if <a name="all"></a><span class="ddoc_psymbol">all</span> values in <span class="d_inlinecode">range</span> satisfy the
+predicate <span class="d_inlinecode">pred</span>.  Performs <b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.length</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">pred</span>.
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">assert</span>(<span class="d_psymbol">all</span>!<span class="d_string">"a &amp; 1"</span>([1, 3, 5, 7, 9]));
+<span class="d_keyword">assert</span>(!<span class="d_psymbol">all</span>!<span class="d_string">"a &amp; 1"</span>([1, 2, 3, 5, 7, 9]));
+</pre>
+<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".topNCopy"></a>TRange <a name="topNCopy"></a><span class="ddoc_psymbol">topNCopy</span>(alias less = "a &lt; b", SRange, TRange)(SRange <i>source</i>, TRange <i>target</i>, SortOutput <i>sorted</i> = SortOutput.no);
 </dt>
 <dd>Copies the top <span class="d_inlinecode">n</span> elements of the input range <span class="d_inlinecode">source</span> into the
 random-access range <span class="d_inlinecode">target</span>, where <span class="d_inlinecode">n =
@@ -2033,8 +2221,8 @@ respects the <a href="http://en.wikipedia.org/wiki/Binary_heap">heap property</a
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="SetUnion"></a><span class="ddoc_psymbol">SetUnion</span>(alias less = "a &lt; b",Rs...) if (allSatisfy!(isInputRange,Rs));
-<br>SetUnion!(less,Rs) <a name="setUnion"></a><span class="ddoc_psymbol">setUnion</span>(alias less = "a &lt; b", Rs...)(Rs <i>rs</i>);
+<dt class="d_decl"><a name=".SetUnion"></a>struct <a name="SetUnion"></a><span class="ddoc_psymbol">SetUnion</span>(alias less = "a &lt; b", Rs...) if (allSatisfy!(isInputRange, Rs));
+<br><a name=".setUnion"></a>SetUnion!(less, Rs) <a name="setUnion"></a><span class="ddoc_psymbol">setUnion</span>(alias less = "a &lt; b", Rs...)(Rs <i>rs</i>);
 </dt>
 <dd>Lazily computes the union of two or more ranges <span class="d_inlinecode">rs</span>. The ranges
 are assumed to be sorted by <span class="d_inlinecode">less</span>. Elements in the output are not
@@ -2054,8 +2242,8 @@ length.) The element types of all ranges must have a common type.
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="SetIntersection"></a><span class="ddoc_psymbol">SetIntersection</span>(alias less = "a &lt; b",Rs...) if (allSatisfy!(isInputRange,Rs));
-<br>SetIntersection!(less,Rs) <a name="setIntersection"></a><span class="ddoc_psymbol">setIntersection</span>(alias less = "a &lt; b", Rs...)(Rs <i>ranges</i>);
+<dt class="d_decl"><a name=".SetIntersection"></a>struct <a name="SetIntersection"></a><span class="ddoc_psymbol">SetIntersection</span>(alias less = "a &lt; b", Rs...) if (allSatisfy!(isInputRange, Rs));
+<br><a name=".setIntersection"></a>SetIntersection!(less, Rs) <a name="setIntersection"></a><span class="ddoc_psymbol">setIntersection</span>(alias less = "a &lt; b", Rs...)(Rs <i>ranges</i>);
 </dt>
 <dd>Lazily computes the intersection of two or more input ranges <span class="d_inlinecode">rs</span>. The ranges are assumed to be sorted by <span class="d_inlinecode">less</span>. The element
 types of all ranges must have a common type.
@@ -2071,8 +2259,8 @@ types of all ranges must have a common type.
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="SetDifference"></a><span class="ddoc_psymbol">SetDifference</span>(alias less = "a &lt; b",R1,R2) if (isInputRange!(R1) &amp;&amp; isInputRange!(R2));
-<br>SetDifference!(less,R1,R2) <a name="setDifference"></a><span class="ddoc_psymbol">setDifference</span>(alias less = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
+<dt class="d_decl"><a name=".SetDifference"></a>struct <a name="SetDifference"></a><span class="ddoc_psymbol">SetDifference</span>(alias less = "a &lt; b", R1, R2) if (isInputRange!(R1) &amp;&amp; isInputRange!(R2));
+<br><a name=".setDifference"></a>SetDifference!(less, R1, R2) <a name="setDifference"></a><span class="ddoc_psymbol">setDifference</span>(alias less = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
 </dt>
 <dd>Lazily computes the difference of <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span>. The two ranges
 are assumed to be sorted by <span class="d_inlinecode">less</span>. The element types of the two
@@ -2086,8 +2274,8 @@ ranges must have a common type.
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="SetSymmetricDifference"></a><span class="ddoc_psymbol">SetSymmetricDifference</span>(alias less = "a &lt; b",R1,R2) if (isInputRange!(R1) &amp;&amp; isInputRange!(R2));
-<br>SetSymmetricDifference!(less,R1,R2) <a name="setSymmetricDifference"></a><span class="ddoc_psymbol">setSymmetricDifference</span>(alias less = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
+<dt class="d_decl"><a name=".SetSymmetricDifference"></a>struct <a name="SetSymmetricDifference"></a><span class="ddoc_psymbol">SetSymmetricDifference</span>(alias less = "a &lt; b", R1, R2) if (isInputRange!(R1) &amp;&amp; isInputRange!(R2));
+<br><a name=".setSymmetricDifference"></a>SetSymmetricDifference!(less, R1, R2) <a name="setSymmetricDifference"></a><span class="ddoc_psymbol">setSymmetricDifference</span>(alias less = "a &lt; b", R1, R2)(R1 <i>r1</i>, R2 <i>r2</i>);
 </dt>
 <dd>Lazily computes the symmetric difference of <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span>,
 i.e. the elements that are present in exactly one of <span class="d_inlinecode">r1</span> and <span class="d_inlinecode">r2</span>. The two ranges are assumed to be sorted by <span class="d_inlinecode">less</span>, and the
@@ -2102,8 +2290,8 @@ ranges must have a common type.
 <p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="NWayUnion"></a><span class="ddoc_psymbol">NWayUnion</span>(alias less,RangeOfRanges);
-<br>NWayUnion!(less,RangeOfRanges) <a name="nWayUnion"></a><span class="ddoc_psymbol">nWayUnion</span>(alias less = "a &lt; b", RangeOfRanges)(RangeOfRanges <i>ror</i>);
+<dt class="d_decl"><a name=".NWayUnion"></a>struct <a name="NWayUnion"></a><span class="ddoc_psymbol">NWayUnion</span>(alias less, RangeOfRanges);
+<br><a name=".nWayUnion"></a>NWayUnion!(less, RangeOfRanges) <a name="nWayUnion"></a><span class="ddoc_psymbol">nWayUnion</span>(alias less = "a &lt; b", RangeOfRanges)(RangeOfRanges <i>ror</i>);
 </dt>
 <dd>Computes the union of multiple sets. The input sets are passed as a
 range of ranges and each is assumed to be sorted by <span class="d_inlinecode">less</span>. Computation is done lazily, one union element at a time. The
@@ -2139,7 +2327,7 @@ duplicate in between calls).
 <p></p>
 
 </dd>
-<dt class="d_decl">void <a name="largestPartialIntersection"></a><span class="ddoc_psymbol">largestPartialIntersection</span>(alias less = "a &lt; b", RangeOfRanges, Range)(RangeOfRanges <i>ror</i>, Range <i>tgt</i>, SortOutput <i>sorted</i> = SortOutput.no);
+<dt class="d_decl"><a name=".largestPartialIntersection"></a>void <a name="largestPartialIntersection"></a><span class="ddoc_psymbol">largestPartialIntersection</span>(alias less = "a &lt; b", RangeOfRanges, Range)(RangeOfRanges <i>ror</i>, Range <i>tgt</i>, SortOutput <i>sorted</i> = SortOutput.no);
 </dt>
 <dd>Given a range of sorted forward ranges <span class="d_inlinecode">ror</span>, copies to <span class="d_inlinecode">tgt</span>
 the elements that are common to most ranges, along with their number
@@ -2161,6 +2349,7 @@ of occurrences. All ranges in <span class="d_inlinecode">ror</span> are assumed 
 <span class="d_comment">// First member is the item, second is the occurrence count
 </span><span class="d_keyword">assert</span>(b[0] == tuple(7.0, 4u));
 </pre>
+<p></p>
 
 <span class="d_inlinecode">7.0</span> is the correct answer because it occurs in <span class="d_inlinecode">4</span> out of the
 <span class="d_inlinecode">5</span> inputs, more than any other number. The second member of the
@@ -2188,7 +2377,7 @@ duplicate to <span class="d_inlinecode"><a name="largestPartialIntersection"></a
 duplicate in between calls).<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="largestPartialIntersectionWeighted"></a><span class="ddoc_psymbol">largestPartialIntersectionWeighted</span>(alias less = "a &lt; b", RangeOfRanges, Range, WeightsAA)(RangeOfRanges <i>ror</i>, Range <i>tgt</i>, WeightsAA <i>weights</i>, SortOutput <i>sorted</i> = SortOutput.no);
+<dt class="d_decl"><a name=".largestPartialIntersectionWeighted"></a>void <a name="largestPartialIntersectionWeighted"></a><span class="ddoc_psymbol">largestPartialIntersectionWeighted</span>(alias less = "a &lt; b", RangeOfRanges, Range, WeightsAA)(RangeOfRanges <i>ror</i>, Range <i>tgt</i>, WeightsAA <i>weights</i>, SortOutput <i>sorted</i> = SortOutput.no);
 </dt>
 <dd>Similar to <span class="d_inlinecode">largestPartialIntersection</span>, but associates a weight
 with each distinct element in the intersection.
@@ -2210,6 +2399,7 @@ with each distinct element in the intersection.
 <span class="d_comment">// First member is the item, second is the occurrence count
 </span><span class="d_keyword">assert</span>(b[0] == tuple(4.0, 2u));
 </pre>
+<p></p>
 
 The correct answer in this case is <span class="d_inlinecode">4.0</span>, which, although only
 appears two times, has a total weight <span class="d_inlinecode">4.6</span> (three times its weight
@@ -2231,9 +2421,9 @@ times for a total weight <span class="d_inlinecode">4.4</span>.<p></p>
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

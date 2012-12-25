@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.container - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:31:57 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/container.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdContainer" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.container</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/container.d -->
@@ -215,7 +234,7 @@ Defines generic containers.
 <b>Authors:</b><br>Steven Schveighoffer, <a href="http://erdani.com">Andrei Alexandrescu</a>
 <p></p>
 
-<center><table cellspacing=0 cellpadding=5 class=book><caption>Container primitives. Below, <span class="d_inlinecode">C</span> means
+<table cellspacing=0 cellpadding=5 class=book><caption>Container primitives. Below, <span class="d_inlinecode">C</span> means
 a container type, <span class="d_inlinecode">c</span> is a value of container type, <span class="d_inlinecode">n<sub>x</sub></span> represents the effective length of value <span class="d_inlinecode">x</span>, which could be a
 single element (in which case <span class="d_inlinecode">n<sub>x</sub></span> is <span class="d_inlinecode">1</span>), a container,
 or a range.</caption><p></p>
@@ -250,7 +269,7 @@ type associated with the container.</td></tr>
 iterating over the entire container, in a container-defined order.</td></tr>
 <p></p>
 
-<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c[a, b]</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td> <td valign=top>Fetches a
+<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c[a .. b]</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td> <td valign=top>Fetches a
 portion of the container from key <span class="d_inlinecode">a</span> to key <span class="d_inlinecode">b</span>.</td></tr>
 <p></p>
 
@@ -299,7 +318,7 @@ initalized with <span class="d_inlinecode">T.init</span>. This routine need not 
 last element of the container, in a container-defined order.</td></tr>
 <p></p>
 
-<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c.moveBack</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td> <td valign=top>Destructively reads and returns the first element of the
+<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c.moveBack</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td> <td valign=top>Destructively reads and returns the last element of the
 <a name="container"></a><span class="ddoc_psymbol">container</span>. The slot is not removed from the container; it is left
 initalized with <span class="d_inlinecode">T.init</span>. This routine need not be defined if <span class="d_inlinecode">front</span> returns a <span class="d_inlinecode">ref</span>.</td></tr>
 <p></p>
@@ -375,8 +394,8 @@ as <span class="d_inlinecode">c.insert(v)</span> but relaxes complexity to linea
 <td valign=top>Removes some element from <span class="d_inlinecode">c</span> and returns it.</td></tr>
 <p></p>
 
-<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c.stableRemoveAny(v)</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td>
-<td valign=top>Same as <span class="d_inlinecode">c.removeAny(v)</span>, but is guaranteed to not invalidate any
+<tr><td valign=top class="donthyphenate"><span class="d_inlinecode">c.stableRemoveAny()</span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode">log n<sub>c</sub></span></td>
+<td valign=top>Same as <span class="d_inlinecode">c.removeAny()</span>, but is guaranteed to not invalidate any
 iterators.</td></tr>
 <p></p>
 
@@ -443,31 +462,32 @@ The key's type is defined by the container.</td></tr>
 <tr><td valign=top class="donthyphenate"><span class="d_inlinecode"></span></td> <td valign=top class="donthyphenate"><span class="d_inlinecode"></span></td> <td valign=top></td></tr>
 <p></p>
 
-</table></center><p></p>
+</table><p></p>
 
-<dl><dt class="d_decl">Container <a name="make"></a><span class="ddoc_psymbol">make</span>(Container, T...)(T <i>arguments</i>);
-<br>Container <a name="make"></a><span class="ddoc_psymbol">make</span>(Container, T...)(T <i>arguments</i>);
+<dl><dt class="d_decl"><a name=".make"></a>Container <a name="make"></a><span class="ddoc_psymbol">make</span>(Container, T...)(T <i>arguments</i>);
+<br><a name=".make"></a>Container <a name="make"></a><span class="ddoc_psymbol">make</span>(Container, T...)(T <i>arguments</i>);
 </dt>
 <dd>Returns an initialized container. This function is mainly for
 eliminating construction differences between <span class="d_inlinecode">class</span> containers and
 <span class="d_inlinecode">struct</span> containers.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="SList"></a><span class="ddoc_psymbol">SList</span>(T);
+<dt class="d_decl"><a name=".SList"></a>struct <a name="SList"></a><span class="ddoc_psymbol">SList</span>(T);
 </dt>
 <dd>Implements a simple and fast singly-linked list.<p></p>
 
-<dl><dt class="d_decl">auto this(U)(U[] <i>values</i>...);
+<dl><dt class="d_decl"><a name=".this"></a> this(U)(U[] <i>values</i>...);
 </dt>
 <dd>Constructor taking a number of nodes<p></p>
 
 </dd>
-<dt class="d_decl">auto this(Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".this"></a> this(Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Constructor taking an input range<p></p>
 
 </dd>
-<dt class="d_decl">const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(ref const SList <i>rhs</i>);
+<dt class="d_decl"><a name=".opEquals"></a>const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(const SList <i>rhs</i>);
+<br><a name=".opEquals"></a>const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(ref const SList <i>rhs</i>);
 </dt>
 <dd>Comparison for equality.
 <p></p>
@@ -476,22 +496,26 @@ eliminating construction differences between <span class="d_inlinecode">class</s
 elements in <span class="d_inlinecode"><i>rhs</i></span>.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+<dt class="d_decl"><a name=".Range"></a>struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
 </dt>
 <dd>Defines the container's primary range, which embodies a forward range.<p></p>
 
-<dl><dt class="d_decl">const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
-<br>Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<dl><dt class="d_decl"><a name=".empty"></a>const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
 </dt>
-<dd>Forward range primitives.<p></p>
+<dd>Input range primitives.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".save"></a>Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
+</dt>
+<dd>Forward range primitive.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".empty"></a>const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd>Property returning <span class="d_inlinecode"><b>true</b></span> if and only if the container has no
 elements.
@@ -500,7 +524,7 @@ elements.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">SList <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+<dt class="d_decl"><a name=".dup"></a>SList <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
 </dt>
 <dd>Duplicates the container. The elements themselves are not transitively
 duplicated.
@@ -509,7 +533,7 @@ duplicated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
 </dt>
 <dd>Returns a range that iterates over all elements of the container, in
 forward order.
@@ -518,7 +542,7 @@ forward order.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<dt class="d_decl"><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd>Forward to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span></span>.
 <p></p>
@@ -526,7 +550,7 @@ forward order.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
+<dt class="d_decl"><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
 </dt>
 <dd>Forward to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span>(<i>value</i>)</span>.
 <p></p>
@@ -534,14 +558,14 @@ forward order.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">SList <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
+<dt class="d_decl"><a name=".opBinary"></a>SList <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
 </dt>
 <dd>Returns a new <span class="d_inlinecode">SList</span> that's the concatenation of <span class="d_inlinecode">this</span> and its
 argument. <span class="d_inlinecode">opBinaryRight</span> is only defined if <span class="d_inlinecode">Stuff</span> does not
 define <span class="d_inlinecode"><a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span></span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
 </dt>
 <dd>Removes all contents from the <span class="d_inlinecode">SList</span>.
 <p></p>
@@ -553,11 +577,11 @@ define <span class="d_inlinecode"><a name="opBinary"></a><span class="ddoc_psymb
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insertFront"></a><span class="ddoc_psymbol">insertFront</span>(Stuff)(Stuff <i>stuff</i>);
-<br>size_t <a name="insertFront"></a><span class="ddoc_psymbol">insertFront</span>(Stuff)(Stuff <i>stuff</i>);
-<br>alias <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
-<br>alias <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>;
-<br>alias <a name="stableInsertFront"></a><span class="ddoc_psymbol">stableInsertFront</span>;
+<dt class="d_decl"><a name=".insertFront"></a>size_t <a name="insertFront"></a><span class="ddoc_psymbol">insertFront</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insertFront"></a>size_t <a name="insertFront"></a><span class="ddoc_psymbol">insertFront</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insert"></a>alias insertFront <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
+<br><a name=".stableInsert"></a>alias insert <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>;
+<br><a name=".stableInsertFront"></a>alias insertFront <a name="stableInsertFront"></a><span class="ddoc_psymbol">stableInsertFront</span>;
 </dt>
 <dd>Inserts <span class="d_inlinecode">stuff</span> to the front of the container. <span class="d_inlinecode">stuff</span> can be a
 value convertible to <span class="d_inlinecode">T</span> or a range of objects convertible to <span class="d_inlinecode">T</span>. The stable version behaves the same, but guarantees that ranges
@@ -567,11 +591,11 @@ iterating over the container are never invalidated.
 
 <p></p>
 <b>Complexity:</b><br>
-<b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">m</span><b><i>)</i></b>, where <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
-<br>alias <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
+<dt class="d_decl"><a name=".removeAny"></a>T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<br><a name=".stableRemoveAny"></a>alias removeAny <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
 </dt>
 <dd>Picks one value from the front of the container, removes it from the
 container, and returns it.
@@ -587,8 +611,8 @@ container, and returns it.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
-<br>alias <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
+<dt class="d_decl"><a name=".removeFront"></a>void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
+<br><a name=".stableRemoveFront"></a>alias removeFront <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
 </dt>
 <dd>Removes the value at the front of the container. The stable version
 behaves the same, but guarantees that ranges iterating over the
@@ -602,8 +626,8 @@ container are never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>(size_t <i>howMany</i>);
-<br>alias <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
+<dt class="d_decl"><a name=".removeFront"></a>size_t <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>(size_t <i>howMany</i>);
+<br><a name=".stableRemoveFront"></a>alias removeFront <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
 </dt>
 <dd>Removes <span class="d_inlinecode"><i>howMany</i></span> values at the front or back of the
 container. Unlike the unparameterized versions above, these functions
@@ -620,14 +644,14 @@ never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode"><i>howMany</i> * log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".insertAfter"></a>size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
 </dt>
 <dd>Inserts <span class="d_inlinecode">stuff</span> after range <span class="d_inlinecode">r</span>, which must be a range
 previously extracted from this container. Given that all ranges for a
 list end at the end of the list, this function essentially appends to
 the list and uses <span class="d_inlinecode">r</span> as a potentially fast way to reach the last
-node in the list. (Ideally <span class="d_inlinecode">r</span> is positioned near or at the last
-element of the list.)
+node in the list. Ideally <span class="d_inlinecode">r</span> is positioned near or at the last
+element of the list.
 <p></p>
 <span class="d_inlinecode">stuff</span> can be a value convertible to <span class="d_inlinecode">T</span> or a range of objects
 convertible to <span class="d_inlinecode">T</span>. The stable version behaves the same, but
@@ -640,11 +664,20 @@ invalidated.
 <p></p>
 <b>Complexity:</b><br>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">k + m</span><b><i>)</i></b>, where <span class="d_inlinecode">k</span> is the number of elements in
-<span class="d_inlinecode">r</span> and <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span>.<p></p>
+<span class="d_inlinecode">r</span> and <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span>.
+
+<p></p>
+<b>Examples:</b><br><pre class="d_code"><span class="d_keyword">auto</span> sl = SList!string([<span class="d_string">"a"</span>, <span class="d_string">"b"</span>, <span class="d_string">"d"</span>]);
+sl.<span class="d_psymbol">insertAfter</span>(sl[], <span class="d_string">"e"</span>); <span class="d_comment">// insert at the end (slowest)
+</span><span class="d_keyword">assert</span>(std.algorithm.equal(sl[], [<span class="d_string">"a"</span>, <span class="d_string">"b"</span>, <span class="d_string">"d"</span>, <span class="d_string">"e"</span>]));
+sl.<span class="d_psymbol">insertAfter</span>(std.range.take(sl[], 2), <span class="d_string">"c"</span>); <span class="d_comment">// insert after "b"
+</span><span class="d_keyword">assert</span>(std.algorithm.equal(sl[], [<span class="d_string">"a"</span>, <span class="d_string">"b"</span>, <span class="d_string">"c"</span>, <span class="d_string">"d"</span>, <span class="d_string">"e"</span>]));
+</pre>
+<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Take!(Range) <i>r</i>, Stuff <i>stuff</i>);
-<br>alias <a name="stableInsertAfter"></a><span class="ddoc_psymbol">stableInsertAfter</span>;
+<dt class="d_decl"><a name=".insertAfter"></a>size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Take!(Range) <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableInsertAfter"></a>alias insertAfter <a name="stableInsertAfter"></a><span class="ddoc_psymbol">stableInsertAfter</span>;
 </dt>
 <dd>Similar to <span class="d_inlinecode"><a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span></span> above, but accepts a range bounded in
 count. This is important for ensuring fast insertions in the middle of
@@ -664,7 +697,7 @@ only depends on the number of elements in <span class="d_inlinecode">stuff</span
 <span class="d_inlinecode">r</span> and <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span>.<p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
+<dt class="d_decl"><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
 </dt>
 <dd>Removes a range from the list in linear time.
 <p></p>
@@ -675,8 +708,8 @@ only depends on the number of elements in <span class="d_inlinecode">stuff</span
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Take!(Range) <i>r</i>);
-<br>alias <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
+<dt class="d_decl"><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Take!(Range) <i>r</i>);
+<br><a name=".stableLinearRemove"></a>alias linearRemove <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
 </dt>
 <dd>Removes a <span class="d_inlinecode">Take!Range</span> from the list in linear time.
 <p></p>
@@ -689,24 +722,103 @@ only depends on the number of elements in <span class="d_inlinecode">stuff</span
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="Array"></a><span class="ddoc_psymbol">Array</span>(T) if (!is(T : const(bool)));
+<dt class="d_decl"><a name=".DList"></a>struct <a name="DList"></a><span class="ddoc_psymbol">DList</span>(T);
 </dt>
-<dd><a name="Array"></a><span class="ddoc_psymbol">Array</span> type with deterministic control of memory. The memory allocated
-for the array is reclaimed as soon as possible; there is no reliance
-on the garbage collector. <span class="d_inlinecode"><a name="Array"></a><span class="ddoc_psymbol">Array</span></span> uses <span class="d_inlinecode">malloc</span> and <span class="d_inlinecode">free</span>
-for managing its own memory.<p></p>
+<dd>Implements a doubly-linked list.
+<p></p>
+<span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span></span> uses neither reference nor value semantics. They can be seen as
+several different handles into an external chain of nodes. Several different
+<span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span></span>s can all reference different points in a same chain.
+<p></p>
 
-<dl><dt class="d_decl">const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(ref const Array <i>rhs</i>);
+<span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span>.Range</span> is, for all intents and purposes, a <a name="DList"></a><span class="ddoc_psymbol">DList</span> with range
+semantics. The <span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span>.Range</span> has a view directly into the chain itself.
+It is not tied to its parent <span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span></span>, and may be used to operate on
+other lists (that point to the same chain).
+<p></p>
+
+The ONLY operation that can invalidate a <span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span></span> or <span class="d_inlinecode"><a name="DList"></a><span class="ddoc_psymbol">DList</span>.Range</span>, but
+which will invalidate BOTH, is the <span class="d_inlinecode">remove</span> operation, if the cut Range
+overlaps with the boundaries of another <a name="DList"></a><span class="ddoc_psymbol">DList</span> or <a name="DList"></a><span class="ddoc_psymbol">DList</span>.Range.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code"><span class="d_keyword">auto</span> a = <span class="d_psymbol">DList</span>!<span class="d_keyword">int</span>([3, 4]); <span class="d_comment">//Create a new chain
+</span><span class="d_keyword">auto</span> b = a; <span class="d_comment">//Point to the same chain
+</span><span class="d_comment">// (3 - 4)
+</span><span class="d_keyword">assert</span>(a[].equal([3, 4]));
+<span class="d_keyword">assert</span>(b[].equal([3, 4]));
+
+b.stableInsertFront(1); <span class="d_comment">//insert before of b
+</span>b.stableInsertBack(5); <span class="d_comment">//insert after of b
+</span><span class="d_comment">// (2 - (3 - 4) - 5)
+</span><span class="d_keyword">assert</span>(a[].equal([3, 4])); <span class="d_comment">//a is not changed
+</span><span class="d_keyword">assert</span>(b[].equal([1, 3, 4, 5])); <span class="d_comment">// but b is changed
+</span>
+a.stableInsertFront(2); <span class="d_comment">//insert in front of a, this will insert "inside" the chain
+</span><span class="d_comment">// (1 - (2 - 3 - 4) - 5)
+</span><span class="d_keyword">assert</span>(a[].equal([2, 3, 4])); <span class="d_comment">//a is modified
+</span><span class="d_keyword">assert</span>(b[].equal([1, 2, 3, 4, 5])); <span class="d_comment">//and so is b;
+</span>
+a.remove(a[]); <span class="d_comment">//remove all the elements of a: This will cut them from the chain;
+</span><span class="d_comment">// (1 - 5)
+</span><span class="d_keyword">assert</span>(a[].empty); <span class="d_comment">//a is empty
+</span><span class="d_keyword">assert</span>(b[].equal([1, 5])); <span class="d_comment">//b has lost some of its elements;
+</span>
+a.insert(2); <span class="d_comment">//insert in a. This will create a new chain
+</span><span class="d_comment">// (2)
+</span><span class="d_comment">// (1 - 5)
+</span><span class="d_keyword">assert</span>(a[].equal([2])); <span class="d_comment">//a is a new chain
+</span><span class="d_keyword">assert</span>(b[].equal([1, 5])); <span class="d_comment">//b is unchanged;
+</span></pre>
+<p></p>
+
+<dl><dt class="d_decl"><a name=".this"></a> this(U)(U[] <i>values</i>...);
 </dt>
-<dd>Comparison for equality.<p></p>
+<dd>Constructor taking a number of nodes<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+<dt class="d_decl"><a name=".this"></a> this(Stuff)(Stuff <i>stuff</i>);
 </dt>
-<dd>Defines the container's primary range, which is a random-access range.<p></p>
+<dd>Constructor taking an input range<p></p>
 
 </dd>
-<dt class="d_decl">const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".opEquals"></a>const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(ref const DList <i>rhs</i>);
+</dt>
+<dd>Comparison for equality.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">min(n, n1)</span><b><i>)</i></b> where <span class="d_inlinecode">n1</span> is the number of
+elements in <span class="d_inlinecode"><i>rhs</i></span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".Range"></a>struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+</dt>
+<dd>Defines the container's primary range, which embodies a bidirectional range.<p></p>
+
+<dl><dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+</dt>
+<dd>Input range primitives.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".save"></a>Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
+</dt>
+<dd>Forward range primitive.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".back"></a>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(T <i>value</i>);
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+</dt>
+<dd>Bidirectional range primitives.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd>Property returning <span class="d_inlinecode"><b>true</b></span> if and only if the container has no
 elements.
@@ -715,7 +827,7 @@ elements.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Array <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+<dt class="d_decl"><a name=".dup"></a>DList <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
 </dt>
 <dd>Duplicates the container. The elements themselves are not transitively
 duplicated.
@@ -724,7 +836,268 @@ duplicated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">const size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+</dt>
+<dd>Returns a range that iterates over all elements of the container, in
+forward order.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+</dt>
+<dd>Forward to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span></span>.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
+</dt>
+<dd>Forward to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span>(<i>value</i>)</span>.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".back"></a>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
+</dt>
+<dd>Forward to <span class="d_inlinecode">opSlice().<a name="back"></a><span class="ddoc_psymbol">back</span></span>.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(T <i>value</i>);
+</dt>
+<dd>Forward to <span class="d_inlinecode">opSlice().<a name="back"></a><span class="ddoc_psymbol">back</span>(<i>value</i>)</span>.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opBinary"></a>DList <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
+<br><a name=".opBinary"></a>DList <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
+</dt>
+<dd>Returns a new <span class="d_inlinecode">DList</span> that's the concatenation of <span class="d_inlinecode">this</span> and its
+argument.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opBinaryRight"></a>DList <a name="opBinaryRight"></a><span class="ddoc_psymbol">opBinaryRight</span>(string op, Stuff)(Stuff <i>rhs</i>);
+<br><a name=".opBinaryRight"></a>DList <a name="opBinaryRight"></a><span class="ddoc_psymbol">opBinaryRight</span>(string op, Stuff)(Stuff <i>rhs</i>);
+</dt>
+<dd>Returns a new <span class="d_inlinecode">DList</span> that's the concatenation of the argument and <span class="d_inlinecode">this</span><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opOpAssign"></a>DList <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>rhs</i>);
+<br><a name=".opOpAssign"></a>DList <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>rhs</i>);
+</dt>
+<dd>Appends the contents of stuff into this.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+</dt>
+<dd>Removes all contents from the <span class="d_inlinecode">DList</span>.
+<p></p>
+<b>Postcondition:</b><br>
+<span class="d_inlinecode">empty</span>
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".insertFront"></a>size_t <a name="insertFront"></a><span class="ddoc_psymbol">insertFront</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insertBack"></a>size_t <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insert"></a>alias insertBack <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
+<br><a name=".stableInsert"></a>alias insert <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>;
+<br><a name=".stableInsertFront"></a>alias insertFront <a name="stableInsertFront"></a><span class="ddoc_psymbol">stableInsertFront</span>;
+<br><a name=".stableInsertBack"></a>alias insertBack <a name="stableInsertBack"></a><span class="ddoc_psymbol">stableInsertBack</span>;
+</dt>
+<dd>Inserts <span class="d_inlinecode">stuff</span> to the front/back of the container. <span class="d_inlinecode">stuff</span> can be a
+value convertible to <span class="d_inlinecode">T</span> or a range of objects convertible to <span class="d_inlinecode">T</span>. The stable version behaves the same, but guarantees that ranges
+iterating over the container are never invalidated.
+<p></p>
+<b>Returns:</b><br>The number of elements inserted
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".removeAny"></a>T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<br><a name=".stableRemoveAny"></a>alias removeAny <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
+</dt>
+<dd>Picks one value from the front of the container, removes it from the
+container, and returns it.
+<p></p>
+Elements are not actually removed from the chain, but the <span class="d_inlinecode">DList</span>'s,
+first/last pointer is advanced.
+
+<p></p>
+<b>Precondition:</b><br>
+<span class="d_inlinecode">!empty</span>
+
+<p></p>
+<b>Returns:</b><br>The element removed.
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".removeFront"></a>void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
+<br><a name=".stableRemoveFront"></a>alias removeFront <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
+<br><a name=".removeBack"></a>void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
+<br><a name=".stableRemoveBack"></a>alias removeBack <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
+</dt>
+<dd>Removes the value at the front/back of the container. The stable version
+behaves the same, but guarantees that ranges iterating over the
+container are never invalidated.
+<p></p>
+Elements are not actually removed from the chain, but the <span class="d_inlinecode">DList</span>'s,
+first/last pointer is advanced.
+
+<p></p>
+<b>Precondition:</b><br>
+<span class="d_inlinecode">!empty</span>
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".removeFront"></a>size_t <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>(size_t <i>howMany</i>);
+<br><a name=".stableRemoveFront"></a>alias removeFront <a name="stableRemoveFront"></a><span class="ddoc_psymbol">stableRemoveFront</span>;
+<br><a name=".removeBack"></a>size_t <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>(size_t <i>howMany</i>);
+<br><a name=".stableRemoveBack"></a>alias removeBack <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
+</dt>
+<dd>Removes <span class="d_inlinecode"><i>howMany</i></span> values at the front or back of the
+container. Unlike the unparameterized versions above, these functions
+do not throw if they could not remove <span class="d_inlinecode"><i>howMany</i></span> elements. Instead,
+if <span class="d_inlinecode"><i>howMany</i> &gt; n</span>, all elements are removed. The returned value is
+the effective number of elements removed. The stable version behaves
+the same, but guarantees that ranges iterating over the container are
+never invalidated.
+<p></p>
+Elements are not actually removed from the chain, but the <span class="d_inlinecode">DList</span>'s,
+first/last pointer is advanced.
+
+<p></p>
+<b>Returns:</b><br>The number of elements removed
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode"><i>howMany</i> * log(n)</span><b><i>)</i></b>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".insertBefore"></a>size_t <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableInsertBefore"></a>alias insertBefore <a name="stableInsertBefore"></a><span class="ddoc_psymbol">stableInsertBefore</span>;
+<br><a name=".insertAfter"></a>size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableInsertAfter"></a>alias insertAfter <a name="stableInsertAfter"></a><span class="ddoc_psymbol">stableInsertAfter</span>;
+</dt>
+<dd>Inserts <span class="d_inlinecode">stuff</span> after range <span class="d_inlinecode">r</span>, which must be a non-empty range
+previously extracted from this container.
+<p></p>
+<span class="d_inlinecode">stuff</span> can be a value convertible to <span class="d_inlinecode">T</span> or a range of objects
+convertible to <span class="d_inlinecode">T</span>. The stable version behaves the same, but
+guarantees that ranges iterating over the container are never
+invalidated.
+<p></p>
+
+Elements are not actually removed from the chain, but the <span class="d_inlinecode">DList</span>'s,
+first/last pointer is advanced.
+
+<p></p>
+<b>Returns:</b><br>The number of values inserted.
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">k + m</span><b><i>)</i></b>, where <span class="d_inlinecode">k</span> is the number of elements in
+<span class="d_inlinecode">r</span> and <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".remove"></a>Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Range <i>r</i>);
+<br><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(R)(R <i>r</i>);
+<br><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(R)(R <i>r</i>);
+</dt>
+<dd>Removes all elements belonging to <span class="d_inlinecode"><i>r</i></span>, which must be a range
+obtained originally from this container.
+<p></p>
+This function actually removes the elements from the chain. This is the
+only function that may invalidate a range, as it cuts the chain of elements:
+Ranges (and other DList) that contain <span class="d_inlinecode"><i>r</i></span> or that are inside <span class="d_inlinecode"><i>r</i></span>,
+as well a <span class="d_inlinecode"><i>r</i></span> itself, are never invalidated.
+Ranges (and other DList) which partially overlap with <span class="d_inlinecode"><i>r</i></span> will be cut,
+and invalidated.
+
+<p></p>
+<b>Returns:</b><br>A range spanning the remaining elements in the container that
+initially were right after <span class="d_inlinecode"><i>r</i></span>.
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(R)(R <i>r</i>);
+</dt>
+<dd><span class="d_inlinecode"><a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span></span> functions as <span class="d_inlinecode">remove</span>, but also accepts ranges that are
+result the of a <span class="d_inlinecode">take</span> operation. This is a convenient way to remove a
+fixed amount of elements from the range.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">r.walkLength</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".stableRemove"></a>alias remove <a name="stableRemove"></a><span class="ddoc_psymbol">stableRemove</span>;
+<br><a name=".stableLinearRemove"></a>alias linearRemove <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
+</dt>
+<dd>(RED Scheduled for deprecation. These methods are not actually stable.
+    Use the standard <span class="d_inlinecode">remove</span> or <span class="d_inlinecode">linearRemove</span> instead.<p></p>
+
+</dd>
+</dl>
+</dd>
+<dt class="d_decl"><a name=".Array"></a>struct <a name="Array"></a><span class="ddoc_psymbol">Array</span>(T) if (!is(T : const(bool)));
+</dt>
+<dd><a name="Array"></a><span class="ddoc_psymbol">Array</span> type with deterministic control of memory. The memory allocated
+for the array is reclaimed as soon as possible; there is no reliance
+on the garbage collector. <span class="d_inlinecode"><a name="Array"></a><span class="ddoc_psymbol">Array</span></span> uses <span class="d_inlinecode">malloc</span> and <span class="d_inlinecode">free</span>
+for managing its own memory.<p></p>
+
+<dl><dt class="d_decl"><a name=".opEquals"></a>const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(const Array <i>rhs</i>);
+<br><a name=".opEquals"></a>const bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(ref const Array <i>rhs</i>);
+</dt>
+<dd>Comparison for equality.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".Range"></a>struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+</dt>
+<dd>Defines the container's primary range, which is a random-access range.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".dup"></a>Array <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+</dt>
+<dd>Duplicates the container. The elements themselves are not transitively
+duplicated.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".empty"></a>const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+</dt>
+<dd>Property returning <span class="d_inlinecode"><b>true</b></span> if and only if the container has no
+elements.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".length"></a>const size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<br><a name=".opDollar"></a>const size_t <a name="opDollar"></a><span class="ddoc_psymbol">opDollar</span>();
 </dt>
 <dd>Returns the number of elements in the container.
 <p></p>
@@ -732,7 +1105,7 @@ duplicated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
+<dt class="d_decl"><a name=".capacity"></a>size_t <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
 </dt>
 <dd>Returns the maximum number of elements the container can store without
    (a) allocating memory, (b) invalidating iterators upon insertion.
@@ -741,7 +1114,7 @@ duplicated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="reserve"></a><span class="ddoc_psymbol">reserve</span>(size_t <i>elements</i>);
+<dt class="d_decl"><a name=".reserve"></a>void <a name="reserve"></a><span class="ddoc_psymbol">reserve</span>(size_t <i>elements</i>);
 </dt>
 <dd>Ensures sufficient capacity to accommodate <span class="d_inlinecode">e</span> <i>elements</i>.
 <p></p>
@@ -753,7 +1126,7 @@ duplicated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
 </dt>
 <dd>Returns a range that iterates over elements of the container, in
 forward order.
@@ -762,7 +1135,7 @@ forward order.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(size_t <i>a</i>, size_t <i>b</i>);
 </dt>
 <dd>Returns <i>a</i> range that iterates over elements of the container from
 index <span class="d_inlinecode"><i>a</i></span> up to (excluding) index <span class="d_inlinecode"><i>b</i></span>.
@@ -775,15 +1148,10 @@ index <span class="d_inlinecode"><i>a</i></span> up to (excluding) index <span c
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">const size_t <a name="opDollar"></a><span class="ddoc_psymbol">opDollar</span>();
-</dt>
-<dd>@@@BUG@@@ This doesn't work yet<p></p>
-
-</dd>
-<dt class="d_decl">T <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
-<br>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="back"></a><span class="ddoc_psymbol">back</span>(T <i>value</i>);
+<dt class="d_decl"><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(T <i>value</i>);
+<br><a name=".back"></a>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(T <i>value</i>);
 </dt>
 <dd>Forward to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span></span> and <span class="d_inlinecode">opSlice().back</span>, respectively.
 <p></p>
@@ -795,9 +1163,11 @@ index <span class="d_inlinecode"><i>a</i></span> up to (excluding) index <span c
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
-<br>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T <i>value</i>, size_t <i>i</i>);
-<br>void <a name="opIndexOpAssign"></a><span class="ddoc_psymbol">opIndexOpAssign</span>(string op)(T <i>value</i>, size_t <i>i</i>);
+<dt class="d_decl"><a name=".opIndex"></a>T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
+<br><a name=".opIndexUnary"></a>void <a name="opIndexUnary"></a><span class="ddoc_psymbol">opIndexUnary</span>(string op)(size_t <i>i</i>);
+<br><a name=".opIndexUnary"></a>T <a name="opIndexUnary"></a><span class="ddoc_psymbol">opIndexUnary</span>(string op)(size_t <i>i</i>);
+<br><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T <i>value</i>, size_t <i>i</i>);
+<br><a name=".opIndexOpAssign"></a>void <a name="opIndexOpAssign"></a><span class="ddoc_psymbol">opIndexOpAssign</span>(string op)(T <i>value</i>, size_t <i>i</i>);
 </dt>
 <dd>Indexing operators yield or modify the value at a specified index.
 <p></p>
@@ -809,7 +1179,22 @@ index <span class="d_inlinecode"><i>a</i></span> up to (excluding) index <span c
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Array <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".opSliceAssign"></a>void <a name="opSliceAssign"></a><span class="ddoc_psymbol">opSliceAssign</span>(T <i>value</i>);
+<br><a name=".opSliceUnary"></a>void <a name="opSliceUnary"></a><span class="ddoc_psymbol">opSliceUnary</span>(string op)(size_t <i>i</i>, size_t <i>j</i>);
+<br><a name=".opSliceOpAssign"></a>void <a name="opSliceOpAssign"></a><span class="ddoc_psymbol">opSliceOpAssign</span>(string op)(T <i>value</i>);
+<br><a name=".opSliceOpAssign"></a>void <a name="opSliceOpAssign"></a><span class="ddoc_psymbol">opSliceOpAssign</span>(string op)(T <i>value</i>, size_t <i>i</i>, size_t <i>j</i>);
+</dt>
+<dd>Slicing operations execute an operation on an entire slice.
+<p></p>
+<b>Precondition:</b><br>
+<span class="d_inlinecode">i &lt; j &amp;&amp; j &lt; length</span>
+
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">slice.length</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".opBinary"></a>Array <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Returns a new container that's the concatenation of <span class="d_inlinecode">this</span> and its
 argument. <span class="d_inlinecode">opBinaryRight</span> is only defined if <span class="d_inlinecode">Stuff</span> does not
@@ -819,12 +1204,12 @@ define <span class="d_inlinecode"><a name="opBinary"></a><span class="ddoc_psymb
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n + m</span><b><i>)</i></b>, where m is the number of elements in <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".opOpAssign"></a>void <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Forwards to <span class="d_inlinecode">insertBack(stuff)</span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
 </dt>
 <dd>Removes all contents from the container. The container decides how <span class="d_inlinecode">capacity</span> is affected.
 <p></p>
@@ -836,7 +1221,7 @@ define <span class="d_inlinecode"><a name="opBinary"></a><span class="ddoc_psymb
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="length"></a><span class="ddoc_psymbol">length</span>(size_t <i>newLength</i>);
+<dt class="d_decl"><a name=".length"></a>void <a name="length"></a><span class="ddoc_psymbol">length</span>(size_t <i>newLength</i>);
 </dt>
 <dd>Sets the number of elements in the container to <span class="d_inlinecode">newSize</span>. If <span class="d_inlinecode">newSize</span> is greater than <span class="d_inlinecode"><a name="length"></a><span class="ddoc_psymbol">length</span></span>, the added elements are added to
 unspecified positions in the container and initialized with <span class="d_inlinecode">T.init</span>.
@@ -849,8 +1234,8 @@ unspecified positions in the container and initialized with <span class="d_inlin
 <span class="d_inlinecode"><a name="length"></a><span class="ddoc_psymbol">length</span> == <i>newLength</i></span><p></p>
 
 </dd>
-<dt class="d_decl">T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
-<br>alias <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
+<dt class="d_decl"><a name=".removeAny"></a>T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<br><a name=".stableRemoveAny"></a>alias removeAny <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
 </dt>
 <dd>Picks one value in an unspecified position in the container, removes
 it from the container, and returns it. Implementations should pick the
@@ -869,8 +1254,8 @@ that ranges iterating over the container are never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
-<br>alias <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
+<dt class="d_decl"><a name=".insertBack"></a>size_t <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insert"></a>alias insertBack <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
 </dt>
 <dd>Inserts <span class="d_inlinecode">value</span> to the front or back of the container. <span class="d_inlinecode">stuff</span>
 can be a value convertible to <span class="d_inlinecode">T</span> or a range of objects convertible
@@ -885,8 +1270,8 @@ ranges iterating over the container are never invalidated.
 elements in <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
-<br>alias <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
+<dt class="d_decl"><a name=".removeBack"></a>void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
+<br><a name=".stableRemoveBack"></a>alias removeBack <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
 </dt>
 <dd>Removes the value at the back of the container. The stable version
 behaves the same, but guarantees that ranges iterating over the
@@ -900,8 +1285,8 @@ container are never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>(size_t <i>howMany</i>);
-<br>alias <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
+<dt class="d_decl"><a name=".removeBack"></a>size_t <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>(size_t <i>howMany</i>);
+<br><a name=".stableRemoveBack"></a>alias removeBack <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
 </dt>
 <dd>Removes <span class="d_inlinecode"><i>howMany</i></span> values at the front or back of the
 container. Unlike the unparameterized versions above, these functions
@@ -918,11 +1303,11 @@ never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode"><i>howMany</i></span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>size_t <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".insertBefore"></a>size_t <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".insertBefore"></a>size_t <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".insertAfter"></a>size_t <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".replace"></a>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".replace"></a>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
 </dt>
 <dd>Inserts <span class="d_inlinecode">stuff</span> before, after, or instead range <span class="d_inlinecode">r</span>, which must
 be a valid range previously extracted from this container. <span class="d_inlinecode">stuff</span>
@@ -937,8 +1322,8 @@ ranges iterating over the container are never invalidated.
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n + m</span><b><i>)</i></b>, where <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
-<br>alias <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
+<dt class="d_decl"><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
+<br><a name=".stableLinearRemove"></a>alias remove <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
 </dt>
 <dd>Removes all elements belonging to <span class="d_inlinecode"><i>r</i></span>, which must be a range
 obtained originally from this container. The stable version behaves
@@ -956,7 +1341,7 @@ initially were right after <span class="d_inlinecode"><i>r</i></span>.
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">struct <a name="BinaryHeap"></a><span class="ddoc_psymbol">BinaryHeap</span>(Store,alias less = "a &lt; b") if (isRandomAccessRange!(Store) || isRandomAccessRange!(typeof(Store.init[])));
+<dt class="d_decl"><a name=".BinaryHeap"></a>struct <a name="BinaryHeap"></a><span class="ddoc_psymbol">BinaryHeap</span>(Store, alias less = "a &lt; b") if (isRandomAccessRange!(Store) || isRandomAccessRange!(typeof(Store.init[])));
 </dt>
 <dd>Implements a <a href="http://en.wikipedia.org/wiki/Binary_heap">binary heap</a>
 container on top of a given random-access range type (usually <span class="d_inlinecode">T[]</span>) or a random-access container type (usually <span class="d_inlinecode">Array!T</span>). The
@@ -997,7 +1382,7 @@ container.
 </pre>
 <p></p>
 
-<dl><dt class="d_decl">auto this(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
+<dl><dt class="d_decl"><a name=".this"></a> this(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
 </dt>
 <dd>Converts the store <span class="d_inlinecode"><i>s</i></span> into a heap. If <span class="d_inlinecode"><i>initialSize</i></span> is
        specified, only the first <span class="d_inlinecode"><i>initialSize</i></span> elements in <span class="d_inlinecode"><i>s</i></span>
@@ -1007,70 +1392,70 @@ container.
        <b><i>&Omicron;</i>(</b><span class="d_inlinecode">min(r.length, <i>initialSize</i>)</span><b><i>)</i></b> evaluations of <span class="d_inlinecode">less</span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="acquire"></a><span class="ddoc_psymbol">acquire</span>(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
+<dt class="d_decl"><a name=".acquire"></a>void <a name="acquire"></a><span class="ddoc_psymbol">acquire</span>(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
 </dt>
 <dd>Takes ownership of a store. After this, manipulating <span class="d_inlinecode"><i>s</i></span> may make
 the heap work incorrectly.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="assume"></a><span class="ddoc_psymbol">assume</span>(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
+<dt class="d_decl"><a name=".assume"></a>void <a name="assume"></a><span class="ddoc_psymbol">assume</span>(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
 </dt>
 <dd>Takes ownership of a store assuming it already was organized as a
 heap.<p></p>
 
 </dd>
-<dt class="d_decl">auto <a name="release"></a><span class="ddoc_psymbol">release</span>();
+<dt class="d_decl"><a name=".release"></a>auto <a name="release"></a><span class="ddoc_psymbol">release</span>();
 </dt>
 <dd>Clears the heap. Returns the portion of the store from <span class="d_inlinecode">0</span> up to
 <span class="d_inlinecode">length</span>, which satisfies the <a href="http://google.com/search?btnI=I%27m+Feeling+Lucky&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=heap property">heap property</a>.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if the heap is empty, <span class="d_inlinecode"><b>false</b></span> otherwise.<p></p>
 
 </dd>
-<dt class="d_decl">BinaryHeap <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+<dt class="d_decl"><a name=".dup"></a>BinaryHeap <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
 </dt>
 <dd>Returns a duplicate of the heap. The underlying store must also
 support a <span class="d_inlinecode"><a name="dup"></a><span class="ddoc_psymbol">dup</span></span> method.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Returns the length of the heap.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
+<dt class="d_decl"><a name=".capacity"></a>size_t <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
 </dt>
 <dd>Returns the capacity of the heap, which is the length of the
 underlying store (if the store is a range) or the capacity of the
 underlying store (if the store is a container).<p></p>
 
 </dd>
-<dt class="d_decl">ElementType!(Store) <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<dt class="d_decl"><a name=".front"></a>ElementType!(Store) <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd>Returns a copy of the front of the heap, which is the largest element
 according to <span class="d_inlinecode">less</span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
 </dt>
 <dd>Clears the heap by detaching it from the underlying store.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="insert"></a><span class="ddoc_psymbol">insert</span>(ElementType!(Store) <i>value</i>);
+<dt class="d_decl"><a name=".insert"></a>size_t <a name="insert"></a><span class="ddoc_psymbol">insert</span>(ElementType!(Store) <i>value</i>);
 </dt>
 <dd>Inserts <span class="d_inlinecode"><i>value</i></span> into the store. If the underlying store is a range
 and <span class="d_inlinecode">length == capacity</span>, throws an exception.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
+<dt class="d_decl"><a name=".removeFront"></a>void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
 </dt>
 <dd>Removes the largest element from the heap.<p></p>
 
 </dd>
-<dt class="d_decl">ElementType!(Store) <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<dt class="d_decl"><a name=".removeAny"></a>ElementType!(Store) <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
 </dt>
 <dd>Removes the largest element from the heap and returns a copy of
 it. The element still resides in the heap's store. For performance
@@ -1078,12 +1463,12 @@ reasons you may want to use <span class="d_inlinecode">removeFront</span> with h
 that are expensive to copy.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="replaceFront"></a><span class="ddoc_psymbol">replaceFront</span>(ElementType!(Store) <i>value</i>);
+<dt class="d_decl"><a name=".replaceFront"></a>void <a name="replaceFront"></a><span class="ddoc_psymbol">replaceFront</span>(ElementType!(Store) <i>value</i>);
 </dt>
 <dd>Replaces the largest element in the store with <span class="d_inlinecode"><i>value</i></span>.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="conditionalInsert"></a><span class="ddoc_psymbol">conditionalInsert</span>(ElementType!(Store) <i>value</i>);
+<dt class="d_decl"><a name=".conditionalInsert"></a>bool <a name="conditionalInsert"></a><span class="ddoc_psymbol">conditionalInsert</span>(ElementType!(Store) <i>value</i>);
 </dt>
 <dd>If the heap has room to grow, inserts <span class="d_inlinecode"><i>value</i></span> into the store and
 returns <span class="d_inlinecode"><b>true</b></span>. Otherwise, if <span class="d_inlinecode">less(<i>value</i>, front)</span>, calls <span class="d_inlinecode">replaceFront(<i>value</i>)</span> and returns again <span class="d_inlinecode"><b>true</b></span>. Otherwise, leaves
@@ -1094,41 +1479,41 @@ must be collected.<p></p>
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">BinaryHeap!(Store) <a name="heapify"></a><span class="ddoc_psymbol">heapify</span>(Store)(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
+<dt class="d_decl"><a name=".heapify"></a>BinaryHeap!(Store) <a name="heapify"></a><span class="ddoc_psymbol">heapify</span>(Store)(Store <i>s</i>, size_t <i>initialSize</i> = size_t.max);
 </dt>
 <dd>Convenience function that returns a <span class="d_inlinecode">BinaryHeap!Store</span> object
 initialized with <span class="d_inlinecode">s</span> and <span class="d_inlinecode">initialSize</span>.<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Array"></a><span class="ddoc_psymbol">Array</span>(T) if (is(T == bool));
+<dt class="d_decl"><a name=".Array"></a>struct <a name="Array"></a><span class="ddoc_psymbol">Array</span>(T) if (is(T == bool));
 </dt>
 <dd>Array specialized for <span class="d_inlinecode">bool</span>. Packs together values efficiently by
 allocating one bit per element.<p></p>
 
-<dl><dt class="d_decl">struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+<dl><dt class="d_decl"><a name=".Range"></a>struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
 </dt>
 <dd>Defines the container's primary range.<p></p>
 
-<dl><dt class="d_decl">Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
-<br>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
-<br>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="front"></a><span class="ddoc_psymbol">front</span>(bool <i>value</i>);
-<br>T <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
-<br>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
-<br>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>T <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
-<br>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
-<br>T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
-<br>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T <i>value</i>, size_t <i>i</i>);
-<br>T <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>i</i>);
-<br>const ulong <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dl><dt class="d_decl"><a name=".save"></a>Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<br><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<br><a name=".front"></a>T <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(bool <i>value</i>);
+<br><a name=".moveFront"></a>T <a name="moveFront"></a><span class="ddoc_psymbol">moveFront</span>();
+<br><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<br><a name=".back"></a>T <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".moveBack"></a>T <a name="moveBack"></a><span class="ddoc_psymbol">moveBack</span>();
+<br><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<br><a name=".opIndex"></a>T <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(size_t <i>i</i>);
+<br><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T <i>value</i>, size_t <i>i</i>);
+<br><a name=".moveAt"></a>T <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(size_t <i>i</i>);
+<br><a name=".length"></a>const ulong <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Range primitives<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd>Property returning <span class="d_inlinecode"><b>true</b></span> if and only if the container has
        no elements.
@@ -1137,7 +1522,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Array!(bool) <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+<dt class="d_decl"><a name=".dup"></a>Array!(bool) <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
 </dt>
 <dd>Returns a duplicate of the container. The elements themselves
        are not transitively duplicated.
@@ -1146,7 +1531,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>ulong <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Returns the number of elements in the container.
 <p></p>
@@ -1154,7 +1539,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
+<dt class="d_decl"><a name=".capacity"></a>ulong <a name="capacity"></a><span class="ddoc_psymbol">capacity</span>();
 </dt>
 <dd>Returns the maximum number of elements the container can store
        without (a) allocating memory, (b) invalidating iterators upon
@@ -1164,7 +1549,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="reserve"></a><span class="ddoc_psymbol">reserve</span>(ulong <i>e</i>);
+<dt class="d_decl"><a name=".reserve"></a>void <a name="reserve"></a><span class="ddoc_psymbol">reserve</span>(ulong <i>e</i>);
 </dt>
 <dd>Ensures sufficient capacity to accommodate <span class="d_inlinecode">n</span> elements.
 <p></p>
@@ -1177,7 +1562,7 @@ allocating one bit per element.<p></p>
        otherwise <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
 </dt>
 <dd>Returns a range that iterates over all elements of the
        container, in a container-defined order. The container should
@@ -1187,7 +1572,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(ulong <i>a</i>, ulong <i>b</i>);
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>(ulong <i>a</i>, ulong <i>b</i>);
 </dt>
 <dd>Returns <i>a</i> range that iterates the container between two
        specified positions.
@@ -1196,10 +1581,10 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="front"></a><span class="ddoc_psymbol">front</span>();
-<br>void <a name="front"></a><span class="ddoc_psymbol">front</span>(bool <i>value</i>);
-<br>bool <a name="back"></a><span class="ddoc_psymbol">back</span>();
-<br>void <a name="back"></a><span class="ddoc_psymbol">back</span>(bool <i>value</i>);
+<dt class="d_decl"><a name=".front"></a>bool <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<br><a name=".front"></a>void <a name="front"></a><span class="ddoc_psymbol">front</span>(bool <i>value</i>);
+<br><a name=".back"></a>bool <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<br><a name=".back"></a>void <a name="back"></a><span class="ddoc_psymbol">back</span>(bool <i>value</i>);
 </dt>
 <dd>Equivalent to <span class="d_inlinecode">opSlice().<a name="front"></a><span class="ddoc_psymbol">front</span></span> and <span class="d_inlinecode">opSlice().back</span>,
        respectively.
@@ -1208,15 +1593,15 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(ulong <i>i</i>);
-<br>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(bool <i>value</i>, ulong <i>i</i>);
-<br>void <a name="opIndexOpAssign"></a><span class="ddoc_psymbol">opIndexOpAssign</span>(string op)(bool <i>value</i>, ulong <i>i</i>);
-<br>T <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(ulong <i>i</i>);
+<dt class="d_decl"><a name=".opIndex"></a>bool <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(ulong <i>i</i>);
+<br><a name=".opIndexAssign"></a>void <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(bool <i>value</i>, ulong <i>i</i>);
+<br><a name=".opIndexOpAssign"></a>void <a name="opIndexOpAssign"></a><span class="ddoc_psymbol">opIndexOpAssign</span>(string op)(bool <i>value</i>, ulong <i>i</i>);
+<br><a name=".moveAt"></a>T <a name="moveAt"></a><span class="ddoc_psymbol">moveAt</span>(ulong <i>i</i>);
 </dt>
 <dd>Indexing operators yield or modify the value at a specified index.<p></p>
 
 </dd>
-<dt class="d_decl">Array!(bool) <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
+<dt class="d_decl"><a name=".opBinary"></a>Array!(bool) <a name="opBinary"></a><span class="ddoc_psymbol">opBinary</span>(string op, Stuff)(Stuff <i>rhs</i>);
 </dt>
 <dd>Returns a new container that's the concatenation of <span class="d_inlinecode">this</span>
        and its argument.
@@ -1226,12 +1611,12 @@ allocating one bit per element.<p></p>
        in <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">Array!(bool) <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".opOpAssign"></a>Array!(bool) <a name="opOpAssign"></a><span class="ddoc_psymbol">opOpAssign</span>(string op, Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Forwards to <span class="d_inlinecode">insertAfter(this[], stuff)</span>.<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
 </dt>
 <dd>Removes all contents from the container. The container decides
        how <span class="d_inlinecode">capacity</span> is affected.
@@ -1244,7 +1629,7 @@ allocating one bit per element.<p></p>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="length"></a><span class="ddoc_psymbol">length</span>(ulong <i>newLength</i>);
+<dt class="d_decl"><a name=".length"></a>void <a name="length"></a><span class="ddoc_psymbol">length</span>(ulong <i>newLength</i>);
 </dt>
 <dd>Sets the number of elements in the container to <span class="d_inlinecode">      newSize</span>. If <span class="d_inlinecode">newSize</span> is greater than <span class="d_inlinecode"><a name="length"></a><span class="ddoc_psymbol">length</span></span>, the
        added elements are added to the container and initialized with
@@ -1258,8 +1643,8 @@ allocating one bit per element.<p></p>
 <span class="d_inlinecode">length == <i>newLength</i></span><p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
-<br>alias <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>;
+<dt class="d_decl"><a name=".insert"></a>alias insertBack <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
+<br><a name=".stableInsert"></a>alias insertBack <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>;
 </dt>
 <dd>Inserts <span class="d_inlinecode">stuff</span> in the container. <span class="d_inlinecode">stuff</span> can be a value
        convertible to <span class="d_inlinecode">ElementType</span> or a range of objects
@@ -1278,15 +1663,15 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
        elements in <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="linearInsert"></a><span class="ddoc_psymbol">linearInsert</span>;
-<br>alias <a name="stableLinearInsert"></a><span class="ddoc_psymbol">stableLinearInsert</span>;
+<dt class="d_decl"><a name=".linearInsert"></a>alias insertBack <a name="linearInsert"></a><span class="ddoc_psymbol">linearInsert</span>;
+<br><a name=".stableLinearInsert"></a>alias insertBack <a name="stableLinearInsert"></a><span class="ddoc_psymbol">stableLinearInsert</span>;
 </dt>
 <dd>Same as <span class="d_inlinecode">insert(stuff)</span> and <span class="d_inlinecode">stableInsert(stuff)</span>
        respectively, but relax the complexity constraint to linear.<p></p>
 
 </dd>
-<dt class="d_decl">T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
-<br>alias <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
+<dt class="d_decl"><a name=".removeAny"></a>T <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<br><a name=".stableRemoveAny"></a>alias removeAny <a name="stableRemoveAny"></a><span class="ddoc_psymbol">stableRemoveAny</span>;
 </dt>
 <dd>Picks one value in the container, removes it from the
        container, and returns it. The stable version behaves the same,
@@ -1304,9 +1689,9 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
-<br>ulong <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
-<br>alias <a name="stableInsertBack"></a><span class="ddoc_psymbol">stableInsertBack</span>;
+<dt class="d_decl"><a name=".insertBack"></a>ulong <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insertBack"></a>ulong <a name="insertBack"></a><span class="ddoc_psymbol">insertBack</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".stableInsertBack"></a>alias insertBack <a name="stableInsertBack"></a><span class="ddoc_psymbol">stableInsertBack</span>;
 </dt>
 <dd>Inserts <span class="d_inlinecode">value</span> to the back of the container. <span class="d_inlinecode">stuff</span> can
        be a value convertible to <span class="d_inlinecode">ElementType</span> or a range of
@@ -1321,8 +1706,8 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
-<br>alias <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
+<dt class="d_decl"><a name=".removeBack"></a>void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
+<br><a name=".stableRemoveBack"></a>alias removeBack <a name="stableRemoveBack"></a><span class="ddoc_psymbol">stableRemoveBack</span>;
 </dt>
 <dd>Removes the value at the front or back of the container. The
        stable version behaves the same, but guarantees that ranges
@@ -1339,7 +1724,7 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>(ulong <i>howMany</i>);
+<dt class="d_decl"><a name=".removeBack"></a>ulong <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>(ulong <i>howMany</i>);
 </dt>
 <dd>Removes <span class="d_inlinecode"><i>howMany</i></span> values at the front or back of the
        container. Unlike the unparameterized versions above, these
@@ -1358,12 +1743,12 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
  ditto<p></p>
 
 </dd>
-<dt class="d_decl">ulong <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>alias <a name="stableInsertBefore"></a><span class="ddoc_psymbol">stableInsertBefore</span>;
-<br>ulong <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>alias <a name="stableInsertAfter"></a><span class="ddoc_psymbol">stableInsertAfter</span>;
-<br>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
-<br>alias <a name="stableReplace"></a><span class="ddoc_psymbol">stableReplace</span>;
+<dt class="d_decl"><a name=".insertBefore"></a>ulong <a name="insertBefore"></a><span class="ddoc_psymbol">insertBefore</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableInsertBefore"></a>alias insertBefore <a name="stableInsertBefore"></a><span class="ddoc_psymbol">stableInsertBefore</span>;
+<br><a name=".insertAfter"></a>ulong <a name="insertAfter"></a><span class="ddoc_psymbol">insertAfter</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableInsertAfter"></a>alias insertAfter <a name="stableInsertAfter"></a><span class="ddoc_psymbol">stableInsertAfter</span>;
+<br><a name=".replace"></a>size_t <a name="replace"></a><span class="ddoc_psymbol">replace</span>(Stuff)(Range <i>r</i>, Stuff <i>stuff</i>);
+<br><a name=".stableReplace"></a>alias replace <a name="stableReplace"></a><span class="ddoc_psymbol">stableReplace</span>;
 </dt>
 <dd>Inserts <span class="d_inlinecode">stuff</span> before, after, or instead range <span class="d_inlinecode">r</span>,
        which must be a valid range previously extracted from this
@@ -1378,8 +1763,8 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n + m</span><b><i>)</i></b>, where <span class="d_inlinecode">m</span> is the length of <span class="d_inlinecode">stuff</span><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
-<br>alias <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
+<dt class="d_decl"><a name=".linearRemove"></a>Range <a name="linearRemove"></a><span class="ddoc_psymbol">linearRemove</span>(Range <i>r</i>);
+<br><a name=".stableLinearRemove"></a>alias linearRemove <a name="stableLinearRemove"></a><span class="ddoc_psymbol">stableLinearRemove</span>;
 </dt>
 <dd>Removes all elements belonging to <span class="d_inlinecode"><i>r</i></span>, which must be a range
        obtained originally from this container. The stable version
@@ -1396,7 +1781,7 @@ The <span class="d_inlinecode">stable</span> version guarantees that ranges iter
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">class <a name="RedBlackTree"></a><span class="ddoc_psymbol">RedBlackTree</span>(T,alias less = "a &lt; b",bool allowDuplicates = false) if (is(typeof(binaryFun!(less)(T.init,T.init))));
+<dt class="d_decl"><a name=".RedBlackTree"></a>class <a name="RedBlackTree"></a><span class="ddoc_psymbol">RedBlackTree</span>(T, alias less = "a &lt; b", bool allowDuplicates = false) if (is(typeof(binaryFun!(less)(T.init, T.init))));
 </dt>
 <dd>Implementation of a <a href="http://google.com/search?btnI=I%27m+Feeling+Lucky&amp;ie=UTF-8&amp;oe=UTF-8&amp;q=red-black tree">red-black tree</a> container.
 <p></p>
@@ -1420,31 +1805,31 @@ All inserts, removes, searches, and any function in general has complexity
  ignored on insertion.  If duplicates are allowed, then new elements are
  inserted after all existing duplicate elements.<p></p>
 
-<dl><dt class="d_decl">alias <a name="Elem"></a><span class="ddoc_psymbol">Elem</span>;
+<dl><dt class="d_decl"><a name=".Elem"></a>alias T <a name="Elem"></a><span class="ddoc_psymbol">Elem</span>;
 </dt>
 <dd>Element type for the tree<p></p>
 
 </dd>
-<dt class="d_decl">struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
+<dt class="d_decl"><a name=".Range"></a>struct <a name="Range"></a><span class="ddoc_psymbol">Range</span>;
 </dt>
 <dd>The range type for <span class="d_inlinecode">RedBlackTree</span><p></p>
 
-<dl><dt class="d_decl">const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dl><dt class="d_decl"><a name=".empty"></a>const bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
 <dd>Returns <span class="d_inlinecode"><b>true</b></span> if the range is empty<p></p>
 
 </dd>
-<dt class="d_decl">Elem <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<dt class="d_decl"><a name=".front"></a>Elem <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd>Returns the first element in the range<p></p>
 
 </dd>
-<dt class="d_decl">Elem <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<dt class="d_decl"><a name=".back"></a>Elem <a name="back"></a><span class="ddoc_psymbol">back</span>();
 </dt>
 <dd>Returns the last element in the range<p></p>
 
 </dd>
-<dt class="d_decl">void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
+<dt class="d_decl"><a name=".popFront"></a>void <a name="popFront"></a><span class="ddoc_psymbol">popFront</span>();
 </dt>
 <dd>pop the front element from the range
 <p></p>
@@ -1452,7 +1837,7 @@ All inserts, removes, searches, and any function in general has complexity
 amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
+<dt class="d_decl"><a name=".popBack"></a>void <a name="popBack"></a><span class="ddoc_psymbol">popBack</span>();
 </dt>
 <dd>pop the back element from the range
 <p></p>
@@ -1460,20 +1845,20 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
+<dt class="d_decl"><a name=".save"></a>Range <a name="save"></a><span class="ddoc_psymbol">save</span>();
 </dt>
 <dd>Trivial save implementation, needed for <span class="d_inlinecode">isForwardRange</span>.<p></p>
 
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
+<dt class="d_decl"><a name=".empty"></a>bool <a name="empty"></a><span class="ddoc_psymbol">empty</span>();
 </dt>
-<dd>Check if any elements exist in the container.  Returns <span class="d_inlinecode"><b>true</b></span> if at least
+<dd>Check if any elements exist in the container.  Returns <span class="d_inlinecode"><b>false</b></span> if at least
  one element exists.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>Returns the number of elements in the container.
 <p></p>
@@ -1481,7 +1866,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b>.<p></p>
 
 </dd>
-<dt class="d_decl">RedBlackTree <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
+<dt class="d_decl"><a name=".dup"></a>RedBlackTree <a name="dup"></a><span class="ddoc_psymbol">dup</span>();
 </dt>
 <dd>Duplicate this container.  The resulting container contains a shallow
  copy of the elements.
@@ -1490,7 +1875,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">n</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
+<dt class="d_decl"><a name=".opSlice"></a>Range <a name="opSlice"></a><span class="ddoc_psymbol">opSlice</span>();
 </dt>
 <dd>Fetch a range that spans all the elements in the container.
 <p></p>
@@ -1498,7 +1883,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Elem <a name="front"></a><span class="ddoc_psymbol">front</span>();
+<dt class="d_decl"><a name=".front"></a>Elem <a name="front"></a><span class="ddoc_psymbol">front</span>();
 </dt>
 <dd>The <a name="front"></a><span class="ddoc_psymbol">front</span> element in the container
 <p></p>
@@ -1506,7 +1891,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Elem <a name="back"></a><span class="ddoc_psymbol">back</span>();
+<dt class="d_decl"><a name=".back"></a>Elem <a name="back"></a><span class="ddoc_psymbol">back</span>();
 </dt>
 <dd>The last element in the container
 <p></p>
@@ -1514,7 +1899,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="opBinaryRight"></a><span class="ddoc_psymbol">opBinaryRight</span>(string op)(Elem <i>e</i>);
+<dt class="d_decl"><a name=".opBinaryRight"></a>bool <a name="opBinaryRight"></a><span class="ddoc_psymbol">opBinaryRight</span>(string op)(Elem <i>e</i>);
 </dt>
 <dd><span class="d_inlinecode">in</span> operator. Check to see if the given element exists in the
         container.
@@ -1523,7 +1908,15 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
+<dt class="d_decl"><a name=".opEquals"></a>bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(Object <i>rhs</i>);
+</dt>
+<dd>Compares two trees for equality.
+<p></p>
+<b>Complexity:</b><br>
+<b><i>&Omicron;</i>(</b><span class="d_inlinecode">n*log(n)</span><b><i>)</i></b><p></p>
+
+</dd>
+<dt class="d_decl"><a name=".clear"></a>void <a name="clear"></a><span class="ddoc_psymbol">clear</span>();
 </dt>
 <dd>Removes all elements from the container.
 <p></p>
@@ -1531,7 +1924,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>(Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".stableInsert"></a>size_t <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>(Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Insert a single element in the container.  Note that this does not
  invalidate any ranges currently iterating the container.
@@ -1540,8 +1933,8 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>(Stuff)(Stuff <i>stuff</i>);
-<br>alias <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
+<dt class="d_decl"><a name=".stableInsert"></a>size_t <a name="stableInsert"></a><span class="ddoc_psymbol">stableInsert</span>(Stuff)(Stuff <i>stuff</i>);
+<br><a name=".insert"></a>alias stableInsert <a name="insert"></a><span class="ddoc_psymbol">insert</span>;
 </dt>
 <dd>Insert a range of elements in the container.  Note that this does not
  invalidate any ranges currently iterating the container.
@@ -1550,7 +1943,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">m * log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Elem <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
+<dt class="d_decl"><a name=".removeAny"></a>Elem <a name="removeAny"></a><span class="ddoc_psymbol">removeAny</span>();
 </dt>
 <dd>Remove an element from the container and return its value.
 <p></p>
@@ -1558,7 +1951,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
+<dt class="d_decl"><a name=".removeFront"></a>void <a name="removeFront"></a><span class="ddoc_psymbol">removeFront</span>();
 </dt>
 <dd>Remove the front element from the container.
 <p></p>
@@ -1566,7 +1959,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
+<dt class="d_decl"><a name=".removeBack"></a>void <a name="removeBack"></a><span class="ddoc_psymbol">removeBack</span>();
 </dt>
 <dd>Remove the back element from the container.
 <p></p>
@@ -1574,7 +1967,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Range <i>r</i>);
+<dt class="d_decl"><a name=".remove"></a>Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Range <i>r</i>);
 </dt>
 <dd>Removes the given range from the container.
 <p></p>
@@ -1587,7 +1980,7 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
                     the range)<p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Take!(Range) <i>r</i>);
+<dt class="d_decl"><a name=".remove"></a>Range <a name="remove"></a><span class="ddoc_psymbol">remove</span>(Take!(Range) <i>r</i>);
 </dt>
 <dd>Removes the given <span class="d_inlinecode">Take!Range</span> from the container
 <p></p>
@@ -1600,8 +1993,9 @@ amortized <b><i>&Omicron;</i>(</b><span class="d_inlinecode">1</span><b><i>)</i>
                     the range)<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="removeKey"></a><span class="ddoc_psymbol">removeKey</span>(U)(U[] <i>elems</i>...);
-<br>size_t <a name="removeKey"></a><span class="ddoc_psymbol">removeKey</span>(Stuff)(Stuff <i>stuff</i>);
+<dt class="d_decl"><a name=".removeKey"></a>size_t <a name="removeKey"></a><span class="ddoc_psymbol">removeKey</span>(U...)(U <i>elems</i>);
+<br><a name=".removeKey"></a>size_t <a name="removeKey"></a><span class="ddoc_psymbol">removeKey</span>(U)(U[] <i>elems</i>);
+<br><a name=".removeKey"></a>size_t <a name="removeKey"></a><span class="ddoc_psymbol">removeKey</span>(Stuff)(Stuff <i>stuff</i>);
 </dt>
 <dd>Removes elements from the container that are equal to the given values
        according to the less comparator. One element is removed for each value
@@ -1624,7 +2018,7 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 <p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="upperBound"></a><span class="ddoc_psymbol">upperBound</span>(Elem <i>e</i>);
+<dt class="d_decl"><a name=".upperBound"></a>Range <a name="upperBound"></a><span class="ddoc_psymbol">upperBound</span>(Elem <i>e</i>);
 </dt>
 <dd>Get a range from the container with all elements that are &gt; <i>e</i> according
  to the less comparator
@@ -1633,7 +2027,7 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="lowerBound"></a><span class="ddoc_psymbol">lowerBound</span>(Elem <i>e</i>);
+<dt class="d_decl"><a name=".lowerBound"></a>Range <a name="lowerBound"></a><span class="ddoc_psymbol">lowerBound</span>(Elem <i>e</i>);
 </dt>
 <dd>Get a range from the container with all elements that are &lt; <i>e</i> according
  to the less comparator
@@ -1642,7 +2036,7 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">Range <a name="equalRange"></a><span class="ddoc_psymbol">equalRange</span>(Elem <i>e</i>);
+<dt class="d_decl"><a name=".equalRange"></a>Range <a name="equalRange"></a><span class="ddoc_psymbol">equalRange</span>(Elem <i>e</i>);
 </dt>
 <dd>Get a range from the container with all elements that are == <i>e</i> according
  to the less comparator
@@ -1651,11 +2045,11 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 <b><i>&Omicron;</i>(</b><span class="d_inlinecode">log(n)</span><b><i>)</i></b><p></p>
 
 </dd>
-<dt class="d_decl">auto this();
+<dt class="d_decl"><a name=".this"></a> this();
 </dt>
 <dd><p></p>
 </dd>
-<dt class="d_decl">auto this(Elem[] <i>elems</i>...);
+<dt class="d_decl"><a name=".this"></a> this(Elem[] <i>elems</i>...);
 </dt>
 <dd>Constructor.  Pass in an array of elements, or individual elements to
        initialize the tree with.<p></p>
@@ -1663,10 +2057,10 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(E)(E[] <i>elems</i>...);
-<br>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(bool allowDuplicates, E)(E[] <i>elems</i>...);
-<br>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(alias less, E)(E[] <i>elems</i>...);
-<br>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(alias less, bool allowDuplicates, E)(E[] <i>elems</i>...);
+<dt class="d_decl"><a name=".redBlackTree"></a>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(E)(E[] <i>elems</i>...);
+<br><a name=".redBlackTree"></a>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(bool allowDuplicates, E)(E[] <i>elems</i>...);
+<br><a name=".redBlackTree"></a>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(alias less, E)(E[] <i>elems</i>...);
+<br><a name=".redBlackTree"></a>auto <a name="redBlackTree"></a><span class="ddoc_psymbol">redBlackTree</span>(alias less, bool allowDuplicates, E)(E[] <i>elems</i>...);
 </dt>
 <dd>Convenience function for creating a <span class="d_inlinecode">RedBlackTree!E</span> from a list of
     values.
@@ -1694,9 +2088,9 @@ rbt.<span class="d_psymbol">removeKey</span>(1, 1, 0);
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

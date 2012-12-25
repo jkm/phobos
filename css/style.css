@@ -1,7 +1,5 @@
 body
 {
-    text-align: justify;
-	margin: 0;
 	padding: 0;
 	border: 0;
 	color: black;
@@ -10,6 +8,9 @@ body
 	background-repeat: no-repeat;
 	font-size: 100%;
 	font-family: Verdana, "Deja Vu", "Bitstream Vera Sans", sans-serif;
+	min-width: 60em;
+/*     max-width: 1590px; */
+    margin: 0px auto;
 }
 
 h1, h2, h3, h4, h5, h6
@@ -224,7 +225,7 @@ td .d_code2, td .cppcode2, td .cppcode
 
 div#top
 {
-	max-width: 85em;
+/* 	max-width: 85em; */
 }
 
 div#header
@@ -234,7 +235,7 @@ div#header
 
 img#logo
 {
-	vertical-align: bottom;
+	vertical-align: text-bottom;
 }
 
 /*div#d-language a*/
@@ -247,13 +248,23 @@ img#logo
 	text-decoration: none;
 }
 
+img#github-ribbon
+{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 0;
+  z-index: 1;
+}
+
 div#search-box
 {
 	background-color: transparent;
-	float: right;
-	margin-top: 2em;
-	margin-right: 1.6em;
+	position: absolute;
+	top: 2em;
+	right: 7em;
 	text-align: right;
+	z-index: 2;
 }
 
 div#search-box img, div#search-box input, div#search-box select
@@ -271,6 +282,11 @@ div#search-box input#q
 	color: black;
 }
 
+div#search-box select
+{
+    width: 14em;
+}
+
 div#search-box input#q:focus
 {
 	outline: none;
@@ -283,6 +299,56 @@ div#navigation
 	float: left;
 	width: 11.5em;
 	padding: 0 1.5em;
+}
+
+div#content
+{
+    text-align: justify;
+	min-height: 440px;
+	margin-left: 13.5em;
+	padding: 1.6em;
+	padding-top: 1.3em;
+	padding-bottom: 1em;
+	margin-right: 0.5em;
+	border: 0.4em solid #ccd5d5;
+	background-color: #f6f6f6;
+	font-size: 0.875em;
+	line-height: 1.4em;
+	text-align: justify;
+}
+
+body.chm
+{
+	min-width: 0 !important;
+}
+
+body.chm div#content
+{
+	padding: 20px;
+	border: none;
+	margin: 0 !important;
+}
+
+body.chm div#tools
+{
+	margin-right: 0;
+}
+
+span#wiki
+{
+	position: relative;
+	right: 0;
+	z-index: 2;
+}
+
+div#twitter
+{
+	color: white;
+	font-size: 0.875em;
+	float: right;
+	width: 16em;
+	padding: 1em 1em;
+    margin-top: -1em;
 }
 
 div.navblock
@@ -343,22 +409,46 @@ div#translate
 
 div#tools
 {
-	margin: -1.5em;
-	margin-bottom: 0;
+	display: inline;
+	float: right;
+	margin: 0;
+	margin-top: -15px;
+	margin-right: -18px;
 	text-align: right;
 }
 
-div#tools span
+div#tools > a.button
 {
-	padding-left: 0.5em;
-	font-size: 0.8em;
-	font-style: italic;
-	color: #666;
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:0px 6px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
 }
 
-div#tools a
+div#tools > a.button:hover
 {
-	color: #666;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+div#tools > a.button:active
+{
+	position: relative;
+	top: 1px;
 }
 
 div#tools img
@@ -366,21 +456,36 @@ div#tools img
 	vertical-align: middle;
 }
 
-
-div#content
-{
-	min-height: 440px;
-	max-width: 76em;
-	margin-left: 15em;
-	margin-right: 1.6em;
-	padding: 1.6em;
-	padding-top: 1.3em;
-	border: 0.6em solid #ccd5d5;
-	background-color: #f6f6f6;
-	font-size: 0.875em;
-	line-height: 1.4em;
-	text-align: justify;
+a.tip {
+	position: relative;
 }
+
+a.tip span {
+	display: none;
+	position: absolute;
+	top: 25px;
+	left: auto;
+	right: 0;
+	width: 200px;
+	padding: 8px !important;
+	z-index: 100;
+	background: #000;
+	color: #eee !important;
+	font-style: normal !important;
+	font-size: 10px;
+	text-align: left;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+
+	/* undo inherited attributes */
+	text-shadow: none;
+}
+
+a:hover.tip span {
+	display: block;
+}
+
 
 div#content li
 {
@@ -397,11 +502,12 @@ div#google_ad
 div#footernav
 {
     clear: both;
-	margin-top: 2em;
+/* 	margin-top: 2em; */
 	padding: 1em 2em 0 2em;
-	background-color: #303333;
+/* 	background-color: #303333; */
 	color: #666;
 	text-align: center;
+	font-size: 80%;
 }
 
 div#footernav a
@@ -418,9 +524,9 @@ div#footernav a:hover
 div#copyright
 {
 	padding: 1em 2em;
-	background-color: #303333;
+/* 	background-color: #303333; */
 	color: #ccc;
-	font-size: 0.75em;
+	font-size: 50%;
 	text-align: center;
 }
 
@@ -585,3 +691,115 @@ TABLE.book CAPTION
     padding: 2px 0px 2px 2px;
 }
 
+.question
+{
+    display: inline;
+	/* font-weight:bold;	/* Bold font */
+	color: #006;
+    text-decoration: underline;
+	cursor:pointer;		/* Cursor is like a hand when someone rolls the mouse over the question */
+}
+
+.answer {
+	display:none;
+}
+
+.answer-nojs {
+	display:block;
+}
+
+.nobr {
+    white-space:nowrap;
+}
+
+/* Runnable-examples css */
+textarea.d_code {display: none;}
+textarea.d_code_output, textarea.d_code_stdin, textarea.d_code_args
+{
+	text-align: left;
+	border: none;
+	width: 98%;
+	font-size: 1.09em;
+	font-family: monospace;
+	padding: 5px;
+	margin: 1px;
+	word-wrap: break-word;	
+	height: auto;
+	background: white;
+	margin-left: 2px;
+	outline: none;
+}
+
+div.d_code {margin: 0; padding: 0; font-size: 12px;	margin-bottom: -14px; background: #F6F6F6;}
+div.d_run_code {display: none; margin: 1em 0 1em 3.1em;}
+div.d_code_output, div.d_code_stdin, div.d_code_args, div.d_code_unittest
+{
+	border: 1px solid #CCC;
+	background: white;
+	display: none;
+	height: auto;
+	width: 100%;
+}
+
+.d_code_title {font-weight: bold;font-size: 12px;padding: 5px;}
+
+.CodeMirror-wrap {padding: 3px;}
+.CodeMirror {line-height: normal; font-size: 14px;border: 1px solid #CCC;background: white; }
+.cm-s-eclipse span.cm-word {color: #006;}
+.cm-s-eclipse span.cm-meta {color: #FF1717;}
+.cm-s-eclipse span.cm-keyword { color: blue; }
+.cm-s-eclipse span.cm-atom {color: #219;}
+.cm-s-eclipse span.cm-number {color: #006;}
+.cm-s-eclipse span.cm-def {color: #006;}
+.cm-s-eclipse span.cm-variable {color: #006;}
+.cm-s-eclipse span.cm-variable-2 {color: #006;}
+.cm-s-eclipse span.cm-variable-3 {color:#006;}
+.cm-s-eclipse span.cm-property {color: black;}
+.cm-s-eclipse span.cm-operator {color: black;}
+.cm-s-eclipse span.cm-comment {color: green;}
+.cm-s-eclipse span.cm-string {color: red;}
+.cm-s-eclipse span.cm-string-2 {color: red;}
+.cm-s-eclipse span.cm-error {color: #f00;}
+.cm-s-eclipse span.cm-qualifier {color: #555;}
+.cm-s-eclipse span.cm-builtin {color: #30a;}
+.cm-s-eclipse span.cm-bracket {color: #cc7;}
+.cm-s-eclipse span.cm-tag {color: #170;}
+.cm-s-eclipse span.cm-attribute {color: #00c;}
+.cm-s-eclipse span.cm-link {color: #219;}
+.cm-s-eclipse .CodeMirror-matchingbracket {border:1px solid grey;color:black !important;}
+
+input.runButton, input.resetButton, input.argsButton, input.inputButton, input.editButton
+{
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:3px 6px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+	width: 50px;
+	margin: 2px;
+	position: relative;
+	z-index: 2;
+	cursor: pointer;
+}
+input.runButton:hover, input.resetButton:hover, input.argsButton:hover, input.inputButton:hover, input.editButton:hover,input.runButton[disabled]
+{
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+input.runButton:active, input.resetButton:active, input.argsButton:active, input.inputButton:active, input.editButton:active
+{ position: relative; top: 1px; }
+input.resetButton{display: none}
+/* Runnable-examples css -end */

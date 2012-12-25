@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
-<html lang='en'>
+<html lang='en-US'>
 
 <!--
 	Copyright (c) 1999-2010 by Digital Mars
@@ -11,6 +11,11 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" >
 <title>std.variant - D Programming Language - Digital Mars</title>
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>-->
+<script src="../js/codemirror.js"></script>
+<script src="../js/d.js"></script>
+<script src="../js/run.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../css/codemirror.css" />
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <script type="text/javascript">
@@ -28,17 +33,25 @@ function listanchors()
     {
         var a = document.anchors[i];
         var text = a.name;
+        // ignore anchors from DDOC_PSYMBOL
+        if (text[0] != '.') continue;
         if (hash[text] > 0) continue;
         hash[text] = 1;
         values[n++] = a.name
     }
 
-    values.sort();
+    // we won't display the qualifying names to save space, so sort by last name
+    var lastName = function(a){
+        var li = a.lastIndexOf('.');
+        return a.slice(li + 1);
+    }
+    values.sort(function(a,b){return lastName(a) > lastName(b)});
 
     for(var i = 0; i < values.length; i++) {
         var a = values[i];
+        var text = lastName(a);
         newText += ' \x3Ca href="\x23' + a +
-            '"\x3E\x3Cspan class="d_psymbol"\x3E' + a + '\x3C/span\x3E\x3C/a\x3E';
+            '"\x3E\x3Cspan class="d_psymbol"\x3E' + text + '\x3C/span\x3E\x3C/a\x3E';
     }
     if (newText != "") newText = "\x3Cp\x3E\x3Cb\x3EJump to:\x3C/b\x3E" + newText + "\x3C/p\x3E";
     var a = document.getElementById("quickindex");
@@ -46,7 +59,7 @@ function listanchors()
 }
 </script>
 
-<script src="/js/hyphenate_selectively.js" type="text/javascript"></script>
+<script src="../js/hyphenate.js" type="text/javascript"></script>
 
 </head>
 
@@ -55,20 +68,20 @@ function listanchors()
 <div id="top">
 	<div id="search-box">
 		<form method="get" action="http://google.com/search">
-			<img src="images/search-left.gif" width="11" height="22"><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="images/search-button.gif">
-			<input type="hidden" id="domains" name="domains" value="d-programming-language.org">
+			<img src="../images/search-left.gif" width="11" height="22" alt=""><input id="q" name="q"><input type="image" id="search-submit" name="submit" src="../images/search-button.gif">
+			<input type="hidden" id="domains" name="domains" value="dlang.org">
 			<input type="hidden" id="sourceid" name="sourceid" value="google-search">
 			<div id="search-dropdown">
 				<select id="sitesearch" name="sitesearch" size="1">
-					<option value="d-programming-language.org">Entire D  Site</option>
-					<option value="d-programming-language.org/phobos">Library Reference</option>
+					<option value="dlang.org">Entire D  Site</option>
+					<option value="dlang.org/phobos">Library Reference</option>
 					<option value="www.digitalmars.com/d/archives">Newsgroup Archives</option>
 				</select>
 			</div>
 		</form>
 	</div>
 	<div id="header">
-		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="images/dlogo.png"></a>
+		<a href="/"><img id="logo" width="125" height="95" border="0" alt="D Logo" src="../images/dlogo.png"></a>
 		<a id="d-language" href="/">D Programming Language </a>
 	</div>
 </div>
@@ -80,7 +93,7 @@ function listanchors()
 <div id="searchbox">
 <input name="q" size="10" value="RTL Search" onFocus='if(this.value == "RTL Search"){this.value="";}'>
 <input type="hidden" name="domains" value="www.digitalmars.com">
-<input type="hidden" name="sitesearch" value="www.digitalmars.com/d/2.0/phobos">
+<input type="hidden" name="sitesearch" value="dlang.org/phobos">
 <input type="hidden" name="sourceid" value="google-search">
 <input type="submit" name="submit" value="Go">
 </div>
@@ -109,24 +122,18 @@ function listanchors()
 	<li><a href="std_complex.html" title="Complex numbers">std.complex</a></li>
 	<li><a href="std_concurrency.html" title="Message Passing">std.concurrency</a></li>
 	<li><a href="std_container.html" title="Containers">std.container</a></li>
-	<li><a href="std_contracts.html" title="Think assert">std.contracts</a></li>
 	<li><a href="std_conv.html" title="Conversion of strings to integers">std.conv</a></li>
-	<li><a href="std_cpuid.html" title="CPU identification">std.cpuid</a></li>
-	<li><a href="std_ctype.html" title="Simple character classification">std.ctype</a></li>
-	<li><a href="std_date.html" title="Date and time functions">std.date</a></li>
+	<li><a href="std_csv.html" title="CSV file parser">std.csv</a></li>
 	<li><a href="std_datetime.html" title="Date and time-related types and functions">std.datetime</a></li>
-	<li><a href="std_demangle.html" title="Demangle D names">std.demangle</a></li>
 	<li><a href="std_encoding.html" title="Character and string encoding">std.encoding</a></li>
 	<li><a href="std_exception.html" title="Exceptions and error handling">std.exception</a></li>
 	<li><a href="std_file.html" title="Basic file operations">std.file</a></li>
 	<li><a href="std_format.html" title="Formatted conversions of values to strings">std.format</a></li>
 	<li><a href="std_functional.html" title="functional">std.functional</a></li>
 	<li><a href="std_getopt.html" title="Command line options">std.getopt</a></li>
-	<li><a href="std_gregorian.html" title="Gregorian Calendar">std.gregorian</a></li>
 	<li><a href="std_json.html" title="JSON reader">std.json</a></li>
 	<li><a href="std_math.html" title="the usual math functions">std.math</a></li>
 	<li><a href="std_mathspecial.html" title="mathematical special functions">std.mathspecial</a></li>
-	<li><a href="std_md5.html" title="Compute MD5 digests">std.md5</a></li>
 	<li><a href="std_metastrings.html" title="Metaprogramming with strings">std.metastrings</a></li>
 	<li><a href="std_mmfile.html" title="Memory mapped files">std.mmfile</a></li>
 	<li><a href="std_numeric.html" title="Numeric algorithms">std.numeric</a></li>
@@ -137,11 +144,9 @@ function listanchors()
 	<li><a href="std_random.html" title="Random number generation">std.random</a></li>
 	<li><a href="std_range.html" title="Ranges">std.range</a></li>
 	<li><a href="std_regex.html" title="regular expressions">std.regex</a></li>
-	<li><a href="std_regexp.html" title="regular expressions (deprecated)">std.regexp</a></li>
 	<li><a href="std_signals.html" title="Signals">std.signals</a></li>
 	<li><a href="std_socket.html" title="Sockets">std.socket</a></li>
 	<li><a href="std_socketstream.html" title="Stream for a blocking, connected Socket">std.socketstream</a></li>
-	<li><a href="std_stdint.html" title="Integral types for various purposes">std.stdint</a></li>
 	<li><a href="std_stdio.html" title="Standard I/O">std.stdio</a></li>
 	<li><a href="std_cstream.html" title="Stream I/O">std.cstream</a></li>
 	<li><a href="std_stream.html" title="Stream I/O">std.stream</a></li>
@@ -153,30 +158,23 @@ function listanchors()
 	<li><a href="std_uni.html" title="Unicode classification">std.uni</a></li>
 	<li><a href="std_uri.html" title="Encode and decode Uniform Resource Identifiers (URIs)">std.uri</a></li>
 	<li><a href="std_utf.html" title="Encode and decode utf character encodings">std.utf</a></li>
+	<li><a href="std_uuid.html" title="Generate and use UUIDs">std.uuid</a></li>
 	<li><a href="std_variant.html" title="Stores all types in a uniform, dynamically-checked representation">std.variant</a></li>
 	<li><a href="std_xml.html" title="XML file processing">std.xml</a></li>
 	<li><a href="std_zip.html" title="Read/write zip archives">std.zip</a></li>
 	<li><a href="std_zlib.html" title="Compression / Decompression of data">std.zlib</a></li>
-	<li><a href="std_c_fenv.html" title="Floating point environment">std.c.fenv</a></li>
-	<li><a href="std_c_locale.html" title="Locale">std.c.locale</a></li>
-	<li><a href="std_c_math.html" title="Math">std.c.math</a></li>
-	<li><a href="std_c_process.html" title="Process">std.c.process</a></li>
-	<li><a href="std_c_stdarg.html" title="Variadic arguments">std.c.stdarg</a></li>
-	<li><a href="std_c_stddef.html" title="Standard definitions">std.c.stddef</a></li>
-	<li><a href="std_c_stdio.html" title="Standard I/O">std.c.stdio</a></li>
-	<li><a href="std_c_stdlib.html" title="Standard library">std.c.stdlib</a></li>
-	<li><a href="std_c_string.html" title="Strings">std.c.string</a></li>
-	<li><a href="std_c_time.html" title="Time">std.c.time</a></li>
-	<li><a href="std_c_wcharh.html" title="Wide characters">std.c.wcharh</a></li>
+	<li><a href="std_net_curl.html" title="High level curl wrapper">std.net.curl</a></li>
 	<li><a href="std_net_isemail.html" title="Validate e-mail addresses">std.net.isemail</a></li>
+	<li><a href="std_digest_crc.html" title="CRC digest functions">std.digest.crc</a></li>
+	<li><a href="std_digest_digest.html" title="API for digest functions">std.digest.digest</a></li>
+	<li><a href="std_digest_md.html" title="MD digest functions">std.digest.md</a></li>
+	<li><a href="std_digest_ripemd.html" title="RIPEMD digest functions">std.digest.ripemd</a></li>
+	<li><a href="std_digest_sha.html" title="SHA digest functions">std.digest.sha</a></li>
 	<li><a href="std_windows_charset.html" title="Conversion to/from Windows character sets">std.windows.charset</a></li>
-	<li><a href="index.html#std_windows" title="Modules specific to Windows">std.windows</a></li>
-	<li><a href="index.html#std_linux" title="Modules specific to Windows">std.linux</a></li>
-	<li><a href="index.html#std_c_windows" title="C Windows API">std.c.windows</a></li>
-	<li><a href="index.html#std_c_linux" title="C Linux API">std.c.linux</a></li>
     </ul>
     <h2><a href="index.html#etc" title="D etc modules">etc</a></h2>
     <ul><li><a href="etc_c_curl.html" title="Interface to libcurl library">etc.c.curl</a></li>
+	<li><a href="etc_c_sqlite3.html" title="Interface to sqlite3 library">etc.c.sqlite3</a></li>
 	<li><a href="etc_c_zlib.html" title="Interface to zlib library">etc.c.zlib</a></li>
     </ul>
     <h2><a href="index.html#core" title="D core modules">core</a></h2>
@@ -186,6 +184,7 @@ function listanchors()
 	<li><a href="core_exception.html" title="Root of exception hierarchy">core.exception</a></li>
 	<li><a href="core_memory.html" title="Interface to memory management">core.memory</a></li>
 	<li><a href="core_runtime.html" title="Interface to D runtime library internals">core.runtime</a></li>
+	<li><a href="core_simd.html" title="Builtin SIMD intrinsics">core.simd</a></li>
 	<li><a href="core_thread.html" title="Thread management">core.thread</a></li>
 	<li><a href="core_time.html" title="Core time functionality">core.time</a></li>
 	<li><a href="core_vararg.html" title="Variable function arguments">core.vararg</a></li>
@@ -198,8 +197,28 @@ function listanchors()
 	<li><a href="core_sync_semaphore.html" title="Semaphores">core.sync.semaphore</a></li>
     </ul>
 </div>
-</div>
+</div><!--/navigation-->
 <div id="content">
+    
+<div id="tools">
+	<!--span id="lastupdate">Last update Tue Dec 25 16:32:16 2012
+</span-->
+	<a href="https://github.com/D-Programming-Language/phobos/edit/master/std/variant.d" class="tip button">
+		Improve this page
+		<span>
+			Quickly fork, edit online, and submit a pull request for this page.
+			Requires a signed-in GitHub account. This works well for small changes.
+			If you'd like to make larger changes you may want to consider using
+			local clone.
+		</span>
+	</a>
+	<a href="http://www.prowiki.org/wiki4d/wiki.cgi?DocComments/Phobos/StdVariant" class="tip button">
+		Page wiki
+		<span>
+	        View or edit the community-maintained wiki page associated with this page.
+		</span>
+	</a>
+</div>
     <h1>std.variant</h1>
     <div id=quickindex class=quickindex></div>
     <!-- Generated by Ddoc from std/variant.d -->
@@ -258,7 +277,7 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
 <b>Source:</b><br>
 <a href="https://github.com/D-Programming-Language/phobos/blob/master/std/variant.d">std/variant.d</a><p></p>
 
-<dl><dt class="d_decl">struct <a name="VariantN"></a><span class="ddoc_psymbol">VariantN</span>(size_t maxDataSize,AllowedTypesX...);
+<dl><dt class="d_decl"><a name=".VariantN"></a>struct <a name="VariantN"></a><span class="ddoc_psymbol">VariantN</span>(size_t maxDataSize, AllowedTypesX...);
 </dt>
 <dd><span class="d_param"><a name="VariantN"></a><span class="ddoc_psymbol">VariantN</span></span> is a back-end type seldom used directly by user
  code. Two commonly-used types using <span class="d_param"><a name="VariantN"></a><span class="ddoc_psymbol">VariantN</span></span> as
@@ -283,25 +302,25 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
  the list is empty, then any type up of size up to <span class="d_param">maxDataSize</span> (rounded up for alignment) can be stored in a
  <span class="d_param"><a name="VariantN"></a><span class="ddoc_psymbol">VariantN</span></span> object.<p></p>
 
-<dl><dt class="d_decl">template <a name="allowed"></a><span class="ddoc_psymbol">allowed</span>(T)</dt>
+<dl><dt class="d_decl"><a name=".allowed"></a>template <a name="allowed"></a><span class="ddoc_psymbol">allowed</span>(T)</dt>
 <dd>Tells whether a type <span class="d_param">T</span> is statically <a name="allowed"></a><span class="ddoc_psymbol">allowed</span> for
  storage inside a <span class="d_param">VariantN</span> object by looking
  <span class="d_param">T</span> up in <span class="d_param">AllowedTypes</span>. If <span class="d_param">AllowedTypes</span> is empty, all types of size up to <span class="d_param">maxSize</span> are <a name="allowed"></a><span class="ddoc_psymbol">allowed</span>.<p></p>
 
 </dd>
-<dt class="d_decl">auto this(T)(T <i>value</i>);
+<dt class="d_decl"><a name=".this"></a> this(T)(T <i>value</i>);
 </dt>
 <dd>Constructs a <span class="d_param">VariantN</span> value given an argument of a
  generic type. Statically rejects disallowed types.<p></p>
 
 </dd>
-<dt class="d_decl">VariantN <a name="opAssign"></a><span class="ddoc_psymbol">opAssign</span>(T)(T <i>rhs</i>);
+<dt class="d_decl"><a name=".opAssign"></a>VariantN <a name="opAssign"></a><span class="ddoc_psymbol">opAssign</span>(T)(T <i>rhs</i>);
 </dt>
 <dd>Assigns a <span class="d_param">VariantN</span> from a generic
  argument. Statically rejects disallowed types. <p></p>
 
 </dd>
-<dt class="d_decl">const bool <a name="hasValue"></a><span class="ddoc_psymbol">hasValue</span>();
+<dt class="d_decl"><a name=".hasValue"></a>const pure nothrow bool <a name="hasValue"></a><span class="ddoc_psymbol">hasValue</span>();
 </dt>
 <dd>Returns <b>true</b> if and only if the <span class="d_param">VariantN</span> object
  holds a valid value (has been initialized with, or assigned
@@ -319,7 +338,7 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
 <p></p>
 
 </dd>
-<dt class="d_decl">T* <a name="peek"></a><span class="ddoc_psymbol">peek</span>(T)();
+<dt class="d_decl"><a name=".peek"></a>T* <a name="peek"></a><span class="ddoc_psymbol">peek</span>(T)();
 </dt>
 <dd>If the <span class="d_param">VariantN</span> object holds a value of the
  <i>exact</i> type <span class="d_param">T</span>, returns a pointer to that
@@ -336,19 +355,19 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
 <p></p>
 
 </dd>
-<dt class="d_decl">const TypeInfo <a name="type"></a><span class="ddoc_psymbol">type</span>();
+<dt class="d_decl"><a name=".type"></a>const TypeInfo <a name="type"></a><span class="ddoc_psymbol">type</span>();
 </dt>
 <dd>Returns the <span class="d_param">typeid</span> of the currently held value.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="convertsTo"></a><span class="ddoc_psymbol">convertsTo</span>(T)();
+<dt class="d_decl"><a name=".convertsTo"></a>const bool <a name="convertsTo"></a><span class="ddoc_psymbol">convertsTo</span>(T)();
 </dt>
 <dd>Returns <span class="d_param"><b>true</b></span> if and only if the <span class="d_param">VariantN</span>
  object holds an object implicitly convertible to type <span class="d_param">U</span>. Implicit convertibility is defined as per
  <a href="std_traits.html#ImplicitConversionTargets">ImplicitConversionTargets</a>.<p></p>
 
 </dd>
-<dt class="d_decl">T <a name="get"></a><span class="ddoc_psymbol">get</span>(T)();
+<dt class="d_decl"><a name=".get"></a>T <a name="get"></a><span class="ddoc_psymbol">get</span>(T)();
 </dt>
 <dd>Returns the value stored in the <span class="d_param">VariantN</span> object,
  implicitly converted to the requested type <span class="d_param">T</span>, in
@@ -356,7 +375,7 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
  conversion is not possible, throws a <span class="d_param">VariantException</span>.<p></p>
 
 </dd>
-<dt class="d_decl">T <a name="coerce"></a><span class="ddoc_psymbol">coerce</span>(T)();
+<dt class="d_decl"><a name=".coerce"></a>T <a name="coerce"></a><span class="ddoc_psymbol">coerce</span>(T)();
 </dt>
 <dd>Returns the value stored in the <span class="d_param">VariantN</span> object,
  explicitly converted (coerced) to the requested type <span class="d_param">T</span>. If <span class="d_param">T</span> is a string type, the value is formatted as
@@ -365,30 +384,30 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
  conversion is not possible, throws a <span class="d_param">VariantException</span>.<p></p>
 
 </dd>
-<dt class="d_decl">string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
+<dt class="d_decl"><a name=".toString"></a>string <a name="toString"></a><span class="ddoc_psymbol">toString</span>();
 </dt>
 <dd>Formats the stored value as a string.<p></p>
 
 </dd>
-<dt class="d_decl">bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(T)(T <i>rhs</i>);
+<dt class="d_decl"><a name=".opEquals"></a>bool <a name="opEquals"></a><span class="ddoc_psymbol">opEquals</span>(T)(T <i>rhs</i>);
 </dt>
 <dd>Comparison for equality used by the "==" and "!="  operators.<p></p>
 
 </dd>
-<dt class="d_decl">int <a name="opCmp"></a><span class="ddoc_psymbol">opCmp</span>(T)(T <i>rhs</i>);
+<dt class="d_decl"><a name=".opCmp"></a>int <a name="opCmp"></a><span class="ddoc_psymbol">opCmp</span>(T)(T <i>rhs</i>);
 </dt>
 <dd>Ordering comparison used by the "&lt;", "&lt;=", "&gt;", and "&gt;="
  operators. In case comparison is not sensible between the held
  value and <span class="d_param">rhs</span>, an exception is thrown.<p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="toHash"></a><span class="ddoc_psymbol">toHash</span>();
+<dt class="d_decl"><a name=".toHash"></a>size_t <a name="toHash"></a><span class="ddoc_psymbol">toHash</span>();
 </dt>
 <dd>Computes the hash of the held value.<p></p>
 
 </dd>
-<dt class="d_decl">VariantN <a name="opAdd"></a><span class="ddoc_psymbol">opAdd</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opSub"></a><span class="ddoc_psymbol">opSub</span>(T)(T <i>rhs</i>);
+<dt class="d_decl"><a name=".opAdd"></a>VariantN <a name="opAdd"></a><span class="ddoc_psymbol">opAdd</span>(T)(T <i>rhs</i>);
+<br><a name=".opSub"></a>VariantN <a name="opSub"></a><span class="ddoc_psymbol">opSub</span>(T)(T <i>rhs</i>);
 </dt>
 <dd>Arithmetic between <span class="d_param">VariantN</span> objects and numeric
  values. All arithmetic operations return a <span class="d_param">VariantN</span>
@@ -397,35 +416,35 @@ Reviewed by Brad Roberts. Daniel Keep provided a detailed code
  arithmetic conversions.<p></p>
 
 </dd>
-<dt class="d_decl">VariantN <a name="opMul"></a><span class="ddoc_psymbol">opMul</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opDiv"></a><span class="ddoc_psymbol">opDiv</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opMod"></a><span class="ddoc_psymbol">opMod</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opAnd"></a><span class="ddoc_psymbol">opAnd</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opOr"></a><span class="ddoc_psymbol">opOr</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opXor"></a><span class="ddoc_psymbol">opXor</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opShl"></a><span class="ddoc_psymbol">opShl</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opShr"></a><span class="ddoc_psymbol">opShr</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opUShr"></a><span class="ddoc_psymbol">opUShr</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opCat"></a><span class="ddoc_psymbol">opCat</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opAddAssign"></a><span class="ddoc_psymbol">opAddAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opSubAssign"></a><span class="ddoc_psymbol">opSubAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opMulAssign"></a><span class="ddoc_psymbol">opMulAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opDivAssign"></a><span class="ddoc_psymbol">opDivAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opModAssign"></a><span class="ddoc_psymbol">opModAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opAndAssign"></a><span class="ddoc_psymbol">opAndAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opOrAssign"></a><span class="ddoc_psymbol">opOrAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opXorAssign"></a><span class="ddoc_psymbol">opXorAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opShlAssign"></a><span class="ddoc_psymbol">opShlAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opShrAssign"></a><span class="ddoc_psymbol">opShrAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opUShrAssign"></a><span class="ddoc_psymbol">opUShrAssign</span>(T)(T <i>rhs</i>);
-<br>VariantN <a name="opCatAssign"></a><span class="ddoc_psymbol">opCatAssign</span>(T)(T <i>rhs</i>);
+<dt class="d_decl"><a name=".opMul"></a>VariantN <a name="opMul"></a><span class="ddoc_psymbol">opMul</span>(T)(T <i>rhs</i>);
+<br><a name=".opDiv"></a>VariantN <a name="opDiv"></a><span class="ddoc_psymbol">opDiv</span>(T)(T <i>rhs</i>);
+<br><a name=".opMod"></a>VariantN <a name="opMod"></a><span class="ddoc_psymbol">opMod</span>(T)(T <i>rhs</i>);
+<br><a name=".opAnd"></a>VariantN <a name="opAnd"></a><span class="ddoc_psymbol">opAnd</span>(T)(T <i>rhs</i>);
+<br><a name=".opOr"></a>VariantN <a name="opOr"></a><span class="ddoc_psymbol">opOr</span>(T)(T <i>rhs</i>);
+<br><a name=".opXor"></a>VariantN <a name="opXor"></a><span class="ddoc_psymbol">opXor</span>(T)(T <i>rhs</i>);
+<br><a name=".opShl"></a>VariantN <a name="opShl"></a><span class="ddoc_psymbol">opShl</span>(T)(T <i>rhs</i>);
+<br><a name=".opShr"></a>VariantN <a name="opShr"></a><span class="ddoc_psymbol">opShr</span>(T)(T <i>rhs</i>);
+<br><a name=".opUShr"></a>VariantN <a name="opUShr"></a><span class="ddoc_psymbol">opUShr</span>(T)(T <i>rhs</i>);
+<br><a name=".opCat"></a>VariantN <a name="opCat"></a><span class="ddoc_psymbol">opCat</span>(T)(T <i>rhs</i>);
+<br><a name=".opAddAssign"></a>VariantN <a name="opAddAssign"></a><span class="ddoc_psymbol">opAddAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opSubAssign"></a>VariantN <a name="opSubAssign"></a><span class="ddoc_psymbol">opSubAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opMulAssign"></a>VariantN <a name="opMulAssign"></a><span class="ddoc_psymbol">opMulAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opDivAssign"></a>VariantN <a name="opDivAssign"></a><span class="ddoc_psymbol">opDivAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opModAssign"></a>VariantN <a name="opModAssign"></a><span class="ddoc_psymbol">opModAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opAndAssign"></a>VariantN <a name="opAndAssign"></a><span class="ddoc_psymbol">opAndAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opOrAssign"></a>VariantN <a name="opOrAssign"></a><span class="ddoc_psymbol">opOrAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opXorAssign"></a>VariantN <a name="opXorAssign"></a><span class="ddoc_psymbol">opXorAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opShlAssign"></a>VariantN <a name="opShlAssign"></a><span class="ddoc_psymbol">opShlAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opShrAssign"></a>VariantN <a name="opShrAssign"></a><span class="ddoc_psymbol">opShrAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opUShrAssign"></a>VariantN <a name="opUShrAssign"></a><span class="ddoc_psymbol">opUShrAssign</span>(T)(T <i>rhs</i>);
+<br><a name=".opCatAssign"></a>VariantN <a name="opCatAssign"></a><span class="ddoc_psymbol">opCatAssign</span>(T)(T <i>rhs</i>);
 </dt>
 <dd>ditto
 ditto<p></p>
 
 </dd>
-<dt class="d_decl">VariantN <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(K)(K <i>i</i>);
-<br>VariantN <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T, N)(T <i>value</i>, N <i>i</i>);
+<dt class="d_decl"><a name=".opIndex"></a>VariantN <a name="opIndex"></a><span class="ddoc_psymbol">opIndex</span>(K)(K <i>i</i>);
+<br><a name=".opIndexAssign"></a>VariantN <a name="opIndexAssign"></a><span class="ddoc_psymbol">opIndexAssign</span>(T, N)(T <i>value</i>, N <i>i</i>);
 </dt>
 <dd>Array and associative array operations. If a <span class="d_param">VariantN</span> contains an (associative) array, it can be indexed
  into. Otherwise, an exception is thrown.
@@ -453,14 +472,14 @@ Due to limitations in current language, read-modify-write
 <p></p>
 
 </dd>
-<dt class="d_decl">size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
+<dt class="d_decl"><a name=".length"></a>size_t <a name="length"></a><span class="ddoc_psymbol">length</span>();
 </dt>
 <dd>If the <span class="d_param">VariantN</span> contains an (associative) array,
  returns the <a name="length"></a><span class="ddoc_psymbol">length</span> of that array. Otherwise, throws an
  exception.<p></p>
 
 </dd>
-<dt class="d_decl">int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(Delegate)(scope Delegate <i>dg</i>);
+<dt class="d_decl"><a name=".opApply"></a>int <a name="opApply"></a><span class="ddoc_psymbol">opApply</span>(Delegate)(scope Delegate <i>dg</i>);
 </dt>
 <dd>If the <span class="d_inlinecode">VariantN</span> contains an array, applies <span class="d_inlinecode">dg</span> to each
        element of the array in turn. Otherwise, throws an exception.<p></p>
@@ -468,7 +487,7 @@ Due to limitations in current language, read-modify-write
 </dd>
 </dl>
 </dd>
-<dt class="d_decl">template <a name="Algebraic"></a><span class="ddoc_psymbol">Algebraic</span>(T...)</dt>
+<dt class="d_decl"><a name=".Algebraic"></a>template <a name="Algebraic"></a><span class="ddoc_psymbol">Algebraic</span>(T...)</dt>
 <dd><a name="Algebraic"></a><span class="ddoc_psymbol">Algebraic</span> data type restricted to a closed set of possible
  types. It's an alias for a <span class="d_param">VariantN</span> with an
  appropriately-constructed maximum size. <span class="d_param"><a name="Algebraic"></a><span class="ddoc_psymbol">Algebraic</span></span> is
@@ -497,7 +516,7 @@ Future additions to <span class="d_param"><a name="Algebraic"></a><span class="d
 <p></p>
 
 </dd>
-<dt class="d_decl">alias <a name="Variant"></a><span class="ddoc_psymbol">Variant</span>;
+<dt class="d_decl"><a name=".Variant"></a>alias VariantN!(32LU).VariantN <a name="Variant"></a><span class="ddoc_psymbol">Variant</span>;
 </dt>
 <dd><span class="d_param"><a name="Variant"></a><span class="ddoc_psymbol">Variant</span></span> is an alias for <span class="d_param">VariantN</span> instantiated
 with the largest of <span class="d_param">creal</span>, <span class="d_param">char[]</span>, and <span class="d_param">void delegate()</span>. This ensures that <span class="d_param"><a name="Variant"></a><span class="ddoc_psymbol">Variant</span></span> is large enough
@@ -507,7 +526,7 @@ pointers, delegates, and class references.  You may want to use
 storing larger types, or for saving memory.<p></p>
 
 </dd>
-<dt class="d_decl">Variant[] <a name="variantArray"></a><span class="ddoc_psymbol">variantArray</span>(T...)(T <i>args</i>);
+<dt class="d_decl"><a name=".variantArray"></a>Variant[] <a name="variantArray"></a><span class="ddoc_psymbol">variantArray</span>(T...)(T <i>args</i>);
 </dt>
 <dd>Returns an array of variants constructed from <span class="d_param">args</span>.
 <p></p>
@@ -517,6 +536,7 @@ storing larger types, or for saving memory.<p></p>
  <span class="d_keyword">auto</span> b = Variant(a); <span class="d_comment">// variant array as variant
 </span> <span class="d_keyword">assert</span>(b[1] == 3.14);
 </pre>
+<p></p>
 
  Code that needs functionality similar to the <span class="d_param">boxArray</span>
  function in the <span class="d_param">std.boxer</span> module can achieve it like this:
@@ -535,13 +555,14 @@ storing larger types, or for saving memory.<p></p>
      <span class="d_keyword">return</span> <span class="d_psymbol">variantArray</span>(args);
  }
 </pre>
+<p></p>
 
  This is by design. During construction the <span class="d_param">Variant</span> needs
  static type information about the type being held, so as to store a
  pointer to function for fast retrieval.<p></p>
 
 </dd>
-<dt class="d_decl">class <a name="VariantException"></a><span class="ddoc_psymbol">VariantException</span>: object.Exception;
+<dt class="d_decl"><a name=".VariantException"></a>class <a name="VariantException"></a><span class="ddoc_psymbol">VariantException</span>: object.Exception;
 </dt>
 <dd>Thrown in three cases:
 <p></p>
@@ -551,17 +572,99 @@ storing larger types, or for saving memory.<p></p>
  <li>A comparison between <span class="d_param">Variant</span> objects of
  incompatible types is attempted.</li></ol><p></p>
 
-<dl><dt class="d_decl">TypeInfo <a name="source"></a><span class="ddoc_psymbol">source</span>;
+<dl><dt class="d_decl"><a name=".VariantException.source"></a>TypeInfo <a name="source"></a><span class="ddoc_psymbol">source</span>;
 </dt>
 <dd>The <a name="source"></a><span class="ddoc_psymbol">source</span> type in the conversion or comparison<p></p>
 
 </dd>
-<dt class="d_decl">TypeInfo <a name="target"></a><span class="ddoc_psymbol">target</span>;
+<dt class="d_decl"><a name=".VariantException.target"></a>TypeInfo <a name="target"></a><span class="ddoc_psymbol">target</span>;
 </dt>
 <dd>The <a name="target"></a><span class="ddoc_psymbol">target</span> type in the conversion or comparison<p></p>
 
 </dd>
 </dl>
+</dd>
+<dt class="d_decl"><a name=".visit"></a>template <a name="visit"></a><span class="ddoc_psymbol">visit</span>(Handler...) if (Handler.length &gt; 0)</dt>
+<dd>Applies a delegate or function to the given Algebraic depending on the held type,
+ ensuring that all types are handled by the visiting functions.
+<p></p>
+The delegate or function having the currently held value as parameter is called
+ with 's current value. Visiting handlers are passed
+ in the template parameter list.
+ It is statically ensured that all types of
+ <span class="d_param">variant</span> are handled accross all handlers.
+ <span class="d_param"><a name="visit"></a><span class="ddoc_psymbol">visit</span></span> allows delegates and static functions to be passed
+ as parameters.
+<p></p>
+
+ If a function without parameters is specified, this function is called
+ when variant doesn't hold a value. Exactly one parameter-less function
+ is allowed.
+<p></p>
+
+ Duplicate overloads matching the same type in one of the visitors are disallowed.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code">   Algebraic!(<span class="d_keyword">int</span>, string) variant;
+
+   variant = 10;
+   <span class="d_keyword">assert</span>(variant.<span class="d_psymbol">visit</span>!((string s) =&gt; <span class="d_keyword">cast</span>(<span class="d_keyword">int</span>)s.length,
+                         (<span class="d_keyword">int</span> i)    =&gt; i)()
+                         == 10);
+   variant = <span class="d_string">"string"</span>;
+   <span class="d_keyword">assert</span>(variant.<span class="d_psymbol">visit</span>!((<span class="d_keyword">int</span> i) =&gt; <span class="d_keyword">return</span> i,
+                         (string s) =&gt; <span class="d_keyword">cast</span>(<span class="d_keyword">int</span>)s.length)()
+                         == 6);
+
+   <span class="d_comment">// Error function usage
+</span>   Algebraic!(<span class="d_keyword">int</span>, string) emptyVar;
+   <span class="d_keyword">assert</span>(variant.<span class="d_psymbol">visit</span>!((string s) =&gt; <span class="d_keyword">cast</span>(<span class="d_keyword">int</span>)s.length,
+                         (<span class="d_keyword">int</span> i)    =&gt; i,
+                         () =&gt; -1)()
+                         == -1);
+</pre>
+<p></p>
+<b>Returns:</b><br>The return type of <a name="visit"></a><span class="ddoc_psymbol">visit</span> is deduced from the visiting functions and must be
+ the same accross all overloads.
+<p></p>
+<b>Throws:</b><br>If no parameter-less, error function is specified:
+ <span class="d_param">VariantException</span> if <span class="d_param">variant</span> doesn't hold a value.<p></p>
+
+</dd>
+<dt class="d_decl"><a name=".tryVisit"></a>template <a name="tryVisit"></a><span class="ddoc_psymbol">tryVisit</span>(Handler...) if (Handler.length &gt; 0)</dt>
+<dd>Behaves as <span class="d_param">visit</span> but doesn't enforce that all types are handled
+ by the visiting functions.
+<p></p>
+If a parameter-less function is specified it is called when
+ either <span class="d_param">variant</span> doesn't hold a value or holds a type
+ which isn't handled by the visiting functions.
+
+<p></p>
+<b>Example:</b><br>
+<pre class="d_code">   Algebraic!(<span class="d_keyword">int</span>, string) variant;
+
+   variant = 10;
+   <span class="d_keyword">auto</span> which = -1;
+   variant.<span class="d_psymbol">tryVisit</span>!((<span class="d_keyword">int</span> i) { which = 0; })();
+   <span class="d_keyword">assert</span>(which = 0);
+
+   <span class="d_comment">// Error function usage
+</span>   variant = <span class="d_string">"test"</span>;
+   variant.<span class="d_psymbol">tryVisit</span>!((<span class="d_keyword">int</span> i) { which = 0; },
+                     ()      { which = -100; })();
+   <span class="d_keyword">assert</span>(which == -100);
+</pre>
+
+<p></p>
+<b>Returns:</b><br>The return type of <a name="tryVisit"></a><span class="ddoc_psymbol">tryVisit</span> is deduced from the visiting functions and must be
+ the same accross all overloads.
+<p></p>
+<b>Throws:</b><br>If no parameter-less, error function is specified: <span class="d_param">VariantException</span> if
+         <span class="d_param">variant</span> doesn't hold a value or
+         if <span class="d_param">variant</span> holds a value which isn't handled by the visiting
+         functions.<p></p>
+
 </dd>
 </dl>
 
@@ -577,9 +680,9 @@ storing larger types, or for saving memory.<p></p>
 /**/google_ad_channel ="6203743411";
 /**/google_page_url = document.location;
 //--></script>
-<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+<!--<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">-->
 </script>
-</div>
+</div><!--/content-->
 
 
 <div id="copyright">

@@ -14,7 +14,7 @@ allocating large chunks to be managed by fine-granular allocators.
 struct MmapAllocator
 {
     /// The one shared instance.
-    static shared MmapAllocator it;
+    static shared MmapAllocator instance;
 
     /**
     Alignment is page-size and hardcoded to 4096 (even though on certain systems
@@ -22,7 +22,7 @@ struct MmapAllocator
     */
     enum size_t alignment = 4096;
 
-    version(Posix) 
+    version(Posix)
     {
         /// Allocator API.
         void[] allocate(size_t bytes) shared
@@ -38,7 +38,7 @@ struct MmapAllocator
             if (p is MAP_FAILED) return null;
             return p[0 .. bytes];
         }
-    
+
         /// Ditto
         bool deallocate(void[] b) shared
         {
@@ -47,7 +47,7 @@ struct MmapAllocator
             return true;
         }
     }
-    else version(Windows) 
+    else version(Windows)
     {
         import core.sys.windows.windows;
 
@@ -58,7 +58,7 @@ struct MmapAllocator
         void[] allocate(size_t bytes) shared
         {
             if (!bytes) return null;
-            
+
             uint hiSz, loSz;
             static if (bytes.sizeof == 8)
             {
@@ -66,7 +66,7 @@ struct MmapAllocator
                 hiSz = HIWORD(bytes);
             }
             else loSz = bytes;
-    
+
             auto fh = CreateFileMappingA(INVALID_HANDLE_VALUE,
                 LPSECURITY_ATTRIBUTES.init, PAGE_READWRITE, hiSz, loSz, null);
             if (fh == INVALID_HANDLE_VALUE) return null;
@@ -97,7 +97,7 @@ struct MmapAllocator
 
 unittest
 {
-    alias alloc = MmapAllocator.it;
+    alias alloc = MmapAllocator.instance;
     auto p = alloc.allocate(100);
     assert(p.length == 100);
     alloc.deallocate(p);
